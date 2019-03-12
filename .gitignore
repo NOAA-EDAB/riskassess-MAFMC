@@ -3,6 +3,10 @@
 .RData
 .Ruserdata
 
-.pdf
-.txt
-.html
+*.pdf
+*.txt
+*.html
+
+*.upa
+*.upb
+*.log

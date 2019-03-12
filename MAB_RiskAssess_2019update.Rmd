@@ -279,12 +279,22 @@ kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Rankin
 
 
 ```
- 
 
-# New Indicators
+# Changes from 2018
+
+## Decreased Risk
+Summer flounder F status has improved from high risk (F>Fmsy) to low risk (F<Fmsy) based on the new benchmark assessment.
+
+## Increased Risk
+
+
+# Potential New Indicators
 All recreational indicators have been updated with new Marine Recreational Information Program (MRIP) data, and new indicators for recreational diversity are presented in this report at the request of the MAFMC.
 
+## Recreational Diversity
 Newly developed indicators for the diversity of recreational effort (i.e. access to recreational opportunities) by mode (party/charter boats, private boats, shore-based), and diversity of catch (NEFMC and MAFMC managed species only) show significant long-term downward trends. The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 6% currently), with a shift towards shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series. The long-term decrease in catch diversity in the Mid-Atlantic states contrasts with an increase in recreational catch diversity in New England states over the same time period; this trend requires further investigation as SAFMC managed species are not currently tracked separately (Fig. \ref{fig:rec-div})
+
+Recreational diversity indices could be considered as additional risk element(s) to complement the existing Commercial fishery resilience (revenue diverstity) element. We seek feedback on how the Council would like to use this information, and whether the recreational species diversity index should be modified to account for SAFMC managed species. 
 
 ```{r rec-div, fig.width = 4, fig.asp = 0.8, fig.cap = paste0("Recreational effort diversity and diversity of recreational catch in the ",region,".")}
 
@@ -372,28 +382,38 @@ cowplot::plot_grid(#rec_effort,
 
 ```
 
-# Discussion
-<!--Because this was the initial EAFM risk assessment for the Council in what is intended to be a continuing process rather than a static product, we were able to identify areas to improve in future years as the process is repeated. For example, the short timeframe for completing this risk assessment required that we postpone work on statistical methods for indicator selection [@otto_quantitative_2017; @van_oudenhoven_framework_2012]. However, many elements selected by the Council had only one indicator time series available, such that selection methods were not required. Nevertheless, further testing of the indicators for consistency and reliability [@samhouri_quantitative_2009; @fay_testing_2013; @shin_specificity_2018] should be a high priority for use in future assessments. In addition, statistical analysis of time series requires further examination. We used pre-whitening to address potential autocorrelation in indicator time series that could result in unreliable statistical significance tests [@yue_influence_2002]. However, further simulation work is required to determine the reliability of significance tests for time series indicators with different degrees of autocorrelation and trend strength (see, e.g., @planque_principal_2018). Given the flexible nature of the risk assessment, any necessary updates can be incorporated in future iterations. Finally, we reiterate that for many of these elements (aside from biomass and fishing mortality status), there are no established risk thresholds, so the consensus of the Council and committee were used to establish risk levels. If clear thresholds become available for any element/indicator combination, in particular through further indicator analysis [@large_defining_2013; @fay_management_2015] they can be substituted into future assessments. 
+## Chesapeake Bay Water Quality
+Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). An integrated measure of multiple water quality criteria shows a significantly increasing proportion of Chesapeake Bay waters meeting or exceeding EPA water quality standards over time (@zhang_chesapeake_2018; Fig. \ref{fig:cb-attainment}). This pattern was statistically linked to total nitrogen reduction, indicating responsiveness of water quality status to management actions implemented to reduce nutrients. 
 
-Risk assessment provides a starting point for prioritizing further, more detailed analysis. An indicator-based risk assessment does not provide a mechanistic assessment of the system, which is only possible through a structural modeling approach, which could be focused specifically on fully assessing and mitigating identified risks. According to the Council's accepted framework within the EAFM policy guidance, risk assessment results will be used to prioritize and refine the key management questions and issues for further evaluation [@gaichas_framework_2016]. The next step will be the development of example conceptual models which aim to showcase different approaches the Council could use to move from this initial risk assessment to specifying a more in-depth analysis of particular high prority questions. 
+This improvement in estuarine water quality may result in a future change in the estuarine habitat quality risk ranking from high risk to moderate-high risk for estuarine dependent species. This ranking would change if other Mid-Atlantic estuaries have similar improvements in water quality and if this overall improvement in water quality moves the EPA assessment of estuarine condition from poor to fair. Estuarine water quality is just one component of estuarine condition.
 
-One potential prioritization approach focuses on the single species with the largest number of high risk rankings across all elements, which is black sea bass (8 high Risk Elements, Tables \ref{sptable}-\ref{ecotable}). A second approach focuses on the fishery with the highest landings value (as a proxy for seafood production and economic benefits), which is the squid complex, with uncertainties in assessment and potential for distribution shifts along with high risks identified across multiple management elements (Tables \ref{sptable}-\ref{spsectable}). A third approach focuses on the risk element with the most high risk categorizations across all categories, which is allocation (12 high risk species/sector combinations; Table \ref{spsectable}). These prioritization approaches use only the risk elements that could be ranked; inclusion of additional risk elements of interest to the Council (Table \ref{riskelpa}) may not change the selected approach but could change the outcome.
+```{r cb-attainment,fig.width = 5, fig.asp = 0.45, fig.cap = "Estimated water quality standards attainment of Chesapeake Bay tidal waters for the combined assessment of dissolved oxygen, underwater bay grasses/water clarity and chlorophyll a using rolling three year assessment periods."}
 
-An example conceptual model based on the first prioritization approach has been developed to illustrate the process (Fig. \ref{bsbex}).  This model was developed by modifying the existing Mid-Atlantic conceptual model using the risk assessment results tables to ensure that all key factors affecting black sea bass and its fisheries were considered. We can step through this process briefly during the EOP presentation to illustrate methods for building a model. While it looks complex, this need not be time consuming and the process can incorporate the knowledge of managers, fishery participants, and scientsts to ensure that key interactions and management priorities are considered and accounted for. 
+minlab <- seq(1985,2015,5)
+maxlab <- seq(1987,2017,5)
 
-A (partial) conceptual model based on the second approach was recently developed as well, which emphasizes habitat linkages affecting availability for longfin squid as well as economic and market factors affecting fishery effort (Fig. \ref{squidex}). Again, this is illustrative of an approach and not intended to be prescriptive. 
 
-In the Council EAFM framework, specifying a conceptual model in turn provides the initial scoping for more in-depth management strategy evaluation (MSE), where simulation modeling is used to test alternative methods for achieving specific management objectives under uncertainty [@sainsbury_design_2000; @butterworth_why_2007; @punt_developing_2007; @punt_management_2016]. Any MSE undertaken by the Council will be a deliberative process and will include a variety of stakeholder and Council engagement/involvement. MSE is generally recognized as a core component of the ecosystem approach [@smith_scientific_2007; @levin_integrated_2009; @levin_guidance_2014], but because it necesessitates a high level of engagement, MSE can be a resource-intensive process when applied even to relatively simple single species harvest control rules [e.g., @jones_stakeholder-centered_2016]. EAFM potentially expands the scope of interactions and uncertainties to consider in evaluating harvest control rules and other fishery management procedures. How can managers ensure that the most important MSE gets done first? Risk assessment provides a systematic framework to ensure that limited MSE resources address the highest priority ecosystem interactions and risks. A risk matrix, such as the one developed by the Council, can be used to quickly evaluate where further integrated analysis and MSE should be focused--which fishery management plans, which species, and which Risk Elements need to be included in the analysis. Further, because the risk assessment includes social and economic elements as well as the more standard ecological elements, the conceptual model and resulting MSE are designed to include the relevant linkages and therefore avoid unintended consequences of management actions [@degnbol_unintended_2007]. -->
 
-<!--Similar to many other regions worldwide, natural resource management challenges are mounting in the Mid-Atlantic, from climate change to increasing needs for food and recreational opportunities to increasing uses of ocean areas (e.g. wind farm development). The process described here was completed within the current management system without displacing other processes, and adds value now and for future planning. This EAFM risk assessment highlights certain species and certain management issues as posing higher cumulative risks to meeting Council-derived management objectives when considering a broad range of ecological, social, and economic factors. The risk assessment result summaries will be used by the Council to prioritize further EAFM analyses as well as develop research plans and Council planning priorities over the coming five years. As ecosystem reporting and operational EAFM continue to evolve in future years, the Council foresees refining the process so that ecosystem indicators monitor risks to achieving ecological, social, and economic fishery objectives, which can then be mitigated through management action. Overall, ecosystem indicator-based risk assessment is a method that can be adapted to a wide range of resource management systems and available information, and therefore a promising way forward in the implementation of EAFM.-->
-
-<!--
-#Data Availability Statement
-Data sources are listed within the manuscript as references if published or with URL links if online. State of the Ecosystem indicator data used by the Northeast Fisheries Science Center will be available at the IEA website via an ERDDAP server startin in August 2018.
--->
-
-#References
-<div id="refs"></div>
+ches_bay_wq %>% 
+  mutate(hline = mean(Value)) %>% 
+  ggplot(aes(x = Time, y = Value)) +
+       annotate("rect", fill = shade.fill, alpha = shade.alpha,
+      xmin = x.shade.min , xmax = x.shade.max,
+      ymin = -Inf, ymax = Inf) +
+  geom_line() +
+  geom_point() +
+  geom_gls() +
+      ylab("Estimated attainment (%)") +
+  ggtitle("Chesapeake Bay Estimated Water Quality Standards Attainment") +
+  scale_x_continuous(breaks = minlab,labels = paste0(minlab,"-",maxlab),expand = c(0.01, 0.01)) +
+    geom_hline(aes(yintercept = hline),
+           size = hline.size,
+           alpha = hline.alpha,
+           linetype = hline.lty) +
+  theme_ts() +
+  theme(axis.text.x = element_text(angle = 20, vjust = 0.65),
+          plot.title = element_text(size = 10))
+```
 
 \newpage
 
@@ -405,7 +425,7 @@ Data sources are listed within the manuscript as references if published or with
 risk.species<-data.frame(
   Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
   Assess  = c("l", "l", "l",  "l", "l", "l",  "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
-  Fstatus = c("l", "l", "h", "l", "l", "h", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
+  Fstatus = c("l", "l", "l", "l", "l", "h", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
   Bstatus = c("l", "l", "lm", "l", "l", "h", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm", "na", "na"),
   FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
   FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
@@ -500,3 +520,7 @@ risk.eco %>%
 
 ```
 
+
+# Discussion
+
+# References

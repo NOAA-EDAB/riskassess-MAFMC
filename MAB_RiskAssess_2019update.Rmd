@@ -225,6 +225,8 @@ The Council approved an EAFM Guidance Document in 2016 which outlined a path for
 
 This document updates the Mid-Atlantic Council’s initial EAFM risk assessment with indicators from the 2019 State of the Ecosystem report. The risk assessment was designed help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. 
 
+Many risk rankings are unchanged based on the updated indicators for 2019 and the Council's risk criteria. Below, we highlight the only elements where updated information has changed the perception of risk. In addition, we present new indicators that the Council may wish to consider in further updates to the EAFM risk assessment.
+
 \newpage
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
@@ -283,10 +285,17 @@ kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Rankin
 # Changes from 2018
 
 ## Decreased Risk
-Summer flounder F status has improved from high risk (F>Fmsy) to low risk (F<Fmsy) based on the new benchmark assessment.
+Summer flounder fishing mortality (F) status has improved from high risk (F>Fmsy) to low risk (F<Fmsy) based on the new benchmark assessment (Table \ref{sptable}).
+
+Updated commercial fleet diversity (fleet count and fleet diversity) have no long term trends, thus improving from moderate-high risk to low risk according to risk criteria for this element (Table \ref{ecotable}). 
 
 ## Increased Risk
+No indicators for individual elements have changed enough to warrant increased risk rankings according to the Council risk critiera.
 
+However, we note that most management elements were not re-evaluated for 2019 (Table \ref{spsectable}). Quantitative evaluation of the risks posed by other ocean uses was delayed due to the government shutdown. In addition, the poorer condition of north Atlantic right whales relative to the 2018 report along with the continued increase in ocean temperature indicate that both protected species interactions and climate conditions continue to pose risks to Council-managed fisheries. 
+
+## Re-evaluate Risk
+Indicators for recreational opportunities based on updated Marine Recreational Information Program (MRIP) data show generally similar patterns of decreased angler days and trips over the past 10 years, but the declines are less pronounced than measured previously. A reduction from the highest risk ranking to a lower risk category may be warranted. 
 
 # Potential New Indicators
 All recreational indicators have been updated with new Marine Recreational Information Program (MRIP) data, and new indicators for recreational diversity are presented in this report at the request of the MAFMC.
@@ -294,7 +303,9 @@ All recreational indicators have been updated with new Marine Recreational Infor
 ## Recreational Diversity
 Newly developed indicators for the diversity of recreational effort (i.e. access to recreational opportunities) by mode (party/charter boats, private boats, shore-based), and diversity of catch (NEFMC and MAFMC managed species only) show significant long-term downward trends. The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 6% currently), with a shift towards shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series. The long-term decrease in catch diversity in the Mid-Atlantic states contrasts with an increase in recreational catch diversity in New England states over the same time period; this trend requires further investigation as SAFMC managed species are not currently tracked separately (Fig. \ref{fig:rec-div})
 
-Recreational diversity indices could be considered as additional risk element(s) to complement the existing Commercial fishery resilience (revenue diverstity) element. We seek feedback on how the Council would like to use this information, and whether the recreational species diversity index should be modified to account for SAFMC managed species. 
+Recreational diversity indices could be considered as additional risk element(s) to complement the existing Commercial fishery resilience (revenue diversity) element. 
+
+We seek feedback whether the Council would like to include recreational diversity as an indicator for a new risk element, what risk criteria should be applied, and whether the recreational species diversity index should be modified to account for SAFMC managed species. 
 
 ```{r rec-div, fig.width = 4, fig.asp = 0.8, fig.cap = paste0("Recreational effort diversity and diversity of recreational catch in the ",region,".")}
 
@@ -385,7 +396,7 @@ cowplot::plot_grid(#rec_effort,
 ## Chesapeake Bay Water Quality
 Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). An integrated measure of multiple water quality criteria shows a significantly increasing proportion of Chesapeake Bay waters meeting or exceeding EPA water quality standards over time (@zhang_chesapeake_2018; Fig. \ref{fig:cb-attainment}). This pattern was statistically linked to total nitrogen reduction, indicating responsiveness of water quality status to management actions implemented to reduce nutrients. 
 
-This improvement in estuarine water quality may result in a future change in the estuarine habitat quality risk ranking from high risk to moderate-high risk for estuarine dependent species. This ranking would change if other Mid-Atlantic estuaries have similar improvements in water quality and if this overall improvement in water quality moves the EPA assessment of estuarine condition from poor to fair. Estuarine water quality is just one component of estuarine condition.
+This improvement in estuarine water quality could result in a future improvement in the estuarine habitat quality risk ranking for estuarine dependent species. This (currently high risk) ranking could change if other Mid-Atlantic estuaries have similar improvements in water quality and if this overall improvement in water quality moves the EPA assessment of estuarine condition from poor to fair. Estuarine water quality is just one component of estuarine condition. EPA ratings were based on 2003–2006 nearshore and estuarine summer sampling. Coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. 
 
 ```{r cb-attainment,fig.width = 5, fig.asp = 0.45, fig.cap = "Estimated water quality standards attainment of Chesapeake Bay tidal waters for the combined assessment of dissolved oxygen, underwater bay grasses/water clarity and chlorophyll a using rolling three year assessment periods."}
 
@@ -457,7 +468,35 @@ risk.species %>%
 
 ```
 
-\newpage
+```{r ecotable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+  
+#tab.cap="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+risk.eco<-data.frame(
+  System = c("Mid-Atlantic"),
+  EcoProd = c("lm"),
+  #EcoDiv = c("lm"),
+  CommRev = c("mh"),
+  RecVal = c("h"),
+  FishRes1 = c("l"),
+  FishRes4 = c("mh"),
+  #CommJobs = c("mh"),
+  #RecJobs = c("l"),
+  FleetDiv = c("l"),
+  Social = c("lm"),
+  ComFood = c("h"),
+  RecFood = c("mh")
+)
+
+#make table
+risk.eco %>%
+  mutate_at(vars(-System), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "",
+        caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{ecotable}") %>%
+  kable_styling(latex_options = "scale_down")
+
+```
 
 ```{r spsectable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 #tab.cap="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
@@ -488,39 +527,5 @@ risk.sppsector %>%
 
 ```
 
-\newpage
-
-```{r ecotable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-  
-#tab.cap="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
-
-risk.eco<-data.frame(
-  System = c("Mid-Atlantic"),
-  EcoProd = c("lm"),
-  #EcoDiv = c("lm"),
-  CommRev = c("mh"),
-  RecVal = c("h"),
-  FishRes1 = c("l"),
-  FishRes4 = c("mh"),
-  #CommJobs = c("mh"),
-  #RecJobs = c("l"),
-  FleetDiv = c("mh"),
-  Social = c("lm"),
-  ComFood = c("h"),
-  RecFood = c("mh")
-)
-
-#make table
-risk.eco %>%
-  mutate_at(vars(-System), function(x){ 
-    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
-  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "",
-        caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{ecotable}") %>%
-  kable_styling(latex_options = "scale_down")
-
-```
-
-
-# Discussion
 
 # References

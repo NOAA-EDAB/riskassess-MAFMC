@@ -1,16 +1,17 @@
 ---
+bibliography: riskassess.bib
+csl: plos.csl
+fontsize: 10pt
 geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
-output: 
+link-citations: yes
+output:
+  html_document:
+    df_print: paged
   pdf_document:
     includes:
       in_header: latex/header.tex
     keep_tex: yes
-csl: plos.csl
-bibliography: riskassess.bib
-link-citations: yes
-fontsize: 10pt
 subparagraph: yes
-
 ---
 
 
@@ -466,7 +467,8 @@ risk.species %>%
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "", 
         caption="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}") %>%
-  kable_styling(latex_options = "scale_down")
+  kable_styling(latex_options = "scale_down") #%>%
+  #kable_as_image()
 
 
 ```
@@ -497,7 +499,8 @@ risk.eco %>%
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "",
         caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{ecotable}") %>%
-  kable_styling(latex_options = "scale_down")
+  kable_styling(latex_options = "scale_down") #%>%
+  #kable_as_image()
 
 ```
 
@@ -526,7 +529,8 @@ risk.sppsector %>%
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "",
         caption="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{spsectable}") %>%
-  kable_styling(font_size =  9)
+  kable_styling(font_size =  9) #%>%
+  #kable_as_image()
 
 ```
 

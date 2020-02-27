@@ -428,7 +428,7 @@ cowplot::plot_grid(rec_div,
 We seek Council feedback on whether to include commericial engagement and recreational diversity as an indicators for the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
 ## Management risk elements 
-Management risk elements have not been updated since the original risk assessment was conducted in 2017. Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. The updated management risk element rankings were conducted by the Council staff lead for a particular species (Table \ref{spsectable}). 
+Management risk elements have not been updated since the original risk assessment was conducted in 2017. Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. The updated management risk element rankings were conducted by the Council staff lead for a particular species  (Table \ref{spsectable}). 
 
 ### New rankings for chub mackerel and unmanaged forage
 
@@ -437,18 +437,18 @@ In 2019, the Council approved adding chub mackerel to the Atlantic Mackerel, Squ
   *  **Management Control:** first annual landings limit implemented September 2017 and has not been exceeded. Proposed ABC expected to be implemented in 2020 and would represent a liberalization compared to measures implemented in 2017. 
   *  **Technical Interactions:** some marine mammal interactions. 
   *  **Other Ocean Use:** potential loss of access, particularly for mobile gear, due to offshore energy development (wind, gas, oil) in some fishing areas but most fishing far offshore. 
-  *  **Regulatory Stability:** Simpler regulations than some other species (e.g., commercial possession limit only after ACL is close to being exceeded, no minimum fish size limit, no gear restrictions, no recreational management measures except for permit requirement). Management measures first implemented in 2017, will be revised in 2020. 
-  *  **Discards:** The first ABC and ACL are expected to be implemented in 2020 and are not expected to be exceeded based on recent trends in the fisheries. Discards generally make up 6% or less of total catch. 
-  * **Allocation:** The stock is not allocated and there are currently no allocation concerns.
+  *  **Regulatory Stability:** simpler regulations than some other species (e.g., commercial possession limit only after ACL is close to being exceeded, no minimum fish size limit, no gear restrictions, no recreational management measures except for permit requirement). Management measures first implemented in 2017, will be revised in 2020. 
+  *  **Discards:** the first ABC and ACL are expected to be implemented in 2020 and are not expected to be exceeded based on recent trends in the fisheries. Discards generally make up 6% or less of total catch. 
+  * **Allocation:** the stock is not allocated and there are currently no allocation concerns.
   
 When the first risk assessment was completed in 2017, regulations pertaining to unmanaged forage were just implemented and therefore no rankings were provided for the various management risk elements. Rankings for unmanaged forage species are included for the first time (Table \ref{spsectable}) and the justification for each ranking is provided below:
 
-  *  **Management Control:** No stock assessments or ABCs. Only restriction on catch is a possession limit which was first implemented in Sept 2017. Dealer data for 2018-2019 show no trips exceeding that possession limit.
-  *  **Technical Interactions:** Forage ecosystem component (EC) species are not managed with OY and they largely do not have notable directed fisheries; therefore, although interactions with other fishery regulations are possible, these interactions likely have minimal impacts. 
-  *  **Other Ocean Use:** Potential loss or degradation of habitat due to a variety of other uses, especially in nearshore areas used by many forage species. 
-  *  **Regulatory Stability:** Only regulations are permit and reporting requirement, possession limit, and transit provisions. First implemented in September 2017 and have remained unchanged. 
-  *  **Discards:** Forage EC species are not managed with ACLs; therefore, discards do not cause closures or trigger AMs. Targeting of these forage species is small-scale.
-  *  **Allocation**: Stocks are not allocated and there are currently no allocation concerns.
+  *  **Management Control:** no stock assessments or ABCs. Only restriction on catch is a possession limit which was first implemented in Sept 2017. Dealer data for 2018-2019 show no trips exceeding that possession limit.
+  *  **Technical Interactions:** forage ecosystem component (EC) species are not managed with OY and they largely do not have notable directed fisheries; therefore, although interactions with other fishery regulations are possible, these interactions likely have minimal impacts. 
+  *  **Other Ocean Use:** potential loss or degradation of habitat due to a variety of other uses, especially in nearshore areas used by many forage species. 
+  *  **Regulatory Stability:** only regulations are permit and reporting requirement, possession limit, and transit provisions. First implemented in September 2017 and have remained unchanged. 
+  *  **Discards:** forage EC species are not managed with ACLs; therefore, discards do not cause closures or trigger AMs. Targeting of these forage species is small-scale.
+  *  **Allocation**: stocks are not allocated and there are currently no allocation concerns.
 
 ### Decreased Risk: 5
 Summer flounder recreational regulatory complexity risk dropped slightly moving from high to medium-high risk. Frequent changes in size, season and possession limits, significant differences between some states remain, but regulatory stability and year to year consistency has improved somewhat since 2014.
@@ -459,10 +459,10 @@ The recreational Atlantic mackerel allocation risk decreased from high to low. T
 
 The longfin squid allocation risk deceased from high to low. There were some allocation discussions during the development and completion of Amendment 20 in 2018, but the Council is currently not considering any allocation changes.
 
-The commercial spiny dogfish allocation risk dropped from high to low. There are no current discussions to modify the commercial allocation and the ASMFC recently completed an action that has added flexibility to transfer regional quotas and match annual variability. 
+The commercial spiny dogfish allocation risk dropped from high to low. There are no current discussions to modify the commercial allocation and the ASMFC recently completed an action that has added flexibility to transfer regional quotas and match annual variability and reduced the need for allocation changes. 
 
 ### Increased Risk: 14
-Discards in the ocean quahog and surfclam fisheries moved from low risk to medium-high risk. While the ocean quahog and surfclam fisheries are allocated minimal coverage under SBRM as a result of discards being low percent of total catch, the commingling of surfclams and quahogs has resulted in increased discarding of one species (trips can not be mixed) is occurring frequently enough to be raised as a concern. 
+Discards in the ocean quahog and surfclam fisheries moved from low risk to medium-high risk. While the ocean quahog and surfclam fisheries are allocated minimal coverage under SBRM as a result of discards comprising a low percent of total catch, the comingling of surfclams and quahogs (trips can not be mixed) has resulted in increased discarding of one species is occurring frequently enough to be raised as a concern. 
 
 Commercial summer flounder discard risk increased from medium-high to high. Dead discards as a percentage of commercial catch have increased slightly in recent years due to lower quotas and caused ACLs to be exceeded in some years. Discards can be difficult to control given various reasons for discarding, and some uncertainty and variability in discard estimates remain. 
 
@@ -480,9 +480,9 @@ These ACL overages due to higher than projected discards resulted in greater ris
 
 The risk to recreational Atlantic mackerel management control increased slightly from low to low-medium. There have been no ACL overages last 5 years using the appropriate MRIP data and the current recreational measures in place should avoid overages generally.  However, the recreational sector has been exceeding its assumed harvest, but the commercial management uncertainty buffer has accommodated these overages. 
 
-The risk to shortfin squid (Illex) management control increased slightly from low to low-medium. There are no ACL’s for this fishery; however, there was a 5% ABC overage in 2018. The current management measures that are in place should generally avoid overages. 
+The risk to shortfin squid (*Illex*) management control increased slightly from low to low-medium. There are no ACL’s for this fishery; however, there was a 5% ABC overage in 2018. The current management measures that are in place should generally avoid overages. 
 
-Illex allocation risk changed from low to high. The Council is currently considering modifications to the Illex permitting system which may have allocation implications amongst participants in the fishery.
+*Illex* allocation risk changed from low to high. The Council is currently considering modifications to the *Illex* permitting system which may have allocation implications amongst participants in the fishery.
 
 The recreational bluefish regulatory complexity risk increased slightly from low to low-medium. Regulations recently changed to ensure the reduced RHL is not exceeded as result of the newly determined overfished status. As the rebuilding plan is implemented, future regulatory changes may also be needed. 
 

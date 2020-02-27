@@ -204,10 +204,34 @@ No indicators for existing ecological elements have changed enough to warrant de
 ### Increased Risk: 1
 Bluefish biomass (B) status has changed from low-moderate risk (Bmsy > B > 0.5Bmsy) to high risk (B < 0.5Bmsy) based on the new benchmark assessment (Table \ref{sptable}).
 
-### Update on Chesapeake Bay Water Quality
-In 2019, we reported on improving water quality in Chesapeake Bay, and suggested that the Council could reconsider high risk ratings for estuarine-dependent species if this trend continues. Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden).
+### Update on Chesapeake Bay water quality
+Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). In 2019, we reported on improving water quality in Chesapeake Bay, and suggested that the Council could reconsider high risk ratings for estuarine-dependent species if this trend continues. However, the Chesapeake Bay experienced below average salinity in 2019, caused by the highest precipitation levels ever recorded for the watershed throughout 2018 and 2019. It is unclear how this will affect the overall water quality indicator (which was not updated for the 2020 report because it requires multiple years to update). The new information below suggests that high risk for estuarine-dependent species is still warranted.
 
-2019 turned out to be a year with extremely low salinity in Chesapeake Bay, with increased hypoxia and spread of freshwater invasive species such as blue catfish. It is unclear how this will affect the overall water quality indicator (which was not updated for the 2020 report because it requires multiple years to update). 
+Low salinity levels recorded by NOAA Chesapeake Bay Office’s Chesapeake Bay Interpretive Buoy System (CBIBS) at Stingray Point showed below-average levels starting in summer 2018 and continuing through spring of 2019 (Fig. \ref{fig:cb-salinity}). 
+
+High flows during the winter and spring of Water Year (WY) 2019 came during a critical time of year when the nutrients delivered to the Bay fuel algal blooms, which can cause low dissolved oxygen in the summer. Low dissolved oxygen levels less than 2.0 mg/l (or hypoxia) are harmful to oysters, crabs and fish.  The high flows, and associated nutrient loads, during WY 2019 contributed to summer dissolved-oxygen levels in the Bay that were the 3rd lowest recorded in Maryland waters, according to the Maryland Department of Natural Resources^[https://www.usgs.gov/center-news/september-hypoxia-report].
+ 
+In Maryland, the Spatfall Intensity Index, a measure of oyster recruitment success and potential increase in the population, was 15.0 spat/bu, well below the 34-year median value of 39.8. Blue catfish, an invasive species in the Chesapeake, spread over the last two summers due to the lower salinity levels. 
+
+```{r cb-salinity,fig.width = 5, fig.asp = 0.45, fig.cap = "Salinity in Chesapeake Bay throughout 2018 (blue) and 2019 (red)  as well as the daily average 2008-2019 (black) and the full observed range 2008-2019 (gray shading)."}
+
+ches_sal<-ecodata::ch_bay_sal %>% 
+  filter(!Var == "UTCTime") %>% 
+  drop_na() %>%
+  mutate(Time =  as.numeric(str_sub(Time, 2, -1)),
+         Time1 = as.Date(Time, origin = "2018-12-31")) %>% 
+  pivot_wider(names_from = Var, values_from = Value)
+
+ches_sal %>% 
+  ggplot() +
+  geom_ribbon(aes(x = Time1, ymin = AvgMinLim, ymax = AvgMaxLim))+
+  geom_ribbon(aes(x = Time1, ymin = MinDataLim, ymax = MaxDataLim), alpha = 0.3)+
+  geom_line(aes(x = Time1, y = Daily18), color = "blue") +
+  geom_line(aes(x = Time1, y = Daily19), color = "red") +
+  ylab(expression("PSU")) +
+  ggtitle("Chesapeake Bay Salinity") +
+  theme_ts()
+```
 
 ## Economic, Social, and Food production risk elements
 
@@ -216,6 +240,47 @@ No indicators for existing economic, social, and food production elements have c
 
 ### Increased Risk: 0
 No indicators for existing economic, social, and food production elements have changed enough to warrant increased risk rankings according to the Council risk critiera.
+
+### Update on recreational seafood production
+Although the risk ranking for recreational seafood production remains at moderate-high based on the continued long term downward trend in this indicator, the most recent data is notable. 2018 recreational seafood landings were the lowest observed since 1982, with a 47% drop year over year (Fig. \ref{fig:rec-landings})). This drop involved multiple species, including black sea bass, scup, spot, and bluefish, among others and though accompanied by lower recreational effort in 2018, is not fully explained by changes in effort alone. The survey methodology behind these numbers was updated in 2018, and additional years worth of data is needed to understand whether these declines are driven by changes in the precision or other statistical properties of the data.
+
+```{r rec-landings, fig.cap = paste0("Total recreational seafood harvest in the ",region," region."), fig.width = 4, fig.asp = 0.45}
+
+landings_rec <- ecodata::recdat %>% 
+  filter(EPU == region_abbr,
+         Var == "Recreational Seafood") %>% 
+  mutate(hline = mean(Value))
+
+series.col <- "black"
+
+ggplot(data = landings_rec)+
+  
+  #Highlight last ten years
+  annotate("rect", fill = shade.fill, alpha = shade.alpha,
+      xmin = x.shade.min , xmax = x.shade.max,
+      ymin = -Inf, ymax = Inf) +
+  geom_gls(aes(x = Time, y = Value,
+               group = Var),
+             alpha = trend.alpha, size = trend.size) +
+  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
+  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
+
+  scale_y_continuous(labels = function(l){trans = l / 1000000})+
+  scale_x_continuous(breaks = seq(1985, 2015, by = 5), expand = c(0.01, 0.01)) +
+  scale_color_manual(values = series.col, aesthetics = "color")+
+  guides(color = FALSE) +
+  ggtitle("Recreational seafood harvest") +
+  ylab(expression("Fish caught (10"^6*"n)")) +
+
+  geom_hline(aes(yintercept = hline,
+               
+               color = Var),
+           size = hline.size,
+           alpha = hline.alpha,
+           linetype = hline.lty) +
+  theme_ts()
+
+```
 
 ### Potential new indicators
 
@@ -367,7 +432,7 @@ Management risk elements have not been updated since the original risk assessmen
 
 ### New rankings for chub mackerel and unmanaged forage
 
-In 2019, the Council approved adding chub mackerel to the Atlantic Mackerel, Squid, and Butterfish Fishery Management Plan; therefore, an evaluation of chub mackerel management risk has been included for the first time. The rankings for chub mackerel can be found in Table 1 and the justification for each ranking is provided below:
+In 2019, the Council approved adding chub mackerel to the Atlantic Mackerel, Squid, and Butterfish Fishery Management Plan; therefore, an evaluation of chub mackerel management risk has been included for the first time. The rankings for chub mackerel can be found in Table \ref{spsectable} and the justification for each ranking is provided below:
 
   *  **Management Control:** first annual landings limit implemented September 2017 and has not been exceeded. Proposed ABC expected to be implemented in 2020 and would represent a liberalization compared to measures implemented in 2017. 
   *  **Technical Interactions:** some marine mammal interactions. 
@@ -376,7 +441,7 @@ In 2019, the Council approved adding chub mackerel to the Atlantic Mackerel, Squ
   *  **Discards:** The first ABC and ACL are expected to be implemented in 2020 and are not expected to be exceeded based on recent trends in the fisheries. Discards generally make up 6% or less of total catch. 
   * **Allocation:** The stock is not allocated and there are currently no allocation concerns.
   
-When the first risk assessment was completed in 2017, regulations pertaining to unmanaged forage were just implemented and therefore no rankings were provided for the various management risk elements. Rankings for unmanaged forage species are included for the first time (Table 1) and the justification for each ranking is provided below:
+When the first risk assessment was completed in 2017, regulations pertaining to unmanaged forage were just implemented and therefore no rankings were provided for the various management risk elements. Rankings for unmanaged forage species are included for the first time (Table \ref{spsectable}) and the justification for each ranking is provided below:
 
   *  **Management Control:** No stock assessments or ABCs. Only restriction on catch is a possession limit which was first implemented in Sept 2017. Dealer data for 2018-2019 show no trips exceeding that possession limit.
   *  **Technical Interactions:** Forage ecosystem component (EC) species are not managed with OY and they largely do not have notable directed fisheries; therefore, although interactions with other fishery regulations are possible, these interactions likely have minimal impacts. 

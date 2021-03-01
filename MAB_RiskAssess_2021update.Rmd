@@ -134,7 +134,7 @@ In 2020, Chesapeake Bay experienced a warmer than average winter, followed by a 
 
 A dissolved oxygen model operated by the Virginia Institute of Marine Science (VIMS) and Anchor QEA (www.vims.edu/hypoxia) estimated that the overall severity and duration of hypoxia in the Chesapeake Bay was lower and shorter in 2020 compared to most recent years. A smaller-than-average spring freshet, which resulted in above-average salinity in the Bay, also might have decreased surface runoff and nutrient concentrations. Reduced nutrient inputs and cool spring temperatures likely contributed to reduced hypoxia in 2020. Information on submerged aquatic vegetation (SAV) collected in 2020 has not yet been processed, but may be included in upcoming SOE reports.
 
-It is unclear how these annual updates in Chesapeake Bay temperature, salinity, dissolved oxygen, and SAV will affect the overall water quality indicator (which was not updated for the 2020 or 2021 report because it requires multiple years to update). The new information below suggests that high risk for estuarine-dependent species is still warranted. However, direct links between estuarine habitat conditions and population attributes for managed species (as reported for Chesapeake Bay striped bass and blue crabs) could be more directly incorporated into future risk assessments as the science continues to develop.
+It is unclear how these annual updates in Chesapeake Bay temperature, salinity, dissolved oxygen, and SAV will affect the overall water quality indicator (which was not updated for the 2020 or 2021 report because it requires multiple years to update). The new information below suggests that high risk for estuarine-dependent species is still warranted. However, direct links between estuarine habitat conditions and population attributes for managed species (as reported for Chesapeake Bay striped bass and blue crabs) could be incorporated into future risk assessments as the science continues to develop.
 
 ## Potential new indicators
 
@@ -211,7 +211,8 @@ $\text{\underline{Habitat importance by life stage:}}$
     
 * Spawning Adults:  
     + Marine subtidal (<200 m) sand habitats, which have a low vulnerability to climate change, are of high importance.  
-
+    
+We seek Council feedback on how best to include information on habitat climate vulnerability for managed species in future EAFM risk assessments.
 
 # Changes from 2020: Economic, Social, and Food production risk elements
 
@@ -252,7 +253,7 @@ The downward effort diversity trend is driven by party/charter contraction (from
 
 Changes in recreational fleet diversity can be considered when managers seek options to maintain recreational opportunities. Shore anglers will have access to different species than vessel-based anglers, and when the same species, typically smaller fish. Many states have developed shore-based regulations where the minimum size is lower than in other areas and sectors to maintain opportunities in the shore angling sector. 
 
-We seek Council feedback on whether to include commericial engagement and recreational diversity indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
+We seek Council feedback on whether to include fishing community vulnerability and recreational diversity indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
 # Changes from 2020: Management risk elements 
 Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. In general, the management indicators evaluate a particular risk over several years; therefore, the rankings should remain fairly consistent on an annual basis unless something changed in the fishery or if a management action occurred. A comprehensive evaluation and update of all management risk elements was conducted by Council staff in 2020. In 2021, Council staff reviewed the 2020 rankings and associated justifications to determine if any significant fishery or management changes would result in a change in a risk element ranking. The updated management risk element rankings can be found in Table \ref{spsectable} and the justification for any ranking change can be found below.

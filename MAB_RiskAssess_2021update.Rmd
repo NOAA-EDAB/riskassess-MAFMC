@@ -12,6 +12,7 @@ output:
   html_document:
     df_print: paged
 subparagraph: yes
+urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
@@ -35,97 +36,19 @@ library(tidyr)
 library(ecodata)
 library(here)
 library(kableExtra)
-library(ggrepel)
-library(patchwork)
-library(grid)
-library(ggiraph)
-library(vegan)
-library(rpart)
-library(ks)
-library(cowplot)
 
-#GIS libraries
-library(sf)
-library(rgdal)
-library(raster)
-library(rnaturalearth)
-
-#Data directories
-image.dir <- here("images")
-gis.dir <- here("gis")
-
-#GIS directory
-#gis.dir <- here::here("inst","extdata","gridded")
-
-#General inline text input for report
-#Council
-council <- "Mid-Atlantic Fishery Management Council"
-council_abbr <- "MAFMC"
-
-#Region identifiers
-epu <- "Mid-Atlantic Bight"
-epu_abbr <- "MAB"
-region <- "Mid-Atlantic"
-region_abbr <- "MA" #Some commercial data organized by "MA" or "NE" regions, not by EPU 
-
-#Time series constants
-shade.alpha <- 0.3
-shade.fill <- "lightgrey"
-lwd <- 1
-pcex <- 2
-trend.alpha <- 0.5
-trend.size <- 2
-hline.size <- 1
-hline.alpha <- 0.35
-hline.lty <- "dashed"
-label.size <- 5
-hjust.label <- 1.5
-letter_size <- 4
-feeding.guilds1<- c("Piscivore","Planktivore","Benthivore","Benthos")
-feeding.guilds <- c("Apex Predator","Piscivore","Planktivore","Benthivore","Benthos")
-x.shade.min <- 2009
-x.shade.max <- 2019
-#Function for custom ggplot facet labels
-label <- function(variable,value){
-  return(facet_names[value])
-}
 ```
 
-```{r GIS-setup}
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-setup.R")}
+```
 
-#CRS
-crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-GIS-setup.R")}
+```
 
-#Coastline shapefile
-coast <- ne_countries(scale = 10,
-                          continent = "North America",
-                          returnclass = "sf") %>%
-             sf::st_transform(crs = crs)
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-setup.R")}
+```
 
-#State polygons
-ne_states <- ne_states(country = "united states of america",
-                                      returnclass = "sf") %>%
-  sf::st_transform(crs = crs)
-
-#high-res polygon of Maine
-#new_england <- read_sf(gis.dir,"new_england")
-
-#EPU shapefile
-epu_sf <- ecodata::epu_sf %>% 
-  filter(EPU %in% c("MAB","GB","GOM"))
-
-#Map line parameters
-map.lwd <- 0.4
-
-# Set lat/lon window for maps
-xmin = -77
-xmax = -65
-ymin = 36
-ymax = 45
-xlims <- c(xmin, xmax)
-ylims <- c(ymin, ymax)
-
-
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/LTL_MAB.Rmd-setup.R")}
 ```
 
 # Introduction
@@ -194,17 +117,15 @@ kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Rankin
 \clearpage
 \pagestyle{fancy}
 
-# Changes from 2020
+# Changes from 2020: Ecological risk elements
 
-## Ecological risk elements
-
-### Decreased Risk: 0
+## Decreased Risk: 0
 No indicators for existing ecological elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
 
-### Increased Risk: 1
+## Increased Risk: 1
 Butterfish biomass (B) status has changed from low risk (B > Bmsy) to low-moderate risk (Bmsy > B > 0.5Bmsy) based on the new benchmark assessment (Table \ref{sptable}).
 
-### Update on Chesapeake Bay water quality
+## Update on Chesapeake Bay water quality
 Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). In 2019, we reported on improving water quality in Chesapeake Bay, and suggested that the Council could reconsider high risk ratings for estuarine-dependent species if this trend continues. 
 
 However, as reported in the 2020 SOE, the Chesapeake Bay experienced below average salinity in 2019, caused by the highest precipitation levels ever recorded for the watershed throughout 2018 and 2019. 
@@ -215,379 +136,193 @@ A dissolved oxygen model operated by the Virginia Institute of Marine Science (V
 
 It is unclear how these annual updates in Chesapeake Bay temperature, salinity, dissolved oxygen, and SAV will affect the overall water quality indicator (which was not updated for the 2020 or 2021 report because it requires multiple years to update). The new information below suggests that high risk for estuarine-dependent species is still warranted. However, direct links between estuarine habitat conditions and population attributes for managed species (as reported for Chesapeake Bay striped bass and blue crabs) could be more directly incorporated into future risk assessments as the science continues to develop.
 
-### Potential new indicators
+## Potential new indicators
 
 ### Habitat Climate Vulnerability
 
-A climate vulnerability assessment for habitat types in the Northeast US Large Marine Ecosystem was completed in 2020. The climate vulnerability rankings for the more vulnerable habitats were linked to different life stages of managed species, including black sea bass, scup, and summer flounder to several highly vulnerable nearshore habitats from salt marsh through shallow estuarine and marine reefs. Details on highly vulnerable habitats with linkages to a variety of species, including which life stages have different levels of dependence on a particular habitat, are available in a detailed table.^[https://noaa-edab.github.io/ecodata/Hab_table]
+A Habitat Climate Vulnerability Assessment (HCVA) for habitat types in the Northeast US Large Marine Ecosystem was completed in 2020. The climate vulnerability rankings for the more vulnerable habitats were linked to different life stages of managed species, including black sea bass, scup, and summer flounder to several highly vulnerable nearshore habitats from salt marsh through shallow estuarine and marine reefs. Details on highly vulnerable habitats with linkages to a variety of species, including which life stages have different levels of dependence on a particular habitat, are available in a detailed table.^[https://noaa-edab.github.io/ecodata/Hab_table]
 
 Species highlighted here are those that are highly dependent on highly vulnerable habitats. A ranking matrix was created using the habitat vulnerability rankings compared to the habitat importance rankings to determine the criteria, and for the purposes of this submission, “high dependence on a highly vulnerable habitat” encompasses moderate use of very highly vulnerable habitats, high use of highly or very highly vulnerable habitats, or very high use of moderately, highly, or very highly vulnerable habitats.
 
+Preliminary species narratives have been developed by Grace Roskar and Emily Farr (NMFS Office of Habitat Conservation), using information from the entire team that worked on the Habitat Climate Vulnerability Analysis. We include two here so that the Council may provide feedback to improve their utility for management in general and for potentail future inclusion in the EAFM risk assessment. 
+
+#### Black Sea Bass  
+*Summary:* Black sea bass have a high vulnerability to climate change, due to very high exposure related to surface and air temperature in both inshore and offshore waters, and moderate sensitivity of early life history requirements. Climate change is predicted to have a positive effect on black sea bass, due to warmer temperatures increasing spawning and therefore recruitment, and distribution of the species shifting farther north [@hare_vulnerability_2016].
+
+The habitats important to black sea bass, such as shellfish reefs, submerged aquatic vegetation, and subtidal rocky bottom habitats, are vulnerable to projected changes in sea surface temperature. Additionally, intertidal habitats such as shellfish reefs are also vulnerable to projected changes in air temperatures and sea level rise. Habitat condition and habitat fragmentation were also of concern for shellfish reefs and submerged aquatic vegetation. The species itself is also vulnerable to temperature changes, as mentioned above. The overlapping high importance of intertidal and subtidal shellfish reefs to black sea bass and the very high to high climate vulnerability of these habitats, respectively, show a potential critical nexus of climate vulnerability. 
+
+##### Mid-Atlantic  
+*Summary:* Shellfish reef habitats are highly important for both juveniles/young-of-the-year and adults. These life stages utilize both marine and estuarine shellfish reefs, in both intertidal and subtidal zones, which are very highly vulnerable and highly vulnerable, respectively. Other important habitats for black sea bass include submerged aquatic vegetation, which is highly vulnerable, and subtidal sand and rocky bottom habitats, which have low vulnerability. More information is needed on use of intertidal benthic habitats by black sea bass. Juvenile occurrence on sandy intertidal flats or beaches is rare, according to Drohan et al. (2007), but additional information on the use and importance of intertidal rocky bottom or intertidal benthic habitat use by adults is lacking. According to Drohan et al. (2007), black sea bass eggs have been collected in the water column over the continental shelf, as has larvae. As water column habitats were not included in ACFHP’s assessment of habitat importance, finer-scale information on the importance of specific pelagic habitats is needed for the species.
+
+$\text{\underline{Habitat importance by life stage:}}$ 
+
+* Juveniles/Young-of-the-year:  
+    + Marine and estuarine intertidal shellfish reefs, which are very highly vulnerable to climate change, are of high importance.  
+    + Marine and estuarine submerged aquatic vegetation and subtidal shellfish reefs, which are highly vulnerable to climate change, are of high importance.  
+    + Marine intertidal rocky bottom habitats, which are highly vulnerable to climate change, are of high importance.  
+    + Marine (<200 m) and estuarine subtidal rocky bottom habitats, which have a low vulnerability to climate change, are also of high importance.  
+    
+* Adults:  
+    + Marine and estuarine intertidal shellfish reefs, which are very highly vulnerable to climate change, are of high importance.  
+    + Marine and estuarine subtidal shellfish reefs, which are highly vulnerable to climate change, are of high importance.  
+    + Marine intertidal rocky bottom habitats, which are highly vulnerable to climate change, are of high importance.  
+    + Marine and estuarine submerged aquatic vegetation, which are highly vulnerable to climate change, are of moderate importance.  
+    + Marine (<200 m) and estuarine subtidal rocky bottom habitats, which have a low vulnerability to climate change, are also of high importance.  
+    + Marine (<200 m) and estuarine subtidal sand habitats, including sandy-shelly areas, which have a low vulnerability to climate change, are also of moderate importance.  
+
+##### New England  
+*Summary:* All habitats in New England for black sea bass were ranked as moderately important, likely indicating that the species uses a diverse range of habitats rather than high dependence on a specific habitat type. Shellfish reef habitats are moderately important for both juveniles/young-of-the-year and adults. These life stages utilize both marine and estuarine shellfish reefs, in both intertidal and subtidal zones, which are very highly vulnerable and highly vulnerable, respectively. Juveniles/young-of-the-year are also moderately dependent on native salt marsh habitats, which are highly vulnerable to climate change. Other moderately important habitats for black sea bass include submerged aquatic vegetation, which is highly vulnerable, and subtidal sand and rocky bottom habitats, which have low vulnerability. More information is needed on use of intertidal benthic habitats by black sea bass. Juvenile occurrence on sandy intertidal flats or beaches is rare, according to Drohan et al. (2007), but additional information on the use and importance of intertidal rocky bottom or intertidal benthic habitat use by adults is lacking.
+
+$\text{\underline{Habitat importance by life stage:}}$  
+
+* Juveniles/Young-of-the-year:  
+    + Marine and estuarine submerged aquatic vegetation and subtidal shellfish reefs, which are all highly vulnerable to climate change, are of moderate importance.  
+    + Marine and estuarine intertidal shellfish reefs, which are very highly vulnerable to climate change, are of moderate importance.  
+    + Native salt marshes, which are very highly vulnerable to climate change, are of moderate importance.
+Marine (<200 m) and estuarine subtidal rocky bottom habitats, which have a low vulnerability to climate change, are of moderate importance.  
+
+* Adults:  
+    + Marine and estuarine submerged aquatic vegetation and subtidal shellfish reefs, which are all highly vulnerable to climate change, are of moderate importance.  
+    + Marine and estuarine intertidal shellfish reefs, which are very highly vulnerable to climate change, are of moderate importance.  
+    + Marine (<200 m) and estuarine subtidal rocky bottom habitats, which have a low vulnerability to climate change, are of moderate importance.  
+    + Structured sand habitats in marine (<200 m) and estuarine subtidal areas, which have a low vulnerability to climate change, and marine intertidal areas, which are highly vulnerable, are of moderate importance.  
+
+#### Summer Flounder  
+*Summary:* Summer flounder were ranked moderately vulnerable to climate change due to very high exposure to both ocean surface and air temperature, but low sensitivity to all examined attributes. Broad dispersal of eggs and larvae and seasonal north-south migrations by adults lend the species a high potential for distribution shifts. However, climate change is expected to have a neutral effect on the species, although there is high uncertainty surrounding this. The dispersal of eggs and larvae and the broad use of both estuarine and marine habitats could result in climate change having a positive effect, but uncertainty remains (Hare et al. 2016).
+
+The habitats important to summer flounder, such as intertidal benthic habitats, submerged aquatic vegetation, and native salt marsh habitats, are vulnerable to projected changes in temperature as well as sea level rise. Subtidal benthic habitats are vulnerable to changes in sea surface temperature. The species itself is also vulnerable to such factors, as they are exposed to changes in conditions in both inshore and offshore habitats. The overlapping high importance of native salt marsh and submerged aquatic vegetation habitats to the species and the very high and high climate vulnerability of these habitats, respectively, show a potential critical nexus of climate vulnerability.
+
+##### Mid-Atlantic  
+*Summary:* Marine and estuarine sand and mud habitats are highly important to juvenile and adult summer flounder, and these habitats range in their vulnerability to climate change. For example, marine intertidal sand is highly vulnerable, whereas subtidal mud and sand habitats have low vulnerability. In addition to these fine bottom benthic habitats, native salt marshes are highly important to juveniles and moderately important to adults, yet these habitats are very highly vulnerable to climate change. Eggs and larvae utilize pelagic continental shelf habitats; however, water column habitats were not included in ACFHP’s assessment of habitat importance. Finer-scale information on the importance of specific pelagic habitats is needed for the species.
+
+$\text{\underline{Habitat importance by life stage:}}$    
+
+* Juveniles/Young-of-the-year:  
+    + Marine and estuarine intertidal shellfish reefs, which are very highly vulnerable to climate change, are of moderate importance.  
+    + Marine and estuarine subtidal shellfish reefs, which are highly vulnerable to climate change, are of moderate importance.  
+    + Marine and estuarine submerged aquatic vegetation, which are highly vulnerable habitats, are of high importance.  
+    + Native salt marsh habitats, which are very highly vulnerable to climate change, are of high importance.  
+    + Marine and estuarine subtidal and intertidal sand and mud bottom habitats are of high importance. These habitats range in climate vulnerability, from high vulnerability of marine intertidal sand to low vulnerability of marine subtidal sand and mud (<200 m) and estuarine subtidal sand.  
+    
+* Adults:  
+    + Marine and estuarine submerged aquatic vegetation, which are highly vulnerable habitats, are of moderate importance.  
+    + Native salt marsh habitats, which are very highly vulnerable to climate change, are of moderate importance.  
+    + Marine and estuarine subtidal and intertidal sand and mud bottom habitats are of high importance. These habitats range in climate vulnerability, from high vulnerability of marine intertidal sand to low vulnerability of marine subtidal sand and mud (<200 m) and estuarine subtidal sand.  
+    
+* Spawning Adults:  
+    + Marine subtidal (<200 m) sand habitats, which have a low vulnerability to climate change, are of high importance.  
 
 
-## Economic, Social, and Food production risk elements
+# Changes from 2020: Economic, Social, and Food production risk elements
 
-### Decreased Risk: 0
+## Decreased Risk: 0
 No indicators for existing economic, social, and food production elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
 
-### Increased Risk: 0
+## Increased Risk: 0
 No indicators for existing economic, social, and food production elements have changed enough to warrant increased risk rankings according to the Council risk critiera.
 
-### Update on recreational seafood production
-Although the risk ranking for recreational seafood production remains at moderate-high based on the continued long term downward trend in this indicator, the most recent data is notable. 2018 recreational seafood landings were the lowest observed since 1982, with a 47% drop year over year (Fig. \ref{fig:rec-landings}). This drop involved multiple species, including black sea bass, scup, spot, and bluefish, among others and though accompanied by lower recreational effort in 2018, is not fully explained by changes in effort alone. The survey methodology behind these numbers was updated in 2018, and additional years worth of data is needed to understand whether these declines are driven by changes in the precision or other statistical properties of the data.
+## Potential new indicators
 
-```{r rec-landings, fig.cap = paste0("Total recreational seafood harvest in the ",region," region."), fig.width = 4, fig.asp = 0.45}
+### Social vulnerability in commercial and recreational fishing communities
+Social vulnerability measures social factors that shape a community’s ability to adapt to change and does not consider gentrification pressure (see [detailed definitions](https://www.fisheries.noaa.gov/national/socioeconomics/social-indicator-definitions)). Communities that ranked medium-high or above for one or more of the following indicators: poverty, population composition, personal disruption, or labor force structure, are highlighted in red. 
 
-landings_rec <- ecodata::recdat %>% 
-  filter(EPU == region_abbr,
-         Var == "Recreational Seafood") %>% 
-  mutate(hline = mean(Value))
-
-series.col <- "black"
-
-ggplot(data = landings_rec)+
-  
-  #Highlight last ten years
-  annotate("rect", fill = shade.fill, alpha = shade.alpha,
-      xmin = x.shade.min , xmax = x.shade.max,
-      ymin = -Inf, ymax = Inf) +
-  geom_gls(aes(x = Time, y = Value,
-               group = Var),
-             alpha = trend.alpha, size = trend.size) +
-  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
-  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
-
-  scale_y_continuous(labels = function(l){trans = l / 1000000})+
-  scale_x_continuous(breaks = seq(1985, 2015, by = 5), expand = c(0.01, 0.01)) +
-  scale_color_manual(values = series.col, aesthetics = "color")+
-  guides(color = FALSE) +
-  ggtitle("Recreational seafood harvest") +
-  ylab(expression("Fish caught (10"^6*"n)")) +
-
-  geom_hline(aes(yintercept = hline,
-               
-               color = Var),
-           size = hline.size,
-           alpha = hline.alpha,
-           linetype = hline.lty) +
-  theme_ts()
-
+Commercial fishery engagement measures the number of permits, dealers, and landings in a community, while reliance expresses these numbers based on the level of fishing activity relative to the total population of a community.  
+In 2020, we reported that the number of highly engaged Mid-Atlantic commercial fishing communities had declined over time, and engagement scores had also declined in medium-highly engaged communities. Here we focus on the top ten most engaged, and top ten most reliant commercial fishing communities and their associated  social vulnerability (Fig. \ref{fig:commercial-engagement}).  Barnegat Light and Cape May, NJ, and Reedville, VA are highly engaged and reliant with medium-high to high social vulnerability.   
+```{r commercial-engagement, fig.cap= "Commercial engagement, reliance, and social vulnerability for the top commercial fishing communities in the Mid-Atlantic.", code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-engagement.R"), fig.width = 6.5, fig.asp = 0.75}
 ```
 
-### Potential new indicators
+Recreational fishery engagement measures shore, private vessel, and for-hire fishing activity while reliance expresses these numbers based on fishing effort relative to the population of a community. Of the nine recreational communities that are most engaged and reliant, Avon, Ocracoke and Hatteras, NC and Barnegat Light and Cape May, NJ scored medium-high or above for social vulnerability (Fig. \ref{fig:recreational-engagement}). 
 
-### Social-Cultural: Commerical Fishery Engagement
-Commerical fishery engagement measures the number of permits, dealers, and landings in a community^[https://www.fisheries.noaa.gov/national/socioeconomics/social-indicator-definitions#fishing-engagement-and-reliance-indices]. The trend in the number of Mid-Atlantic fishing communities that were highly engaged (red bar) in commercial fishing has shown a decrease since 2004 (Fig. \ref{fig:MAB-comm-engagement-trend}). Some of the communities that were highly engaged have moved into the moderate (blue bar) or medium-high (green bar) category, and thus the number of moderately to medium-highly engaged communities have increased. Significant changes in engagement scores have also been observed in medium-highly engaged communities. The average engagement score has decreased since 2004. These changes may be driven by the decline in value landed by primary species such as sea scallops in this group of communities. 
+Both commercial and recreational fishing are important activities in  Montauk, NY; Barnegat Light, Cape May, and Point Pleasant Beach, NJ; and Ocracoke and Rodanthe, NC, meaning some of these communities may be impacted simultaneously by commercial and recreational regulatory changes. Of these communities, three scored medium-high or above for social vulnerability.
 
-```{r MAB-comm-engagement-trend, fig.width = 8, fig.asp = 0.4, fig.cap = "Commercial engagement scores (total pounds landed, value landed, commercial permits, and commercial dealers in a community) for Mid-Atlantic fishing communities, 2004-2018."}
-
-eng<-ecodata::engagement %>% 
-  filter(!Var == "med.high.scores")
-eng$Var <- factor(eng$Var, levels = c("%High","%Medium High","%Moderate", "%Low"))
-
-engbar <- eng %>% filter(EPU == "MA") %>% 
-  ggplot()+
-   #ylim(0.8, NA)+
-  geom_bar(aes(x = Time, y = Value, 
-               fill = Var), 
-           stat = "identity")+
-  #scale_y_continuous(labels = Value(suffix = "%", prefix = "")) +
-  #geom_text(aes(x = Time, y = Value,
-  #             label = paste0(Value,"%")), size=4) +
-  theme(#legend.position="bottom", legend.direction="horizontal",
-        legend.title = element_blank())+
-  coord_cartesian(ylim=c(0.85,1))+
-  xlab("Time") +
-  ylab("% Communities in each category (Low to High)")+
-  ggtitle("Commercial Engagement")+
-  theme_ts()
-
-
-mhtrend <- ecodata::engagement %>% 
-  filter(Var == "med.high.scores", 
-         EPU == "MA") %>% 
-  mutate(hline = mean(Value)) %>% 
-  ggplot()+
-  annotate("rect", fill = shade.fill, alpha = shade.alpha,
-      xmin = x.shade.min , xmax = x.shade.max,
-      ymin = -Inf, ymax = Inf) +
-  geom_line(aes(x = Time, y = Value), size = lwd) +
-  geom_point(aes(x = Time, y = Value), size = pcex) +
-  scale_x_continuous(expand = c(0.01, 0.01)) +
-  expand_limits(y=0) +
-  ggtitle("Medium-High communities ") +
-  ylab(expression("Average score for Med High communities")) +
-  geom_hline(aes(yintercept = hline),
-           size = hline.size,
-           alpha = hline.alpha,
-           linetype = hline.lty) +
- theme_ts()
-  
-cowplot::plot_grid(engbar, 
-                   mhtrend,
-                   ncol = 2, 
-                   align = "h", 
-                   rel_widths = c(1, 0.7)) +
-    theme(plot.margin = unit(c(0.1, 0, 0, 0), "cm"))
-
+```{r recreational-engagement, fig.cap= "Recreational engagement, reliance, and social vulnerability for the top recreational fishing communities in the Mid-Atlantic.", code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recreational-engagement.R"), fig.width = 6.5, fig.asp = 0.75}
 ```
 
-### Recreational Diversity
-Indicators for the diversity of recreational effort (i.e. access to recreational opportunities) by mode (party/charter boats, private boats, shore-based), and diversity of catch (NEFMC, MAFMC, SAFMC, and ASMFC managed species) show different trends. The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 7% currently), with a shift towards shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series. The long-term decrease in species catch diversity in the Mid-Atlantic states reported last year resulted from aggregation of SAFMC and ASMFC managed species into a single group. With SAFMC and ASMFC species considered individually, there is no long term trend in recreational catch diversity. This implies that recent increases in catch of SAFMC and/or ASMFC managed species is helping to maintain diversity in the same range that MAFMC and NEFMC species supported in the 1990s (Fig. \ref{fig:rec-div}).
-
-```{r rec-div, fig.width = 4, fig.asp = 0.8, fig.cap = paste0("Recreational effort diversity and diversity of recreational catch in the ",region,".")}
-recdat <- ecodata::recdat %>% 
-  filter(EPU == region_abbr) %>% 
-  group_by(Var) %>% 
-  mutate(hline = mean(Value))
-
-series.col <- "black"
-
-ylim_re <- c(2e7, 7e7)
-ylim_rd <- c(1.75,2.75)
-ylim_ra  <- c(1e6, 3.5e6)
-
-rec_div <- recdat %>% 
-  filter(Var == "Recreational fleet effort diversity across modes") %>% 
-  ggplot() + 
- #Highlight last ten years
-  annotate("rect", fill = shade.fill, alpha = shade.alpha,
-      xmin = x.shade.min , xmax = x.shade.max,
-      ymin = -Inf, ymax = Inf) +
-  # annotate("text", 
-  #          x = label_loc[label_loc$Var == "Recreational fleet effort diversity across modes",]$xloc,
-  #          y = label_loc[label_loc$Var == "Recreational fleet effort diversity across modes",]$yloc,
-  #          label = label_loc[label_loc$Var == "Recreational fleet effort diversity across modes",]$labels,
-  #          size = letter_size)+
-  geom_gls(aes(x = Time, y = Value,
-               group = Var),
-             alpha = trend.alpha, size = trend.size) +
-  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
-  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
-  ylim(ylim_rd)+
-  scale_x_continuous(expand = c(0.01, 0.01)) +
-  scale_color_manual(values = series.col, aesthetics = "color")+
-  guides(color = FALSE) +
-  ggtitle("Rec. fleet effort diversity")+
-  ylab(expression("Effective Shannon")) +
-  xlab("")+
-  geom_hline(aes(yintercept = hline,
-               color = Var),
-           size = hline.size,
-           alpha = hline.alpha,
-           linetype = hline.lty) +
-  theme_ts()
-
-rec_div_catch <- recdat %>% 
-  filter(Var == "Recreational Diversity of Catch") %>% 
-  ggplot() + 
- #Highlight last ten years
-  annotate("rect", fill = shade.fill, alpha = shade.alpha,
-      xmin = x.shade.min , xmax = x.shade.max,
-      ymin = -Inf, ymax = Inf) +
-    # annotate("text", 
-    #        x = label_loc[label_loc$Var == "Recreational anglers",]$xloc,
-    #        y = label_loc[label_loc$Var == "Recreational anglers",]$yloc,
-    #        label = label_loc[label_loc$Var == "Recreational anglers",]$labels,
-    #        size = letter_size)+
-  geom_gls(aes(x = Time, y = Value,
-               group = Var),
-             alpha = trend.alpha, size = trend.size) +
-  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
-  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
-
-  scale_x_continuous(expand = c(0.01, 0.01)) +
-  scale_color_manual(values = series.col, aesthetics = "color")+
-  guides(color = FALSE) +
-  ggtitle("Rec. diversity of catch")+
-  ylab(expression("Effective Shannon")) +
-  xlab("Time")+
-  geom_hline(aes(yintercept = hline,
-               color = Var),
-           size = hline.size,
-           alpha = hline.alpha,
-           linetype = hline.lty) +
-  theme_ts()
+These plots provide a snapshot of the relationship between social vulnerability and the most highly engaged and most highly reliant commercial and recreational fishing communities in the Mid-Atlantic. Similar plots are used to inform the annual [California Current Ecosystem Status Report](https://www.pcouncil.org/documents/2020/02/g-1-a-iea-team-report-1.pdf/). These communities may be vulnerable to changes in fishing patterns due to regulations and/or climate change. When any of these communities are also experiencing social vulnerability, they may have lower ability to successfully respond to change. These indicators may also point to communities that are vulnerable to environmental justice issues. Additional analysis related to ecosystem shifts and [National Standard 8 of the Magnuson-Stevens Act](https://www.ecfr.gov/cgi-bin/retrieveECFR?gp=&SID=6b0acea089174af8594db02314f26914&mc=true&r=SECTION&n=se50.12.600_1345) is ongoing. 
 
 
-cowplot::plot_grid(rec_div, 
-                   rec_div_catch,
-                   ncol = 1, 
-                   align = "hv") +
-    theme(plot.margin = unit(c(0.1, 0, 0, 0), "cm"))
+### Recreational Fleet Diversity
+Indicators for the diversity of recreational effort (i.e. access to recreational opportunities) by mode (party/charter boats, private boats, shore-based), and diversity of catch (NEFMC, MAFMC, SAFMC, and ASMFC managed species) have been included in the SOE and may be useful to parallel commercial diversity metrics in the EAFM risk assessment. Recreational fleet diversity has declined over the long term (Fig. \ref{fig:rec-div}). 
+```{r rec-div, fig.width=4, fig.asp=.45, fig.cap = paste0("Recreational fleet effort diversity in the ",region,"."), code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")}
+
 ```
+The absence of a long-term trend in recreational effort suggests relative stability in the overall number of recreational opportunities in the MAB. However, the decline in recreational fleet diversity suggests a potentially reduced range of opportunities. 
 
-We seek Council feedback on whether to include commericial engagement and recreational diversity as an indicators for the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
+The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 7% currently), and a shift toward shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series.
 
-## Management risk elements 
-Management risk elements have not been updated since the original risk assessment was conducted in 2017. Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. The updated management risk element rankings were conducted by the Council staff lead for a particular species  (Table \ref{spsectable}). 
+Changes in recreational fleet diversity can be considered when managers seek options to maintain recreational opportunities. Shore anglers will have access to different species than vessel-based anglers, and when the same species, typically smaller fish. Many states have developed shore-based regulations where the minimum size is lower than in other areas and sectors to maintain opportunities in the shore angling sector. 
 
-### New rankings for chub mackerel and unmanaged forage
+We seek Council feedback on whether to include commericial engagement and recreational diversity indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
-In 2019, the Council approved adding chub mackerel to the Atlantic Mackerel, Squid, and Butterfish Fishery Management Plan; therefore, an evaluation of chub mackerel management risk has been included for the first time. The rankings for chub mackerel can be found in Table \ref{spsectable} and the justification for each ranking is provided below:
+# Changes from 2020: Management risk elements 
+Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. In general, the management indicators evaluate a particular risk over several years; therefore, the rankings should remain fairly consistent on an annual basis unless something changed in the fishery or if a management action occurred. A comprehensive evaluation and update of all management risk elements was conducted by Council staff in 2020. In 2021, Council staff reviewed the 2020 rankings and associated justifications to determine if any significant fishery or management changes would result in a change in a risk element ranking. The updated management risk element rankings can be found in Table \ref{spsectable} and the justification for any ranking change can be found below.
 
-  *  **Management Control:** first annual landings limit implemented September 2017 and has not been exceeded. Proposed ABC expected to be implemented in 2020 and would represent a liberalization compared to measures implemented in 2017. 
+## Updated Justifications
+
+The **Other Ocean Use** risk ranking (moderate-high) for recreational black sea bass did not change from 2020 to 2021; however, the justification for the ranking was modified to be more reflective of current considerations. The justification now states: “potential habitat impacts primarily from offshore energy (wind, gas, oil) development. Offshore wind turbine foundations may create new structured habitat (reef effect) and create new recreational fishing opportunities.”
+
+The 2020 risk assessment report included chub mackerel for the first time but was not yet a managed species within the Mackerel, Squid, and Butterfish Fishery Management Plan (FMP). Chub mackerel was formally added to the FMP in 2020 and, therefore, some of the language for the ranking justifications were updated. None of the rankings changed from 2020 (Table \ref{spsectable}) and the revised justifications are provided below:
+
+  *  **Management Control:** first annual landings limit implemented September 2017 and has not been exceeded. First ABC implemented in Sept 2020, represents a liberalization compared to previous measures. 
   *  **Technical Interactions:** some marine mammal interactions. 
   *  **Other Ocean Use:** potential loss of access, particularly for mobile gear, due to offshore energy development (wind, gas, oil) in some fishing areas but most fishing far offshore. 
-  *  **Regulatory Stability:** simpler regulations than some other species (e.g., commercial possession limit only after ACL is close to being exceeded, no minimum fish size limit, no gear restrictions, no recreational management measures except for permit requirement). Management measures first implemented in 2017, will be revised in 2020. 
-  *  **Discards:** the first ABC and ACL are expected to be implemented in 2020 and are not expected to be exceeded based on recent trends in the fisheries. Discards generally make up 6% or less of total catch. 
+  *  **Regulatory Stability:** simpler regulations than some other species (e.g., commercial possession limit only after ACL is close to being exceeded, no minimum fish size limit, no gear restrictions, no recreational management measures except for permit requirement). Management measures first implemented in 2017, revised in 2020. 
+  *  **Discards:** the first ABC and ACL were implemented in 2020 and were not exceeded. Discards generally make up 6% or less of total catch. 
   * **Allocation:** the stock is not allocated and there are currently no allocation concerns.
-  
-When the first risk assessment was completed in 2017, regulations pertaining to unmanaged forage were just implemented and therefore no rankings were provided for the various management risk elements. Rankings for unmanaged forage species are included for the first time (Table \ref{spsectable}) and the justification for each ranking is provided below:
-
-  *  **Management Control:** no stock assessments or ABCs. Only restriction on catch is a possession limit which was first implemented in Sept 2017. Dealer data for 2018-2019 show no trips exceeding that possession limit.
-  *  **Technical Interactions:** forage ecosystem component (EC) species are not managed with OY and they largely do not have notable directed fisheries; therefore, although interactions with other fishery regulations are possible, these interactions likely have minimal impacts. 
-  *  **Other Ocean Use:** potential loss or degradation of habitat due to a variety of other uses, especially in nearshore areas used by many forage species. 
-  *  **Regulatory Stability:** only regulations are permit and reporting requirement, possession limit, and transit provisions. First implemented in September 2017 and have remained unchanged. 
-  *  **Discards:** forage EC species are not managed with ACLs; therefore, discards do not cause closures or trigger AMs. Targeting of these forage species is small-scale.
-  *  **Allocation**: stocks are not allocated and there are currently no allocation concerns.
-
-### Decreased Risk: 5
-Summer flounder recreational regulatory complexity risk dropped slightly moving from high to medium-high risk. Frequent changes in size, season and possession limits, significant differences between some states remain, but regulatory stability and year to year consistency has improved somewhat since 2014.
-
-Technical interaction risk within the commercial scup fishery decreased from medium-high to low-medium. No accountability measures (AMs) have been triggered due to other fisheries and the commercial scup fishery is considered a category II fishery. 
-
-The recreational Atlantic mackerel allocation risk decreased from high to low. There have been no recent Council discussions regarding potential changes to the recreational Atlantic mackerel allocation and the Council recently changed to a simple deduction of expected recreational catch instead of a set recreational allocation.
-
-The longfin squid allocation risk deceased from high to low. There were some allocation discussions during the development and completion of Amendment 20 in 2018, but the Council is currently not considering any allocation changes.
-
-The commercial spiny dogfish allocation risk dropped from high to low. There are no current discussions to modify the commercial allocation and the ASMFC recently completed an action that has added flexibility to transfer regional quotas and match annual variability and reduced the need for allocation changes. 
-
-### Increased Risk: 14
-Discards in the ocean quahog and surfclam fisheries moved from low risk to medium-high risk. While the ocean quahog and surfclam fisheries are allocated minimal coverage under SBRM as a result of discards comprising a low percent of total catch, the comingling of surfclams and quahogs (trips can not be mixed) has resulted in increased discarding of one species is occurring frequently enough to be raised as a concern. 
-
-Commercial summer flounder discard risk increased from medium-high to high. Dead discards as a percentage of commercial catch have increased slightly in recent years due to lower quotas and caused ACLs to be exceeded in some years. Discards can be difficult to control given various reasons for discarding, and some uncertainty and variability in discard estimates remain. 
-
-The risk to recreational scup management control increased slightly from low to low-moderate. Recreational scup ACL and RHL underages each year since 2011; however, in 2017 the ACL was exceeded by 1% due to recreational discards.
-
-Recreational and commercial scup allocation risk element changed from low to high. In 2019, the Council and ASMFC initiated an amendment to consider changes to the current 78% commercial/22% recreational split of the total allowable catch. 
-
-Risks from other ocean uses to the commercial scup fishery increased from low-medium to medium-high due to the potential for habitat impacts and the loss of access from offshore energy development.
-
-Recreational black sea bass discard risk increased from medium-high to high. There is a high recreational discard rate and ACL overages have occurred for at least the past 4 years due to higher discards than assumed during specifications setting process (considering pre-calibration MRIP estimates).
-
-The risk to commercial black sea bass management control rose appreciably from low-medium to high. Commercial landings are generally very close to quota, but the ACL has been exceeded every year from 2015 to 2018 (likely during earlier years as well) due to higher discards than assumed during specifications setting.
-
-These ACL overages due to higher than projected discards resulted in greater risk from commercial black sea bass discards, with the ranking changing from low-medium to high. 
-
-The risk to recreational Atlantic mackerel management control increased slightly from low to low-medium. There have been no ACL overages last 5 years using the appropriate MRIP data and the current recreational measures in place should avoid overages generally.  However, the recreational sector has been exceeding its assumed harvest, but the commercial management uncertainty buffer has accommodated these overages. 
-
-The risk to shortfin squid (*Illex*) management control increased slightly from low to low-medium. There are no ACL’s for this fishery; however, there was a 5% ABC overage in 2018. The current management measures that are in place should generally avoid overages. 
-
-*Illex* allocation risk changed from low to high. The Council is currently considering modifications to the *Illex* permitting system which may have allocation implications amongst participants in the fishery.
-
-The recreational bluefish regulatory complexity risk increased slightly from low to low-medium. Regulations recently changed to ensure the reduced RHL is not exceeded as result of the newly determined overfished status. As the rebuilding plan is implemented, future regulatory changes may also be needed. 
-
-### Potential new indicators
-
-### Other ocean uses: Fish habitat overlap with offshore wind lease areas
-
-Fish habitat modeling based on NEFSC bottom trawl surveys [@friedland_changes_2020] indicates that summer flounder, butterfish, longfin squid, and spiny dogfish are among fish species highly likely to occupy wind energy lease areas (Fig. \ref{fig:wind-hab}). Habitat conditions for many of these species have become more favorable over time within wind lease areas (increasing trend in probability of occupancy). Table \ref{tab:wind-habitat-table} lists the top 5 species in each season most likely to occupy the wind lease areas in the northern, central, and southern portions of the MAB, along with observed trends in probability of occupancy.
-
-```{r wind-habitat-table, eval = T, echo = F, fig.cap='', out.width='80%'}
-wind1 <- ecodata::wind_occupancy
-
-wind1$trend<- ifelse(wind1$Trend == "pos", 
-                    "$\\nearrow$",
-                    ifelse(wind1$Trend == "neg",
-                    "$\\searrow$", 
-                    " ")) 
 
 
-wind2<-wind1 %>% dplyr::select(Area, Season, Species, trend)
-names<-c("Area", "Season", "Species", "trend")
-bnew<-c("Area.1", "Season.1", "Species.1", "trend.1")
-cnew<-c("Area.2", "Season.2", "Species.2", "trend.2")
-dnew<-c("Area.3", "Season.3", "Species.3", "trend.3")
-enew<-c("Area.4", "Season.4", "Species.4", "trend.4")
+## Decreased Risk: 5
+The **Allocation** risk ranking for *Illex* squid decreased from high to low. The Council took final action on the *Illex* permitting amendment in 2020 and no additional allocation related actions are under consideration. 
 
-a<-wind2 %>% filter(Area == "Existing-North") 
-b<-wind2 %>% filter(Area == "Proposed-North") %>% 
-  dplyr::rename_at(vars(names), ~ bnew)
-c<-wind2 %>% filter(Area == "Existing-Mid")%>% 
-  dplyr::rename_at(vars(names), ~ cnew)
-d<-wind2 %>% filter(Area == "Proposed-Mid")%>% 
-  dplyr::rename_at(vars(names), ~ dnew)
-e<-wind2 %>% filter(Area == "Existing-South")%>% 
-  dplyr::rename_at(vars(names), ~ enew)
+The **Regulatory Complexity** risk ranking for recreational black sea bass decreased from high to moderate-high. Changes to recreational management measures have become less frequent and more stable since 2018. 
 
-all<- a %>% cbind(b,c,d,e) %>% 
-  dplyr::select(2:4,7:8,11:12,15:16,19:20) #%>% 
-  # rename(Trend = trend, 
-  #        Species = Species.1, 
-  #        Trend = trend.1, 
-  #        Species = Species.2, 
-  #        Trend = trend.2, 
-  #        Species = Species.3, 
-  #        Trend = trend.3, 
-  #        Species = Species.4, 
-  #        Trend = trend.4 )
-  
-kable(all, escape = FALSE,
-      col.names = c("Season", "Species", "Trend", "Species", "Trend", "Species","Trend", "Species","Trend", "Species", "Trend"),
-      caption = "Species with highest probability of occupancy species each season and area, with observed trends",
-      #align = 'c',
-      booktabs = T) %>%
-    add_header_above(c(" " = 1, "Existing - North" = 2, "Proposed - North" = 2, 
-                     "Existing - Mid" = 2, "Proposed - Mid" = 2, 
-                     "Existing - South" = 2)) %>%
-  kable_styling(latex_options = c("hold_position", "scale_down")) 
+The **Allocation** risk rankings for longfin squid, commercial spiny dogfish, and recreational Atlantic mackerel decreased from high to low. This change corrects an error for these rankings in the 2020 risk assessment table. As per the Council risk criteria, allocation is either scored as low (no recent or ongoing Council discussion) or high (recent or ongoing Council discussion); however, the 2020 risk assessment ranked the allocation indicator for these species as either low-medium or medium-high. After reviewing the justification and rationale for allocation ranking, it was determined the low ranking was most appropriate.
 
+## Increased Risk: 0
+No indicators for the management risk elements changed enough to warrant increased risk rankings according to the Council risk criteria.
+
+## Potential new indicators
+
+### Other ocean uses: Offshore wind development metrics 
+More than 20 offshore wind development projects are proposed for construction over the next decade in the Northeast (projects & construction timelines based on Table E-4 of South Fork Wind Farm Draft Environmental Impact Statement). Offshore wind areas may cover more than 1.7 million acres by 2030 (Fig. \ref{fig:wind-dev-cumul}). Just over 1,900 foundations and more than 3,000 miles of inter-array and offshore export cables are proposed to date. Each proposed project has a two-year construction timeline [@boem_bureau_2021]. Based on current timelines, the areas affected would be spread out such that it is unlikely that any one particular area would experience full development at one time.  
+```{r wind-dev-cumul, fig.cap = "All Northeast Project areas by year construction ends (each project has 2 year construction period). Data for cumulative project areas, number of foundations, offshore cable area (acres) and offshore cable and interarray cable (mile) are displayed in the graph.", out.width='90%'}
+#knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/All_2021128_needsgraph-01.jpg")
+knitr::include_graphics("images/All_2021128_needsgraph-01.jpg")
 ```
 
+### Other ocean uses: Commercial fishey revenue in lease areas 
+Based on vessel logbook data, average commercial fishery revenue from trips in the proposed offshore wind lease areas and the New York Bight Call Areas represented 2-24\% of the total average revenue for each MAFMC managed fishery from 2008-2018 (Fig. \ref{fig:wind-revenue}). 
 
-```{r wind-hab, eval = T, echo = F, fig.cap="Map of BOEM existing (black) and proposed (red) lease areas as of February 2019.", message=FALSE, results=FALSE}
-library(rnaturalearthhires)
-library(sf)
-library(raster)
-library(ggspatial)
-library(marmap)
+The surfclam/ocean quahog fishery was the most affected fishery, with a maximum of 31\% of annual fishery revenue occurring within potential wind lease areas during this period. The  golden and blueline tilefish fisheries and spiny dogfish fishery were the least affected, at 3-4% maximum annual revenue affected, respectively. A maximum of 11\% of the annual monkfish revenues were affected by these areas, with similar effects for the bluefish (10\%), summer flounder/scup/black sea bass (9\%), and mackerel/squid/butterfish (8\%) fisheries. The New York Bight Call Areas represented only 1-5\% of total average fishery revenue from any fishery during 2008-2018, with the surfclam/ocean quahog fishery most affected.
 
-crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
-#gis.dir <- here::here("data-raw/gis")
-nesbath <- fortify.bathy(getNOAA.bathy(lon1 = -77, lon2 = -65, lat1 = 35, lat2 = 45,
-              resolution = 5))
+```{r wind-revenue, fig.cap="Wind energy revenue in the Mid-Atlantic", code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wind-revenue.R"), fig.width=5, fig.asp=.4}
+```
 
-lease_s<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesSPoly.shp'))
-lease_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesNPoly.shp'))
-lease_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesMPoly.shp'))
-prop_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_NPoly.shp'))
-prop_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_MPoly.shp'))
+### Other ocean uses: Wind lease area overlap with scientific surveys  
+Proposed wind energy project areas and NY Bight Call Areas interact with the region’s federal scientific surveys (Fig. \ref{fig:wind-dev-survey}). The total survey area overlap ranges from 1-14\% across ecosystem, shellfish, fish, shark, and protected species surveys. For example, the sea scallop survey will have significant overlap (up to 96\% of individual strata) while the bottom trawl survey  will have  up to 60\% overlap. Additionally, up to 50\% of the southern New England North Atlantic right whale survey’s area overlaps with proposed project areas. 
+```{r wind-dev-survey, fig.cap = "Interaction of Greater Atlantic Fisheries Scientific Surveys and Offshore Wind Development", out.width='80%'}
+#knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/SurveyMap202128_withlines.png")
+knitr::include_graphics("images/SurveyMap2021210_renamed.png")
+```
 
-invisible(st_crs(lease_s)<-crs)
-invisible(st_crs(lease_n)<-crs)
-invisible(st_crs(lease_m)<-crs)
-invisible(st_crs(prop_n)<-crs)
-invisible(st_crs(prop_m)<-crs)
+### Implications of offshore wind indicators
+Current plans for rapid buildout of offshore wind in a patchwork of areas spreads the impacts differentially throughout the region (Fig. \ref{fig:wind-dev-cumul-MAB}).  
+```{r wind-dev-cumul-MAB, fig.cap = "Zoomed in areas with name of Project, number of foundations within each project area and the states that have declared power purchase agreements.", out.width='70%'}
+#knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/MidAtlantic_2021119-01.jpg")
+knitr::include_graphics("images/MidAtlantic_2021128-01 (1).jpg")
+```
 
-ggplot() +
-  geom_raster(data = nesbath, aes(x=x,y=y, fill = z)) +
-  scale_fill_gradientn(colors =c("lightcyan","lightblue4"))+
-  geom_sf(data = coast, size = map.lwd) +
-  geom_sf(data = epu_sf, fill = "transparent", size = map.lwd) +
-  geom_sf(data = lease_s, size = map.lwd, color = "black")+
-  geom_sf(data = lease_n, size = map.lwd, color = "black")+
-  geom_sf(data = lease_m, size = map.lwd, color = "black")+
-  geom_sf(data = prop_n, size = map.lwd, color = "red3")+
-  geom_sf(data = prop_m, size = map.lwd, color = "red3")+
-  coord_sf(crs = crs, xlim = c(-77, -69), ylim = c(36,42))+
-  geom_segment(aes(x = -74.6, y = 37.4, xend =-75.4, yend =38), colour = "blue4")+
-  geom_segment(aes(x = -71.1, y = 40.2, xend =-71.6, yend =41.1), colour = "blue4")+
-  annotate("text", x = -74.9, y = 37, label = "S")+
-  annotate("text", x = -73.5, y = 38.7, label = "M")+
-  annotate("text", x = -70.5, y = 40.2, label = "N")+
-  annotation_scale(location = "br", width_hint = 0.4) +
-  theme_bw( ) +
-  ylab("")+
-  xlab("")+
-  theme(legend.position = "none") +
-  ggtitle("BOEM lease areas")
+2-24% of total average revenue for major Mid-Atlantic commerical species in lease areas could be displaced if all sites are developed. Displaced fishing effort can alter fishing methods, which can in turn change habitat, species (managed and protected), and fleet interactions. 
 
-``` 
+Right whales may be displaced, and altered local oceanography could affect distribution of their zooplankton prey.
 
-We seek Council feedback on whether to include information on probability of occupancy in wind lease areas as an indicators for the EAFM risk assessment, and if so, what specific indicators would be most useful and what risk criteria should be applied to these indicators.
+Scientific data collection surveys for ocean and ecosystem conditions, fish, and protected species will be altered, potentially increasing uncertainty for management decision making. 
+
+We seek Council feedback on whether to include offshore wind development and related indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
 \newpage
+
+# 2021 EAFM Risk Tables
 
 ```{r sptable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
@@ -669,9 +404,9 @@ risk.sppsector<-data.frame(
   MgtControl = c(1,1,3,2,2,1,4,4,2,1,1,1,2,9,1,1,1,2,1,1,1,1,1,9),
   TecInteract = c(1,1,1,3,1,2,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,2,1,9),
   OceanUse = c(2,2,2,2,2,3,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,2,3,3),
-  RegComplex = c(1,1,3,3,3,3,4,3,1,4,4,4,2,1,1,3,3,2,2,1,3,2,1,9),
+  RegComplex = c(1,1,3,3,3,3,3,3,1,4,4,4,2,1,1,3,3,2,2,1,3,2,1,9),
   Discards = c(3,3,4,3,3,3,4,4,1,2,3,4,1,1,1,1,1,3,2,1,2,1,1,9),
-  Allocation = c(1,1,4,4,4,4,4,4,2,4,1,2,4,1,1,4,4,4,4,1,3,1,1,9) 
+  Allocation = c(1,1,4,4,4,4,4,4,1,4,1,1,1,1,1,4,4,4,4,1,1,1,1,9) 
 )
 
 #convert to text for consistency

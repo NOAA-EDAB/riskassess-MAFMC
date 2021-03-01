@@ -1,0 +1,695 @@
+---
+bibliography: riskassess.bib
+csl: plos.csl
+fontsize: 10pt
+geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
+link-citations: yes
+output:
+  pdf_document:
+    includes:
+      in_header: latex/header.tex
+    keep_tex: yes
+  html_document:
+    df_print: paged
+subparagraph: yes
+---
+
+```{r setup, include=FALSE}
+
+# library(tint)
+# # invalidate cache when the package version changes
+# knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tint'))
+# options(htmltools.dir.version = FALSE)
+
+#Default Rmd options
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      dev = "cairo_pdf",
+                      warning = FALSE,
+                      fig.align = 'center') #allows for inserting R code into captions
+
+#Plotting and data libraries
+#remotes::install_github("noaa-edab/ecodata@0.1.0") #change to 2020 ecodata version for release
+library(tidyverse)
+library(tidyr)
+library(ecodata)
+library(here)
+library(kableExtra)
+library(ggrepel)
+library(patchwork)
+library(grid)
+library(ggiraph)
+library(vegan)
+library(rpart)
+library(ks)
+library(cowplot)
+
+#GIS libraries
+library(sf)
+library(rgdal)
+library(raster)
+library(rnaturalearth)
+
+#Data directories
+image.dir <- here("images")
+gis.dir <- here("gis")
+
+#GIS directory
+#gis.dir <- here::here("inst","extdata","gridded")
+
+#General inline text input for report
+#Council
+council <- "Mid-Atlantic Fishery Management Council"
+council_abbr <- "MAFMC"
+
+#Region identifiers
+epu <- "Mid-Atlantic Bight"
+epu_abbr <- "MAB"
+region <- "Mid-Atlantic"
+region_abbr <- "MA" #Some commercial data organized by "MA" or "NE" regions, not by EPU 
+
+#Time series constants
+shade.alpha <- 0.3
+shade.fill <- "lightgrey"
+lwd <- 1
+pcex <- 2
+trend.alpha <- 0.5
+trend.size <- 2
+hline.size <- 1
+hline.alpha <- 0.35
+hline.lty <- "dashed"
+label.size <- 5
+hjust.label <- 1.5
+letter_size <- 4
+feeding.guilds1<- c("Piscivore","Planktivore","Benthivore","Benthos")
+feeding.guilds <- c("Apex Predator","Piscivore","Planktivore","Benthivore","Benthos")
+x.shade.min <- 2009
+x.shade.max <- 2019
+#Function for custom ggplot facet labels
+label <- function(variable,value){
+  return(facet_names[value])
+}
+```
+
+```{r GIS-setup}
+
+#CRS
+crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
+
+#Coastline shapefile
+coast <- ne_countries(scale = 10,
+                          continent = "North America",
+                          returnclass = "sf") %>%
+             sf::st_transform(crs = crs)
+
+#State polygons
+ne_states <- ne_states(country = "united states of america",
+                                      returnclass = "sf") %>%
+  sf::st_transform(crs = crs)
+
+#high-res polygon of Maine
+#new_england <- read_sf(gis.dir,"new_england")
+
+#EPU shapefile
+epu_sf <- ecodata::epu_sf %>% 
+  filter(EPU %in% c("MAB","GB","GOM"))
+
+#Map line parameters
+map.lwd <- 0.4
+
+# Set lat/lon window for maps
+xmin = -77
+xmax = -65
+ymin = 36
+ymax = 45
+xlims <- c(xmin, xmax)
+ylims <- c(ymin, ymax)
+
+
+```
+
+# Introduction
+The Council approved an EAFM Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management^[http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf], and revised the document in February 2019^[http://www.mafmc.org/s/EAFM-Doc-Revised-2019-02-08.pdf]. The Council’s stated goal for EAFM is "to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function." Ecologically sustainable utilization is further defined as "utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem." Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@holsman_ecosystem-based_2017]. The risk elements included in the Council's initial assessment spanned biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).
+
+This document updates the Mid-Atlantic Council’s initial EAFM risk assessment with indicators from the 2021 State of the Ecosystem report and with new analyses by Council Staff for the Management elements. The risk assessment was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. 
+
+Many risk rankings are unchanged based on the updated indicators for 2021 and the Council's risk criteria. Below, we highlight only the elements where updated information has changed the perception of risk. In addition, we present new indicators based on Council feedback on the original risk analysis that the Council may wish to include in future updates to the EAFM risk assessment.
+
+\newpage
+```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+#tab.cap="Risk Elements, Definitions, and Indicators Used\\label{riskel}",
+
+elem <-read.table("riskelements.txt", sep="|", header=F, strip.white = T, stringsAsFactors = F)
+elem <- elem[,2:4]
+names(elem) <- c("Element", "Definition", "Indicator")
+
+# elem$Element <- factor(all$Element, levels=c("Assessment performance", "F status", "B status", "Food web  (Council Predator)", "Food web  (Council Prey)", "Food web  (Protected Species Prey)",
+#                                             "Ecosystem productivity", "Climate", "Distribution shifts", "Estuarine habitat", "Offshore habitat", "Commercial Revenue",
+#                                             "Recreational Angler Days/Trips", "Commercial Fishery Resilience (Revenue Diversity)", "Commercial Fishery Resilience (Shoreside Support)",
+#                                             "Fleet Resilience", "Social-Cultural", "Commercial", "Recreational", "Control", "Interactions", "Other ocean uses", "Regulatory complexity", 
+#                                             "Discards", "Allocation"))
+
+kable(elem, format = "latex", booktabs = T, longtable=T, caption="Risk Elements, Definitions, and Indicators Used\\label{riskel}") %>%
+  kable_styling(font_size=8, latex_options=c("repeat_header")) %>%
+  column_spec(1, width="2.5cm") %>%
+  column_spec(2:3, width="7cm") %>%
+  group_rows("Ecological",1,11) %>%
+  group_rows("Economic",12,15) %>%
+  group_rows("Social",16,17) %>%
+  group_rows("Food Production",18,19) %>%
+  group_rows("Management",20,25)
+  #landscape()
+
+
+```
+ 
+
+\newpage
+\pagestyle{plain}
+```{r allcriteria,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+#tab.cap="Risk Ranking Criteria used for each Risk Element\\label{allcriteria}",
+
+all<-read.table("riskrankingcriteria.txt", sep="|", header=T, strip.white = T, stringsAsFactors = F)
+names(all) <- c("Element", "Ranking", "Criteria")
+all$Ranking <- factor(all$Ranking, levels=c("Low", "Low-Moderate",  "Moderate-High", "High"))
+all$Element <- factor(all$Element, levels=c("Assessment performance", "F status", "B status", "Food web  (MAFMC Predator)", "Food web  (MAFMC Prey)", "Food web  (Protected Species Prey)",
+                                            "Ecosystem productivity", "Climate", "Distribution shifts", "Estuarine habitat", "Offshore habitat", "Commercial Revenue",
+                                            "Recreational Angler Days/Trips", "Commercial Fishery Resilience (Revenue Diversity)", "Commercial Fishery Resilience (Shoreside Support)",
+                                            "Fleet Resilience", "Social-Cultural", "Commercial", "Recreational", "Control", "Interactions", "Other ocean uses", "Regulatory complexity", 
+                                            "Discards", "Allocation"))
+
+allwide <- all %>% 
+  spread(Ranking, Criteria)
+
+kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Ranking Criteria used for each Risk Element\\label{allcriteria}") %>%
+  kable_styling(font_size=8, latex_options=c("repeat_header")) %>%
+  column_spec(1, width="2cm") %>%
+  column_spec(2:5, width="5cm") %>%
+  landscape()
+
+
+```
+\clearpage
+\pagestyle{fancy}
+
+# Changes from 2020
+
+## Ecological risk elements
+
+### Decreased Risk: 0
+No indicators for existing ecological elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
+
+### Increased Risk: 1
+Butterfish biomass (B) status has changed from low risk (B > Bmsy) to low-moderate risk (Bmsy > B > 0.5Bmsy) based on the new benchmark assessment (Table \ref{sptable}).
+
+### Update on Chesapeake Bay water quality
+Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). In 2019, we reported on improving water quality in Chesapeake Bay, and suggested that the Council could reconsider high risk ratings for estuarine-dependent species if this trend continues. 
+
+However, as reported in the 2020 SOE, the Chesapeake Bay experienced below average salinity in 2019, caused by the highest precipitation levels ever recorded for the watershed throughout 2018 and 2019. 
+
+In 2020, Chesapeake Bay experienced a warmer than average winter, followed by a cooler than average spring, with potential impacts to striped bass and blue crabs as noted in the 2021 SOE. Observations from the NOAA CBIBS buoys indicated higher-than-average salinity throughout 2020, particularly in the upper Chesapeake Bay ([Gooses Reef](https://buoybay.noaa.gov/locations/gooses-reef)), suggesting that the region experienced less precipitation than usual. 
+
+A dissolved oxygen model operated by the Virginia Institute of Marine Science (VIMS) and Anchor QEA (www.vims.edu/hypoxia) estimated that the overall severity and duration of hypoxia in the Chesapeake Bay was lower and shorter in 2020 compared to most recent years. A smaller-than-average spring freshet, which resulted in above-average salinity in the Bay, also might have decreased surface runoff and nutrient concentrations. Reduced nutrient inputs and cool spring temperatures likely contributed to reduced hypoxia in 2020. Information on submerged aquatic vegetation (SAV) collected in 2020 has not yet been processed, but may be included in upcoming SOE reports.
+
+It is unclear how these annual updates in Chesapeake Bay temperature, salinity, dissolved oxygen, and SAV will affect the overall water quality indicator (which was not updated for the 2020 or 2021 report because it requires multiple years to update). The new information below suggests that high risk for estuarine-dependent species is still warranted. However, direct links between estuarine habitat conditions and population attributes for managed species (as reported for Chesapeake Bay striped bass and blue crabs) could be more directly incorporated into future risk assessments as the science continues to develop.
+
+### Potential new indicators
+
+### Habitat Climate Vulnerability
+
+A climate vulnerability assessment for habitat types in the Northeast US Large Marine Ecosystem was completed in 2020. The climate vulnerability rankings for the more vulnerable habitats were linked to different life stages of managed species, including black sea bass, scup, and summer flounder to several highly vulnerable nearshore habitats from salt marsh through shallow estuarine and marine reefs. Details on highly vulnerable habitats with linkages to a variety of species, including which life stages have different levels of dependence on a particular habitat, are available in a detailed table.^[https://noaa-edab.github.io/ecodata/Hab_table]
+
+Species highlighted here are those that are highly dependent on highly vulnerable habitats. A ranking matrix was created using the habitat vulnerability rankings compared to the habitat importance rankings to determine the criteria, and for the purposes of this submission, “high dependence on a highly vulnerable habitat” encompasses moderate use of very highly vulnerable habitats, high use of highly or very highly vulnerable habitats, or very high use of moderately, highly, or very highly vulnerable habitats.
+
+
+
+## Economic, Social, and Food production risk elements
+
+### Decreased Risk: 0
+No indicators for existing economic, social, and food production elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
+
+### Increased Risk: 0
+No indicators for existing economic, social, and food production elements have changed enough to warrant increased risk rankings according to the Council risk critiera.
+
+### Update on recreational seafood production
+Although the risk ranking for recreational seafood production remains at moderate-high based on the continued long term downward trend in this indicator, the most recent data is notable. 2018 recreational seafood landings were the lowest observed since 1982, with a 47% drop year over year (Fig. \ref{fig:rec-landings}). This drop involved multiple species, including black sea bass, scup, spot, and bluefish, among others and though accompanied by lower recreational effort in 2018, is not fully explained by changes in effort alone. The survey methodology behind these numbers was updated in 2018, and additional years worth of data is needed to understand whether these declines are driven by changes in the precision or other statistical properties of the data.
+
+```{r rec-landings, fig.cap = paste0("Total recreational seafood harvest in the ",region," region."), fig.width = 4, fig.asp = 0.45}
+
+landings_rec <- ecodata::recdat %>% 
+  filter(EPU == region_abbr,
+         Var == "Recreational Seafood") %>% 
+  mutate(hline = mean(Value))
+
+series.col <- "black"
+
+ggplot(data = landings_rec)+
+  
+  #Highlight last ten years
+  annotate("rect", fill = shade.fill, alpha = shade.alpha,
+      xmin = x.shade.min , xmax = x.shade.max,
+      ymin = -Inf, ymax = Inf) +
+  geom_gls(aes(x = Time, y = Value,
+               group = Var),
+             alpha = trend.alpha, size = trend.size) +
+  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
+  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
+
+  scale_y_continuous(labels = function(l){trans = l / 1000000})+
+  scale_x_continuous(breaks = seq(1985, 2015, by = 5), expand = c(0.01, 0.01)) +
+  scale_color_manual(values = series.col, aesthetics = "color")+
+  guides(color = FALSE) +
+  ggtitle("Recreational seafood harvest") +
+  ylab(expression("Fish caught (10"^6*"n)")) +
+
+  geom_hline(aes(yintercept = hline,
+               
+               color = Var),
+           size = hline.size,
+           alpha = hline.alpha,
+           linetype = hline.lty) +
+  theme_ts()
+
+```
+
+### Potential new indicators
+
+### Social-Cultural: Commerical Fishery Engagement
+Commerical fishery engagement measures the number of permits, dealers, and landings in a community^[https://www.fisheries.noaa.gov/national/socioeconomics/social-indicator-definitions#fishing-engagement-and-reliance-indices]. The trend in the number of Mid-Atlantic fishing communities that were highly engaged (red bar) in commercial fishing has shown a decrease since 2004 (Fig. \ref{fig:MAB-comm-engagement-trend}). Some of the communities that were highly engaged have moved into the moderate (blue bar) or medium-high (green bar) category, and thus the number of moderately to medium-highly engaged communities have increased. Significant changes in engagement scores have also been observed in medium-highly engaged communities. The average engagement score has decreased since 2004. These changes may be driven by the decline in value landed by primary species such as sea scallops in this group of communities. 
+
+```{r MAB-comm-engagement-trend, fig.width = 8, fig.asp = 0.4, fig.cap = "Commercial engagement scores (total pounds landed, value landed, commercial permits, and commercial dealers in a community) for Mid-Atlantic fishing communities, 2004-2018."}
+
+eng<-ecodata::engagement %>% 
+  filter(!Var == "med.high.scores")
+eng$Var <- factor(eng$Var, levels = c("%High","%Medium High","%Moderate", "%Low"))
+
+engbar <- eng %>% filter(EPU == "MA") %>% 
+  ggplot()+
+   #ylim(0.8, NA)+
+  geom_bar(aes(x = Time, y = Value, 
+               fill = Var), 
+           stat = "identity")+
+  #scale_y_continuous(labels = Value(suffix = "%", prefix = "")) +
+  #geom_text(aes(x = Time, y = Value,
+  #             label = paste0(Value,"%")), size=4) +
+  theme(#legend.position="bottom", legend.direction="horizontal",
+        legend.title = element_blank())+
+  coord_cartesian(ylim=c(0.85,1))+
+  xlab("Time") +
+  ylab("% Communities in each category (Low to High)")+
+  ggtitle("Commercial Engagement")+
+  theme_ts()
+
+
+mhtrend <- ecodata::engagement %>% 
+  filter(Var == "med.high.scores", 
+         EPU == "MA") %>% 
+  mutate(hline = mean(Value)) %>% 
+  ggplot()+
+  annotate("rect", fill = shade.fill, alpha = shade.alpha,
+      xmin = x.shade.min , xmax = x.shade.max,
+      ymin = -Inf, ymax = Inf) +
+  geom_line(aes(x = Time, y = Value), size = lwd) +
+  geom_point(aes(x = Time, y = Value), size = pcex) +
+  scale_x_continuous(expand = c(0.01, 0.01)) +
+  expand_limits(y=0) +
+  ggtitle("Medium-High communities ") +
+  ylab(expression("Average score for Med High communities")) +
+  geom_hline(aes(yintercept = hline),
+           size = hline.size,
+           alpha = hline.alpha,
+           linetype = hline.lty) +
+ theme_ts()
+  
+cowplot::plot_grid(engbar, 
+                   mhtrend,
+                   ncol = 2, 
+                   align = "h", 
+                   rel_widths = c(1, 0.7)) +
+    theme(plot.margin = unit(c(0.1, 0, 0, 0), "cm"))
+
+```
+
+### Recreational Diversity
+Indicators for the diversity of recreational effort (i.e. access to recreational opportunities) by mode (party/charter boats, private boats, shore-based), and diversity of catch (NEFMC, MAFMC, SAFMC, and ASMFC managed species) show different trends. The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 7% currently), with a shift towards shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series. The long-term decrease in species catch diversity in the Mid-Atlantic states reported last year resulted from aggregation of SAFMC and ASMFC managed species into a single group. With SAFMC and ASMFC species considered individually, there is no long term trend in recreational catch diversity. This implies that recent increases in catch of SAFMC and/or ASMFC managed species is helping to maintain diversity in the same range that MAFMC and NEFMC species supported in the 1990s (Fig. \ref{fig:rec-div}).
+
+```{r rec-div, fig.width = 4, fig.asp = 0.8, fig.cap = paste0("Recreational effort diversity and diversity of recreational catch in the ",region,".")}
+recdat <- ecodata::recdat %>% 
+  filter(EPU == region_abbr) %>% 
+  group_by(Var) %>% 
+  mutate(hline = mean(Value))
+
+series.col <- "black"
+
+ylim_re <- c(2e7, 7e7)
+ylim_rd <- c(1.75,2.75)
+ylim_ra  <- c(1e6, 3.5e6)
+
+rec_div <- recdat %>% 
+  filter(Var == "Recreational fleet effort diversity across modes") %>% 
+  ggplot() + 
+ #Highlight last ten years
+  annotate("rect", fill = shade.fill, alpha = shade.alpha,
+      xmin = x.shade.min , xmax = x.shade.max,
+      ymin = -Inf, ymax = Inf) +
+  # annotate("text", 
+  #          x = label_loc[label_loc$Var == "Recreational fleet effort diversity across modes",]$xloc,
+  #          y = label_loc[label_loc$Var == "Recreational fleet effort diversity across modes",]$yloc,
+  #          label = label_loc[label_loc$Var == "Recreational fleet effort diversity across modes",]$labels,
+  #          size = letter_size)+
+  geom_gls(aes(x = Time, y = Value,
+               group = Var),
+             alpha = trend.alpha, size = trend.size) +
+  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
+  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
+  ylim(ylim_rd)+
+  scale_x_continuous(expand = c(0.01, 0.01)) +
+  scale_color_manual(values = series.col, aesthetics = "color")+
+  guides(color = FALSE) +
+  ggtitle("Rec. fleet effort diversity")+
+  ylab(expression("Effective Shannon")) +
+  xlab("")+
+  geom_hline(aes(yintercept = hline,
+               color = Var),
+           size = hline.size,
+           alpha = hline.alpha,
+           linetype = hline.lty) +
+  theme_ts()
+
+rec_div_catch <- recdat %>% 
+  filter(Var == "Recreational Diversity of Catch") %>% 
+  ggplot() + 
+ #Highlight last ten years
+  annotate("rect", fill = shade.fill, alpha = shade.alpha,
+      xmin = x.shade.min , xmax = x.shade.max,
+      ymin = -Inf, ymax = Inf) +
+    # annotate("text", 
+    #        x = label_loc[label_loc$Var == "Recreational anglers",]$xloc,
+    #        y = label_loc[label_loc$Var == "Recreational anglers",]$yloc,
+    #        label = label_loc[label_loc$Var == "Recreational anglers",]$labels,
+    #        size = letter_size)+
+  geom_gls(aes(x = Time, y = Value,
+               group = Var),
+             alpha = trend.alpha, size = trend.size) +
+  geom_line(aes(x = Time, y = Value, color = Var), size = lwd) +
+  geom_point(aes(x = Time, y = Value, color = Var), size = pcex) +
+
+  scale_x_continuous(expand = c(0.01, 0.01)) +
+  scale_color_manual(values = series.col, aesthetics = "color")+
+  guides(color = FALSE) +
+  ggtitle("Rec. diversity of catch")+
+  ylab(expression("Effective Shannon")) +
+  xlab("Time")+
+  geom_hline(aes(yintercept = hline,
+               color = Var),
+           size = hline.size,
+           alpha = hline.alpha,
+           linetype = hline.lty) +
+  theme_ts()
+
+
+cowplot::plot_grid(rec_div, 
+                   rec_div_catch,
+                   ncol = 1, 
+                   align = "hv") +
+    theme(plot.margin = unit(c(0.1, 0, 0, 0), "cm"))
+```
+
+We seek Council feedback on whether to include commericial engagement and recreational diversity as an indicators for the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
+
+## Management risk elements 
+Management risk elements have not been updated since the original risk assessment was conducted in 2017. Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. The updated management risk element rankings were conducted by the Council staff lead for a particular species  (Table \ref{spsectable}). 
+
+### New rankings for chub mackerel and unmanaged forage
+
+In 2019, the Council approved adding chub mackerel to the Atlantic Mackerel, Squid, and Butterfish Fishery Management Plan; therefore, an evaluation of chub mackerel management risk has been included for the first time. The rankings for chub mackerel can be found in Table \ref{spsectable} and the justification for each ranking is provided below:
+
+  *  **Management Control:** first annual landings limit implemented September 2017 and has not been exceeded. Proposed ABC expected to be implemented in 2020 and would represent a liberalization compared to measures implemented in 2017. 
+  *  **Technical Interactions:** some marine mammal interactions. 
+  *  **Other Ocean Use:** potential loss of access, particularly for mobile gear, due to offshore energy development (wind, gas, oil) in some fishing areas but most fishing far offshore. 
+  *  **Regulatory Stability:** simpler regulations than some other species (e.g., commercial possession limit only after ACL is close to being exceeded, no minimum fish size limit, no gear restrictions, no recreational management measures except for permit requirement). Management measures first implemented in 2017, will be revised in 2020. 
+  *  **Discards:** the first ABC and ACL are expected to be implemented in 2020 and are not expected to be exceeded based on recent trends in the fisheries. Discards generally make up 6% or less of total catch. 
+  * **Allocation:** the stock is not allocated and there are currently no allocation concerns.
+  
+When the first risk assessment was completed in 2017, regulations pertaining to unmanaged forage were just implemented and therefore no rankings were provided for the various management risk elements. Rankings for unmanaged forage species are included for the first time (Table \ref{spsectable}) and the justification for each ranking is provided below:
+
+  *  **Management Control:** no stock assessments or ABCs. Only restriction on catch is a possession limit which was first implemented in Sept 2017. Dealer data for 2018-2019 show no trips exceeding that possession limit.
+  *  **Technical Interactions:** forage ecosystem component (EC) species are not managed with OY and they largely do not have notable directed fisheries; therefore, although interactions with other fishery regulations are possible, these interactions likely have minimal impacts. 
+  *  **Other Ocean Use:** potential loss or degradation of habitat due to a variety of other uses, especially in nearshore areas used by many forage species. 
+  *  **Regulatory Stability:** only regulations are permit and reporting requirement, possession limit, and transit provisions. First implemented in September 2017 and have remained unchanged. 
+  *  **Discards:** forage EC species are not managed with ACLs; therefore, discards do not cause closures or trigger AMs. Targeting of these forage species is small-scale.
+  *  **Allocation**: stocks are not allocated and there are currently no allocation concerns.
+
+### Decreased Risk: 5
+Summer flounder recreational regulatory complexity risk dropped slightly moving from high to medium-high risk. Frequent changes in size, season and possession limits, significant differences between some states remain, but regulatory stability and year to year consistency has improved somewhat since 2014.
+
+Technical interaction risk within the commercial scup fishery decreased from medium-high to low-medium. No accountability measures (AMs) have been triggered due to other fisheries and the commercial scup fishery is considered a category II fishery. 
+
+The recreational Atlantic mackerel allocation risk decreased from high to low. There have been no recent Council discussions regarding potential changes to the recreational Atlantic mackerel allocation and the Council recently changed to a simple deduction of expected recreational catch instead of a set recreational allocation.
+
+The longfin squid allocation risk deceased from high to low. There were some allocation discussions during the development and completion of Amendment 20 in 2018, but the Council is currently not considering any allocation changes.
+
+The commercial spiny dogfish allocation risk dropped from high to low. There are no current discussions to modify the commercial allocation and the ASMFC recently completed an action that has added flexibility to transfer regional quotas and match annual variability and reduced the need for allocation changes. 
+
+### Increased Risk: 14
+Discards in the ocean quahog and surfclam fisheries moved from low risk to medium-high risk. While the ocean quahog and surfclam fisheries are allocated minimal coverage under SBRM as a result of discards comprising a low percent of total catch, the comingling of surfclams and quahogs (trips can not be mixed) has resulted in increased discarding of one species is occurring frequently enough to be raised as a concern. 
+
+Commercial summer flounder discard risk increased from medium-high to high. Dead discards as a percentage of commercial catch have increased slightly in recent years due to lower quotas and caused ACLs to be exceeded in some years. Discards can be difficult to control given various reasons for discarding, and some uncertainty and variability in discard estimates remain. 
+
+The risk to recreational scup management control increased slightly from low to low-moderate. Recreational scup ACL and RHL underages each year since 2011; however, in 2017 the ACL was exceeded by 1% due to recreational discards.
+
+Recreational and commercial scup allocation risk element changed from low to high. In 2019, the Council and ASMFC initiated an amendment to consider changes to the current 78% commercial/22% recreational split of the total allowable catch. 
+
+Risks from other ocean uses to the commercial scup fishery increased from low-medium to medium-high due to the potential for habitat impacts and the loss of access from offshore energy development.
+
+Recreational black sea bass discard risk increased from medium-high to high. There is a high recreational discard rate and ACL overages have occurred for at least the past 4 years due to higher discards than assumed during specifications setting process (considering pre-calibration MRIP estimates).
+
+The risk to commercial black sea bass management control rose appreciably from low-medium to high. Commercial landings are generally very close to quota, but the ACL has been exceeded every year from 2015 to 2018 (likely during earlier years as well) due to higher discards than assumed during specifications setting.
+
+These ACL overages due to higher than projected discards resulted in greater risk from commercial black sea bass discards, with the ranking changing from low-medium to high. 
+
+The risk to recreational Atlantic mackerel management control increased slightly from low to low-medium. There have been no ACL overages last 5 years using the appropriate MRIP data and the current recreational measures in place should avoid overages generally.  However, the recreational sector has been exceeding its assumed harvest, but the commercial management uncertainty buffer has accommodated these overages. 
+
+The risk to shortfin squid (*Illex*) management control increased slightly from low to low-medium. There are no ACL’s for this fishery; however, there was a 5% ABC overage in 2018. The current management measures that are in place should generally avoid overages. 
+
+*Illex* allocation risk changed from low to high. The Council is currently considering modifications to the *Illex* permitting system which may have allocation implications amongst participants in the fishery.
+
+The recreational bluefish regulatory complexity risk increased slightly from low to low-medium. Regulations recently changed to ensure the reduced RHL is not exceeded as result of the newly determined overfished status. As the rebuilding plan is implemented, future regulatory changes may also be needed. 
+
+### Potential new indicators
+
+### Other ocean uses: Fish habitat overlap with offshore wind lease areas
+
+Fish habitat modeling based on NEFSC bottom trawl surveys [@friedland_changes_2020] indicates that summer flounder, butterfish, longfin squid, and spiny dogfish are among fish species highly likely to occupy wind energy lease areas (Fig. \ref{fig:wind-hab}). Habitat conditions for many of these species have become more favorable over time within wind lease areas (increasing trend in probability of occupancy). Table \ref{tab:wind-habitat-table} lists the top 5 species in each season most likely to occupy the wind lease areas in the northern, central, and southern portions of the MAB, along with observed trends in probability of occupancy.
+
+```{r wind-habitat-table, eval = T, echo = F, fig.cap='', out.width='80%'}
+wind1 <- ecodata::wind_occupancy
+
+wind1$trend<- ifelse(wind1$Trend == "pos", 
+                    "$\\nearrow$",
+                    ifelse(wind1$Trend == "neg",
+                    "$\\searrow$", 
+                    " ")) 
+
+
+wind2<-wind1 %>% dplyr::select(Area, Season, Species, trend)
+names<-c("Area", "Season", "Species", "trend")
+bnew<-c("Area.1", "Season.1", "Species.1", "trend.1")
+cnew<-c("Area.2", "Season.2", "Species.2", "trend.2")
+dnew<-c("Area.3", "Season.3", "Species.3", "trend.3")
+enew<-c("Area.4", "Season.4", "Species.4", "trend.4")
+
+a<-wind2 %>% filter(Area == "Existing-North") 
+b<-wind2 %>% filter(Area == "Proposed-North") %>% 
+  dplyr::rename_at(vars(names), ~ bnew)
+c<-wind2 %>% filter(Area == "Existing-Mid")%>% 
+  dplyr::rename_at(vars(names), ~ cnew)
+d<-wind2 %>% filter(Area == "Proposed-Mid")%>% 
+  dplyr::rename_at(vars(names), ~ dnew)
+e<-wind2 %>% filter(Area == "Existing-South")%>% 
+  dplyr::rename_at(vars(names), ~ enew)
+
+all<- a %>% cbind(b,c,d,e) %>% 
+  dplyr::select(2:4,7:8,11:12,15:16,19:20) #%>% 
+  # rename(Trend = trend, 
+  #        Species = Species.1, 
+  #        Trend = trend.1, 
+  #        Species = Species.2, 
+  #        Trend = trend.2, 
+  #        Species = Species.3, 
+  #        Trend = trend.3, 
+  #        Species = Species.4, 
+  #        Trend = trend.4 )
+  
+kable(all, escape = FALSE,
+      col.names = c("Season", "Species", "Trend", "Species", "Trend", "Species","Trend", "Species","Trend", "Species", "Trend"),
+      caption = "Species with highest probability of occupancy species each season and area, with observed trends",
+      #align = 'c',
+      booktabs = T) %>%
+    add_header_above(c(" " = 1, "Existing - North" = 2, "Proposed - North" = 2, 
+                     "Existing - Mid" = 2, "Proposed - Mid" = 2, 
+                     "Existing - South" = 2)) %>%
+  kable_styling(latex_options = c("hold_position", "scale_down")) 
+
+```
+
+
+```{r wind-hab, eval = T, echo = F, fig.cap="Map of BOEM existing (black) and proposed (red) lease areas as of February 2019.", message=FALSE, results=FALSE}
+library(rnaturalearthhires)
+library(sf)
+library(raster)
+library(ggspatial)
+library(marmap)
+
+crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
+#gis.dir <- here::here("data-raw/gis")
+nesbath <- fortify.bathy(getNOAA.bathy(lon1 = -77, lon2 = -65, lat1 = 35, lat2 = 45,
+              resolution = 5))
+
+lease_s<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesSPoly.shp'))
+lease_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesNPoly.shp'))
+lease_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesMPoly.shp'))
+prop_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_NPoly.shp'))
+prop_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_MPoly.shp'))
+
+invisible(st_crs(lease_s)<-crs)
+invisible(st_crs(lease_n)<-crs)
+invisible(st_crs(lease_m)<-crs)
+invisible(st_crs(prop_n)<-crs)
+invisible(st_crs(prop_m)<-crs)
+
+ggplot() +
+  geom_raster(data = nesbath, aes(x=x,y=y, fill = z)) +
+  scale_fill_gradientn(colors =c("lightcyan","lightblue4"))+
+  geom_sf(data = coast, size = map.lwd) +
+  geom_sf(data = epu_sf, fill = "transparent", size = map.lwd) +
+  geom_sf(data = lease_s, size = map.lwd, color = "black")+
+  geom_sf(data = lease_n, size = map.lwd, color = "black")+
+  geom_sf(data = lease_m, size = map.lwd, color = "black")+
+  geom_sf(data = prop_n, size = map.lwd, color = "red3")+
+  geom_sf(data = prop_m, size = map.lwd, color = "red3")+
+  coord_sf(crs = crs, xlim = c(-77, -69), ylim = c(36,42))+
+  geom_segment(aes(x = -74.6, y = 37.4, xend =-75.4, yend =38), colour = "blue4")+
+  geom_segment(aes(x = -71.1, y = 40.2, xend =-71.6, yend =41.1), colour = "blue4")+
+  annotate("text", x = -74.9, y = 37, label = "S")+
+  annotate("text", x = -73.5, y = 38.7, label = "M")+
+  annotate("text", x = -70.5, y = 40.2, label = "N")+
+  annotation_scale(location = "br", width_hint = 0.4) +
+  theme_bw( ) +
+  ylab("")+
+  xlab("")+
+  theme(legend.position = "none") +
+  ggtitle("BOEM lease areas")
+
+``` 
+
+We seek Council feedback on whether to include information on probability of occupancy in wind lease areas as an indicators for the EAFM risk assessment, and if so, what specific indicators would be most useful and what risk criteria should be applied to these indicators.
+
+\newpage
+
+```{r sptable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+#tab.cap="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+# spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
+risk.species<-data.frame(
+  Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
+  Assess  = c("l", "l", "l",  "l", "l", "l",  "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
+  Fstatus = c("l", "l", "l", "l", "l", "h", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
+  Bstatus = c("l", "l", "lm", "l", "l", "h", "lm", "lm", "lm", "lm", "mh", "h", "lm", "lm", "na", "na"),
+  FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
+  FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
+  FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
+  Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
+  DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
+  EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l", "na", "na")#,
+#  OffHabitat = c("na", "na", "l", "l", "l", "l", "l", "l", "h", "na", "na", "na", "l", "l", "na", "na")#,
+)
+
+# these elements were removed by the council
+#  PopDiv = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na"),
+#  FoodSafe = c(),
+
+# one column test
+# risk.species %>%
+#   mutate(Fstatus = 
+#     cell_spec(Fstatus, format="latex", color = "black", align = "c", background =factor(Fstatus, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))) %>%
+#   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "")
+
+#generalize to all
+risk.species %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "", 
+        caption="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}") %>%
+  kable_styling(latex_options = "scale_down") #%>%
+  #kable_as_image()
+
+
+```
+
+```{r ecotable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+  
+#tab.cap="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+risk.eco<-data.frame(
+  System = c("Mid-Atlantic"),
+  EcoProd = c("lm"),
+  #EcoDiv = c("lm"),
+  CommRev = c("mh"),
+  RecVal = c("h"),
+  FishRes1 = c("l"),
+  FishRes4 = c("mh"),
+  #CommJobs = c("mh"),
+  #RecJobs = c("l"),
+  FleetDiv = c("l"),
+  Social = c("lm"),
+  ComFood = c("h"),
+  RecFood = c("mh")
+)
+
+#make table
+risk.eco %>%
+  mutate_at(vars(-System), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "",
+        caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{ecotable}") %>%
+  kable_styling(latex_options = "scale_down") #%>%
+  #kable_as_image()
+
+```
+
+```{r spsectable,  echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+#tab.cap="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+risk.sppsector<-data.frame(
+  Species = c("Ocean Quahog-C", "Surfclam-C", "Summer flounder-R", "Summer flounder-C","Scup-R", "Scup-C","Black sea bass-R", "Black sea bass-C","Atl. mackerel-R", "Atl. mackerel-C","Butterfish-C", "Longfin squid-C", "Shortfin squid-C", "Golden tilefish-R", "Golden tilefish-C","Blueline tilefish-R","Blueline tilefish-C", "Bluefish-R", "Bluefish-C","Spiny dogfish-R", "Spiny dogfish-C", "Chub mackerel-C", "Unmanaged forage", "Deepsea corals"),
+  MgtControl = c(1,1,3,2,2,1,4,4,2,1,1,1,2,9,1,1,1,2,1,1,1,1,1,9),
+  TecInteract = c(1,1,1,3,1,2,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,2,1,9),
+  OceanUse = c(2,2,2,2,2,3,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,2,3,3),
+  RegComplex = c(1,1,3,3,3,3,4,3,1,4,4,4,2,1,1,3,3,2,2,1,3,2,1,9),
+  Discards = c(3,3,4,3,3,3,4,4,1,2,3,4,1,1,1,1,1,3,2,1,2,1,1,9),
+  Allocation = c(1,1,4,4,4,4,4,4,2,4,1,2,4,1,1,4,4,4,4,1,3,1,1,9) 
+)
+
+#convert to text for consistency
+risk.sppsector <- risk.sppsector %>%
+     mutate_at(vars(-Species), function(x){
+       recode(x,'1'="l",'2'="lm",'3'="mh",'4'="h",'9'="na")}) %>%
+     as.data.frame()
+
+#make table
+risk.sppsector %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "",
+        caption="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{spsectable}") %>%
+  kable_styling(font_size =  9) #%>%
+  #kable_as_image()
+
+```
+
+
+# References

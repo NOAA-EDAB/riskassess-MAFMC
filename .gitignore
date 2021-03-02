@@ -10,3 +10,5 @@
 *.upa
 *.upb
 *.log
+
+.DS_Store

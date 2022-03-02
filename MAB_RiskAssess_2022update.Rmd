@@ -124,13 +124,17 @@ Chub mackerel was formally added to the Mackerel, Squid, Butterfish (MSB) Fisher
 
 ### Chub mackerel risk rankings and justifications
 
-Chub mackerel Assessment performance ranks high risk because there is no stock assessment. F status and B status are unknown and therefore rank moderate-high risk. Chub mackerel are not predators of MAFMC managed species, and we could not find evidence that chub mackerel are significant prey of MAFMC managed species^[https://fwdp.shinyapps.io/tm2020/] or protected species on the Northeast US shelf [@smith_consumption_2015], so they ranked low risk for all three Food web elements. Chub mackerel were not included in the Northeast US climate vulnerability assessment [@hare_vulnerability_2016], so we leave the Climate and Distribution shifts elements unranked until further study is completed. Chub mackerel do not depend on Estuarine habitat, so rank low risk for this element. 
+Chub mackerel Assessment performance ranks high risk because there is no stock assessment. F status and B status are unknown, but the weight of evidence indicates low risk and therefore rank low-moderate risk. Chub mackerel are not predators of MAFMC managed species, and we could not find evidence that chub mackerel are significant prey of MAFMC managed species^[https://fwdp.shinyapps.io/tm2020/] or protected species on the Northeast US shelf [@smith_consumption_2015], so they ranked low risk for all three Food web elements. Chub mackerel were not included in the Northeast US climate vulnerability assessment [@hare_vulnerability_2016], so we leave the Climate and Distribution shifts elements unranked until further study is completed. Chub mackerel do not depend on Estuarine habitat, so rank low risk for this element. 
 
-## Decreased Risk: 
+## Decreased Risk: 0
 No indicators for existing ecological elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
 
-## Increased Risk: 
-Butterfish biomass (B) status has changed from low risk (B > Bmsy) to low-moderate risk (Bmsy > B > 0.5Bmsy) based on the new benchmark assessment (Table \ref{sptable}).
+## Increased Risk: 0 
+No indicators for existing ecological elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
+
+However, we note that two ecosystem productivity indicators, fish condition and fish productivity, show recent declines, and the zooplankton indicator could not be updated due to COVID-19 related survey disruptions. 
+
+The apparent decline in productivity across multiple managed species in the MAB, along with low fish condition for many species in 2021, also suggest changing ecosystem productivity at multiple levels. During the 1990s and early 2000s high relative abundance of smaller bodied copepods and a lower relative abundance of *Calanus finmarchicus* was associated with regime shifts to lower fish recruitment [@perretti_regime_2017]. The unprecedented climate signals along with the trends toward lower productivity across multiple managed species indicate a need to continually evaluate whether management reference points remain appropriate, and to evaluate if ecosystem regime shifts have occurred or reorganization is in progress. 
 
 ## Update on Chesapeake Bay water quality
 Many important MAFMC managed species use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent (summer flounder, scup, black sea bass, and bluefish), and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). In 2019, we reported on improving water quality in Chesapeake Bay, and suggested that the Council could reconsider high risk ratings for estuarine-dependent species if this trend continues. 
@@ -164,7 +168,7 @@ Surclams were ranked high vulnerability in the Northeast Fish and Shellfish Clim
 
 ### Habitat Climate Vulnerability
 
-A Habitat Climate Vulnerability Assessment (HCVA; @johnson_vulnerability_nodate) for habitat types in the Northeast US Large Marine Ecosystem was completed in 2020. To better understand which species depend on vulnerable habitats, the Atlantic Coastal Fish Habitat Partnership (ACFHP) [habitat-species matrix](https://www.atlanticfishhabitat.org/species-habitat-matrix/) [@kritzer_importance_2016] was used in conjunction with the results of the HCVA and the Northeast Fish and Shellfish Climate Vulnerability Assessment (FCVA) completed in 2016 [@hare_vulnerability_2016]. The ACFHP matrix identified the importance of nearshore benthic habitats to each life stage of select fish species, which helps elucidate species that may be highly dependent on highly vulnerable habitats that were identified in the HCVA.
+A Habitat Climate Vulnerability Assessment (HCVA; @farr_assessment_2021) for habitat types in the Northeast US Large Marine Ecosystem was completed in 2020. To better understand which species depend on vulnerable habitats, the Atlantic Coastal Fish Habitat Partnership (ACFHP) [habitat-species matrix](https://www.atlanticfishhabitat.org/species-habitat-matrix/) [@kritzer_importance_2016] was used in conjunction with the results of the HCVA and the Northeast Fish and Shellfish Climate Vulnerability Assessment (FCVA) completed in 2016 [@hare_vulnerability_2016]. The ACFHP matrix identified the importance of nearshore benthic habitats to each life stage of select fish species, which helps elucidate species that may be highly dependent on highly vulnerable habitats that were identified in the HCVA.
 
 Several MAFMC managed species, including black sea bass, scup, and summer flounder, are dependent on several highly vulnerable nearshore habitats from salt marsh through shallow estuarine and marine reefs. Details on highly vulnerable habitats with linkages to a variety of species, including which life stages have different levels of dependence on a particular habitat, are available in a detailed table.^[https://noaa-edab.github.io/ecodata/Hab_table]
 
@@ -243,46 +247,74 @@ We seek Council feedback on how best to include information on habitat climate v
 # Changes from 2021: Economic, Social, and Food production risk elements
 
 ## Elements not updated: 2
-Commercial landings data at the spatial scale relevant to the MAFMC risk assessment are not yet available for 2020. As a result, we were unable to update the Commercial Revenue and Commercial Food production risk elements for this report. These remain at risk levels assessed in 2021 based on data through the end of 2019.
+Commercial landings data at the spatial scale relevant to the MAFMC risk assessment are not yet available for 2020. As a result, we were unable to update the Commercial Revenue and Commercial Food production risk elements for this report. These remain at risk levels assessed in 2021 based on data through the end of 2019. Given trends in the broader region in commercial landings and revenue for 2020 [@thunberg_northeast_2021], we do not expect the risk rankings for these elements to change when Mid-Atlantic scale data becomes available.
 
-## Decreased Risk: 
-No indicators for existing economic, social, and food production elements have changed enough to warrant decreased risk rankings according to the Council risk critiera.
+## Decreased Risk: 1
+Recreational value has changed from high risk to low-moderate risk based on 2022 indicator updates.
 
-## Increased Risk: 
+Recreational value was ranked high risk in the 2018 risk assessment due to a significant decrease in angler trips over the most recent 10 years of the time series. In 2019, the risk assessment noted that in the updated MRIP angler trip time series, "declines are less pronounced than measured previously. A reduction from the highest risk ranking to a lower risk category may be warranted." 
+
+Updated information has eliminated the recent trend, and contributed to a long term increase in recreational effort (angler trips), with 2020 effort above the long-term average (Fig. \ref{fig:rec-op}).
+```{r rec-op, fig.cap = paste0("Recreational effort in the ",region,"."), code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-effort.R")}
+```
+
+The long term increase in recreational angler trips results in an updated low-moderate risk ranking according to Council criteria.
+
+## Increased Risk: 0
 No indicators for existing economic, social, and food production elements have changed enough to warrant increased risk rankings according to the Council risk critiera.
 
 ## Potential new indicators
 
-### Environmental justice vulnerability in commercial and recreational fishing communities
-Social vulnerability measures social factors that shape a community’s ability to adapt to change and does not consider gentrification pressure (see [detailed definitions](https://www.fisheries.noaa.gov/national/socioeconomics/social-indicator-definitions)). Communities that ranked medium-high or above for one or more of the following indicators: poverty, population composition, personal disruption, or labor force structure, are highlighted in red. 
-
-Commercial fishery engagement measures the number of permits, dealers, and landings in a community, while reliance expresses these numbers based on the level of fishing activity relative to the total population of a community.  
-In 2020, we reported that the number of highly engaged Mid-Atlantic commercial fishing communities had declined over time, and engagement scores had also declined in medium-highly engaged communities. Here we focus on the top ten most engaged, and top ten most reliant commercial fishing communities and their associated  social vulnerability (Fig. \ref{fig:commercial-engagement}).  Barnegat Light and Cape May, NJ, and Reedville, VA are highly engaged and reliant with medium-high to high social vulnerability.   
-```{r commercial-engagement, fig.cap= "Commercial engagement, reliance, and social vulnerability for the top commercial fishing communities in the Mid-Atlantic.", code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-engagement.R"), fig.width = 6.5, fig.asp = 0.75}
-```
-
-Recreational fishery engagement measures shore, private vessel, and for-hire fishing activity while reliance expresses these numbers based on fishing effort relative to the population of a community. Of the nine recreational communities that are most engaged and reliant, Avon, Ocracoke and Hatteras, NC and Barnegat Light and Cape May, NJ scored medium-high or above for social vulnerability (Fig. \ref{fig:recreational-engagement}). 
-
-Both commercial and recreational fishing are important activities in  Montauk, NY; Barnegat Light, Cape May, and Point Pleasant Beach, NJ; and Ocracoke and Rodanthe, NC, meaning some of these communities may be impacted simultaneously by commercial and recreational regulatory changes. Of these communities, three scored medium-high or above for social vulnerability.
-
-```{r recreational-engagement, fig.cap= "Recreational engagement, reliance, and social vulnerability for the top recreational fishing communities in the Mid-Atlantic.", code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recreational-engagement.R"), fig.width = 6.5, fig.asp = 0.75}
-```
-
-These plots provide a snapshot of the relationship between social vulnerability and the most highly engaged and most highly reliant commercial and recreational fishing communities in the Mid-Atlantic. Similar plots are used to inform the annual [California Current Ecosystem Status Report](https://www.pcouncil.org/documents/2020/02/g-1-a-iea-team-report-1.pdf/). These communities may be vulnerable to changes in fishing patterns due to regulations and/or climate change. When any of these communities are also experiencing social vulnerability, they may have lower ability to successfully respond to change. These indicators may also point to communities that are vulnerable to environmental justice issues. Additional analysis related to ecosystem shifts and [National Standard 8 of the Magnuson-Stevens Act](https://www.ecfr.gov/cgi-bin/retrieveECFR?gp=&SID=6b0acea089174af8594db02314f26914&mc=true&r=SECTION&n=se50.12.600_1345) is ongoing. 
-
-
 ### Recreational Fleet Diversity
-Indicators for the diversity of recreational effort (i.e. access to recreational opportunities) by mode (party/charter boats, private boats, shore-based), and diversity of catch (NEFMC, MAFMC, SAFMC, and ASMFC managed species) have been included in the SOE and may be useful to parallel commercial diversity metrics in the EAFM risk assessment. Recreational fleet diversity has declined over the long term (Fig. \ref{fig:rec-div}). 
-```{r rec-div, fig.width=4, fig.asp=.45, fig.cap = paste0("Recreational fleet effort diversity in the ",region,"."), code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")}
+Recreational diversity indices could be considered as additional risk element(s) to complement the existing Commercial fishery resilience (revenue diversity) element. While recreational value measured as angler trips has gone from high risk to low-moderate risk based on updated data, recreational fleet diversity (i.e., effort by shoreside, private boat, and for-hire anglers) has declined over the long term (Fig. \ref{fig:rec-div}). 
+
+```{r rec-div, fig.cap = paste0("Recreational fleet effort diversity in the ",region,"."), code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")}
 
 ```
-The absence of a long-term trend in recreational effort suggests relative stability in the overall number of recreational opportunities in the MAB. However, the decline in recreational fleet diversity suggests a potentially reduced range of opportunities. 
 
-The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 7% currently), and a shift toward shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series.
+Increased angler trips in 2020 relative to previous years strongly influence the long term increase in recreational effort. While the overall number of recreational opportunities in the MAB is above the long term average, the continuing decline in recreational fleet effort diversity suggests a potentially reduced range of recreational fishing options.
 
-Changes in recreational fleet diversity can be considered when managers seek options to maintain recreational opportunities. Shore anglers will have access to different species than vessel-based anglers, and when the same species, typically smaller fish. Many states have developed shore-based regulations where the minimum size is lower than in other areas and sectors to maintain opportunities in the shore angling sector. 
+The downward effort diversity trend is driven by party/charter contraction (from a high of 24% of angler trips to 7% currently), and a shift toward shorebased angling. Effort in private boats remained stable between 36-37% of angler trips across the entire series. 
 
-We seek Council feedback on whether to include fishing community vulnerability and recreational diversity indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
+Changes in recreational fleet diversity can be considered when managers seek options to maintain recreational opportunities. Shore anglers will have access to different species than vessel-based anglers, and when the same species is accessible both from shore and from a vessel, shore anglers typically have access to smaller individuals. Many states have developed shore-based regulations where the minimum size is lower than in other areas and sectors to maintain opportunities in the shore angling sector.
+
+### Environmental justice vulnerability in commercial and recreational fishing communities
+Social vulnerability measures social factors that shape a community’s ability to adapt to change. A subset of these can be used to assess potential environmental justice issues. Environmental Justice is defined in Executive Order 12898 as federal actions intended to address disproportionately high and adverse human health and environmental effects of federal actions on minority and low-income populations. Three of the existing NOAA Fisheries Community Social Vulnerability Indicators (CSVIs), the Poverty Index, Population Composition Index, and Personal Disruption Index, can be used for mandated Environmental Justice analysis^[https://www.fisheries.noaa.gov/national/socioeconomics/social-indicators-coastal-communities]. 
+
+Commercial fishery engagement measures the number of permits and dealers, and pounds and value landed in a community, while reliance expresses these numbers based on the level of fishing activity relative to the total population of a community. Recreational fishery engagement measures shore, private vessel, and for-hire fishing effort while reliance expresses these numbers based on fishing effort relative to the population of a community.
+
+In 2021, we reported the top ten most engaged, and top ten most reliant commercial and recreational fishing communities and their associated social vulnerability. Here we apply the same selection standard for top ten fishing communities for both sectors, and focus on examining the environmental justice vulnerability in these communities.
+
+Communities plotted in the upper right section of Fig.\ref{fig:commercial-engagement} scored high for both commercial engagement and reliance, including Cape May and Barnegat Light, NJ, and Reedville, VA. Communities that ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange: Newport News, VA; Atlantic City, NJ; Hampton Bays/Shinnecock, NY; and Beaufort, Columbia and Hobucken, NC.
+
+```{r commercial-engagement, fig.cap= "Commercial engagement, reliance, and environmental justice vulnerability for the top commercially engaged and reliant fishing communities in the Mid-Atlantic.  Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.", code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-engagement.R"), fig.width = 6.5, fig.asp = 0.75}
+
+#(* Scored high (1.00 and above)) for both commercial engagement and reliance indicators)
+```
+
+Fig. \ref{fig:commercial-EJ} shows the detailed scores of the three environmental justice indicators for the same communities plotted in Fig.\ref{fig:commercial-engagement}. Communities are plotted clockwise in a descending order of commercial engagement scores from high to low, with the most highly engaged community, Cape May, NJ, listed on the top. Among the communities ranked medium-high or above for environmental justice vulnerability, Newport News, VA scored medium-high for the population composition index. Atlantic City, NJ scored high for all of the three environmental justice indicators. Hampton Bays/Shinnecock, NY scored medium-high for the population composition index. Beaufort, NC scored medium-high and very close to high for the poverty index. Columbia, NC scored high for the personal disruption index and the poverty index, and medium-high for the population composition index. Hobucken, NC scored high for the personal disruption index and the poverty index.
+
+```{r commercial-EJ, fig.cap="Environmental justice indicators (Poverty Index, population composition index, and personal disruption index) for top commercial fishing communities in Mid-Atlantic. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.", out.width='70%'}
+knitr::include_graphics("images/EJ_Commercial_MAB.png")
+```
+
+Communities plotted in the upper right section of Fig.\ref{fig:recreational-engagement} scored high for both recreational engagement and reliance, including Barnegat Light, NJ and Deal Island, MD. Communities that ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange: Hatteras and Morehead City, NC.
+
+```{r recreational-engagement, fig.cap= "Recreational engagement and reliance, and environmental justice vulnerability, for the top recreationally engaged and reliant fishing communities in the Mid-Atlantic. Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.", code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recreational-engagement.R"), fig.width = 6.5, fig.asp = 0.75}
+
+#(* Scored high (1.00 and above) for both recreational engagement and reliance indicators; 
+```
+
+Fig. \ref{fig:recreational-EJ} orders communities clockwise in a descending order of recreational engagement scores from high to low, with the most highly engaged community, Babylon, NY, listed on the top. The two communities with environmental justice concerns, Hatteras and Morehead City, NC, both scored medium-high for the poverty index. 
+
+```{r recreational-EJ, fig.cap="Environmental justice indicators (Poverty Index, population composition index, and personal disruption index) for top recreational fishing communities in Mid-Atlantic. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.", out.width='70%'}
+knitr::include_graphics("images/EJ_Recreational_MAB.png")
+```
+
+
+Both commercial and recreational fishing are important activities in Montauk, NY, Barnegat Light, Cape May and Point Pleasant Beach, NJ, meaning these communities may be impacted simultaneously by commercial and recreational regulatory changes. All of these communities scored lower than medium-high for all of the three environmental justice indicators, indicating that environmental justice may not be a major concern in these communities at the moment based on the indicators analyzed.
+
+We seek Council feedback on whether to include fishing community environmental justice vulnerability and recreational diversity indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
 # Changes from 2021: Management risk elements 
 Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. In general, the management indicators evaluate a particular risk over several years; therefore, the rankings should remain fairly consistent on an annual basis unless something changed in the fishery or if a management action occurred. A comprehensive evaluation and update of all management risk elements was conducted by Council staff in 2020. In 2021, Council staff reviewed the 2020 rankings and associated justifications to determine if any significant fishery or management changes would result in a change in a risk element ranking. The updated management risk element rankings can be found in Table \ref{spsectable} and the justification for any ranking change can be found below.
@@ -314,39 +346,13 @@ No indicators for the management risk elements changed enough to warrant increas
 ## Potential new indicators
 
 ### Other ocean uses: Offshore wind development metrics 
-More than 20 offshore wind development projects are proposed for construction over the next decade in the Northeast (projects & construction timelines based on Table E-4 of South Fork Wind Farm Draft Environmental Impact Statement). Offshore wind areas may cover more than 1.7 million acres by 2030 (Fig. \ref{fig:wind-dev-cumul}). Just over 1,900 foundations and more than 3,000 miles of inter-array and offshore export cables are proposed to date. Each proposed project has a two-year construction timeline [@boem_bureau_2021]. Based on current timelines, the areas affected would be spread out such that it is unlikely that any one particular area would experience full development at one time.  
-```{r wind-dev-cumul, fig.cap = "All Northeast Project areas by year construction ends (each project has 2 year construction period). Data for cumulative project areas, number of foundations, offshore cable area (acres) and offshore cable and interarray cable (mile) are displayed in the graph.", out.width='90%'}
-#knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/All_2021128_needsgraph-01.jpg")
-knitr::include_graphics("images/All_2021128_needsgraph-01.jpg")
-```
 
 ### Other ocean uses: Commercial fishey revenue in lease areas 
-Based on vessel logbook data, average commercial fishery revenue from trips in the proposed offshore wind lease areas and the New York Bight Call Areas represented 2-24\% of the total average revenue for each MAFMC managed fishery from 2008-2018 (Fig. \ref{fig:wind-revenue}). 
-
-The surfclam/ocean quahog fishery was the most affected fishery, with a maximum of 31\% of annual fishery revenue occurring within potential wind lease areas during this period. The  golden and blueline tilefish fisheries and spiny dogfish fishery were the least affected, at 3-4% maximum annual revenue affected, respectively. A maximum of 11\% of the annual monkfish revenues were affected by these areas, with similar effects for the bluefish (10\%), summer flounder/scup/black sea bass (9\%), and mackerel/squid/butterfish (8\%) fisheries. The New York Bight Call Areas represented only 1-5\% of total average fishery revenue from any fishery during 2008-2018, with the surfclam/ocean quahog fishery most affected.
-
-```{r wind-revenue, fig.cap="Wind energy revenue in the Mid-Atlantic", code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wind-revenue.R"), fig.width=5, fig.asp=.4}
-```
 
 ### Other ocean uses: Wind lease area overlap with scientific surveys  
-Proposed wind energy project areas and NY Bight Call Areas interact with the region’s federal scientific surveys (Fig. \ref{fig:wind-dev-survey}). The total survey area overlap ranges from 1-14\% across ecosystem, shellfish, fish, shark, and protected species surveys. For example, the sea scallop survey will have significant overlap (up to 96\% of individual strata) while the bottom trawl survey  will have  up to 60\% overlap. Additionally, up to 50\% of the southern New England North Atlantic right whale survey’s area overlaps with proposed project areas. 
-```{r wind-dev-survey, fig.cap = "Interaction of Greater Atlantic Fisheries Scientific Surveys and Offshore Wind Development", out.width='80%'}
-#knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/SurveyMap202128_withlines.png")
-knitr::include_graphics("images/SurveyMap2021210_renamed.png")
-```
 
 ### Implications of offshore wind indicators
-Current plans for rapid buildout of offshore wind in a patchwork of areas spreads the impacts differentially throughout the region (Fig. \ref{fig:wind-dev-cumul-MAB}).  
-```{r wind-dev-cumul-MAB, fig.cap = "Zoomed in areas with name of Project, number of foundations within each project area and the states that have declared power purchase agreements.", out.width='70%'}
-#knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/MidAtlantic_2021119-01.jpg")
-knitr::include_graphics("images/MidAtlantic_2021128-01 (1).jpg")
-```
 
-2-24% of total average revenue for major Mid-Atlantic commerical species in lease areas could be displaced if all sites are developed. Displaced fishing effort can alter fishing methods, which can in turn change habitat, species (managed and protected), and fleet interactions. 
-
-Right whales may be displaced, and altered local oceanography could affect distribution of their zooplankton prey.
-
-Scientific data collection surveys for ocean and ecosystem conditions, fish, and protected species will be altered, potentially increasing uncertainty for management decision making. 
 
 We seek Council feedback on whether to include offshore wind development and related indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
@@ -362,8 +368,8 @@ We seek Council feedback on whether to include offshore wind development and rel
 risk.species<-data.frame(
   Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Chub mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
   Assess  = c("l", "l", "l",  "l", "l", "l", "h", "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
-  Fstatus = c("l", "l", "l", "l", "l", "h", "mh", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
-  Bstatus = c("l", "l", "lm", "l", "l", "h", "mh", "lm", "lm", "lm", "lm", "mh", "h", "lm", "lm", "na", "na"),
+  Fstatus = c("l", "l", "l", "l", "l", "h", "lm", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
+  Bstatus = c("l", "l", "lm", "l", "l", "h", "lm", "lm", "lm", "lm", "lm", "mh", "h", "lm", "lm", "na", "na"),
   FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
   FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
   FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
@@ -404,7 +410,7 @@ risk.eco<-data.frame(
   EcoProd = c("lm"),
   #EcoDiv = c("lm"),
   CommRev = c("mh"),
-  RecVal = c("h"),
+  RecVal = c("lm"),
   FishRes1 = c("l"),
   FishRes4 = c("mh"),
   #CommJobs = c("mh"),

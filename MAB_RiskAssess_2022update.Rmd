@@ -154,15 +154,6 @@ Mid-Atlantic species were all either highly or very highly exposed to climate ri
 
 The 2021 SOE includes multiple climate indicators including surface and bottom water temperature, marine heat waves, cold pool area, and new information on ocean acidification measurements. Combined with species sensitivity information from lab work, these indicators could be used to further clarify climate risks to managed species.
 
-For example, new glider-based observations revealed areas of low pH (7.8) during summer in Mid-Atlantic habitats occupied by Atlantic surfclams and sea scallops (Fig. \ref{fig:mab-oa}) [@wrightfairbanks_autonomous_2020]. This seasonal pH minimum is associated with cold-pool subsurface and bottom water, which is cut off from mixing with surface water by strong stratification. However, seawater pH in shelf waters increased during the fall mixing period due to the influence of a slope water mass characterized by warm, salty, highly alkaline seawater. Lower pH in nearshore waters is likely associated with freshwater input. 
-
-```{r mab-oa, fig.cap = " Seasonal glider-based pH observations on the Mid-Atlantic Bight shelf (New Jersey cross-shelf transect) in relation to Atlantic surfclam and Atlantic sea scallop habitats (modified from Wright-Fairbanks et al. 2020).", out.width='70%'}
-#knitr::include_url("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Seasonal%20pH%20on%20MAB%20shelf%20-%20Grace%20Saba.jpg")
-
-knitr::include_graphics("images/Seasonal pH on MAB shelf - Grace Saba.jpg")
-```
-
-Surclams were ranked high vulnerability in the Northeast Fish and Shellfish Climate Vulnerability Assessment (FCVA) completed in 2016 [@hare_vulnerability_2016], therefore they rank moderate-high risk for the Climate element of the MAFMC EAFM risk assessment. Surfclam climate vulnerability was based on both sensitivity and exposure to ocean acidificaiton, exposure to ocean warming, and low adult mobility.  Recent lab studies have found that surfclams exhibited  metabolic depression in a pH range of 7.46-7.28 [@pousse_energetic_2020]. At pH of 7.51, short term experiments indicated that surfclams were selecting particles differently, which may have long term implications for growth [@pousse_energetic_2020]. Computer models would help in determining the long term implications of growth on surfclam populations. Data from about one year of observations (2018-2019) show that seasonal ocean pH has not yet reached the metabolic depression threshold observed for surfclams in lab studies so far; however, thresholds at different life stages, specifically larval stages that are typically more vulnerable to ocean acidification, have not yet been determined. Monitoring pH in surfclam habitats could be used to assess Climate risk in the future.
 
 ## Potential new indicators
 

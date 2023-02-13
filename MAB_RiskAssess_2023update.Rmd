@@ -122,29 +122,59 @@ kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Rankin
 
 # Changes from 2022: Ecological risk elements
 
-## Decreased Risk: 1
-Based on the December 2022 Research Track assessment, bluefish stock biomass (Bstatus) improved from below $0.5B_{msy}$ (high risk) to above $0.5B_{msy}$ but below $B_{msy}$ (low-moderate risk). 
+## Decreased Risk: 2
+The 2022 spiny dogfish Research Track assessment put forward an analytical stock assessment model which passed peer review. This model is considered an improvement over the empirical method applied in the past, which was ranked low-moderate risk. Therefore, the risk ranking for assessment performance (**Assess**, risk of not achieving OY due to analytical limitations) was decreased to low.
 
-## Increased Risk: 1 
-Based on the December 2022 Research Track assessment, spiny dogfish fishing mortality (Fstatus) was above $F_{msy}$ (high risk). 
+Based on the December 2022 Research Track assessment, bluefish stock biomass (**Bstatus**) improved from below $0.5B_{msy}$ (high risk) to above $0.5B_{msy}$ but below $B_{msy}$ (low-moderate risk). 
+
+## Increased Risk: 2 
+The 2022 *Illex* Research Track assessment was unable to put any analytical method forward to evaluate stock status or trends. Therefore, the risk ranking for assessment performance (**Assess**) was increased fron low-moderate to high. 
+
+Based on the December 2022 Research Track assessment, spiny dogfish fishing mortality (**Fstatus**) was above $F_{msy}$ (high risk). 
 
 ## Update on Estuarine Habitat Quality (Chesapeake Bay)
 Many important MAFMC managed species (e.g., summer flounder, scup, black sea bass, and bluefish) use estuarine habitats as nurseries or are considered estuarine and nearshore coastal-dependent, and interact with other important estuarine-dependent species (e.g., striped bass and menhaden). 
 
-However, as reported in the 2020-2022 SOEs, the Chesapeake Bay experienced below average salinity in 2019, caused by the highest precipitation levels ever recorded for the watershed throughout 2018 and 2019. In 2020, Chesapeake Bay experienced a warmer than average winter, followed by a cooler than average spring, with potential impacts to striped bass and blue crabs as noted in the 2021 SOE. The Chesapeake Bay experienced a warmer-than-average winter and fall in 2021, and average conditions in the spring and summer. Trends in tidal freshwater submerged aquatic vegetation (SAV) have improved over time, while SAV in high salinity habitats declined.
+Relative habitat use of Chesapeake Bay by several finfish species, including Atlantic croaker, spot, summer flounder, weakfish, clearnose skate, and horseshoe crab is declining [@schonfeld_spatial_2022].  There is evidence suitable habitat for juvenile summer flounder growth has declined by 50% or more [@fabrizio_characterization_2022]. Climate change is expected to continue impacting habitat function and use for multiple species. Restoration of oyster reefs (see below) and marshes could help address these challenges.
 
-These annual updates in Chesapeake Bay temperature, salinity, dissolved oxygen, and SAV may partially account for the recent drop in the overall water quality indicator. This suggests that high risk for estuarine-dependent species is still warranted. However, direct links between estuarine habitat conditions and population attributes for managed species (as reported in the SOE for Chesapeake Bay striped bass and blue crabs, as well as summer flounder and black sea bass) could be incorporated into future risk assessments as the science continues to develop.
+Forage and structure-forming species were likely favored by 2022 conditions in Chesapeake Bay. Average water temperatures in 2022 and above-average salinity conditions mean a suitable habitat year for bay anchovy, a key forage species. Bay anchovy abundances are directly correlated with the area of suitable habitat. Above-average salinities beginning in June 2022 were associated with strong oyster recruitment [@kimmel_relationship_2014]. However, oyster populations are severely depleted from historical levels.  Large-scale restoration in 10 tributaries across the Chesapeake Bay is helping recover oyster reef habitat and populations in select areas.
+
+Updated information on estuarine conditions suggests that high risk for estuarine-dependent species is still warranted. However, direct links between estuarine habitat conditions and population attributes for managed species (as reported in the SOE for Chesapeake Bay striped bass and blue crabs, as well as summer flounder and black sea bass) could be incorporated into future risk assessments as the science continues to develop.
 
 ## Update on Climate risks
 Current risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were derived from a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. Mid-Atlantic species were all either highly (77%) or very highly (23%) exposed to climate risk in this region, with a range of sensitivity (low-62%, moderate-15%, high-15%, and very high-8%) to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking for each species (see the **Climate** column of Table \ref{sptable}). 
 
-In 2021, the SOE was restructured with an entire section focused on Climate risks to meeting fishery management objectives. New information has been added to the SOE that could be used to update species-specific Climate risk rankings in the future. The 2022 SOE includes multiple climate indicators including surface and bottom water temperature, marine heat waves, Gulf Stream position and warm core rings, cold pool area and persistence, and ocean acidification measurements. Combined with species sensitivity information from lab work, these indicators could be used to further clarify climate risks to managed species, as presented for surfclams and ocean acidification in the 2021-2022 SOEs.
+In 2021, the SOE was restructured with an entire section focused on Climate risks to meeting fishery management objectives. New information has been added to the SOE that could be used to update species-specific Climate risk rankings in the future. The 2023 SOE includes multiple climate indicators including surface and bottom water temperature, marine heat waves, Gulf Stream position and warm core rings, cold pool area and persistence, and ocean acidification measurements. 
 
-Indicators can also be used to identify beneficial conditions for managed species. For example, since 2017, extraordinarily high availability of northern shortfin squid have been observed in the Mid-Atlantic, resulting in high fishery catch per unit effort (CPUE) and early fishery closures. High instances of squid catch near the shelf break are significantly related to low bottom temperatures (< 10 degrees C), high salinity ( >35.6 psu), increased chlorophyll frontal activity as well as the presence and orientation of warm core rings. Warm core rings are an important contributor to squid availability, likely influencing habitat conditions across different life stages. In particular, fishing effort was concentrated on the eastern edge of warm core rings, which are associated with upwelling and enhanced productivity. 
+Ocean acidification has different implications depending on the species and life stage. Summer aragonite saturation was at or below the sensitivity levels for both Atlantic sea scallop and longfin squid in Long Island Sound and the nearshore and mid-shelf regions of the New Jersey shelf several times over the past decade (Fig. \ref{fig:mab-oa}). Recent lab studies have found that surf clams exhibited metabolic depression in a pH range of 7.46-7.28 [@pousse_energetic_2020]. Aggregated data from 2007-2021 show that summer bottom ocean pH (7.69-8.07) has not yet reached the metabolic depression threshold observed for surfclams in lab studies so far.  The projected effects of changing temperature and ocean chemistry over the coming century may alter surfclam growth and reproduction [@pousse_dynamic_2022]. 
 
+```{r mab-oa, out.width = '80%', fig.cap = "Left panel: Bottom aragonite saturation state ($\\Omega_{Arag}$; summer only: June-August) on the U.S. Northeast Shelf based on quality-controlled vessel- and glider-based datasets from 2007-present. Right panel: Locations where summer bottom $\\Omega_{Arag}$ were at or below the laboratory-derived sensitivity level for Atlantic sea scallop (top panel) and longfin squid (bottom). Gray circles indicate locations where carbonate chemistry samples were collected, but bottom $\\Omega_{Arag}$ values were higher than sensitivity values determined for that species."}
+
+#knitr::include_graphics("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC-GraceSaba.jpg")
+
+magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC-GraceSaba.jpg")
+
+```
+
+
+While offshore habitat conditions have degraded for some species, they have improved for others. Between  2017 and 2021, extraordinarily high availability of northern shortfin squid (*Illex*) were observed in the Mid-Atlantic, resulting in high fishery catch per unit effort (CPUE) and early fishery closures. High instances of squid catch near the shelf break are significantly related to low bottom temperatures (< 10 degrees C), high salinity ( >35.6 psu), increased chlorophyll frontal activity, as well as the presence and orientation of warm core rings. Warm core rings are an important contributor to squid availability, likely influencing habitat conditions across different life stages and as a transport mechanism of higher salinity water to the shelf. In addition, fishing effort is often concentrated on the eastern edge of warm core rings, which are associated with upwelling and enhanced productivity. There were fewer warm core rings near the continental shelf in 2022, which combined with economic fishery drivers may have contributed to total catch of *Illex* squid being 20% less than the total catch reported in 2021. 
+
+This updated information could be used by the Council to consider offshore habitat risk indicators and critiera for several species.
 
 ## Potential new indicators
-???
+A forage fish index was introduced in the 2023 SOE to evaluate changes in the aggregate forage base available to predators (Fig. \ref{fig:foragebio}). This index could be used in combination with new information on energy density of key forage species (Fig. \ref{fig:energy-density}) and current food web risk indicators to evaluate overall food web risks to MAFMC managed species and protected species (elements **FW1Pred**, **FW1Prey**, **FW2Prey**).  
+
+```{r foragebio, fig.cap = "Forage fish index based on spring and fall survey predator diets.", code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-forage-index.R"), fig.asp=.6}
+```
+
+```{r energy-density, fig.cap="Forage fish energy density mean and standard deviation by season and year, compared with 1980s (solid line; Steimle and Terranove 1985) and 1990s (dashed line; Lawson et al. 1998) values.", code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-energy-density.R"), fig.width = 7.5, fig.asp = 0.5}
+```
+
+A Habitat Climate Vulnerability Assessment (HCVA) for habitat types in the Northeast US Large Marine Ecosystem was published in January 2021 [@farr_assessment_2021]. To better understand which species depend on vulnerable habitats, the Atlantic Coastal Fish Habitat Partnership (ACFHP) [habitat-species matrix](https://www.atlanticfishhabitat.org/species-habitat-matrix/) [@kritzer_importance_2016] was used in conjunction with the results of the HCVA and the Northeast Fish and Shellfish Climate Vulnerability Assessment (FCVA) completed in 2016 [@hare_vulnerability_2016]. The ACFHP matrix identified the importance of coastal benthic habitats to each life stage of select fish species, which helps elucidate species that may be highly dependent on highly vulnerable habitats that were identified in the HCVA.
+
+Several MAFMC managed species, including black sea bass, scup, and summer flounder, are dependent on several highly vulnerable nearshore habitats from salt marsh through shallow estuarine and marine reefs. Details on highly vulnerable habitats with linkages to a variety of species, including which life stages have different levels of dependence on a particular habitat, are available in a detailed table.^[https://noaa-edab.github.io/ecodata/Hab_table]
+
+Please see the 2022 Risk Assessment update for examples of species narratives linking habitat risk to individual managed species.
 
 We seek Council feedback on how best to include information on habitat climate vulnerability for managed species in future EAFM risk assessments.
 
@@ -178,23 +208,15 @@ The downward effort diversity trend is driven by party/charter contraction (from
 Changes in recreational fleet diversity can be considered when managers seek options to maintain recreational opportunities. Shore anglers will have access to different species than vessel-based anglers, and when the same species is accessible both from shore and from a vessel, shore anglers typically have access to smaller individuals. Many states have developed shore-based regulations where the minimum size is lower than in other areas and sectors to maintain opportunities in the shore angling sector.
 
 ### Environmental justice vulnerability in commercial and recreational fishing communities
-Paste in SOE 2023 section?
-
+These indicators highlighted in the 2022 Risk Assessment update showed signals of increased recreational fishing engagement and reliance in the Mid-Atlantic during 2020 (likely in response to COVID-19) as reported in the 2023 SOE. Combinations of these updated indicators can be used to update and expand on the **Social-Cultural** risk element. 
 
 We seek Council feedback on whether to include fishing community environmental justice vulnerability and recreational diversity indicators within the EAFM risk assessment, and if so, what risk criteria should be applied to these indicators.
 
 
-# Changes from 2022: Management risk elements 
-Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. In general, the management indicators evaluate a particular risk over several years; therefore, the rankings should remain fairly consistent on an annual basis unless something changed in the fishery or if a management action occurred. A comprehensive evaluation and update of all management risk elements was conducted by Council staff in 2020 and were updated in 2021. In 2022, a similar update was conducted with Council staff reviewing the 2021 rankings and associated justifications to determine if any significant fishery or management changes would result in a change in a risk element ranking. The updated management risk element rankings can be found in Table \ref{spsectable} and the justification for any ranking change can be found below. 
+# Changes from 2022: Management risk elements
+No changes were made to these rankings for 2023.
 
-## Updated Justifications
-
-
-## Decreased Risk: X
-
-
-## Increased Risk: X
-
+Management risk elements contain a mixture of quantitatively (Fishing Mortality Control, Technical Interactions, Discards, and Allocation) and qualitatively (Other Ocean Uses and Regulatory Complexity) calculated rankings. In general, the management indicators evaluate a particular risk over several years; therefore, the rankings should remain fairly consistent on an annual basis unless something changed in the fishery or if a management action occurred. A comprehensive evaluation and update of all management risk elements was conducted by Council staff in 2020 and were updated in 2021. In 2022, a similar update was conducted with Council staff reviewing the 2021 rankings and associated justifications to determine if any significant fishery or management changes would result in a change in a risk element ranking. The management risk element rankings can be found in Table \ref{spsectable}. 
 
 ## Potential new indicators
 
@@ -310,7 +332,7 @@ We seek Council feedback on whether to include offshore wind development and rel
 # spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
 risk.species<-data.frame(
   Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Chub mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
-  Assess  = c("l", "l", "l",  "l", "l", "l", "h", "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
+  Assess  = c("l", "l", "l",  "l", "l", "l", "h", "l", "lm", "h", "l", "h", "l", "l", "h", "na", "na"),
   Fstatus = c("l", "l", "l", "l", "l", "h", "lm", "l", "lm", "lm", "l", "h", "l", "h", "lm", "na", "na"),
   Bstatus = c("l", "l", "lm", "l", "l", "h", "lm", "lm", "lm", "lm", "lm", "mh", "lm", "lm", "lm", "na", "na"),
   FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),

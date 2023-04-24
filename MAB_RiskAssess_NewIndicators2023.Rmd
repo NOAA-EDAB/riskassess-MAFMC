@@ -277,60 +277,60 @@ Commercial fishery engagement measures the number of permits, dealers, and landi
 
 ```{r MAB-comm-engagement-trend, fig.width = 8, fig.asp = 0.4, fig.cap = "Commercial engagement scores (total pounds landed, value landed, commercial permits, and commercial dealers in a community) for Mid-Atlantic fishing communities, 2004-2018."}
 
-devtools::install_github("NOAA-EDAB/ecodata@v2.0.0")
-library(ecodata)
-
-eng<-ecodata::engagement %>% 
-  filter(!Var == "med.high.scores")
-eng$Var <- factor(eng$Var, levels = c("%High","%Medium High","%Moderate", "%Low"))
-
-engbar <- eng %>% filter(EPU == "MA") %>% 
-  ggplot()+
-   #ylim(0.8, NA)+
-  geom_bar(aes(x = Time, y = Value, 
-               fill = Var), 
-           stat = "identity")+
-  #scale_y_continuous(labels = Value(suffix = "%", prefix = "")) +
-  #geom_text(aes(x = Time, y = Value,
-  #             label = paste0(Value,"%")), size=4) +
-  theme(#legend.position="bottom", legend.direction="horizontal",
-        legend.title = element_blank())+
-  coord_cartesian(ylim=c(0.85,1))+
-  xlab("Time") +
-  ylab("% Communities in each category (Low to High)")+
-  ggtitle("Commercial Engagement")+
-  theme_ts()
-
-
-mhtrend <- ecodata::engagement %>% 
-  filter(Var == "med.high.scores", 
-         EPU == "MA") %>% 
-  mutate(hline = mean(Value)) %>% 
-  ggplot()+
-  annotate("rect", fill = shade.fill, alpha = shade.alpha,
-      xmin = x.shade.min , xmax = x.shade.max,
-      ymin = -Inf, ymax = Inf) +
-  geom_line(aes(x = Time, y = Value), size = lwd) +
-  geom_point(aes(x = Time, y = Value), size = pcex) +
-  scale_x_continuous(expand = c(0.01, 0.01)) +
-  expand_limits(y=0) +
-  ggtitle("Medium-High communities ") +
-  ylab(expression("Average score for Med High communities")) +
-  geom_hline(aes(yintercept = hline),
-           size = hline.size,
-           alpha = hline.alpha,
-           linetype = hline.lty) +
- theme_ts()
-  
-cowplot::plot_grid(engbar, 
-                   mhtrend,
-                   ncol = 2, 
-                   align = "h", 
-                   rel_widths = c(1, 0.7)) +
-    theme(plot.margin = unit(c(0.1, 0, 0, 0), "cm"))
-
-remotes::install_github("noaa-edab/ecodata",build_vignettes=TRUE)
-library(ecodata)
+# devtools::install_github("NOAA-EDAB/ecodata@v1.1.0")
+# library(ecodata)
+# 
+# eng<-ecodata::engagement %>% 
+#   filter(!Var == "med.high.scores")
+# eng$Var <- factor(eng$Var, levels = c("%High","%Medium High","%Moderate", "%Low"))
+# 
+# engbar <- eng %>% filter(EPU == "MA") %>% 
+#   ggplot()+
+#    #ylim(0.8, NA)+
+#   geom_bar(aes(x = Time, y = Value, 
+#                fill = Var), 
+#            stat = "identity")+
+#   #scale_y_continuous(labels = Value(suffix = "%", prefix = "")) +
+#   #geom_text(aes(x = Time, y = Value,
+#   #             label = paste0(Value,"%")), size=4) +
+#   theme(#legend.position="bottom", legend.direction="horizontal",
+#         legend.title = element_blank())+
+#   coord_cartesian(ylim=c(0.85,1))+
+#   xlab("Time") +
+#   ylab("% Communities in each category (Low to High)")+
+#   ggtitle("Commercial Engagement")+
+#   theme_ts()
+# 
+# 
+# mhtrend <- ecodata::engagement %>% 
+#   filter(Var == "med.high.scores", 
+#          EPU == "MA") %>% 
+#   mutate(hline = mean(Value)) %>% 
+#   ggplot()+
+#   annotate("rect", fill = shade.fill, alpha = shade.alpha,
+#       xmin = x.shade.min , xmax = x.shade.max,
+#       ymin = -Inf, ymax = Inf) +
+#   geom_line(aes(x = Time, y = Value), size = lwd) +
+#   geom_point(aes(x = Time, y = Value), size = pcex) +
+#   scale_x_continuous(expand = c(0.01, 0.01)) +
+#   expand_limits(y=0) +
+#   ggtitle("Medium-High communities ") +
+#   ylab(expression("Average score for Med High communities")) +
+#   geom_hline(aes(yintercept = hline),
+#            size = hline.size,
+#            alpha = hline.alpha,
+#            linetype = hline.lty) +
+#  theme_ts()
+#   
+# cowplot::plot_grid(engbar, 
+#                    mhtrend,
+#                    ncol = 2, 
+#                    align = "h", 
+#                    rel_widths = c(1, 0.7)) +
+#     theme(plot.margin = unit(c(0.1, 0, 0, 0), "cm"))
+# 
+# remotes::install_github("noaa-edab/ecodata",build_vignettes=TRUE)
+# library(ecodata)
 
 ```
 
@@ -419,51 +419,51 @@ kable(all, escape = FALSE,
 
 
 ```{r wind-hab, eval = T, echo = F, fig.cap="Map of BOEM existing (black) and proposed (red) lease areas as of February 2019.", message=FALSE, results=FALSE}
-library(rnaturalearthhires)
-library(sf)
-library(raster)
-library(ggspatial)
-library(marmap)
-
-crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
-#gis.dir <- here::here("data-raw/gis")
-nesbath <- fortify.bathy(getNOAA.bathy(lon1 = -77, lon2 = -65, lat1 = 35, lat2 = 45,
-              resolution = 5))
-
-lease_s<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesSPoly.shp'))
-lease_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesNPoly.shp'))
-lease_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesMPoly.shp'))
-prop_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_NPoly.shp'))
-prop_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_MPoly.shp'))
-
-invisible(st_crs(lease_s)<-crs)
-invisible(st_crs(lease_n)<-crs)
-invisible(st_crs(lease_m)<-crs)
-invisible(st_crs(prop_n)<-crs)
-invisible(st_crs(prop_m)<-crs)
-
-ggplot() +
-  geom_raster(data = nesbath, aes(x=x,y=y, fill = z)) +
-  scale_fill_gradientn(colors =c("lightcyan","lightblue4"))+
-  geom_sf(data = coast, size = map.lwd) +
-  geom_sf(data = epu_sf, fill = "transparent", size = map.lwd) +
-  geom_sf(data = lease_s, size = map.lwd, color = "black")+
-  geom_sf(data = lease_n, size = map.lwd, color = "black")+
-  geom_sf(data = lease_m, size = map.lwd, color = "black")+
-  geom_sf(data = prop_n, size = map.lwd, color = "red3")+
-  geom_sf(data = prop_m, size = map.lwd, color = "red3")+
-  coord_sf(crs = crs, xlim = c(-77, -69), ylim = c(36,42))+
-  geom_segment(aes(x = -74.6, y = 37.4, xend =-75.4, yend =38), colour = "blue4")+
-  geom_segment(aes(x = -71.1, y = 40.2, xend =-71.6, yend =41.1), colour = "blue4")+
-  annotate("text", x = -74.9, y = 37, label = "S")+
-  annotate("text", x = -73.5, y = 38.7, label = "M")+
-  annotate("text", x = -70.5, y = 40.2, label = "N")+
-  annotation_scale(location = "br", width_hint = 0.4) +
-  theme_bw( ) +
-  ylab("")+
-  xlab("")+
-  theme(legend.position = "none") +
-  ggtitle("BOEM lease areas")
+# library(rnaturalearthhires)
+# library(sf)
+# library(raster)
+# library(ggspatial)
+# library(marmap)
+# 
+# crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
+# #gis.dir <- here::here("data-raw/gis")
+# nesbath <- fortify.bathy(getNOAA.bathy(lon1 = -77, lon2 = -65, lat1 = 35, lat2 = 45,
+#               resolution = 5))
+# 
+# lease_s<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesSPoly.shp'))
+# lease_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesNPoly.shp'))
+# lease_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_existing_leasesMPoly.shp'))
+# prop_n<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_NPoly.shp'))
+# prop_m<-st_read(file.path(gis.dir, 'BOEM lease areas/ne_proposed_leases_MPoly.shp'))
+# 
+# invisible(st_crs(lease_s)<-crs)
+# invisible(st_crs(lease_n)<-crs)
+# invisible(st_crs(lease_m)<-crs)
+# invisible(st_crs(prop_n)<-crs)
+# invisible(st_crs(prop_m)<-crs)
+# 
+# ggplot() +
+#   geom_raster(data = nesbath, aes(x=x,y=y, fill = z)) +
+#   scale_fill_gradientn(colors =c("lightcyan","lightblue4"))+
+#   geom_sf(data = coast, size = map.lwd) +
+#   geom_sf(data = epu_sf, fill = "transparent", size = map.lwd) +
+#   geom_sf(data = lease_s, size = map.lwd, color = "black")+
+#   geom_sf(data = lease_n, size = map.lwd, color = "black")+
+#   geom_sf(data = lease_m, size = map.lwd, color = "black")+
+#   geom_sf(data = prop_n, size = map.lwd, color = "red3")+
+#   geom_sf(data = prop_m, size = map.lwd, color = "red3")+
+#   coord_sf(crs = crs, xlim = c(-77, -69), ylim = c(36,42))+
+#   geom_segment(aes(x = -74.6, y = 37.4, xend =-75.4, yend =38), colour = "blue4")+
+#   geom_segment(aes(x = -71.1, y = 40.2, xend =-71.6, yend =41.1), colour = "blue4")+
+#   annotate("text", x = -74.9, y = 37, label = "S")+
+#   annotate("text", x = -73.5, y = 38.7, label = "M")+
+#   annotate("text", x = -70.5, y = 40.2, label = "N")+
+#   annotation_scale(location = "br", width_hint = 0.4) +
+#   theme_bw( ) +
+#   ylab("")+
+#   xlab("")+
+#   theme(legend.position = "none") +
+#   ggtitle("BOEM lease areas")
 
 ``` 
 
@@ -535,7 +535,7 @@ flextable::flextable(dt) %>%
 Proposed wind energy project areas and NY Bight Call Areas interact with the region’s federal scientific surveys (Fig. \ref{fig:wind-dev-survey}). The total survey area overlap ranges from 1-14\% across ecosystem, shellfish, fish, shark, and protected species surveys. For example, the sea scallop survey will have significant overlap (up to 96\% of individual strata) while the bottom trawl survey  will have  up to 60\% overlap. Additionally, up to 50\% of the southern New England North Atlantic right whale survey’s area overlaps with proposed project areas. 
 ```{r wind-dev-survey, fig.cap = "Interaction of Greater Atlantic Fisheries Scientific Surveys and Offshore Wind Development", out.width='80%'}
 #knitr::include_url("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/docs/images/SurveyMap202128_withlines.png")
-knitr::include_graphics("images/SurveyMap2021210_renamed.png")
+knitr::include_graphics("images/SurveyMap202128_withlines.png")
 ```
 
 ### 2022-2023 Scientific survey mitigation

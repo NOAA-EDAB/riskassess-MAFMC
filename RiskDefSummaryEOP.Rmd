@@ -1,0 +1,110 @@
+---
+title: "Risk Definition Summary"
+author: "Sarah Gaichas"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE)
+library(googledrive)
+library(pacman)
+p_load(magrittr, gsubfn, stringr, tidyverse)
+```
+
+## Full questionaire results
+
+### Open from DATE 2023 to DATE 2023
+
+[This is the survey form.](https://docs.google.com/forms/d/1GBkgRn6prtdQmsBfJ_NDcbK7dOx_A4TyMcy2eXs9qcI/edit)
+
+```{r getsurvey}
+#survey link 
+#results https://docs.google.com/spreadsheets/d/1ZAsKj3Yw78DTn6F22QY0hBZnnb19Sopt8F_3OYTh010/edit#gid=1300898964
+
+# this code gets from google drive, need to enter oauth token so probably not bulletproof for all users
+
+# resultfile <- drive_get("https://docs.google.com/spreadsheets/d/1ZAsKj3Yw78DTn6F22QY0hBZnnb19Sopt8F_3OYTh010/edit#gid=1300898964")
+# responses <- drive_download(resultfile, type = "csv", overwrite = TRUE) %>%
+#   {read.csv(.$local_path)} 
+
+# once file has been downloaded use this
+responses <- read.csv("EAFM Risk Assessment Review (Responses).csv",header=T)
+
+# separate question number and element name? numbers are duplicates so just use name
+
+names(responses) <- 
+
+names(responses)[3] <- "StartYear"
+names(responses)[5] <- "EndYear"
+names(responses)[7] <- "SurvSeason"
+names(responses)[9] <- "FishSeason"
+names(responses)[11] <- "SpatialGB"
+```
+
+We had `r nrow(responses)` responses.
+
+### Years (start-end)
+
+Responses:
+```{r}
+startend <- data.frame(Start = responses$StartYear,
+                       End = responses$EndYear)
+knitr::kable(startend, booktabs=TRUE)
+```
+
+
+```{r} 
+knitr::kable(responses$Rationale.for.start.time, col.names = "Start year rationale", booktabs=TRUE)
+```
+
+
+```{r}
+knitr::kable(responses$Rationale.for.end.time, col.names = "End year rationale", booktabs=TRUE)
+```
+
+### Seasons (fall/spring surveys? fishery seasons?)
+
+Responses:
+```{r seasons}
+seasons <- responses %>%
+  select(SurvSeason, FishSeason) %>%
+  gather(key = SurvFish, value = "Season") %>%
+  arrange(Season)
+ggplot(seasons, aes(Season, fill=SurvFish)) + 
+  geom_bar() +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 15))#+ 
+  #theme(axis.text.x = element_text(angle = 90))
+  
+```
+
+
+```{r} 
+knitr::kable(responses$Rationale.for.survey.temporal.resolution, col.names = "Survey season rationale", booktabs=TRUE)
+```
+
+
+```{r} 
+knitr::kable(responses$Rationale.for.fishery.temporal.resolution, col.names = "Fishery season rationale", booktabs=TRUE)
+```
+
+
+### Spatial footprint (Georges Bank defined how)
+
+Responses:
+```{r space}
+ggplot(responses, aes(SpatialGB)) + 
+  geom_bar() +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 35))#+ 
+```
+
+
+```{r} 
+knitr::kable(responses$Rationale.for.spatial.definition, col.names = "Spatial Rationale", booktabs=TRUE)
+```
+
+## Meeting minutes
+
+[Click here!](https://docs.google.com/document/d/19FpJ8w2a-ZZ8ZY4ZmsnjlIilLeN1X9_Tz1dM-KsdOOw/edit#heading=h.kvnvc0pxyvqq)

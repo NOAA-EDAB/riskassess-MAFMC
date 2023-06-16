@@ -35,76 +35,28 @@ responses <- read.csv("EAFM Risk Assessment Review (Responses).csv",header=T)
 
 # separate question number and element name? numbers are duplicates so just use name
 
-names(responses) <- 
+names(responses) <- sub("^X.*\\.\\.\\.","",names(responses))
 
-names(responses)[3] <- "StartYear"
-names(responses)[5] <- "EndYear"
-names(responses)[7] <- "SurvSeason"
-names(responses)[9] <- "FishSeason"
-names(responses)[11] <- "SpatialGB"
 ```
 
 We had `r nrow(responses)` responses.
 
-### Years (start-end)
-
-Responses:
-```{r}
-startend <- data.frame(Start = responses$StartYear,
-                       End = responses$EndYear)
-knitr::kable(startend, booktabs=TRUE)
-```
-
-
-```{r} 
-knitr::kable(responses$Rationale.for.start.time, col.names = "Start year rationale", booktabs=TRUE)
-```
-
+### Summary of responses by Element
 
 ```{r}
-knitr::kable(responses$Rationale.for.end.time, col.names = "End year rationale", booktabs=TRUE)
+# barplot for each column of a dataframe from https://stackoverflow.com/questions/52822840/ggplot2-create-a-barplot-for-every-column-of-a-dataframe
+
+library(purrr)
+library(tibble) # rownames_to_column
+library(ggplot2)
+plots <- split.default(responses, names(responses)) %>% 
+  map(., setNames, nm = "col") %>% 
+  map(., sub( ":.*", "")) %>% 
+  map(., count) %>%
+  imap(., ~ {
+    ggplot(.x, aes(col)) + 
+      geom_bar() +
+      labs(title = .y)
+    })
 ```
 
-### Seasons (fall/spring surveys? fishery seasons?)
-
-Responses:
-```{r seasons}
-seasons <- responses %>%
-  select(SurvSeason, FishSeason) %>%
-  gather(key = SurvFish, value = "Season") %>%
-  arrange(Season)
-ggplot(seasons, aes(Season, fill=SurvFish)) + 
-  geom_bar() +
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 15))#+ 
-  #theme(axis.text.x = element_text(angle = 90))
-  
-```
-
-
-```{r} 
-knitr::kable(responses$Rationale.for.survey.temporal.resolution, col.names = "Survey season rationale", booktabs=TRUE)
-```
-
-
-```{r} 
-knitr::kable(responses$Rationale.for.fishery.temporal.resolution, col.names = "Fishery season rationale", booktabs=TRUE)
-```
-
-
-### Spatial footprint (Georges Bank defined how)
-
-Responses:
-```{r space}
-ggplot(responses, aes(SpatialGB)) + 
-  geom_bar() +
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 35))#+ 
-```
-
-
-```{r} 
-knitr::kable(responses$Rationale.for.spatial.definition, col.names = "Spatial Rationale", booktabs=TRUE)
-```
-
-## Meeting minutes
-
-[Click here!](https://docs.google.com/document/d/19FpJ8w2a-ZZ8ZY4ZmsnjlIilLeN1X9_Tz1dM-KsdOOw/edit#heading=h.kvnvc0pxyvqq)

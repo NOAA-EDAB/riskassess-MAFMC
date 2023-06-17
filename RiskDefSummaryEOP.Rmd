@@ -37,6 +37,10 @@ responses <- read.csv("EAFM Risk Assessment Review (Responses).csv",header=T)
 
 names(responses) <- sub("^X.*\\.\\.\\.","",names(responses))
 
+# take only the elements
+elements <- responses[,4:46]
+  
+
 ```
 
 We had `r nrow(responses)` responses.
@@ -46,17 +50,29 @@ We had `r nrow(responses)` responses.
 ```{r}
 # barplot for each column of a dataframe from https://stackoverflow.com/questions/52822840/ggplot2-create-a-barplot-for-every-column-of-a-dataframe
 
+# desired workflow:
+# make each column just the first portion, original or alternate
+# count each category
+# summarize in a bar or pie plot
+# currently having difficulty with list structure and purrr
+
 library(purrr)
 library(tibble) # rownames_to_column
 library(ggplot2)
-plots <- split.default(responses, names(responses)) %>% 
+plots <- split.default(elements, names(elements)) %>%
+  map(., mutate
+      str_split, ":")
   map(., setNames, nm = "col") %>% 
-  map(., sub( ":.*", "")) %>% 
   map(., count) %>%
   imap(., ~ {
     ggplot(.x, aes(col)) + 
       geom_bar() +
       labs(title = .y)
     })
+
+
+  map(sub(":.*", "",.))
+  map(sub(":.*", "",.)) %>% 
+
 ```
 

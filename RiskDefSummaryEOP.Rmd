@@ -47,7 +47,9 @@ We had `r nrow(responses)` responses.
 
 ### Summary of responses by Element
 
-```{r}
+Ordered by most frequent answer
+
+```{r plotresults, fig.height=10, fig.width=7.5}
 # barplot for each column of a dataframe from https://stackoverflow.com/questions/52822840/ggplot2-create-a-barplot-for-every-column-of-a-dataframe
 
 # desired workflow:
@@ -56,29 +58,32 @@ We had `r nrow(responses)` responses.
 # summarize in a bar or pie plot
 # currently having difficulty with list structure and purrr
 # one column
-test <- elements[1] |>
-  map(str_squish) |> # removes whitespace
-  map(str_split, ":") |> # separates version number and description
+# element <- names(elements)[1]
+# 
+# test <- elements[1] |>
+#   map_df(str_squish) |> # removes whitespace 
+#   #separate(Stock.Assessment.Performance, 
+#   #         into = c("version", "description"), sep = ":") 
+#   ggplot(aes(x = .data[[element]])) +
+#   geom_bar() +
+#   theme_bw() +
+#   scale_x_discrete(labels = function(x) str_wrap(x, width = 20)) +
+#   labs(title = element)
 
-
-
-# library(purrr)
-# library(tibble) # rownames_to_column
-# library(ggplot2)
-plots <- split.default(elements, names(elements)) %>%
-  map(., mutate
-      str_split, ":")
-  map(., setNames, nm = "col") %>% 
-  map(., count) %>%
-  imap(., ~ {
-    ggplot(.x, aes(col)) + 
-      geom_bar() +
-      labs(title = .y)
-    })
-
-
-  map(sub(":.*", "",.))
-  map(sub(":.*", "",.)) %>% 
+for(i in 1:length(names(elements))){
+  n <- names(elements)[i]
+  barpl <- elements[i] |>
+    map_df(str_squish) |> # removes whitespace
+    filter(.data[[n]]!= "") |>
+    ggplot(aes(x = reorder(.data[[n]],.data[[n]], function(x)-length(x)))) +
+    geom_bar() +
+    theme_bw() +
+    scale_x_discrete(labels = function(x) str_wrap(x, width = 20)) +
+    xlab(NULL) +
+    labs(title = n)
+  print(barpl)
+  
+}
 
 ```
 

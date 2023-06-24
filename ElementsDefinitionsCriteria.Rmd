@@ -1,8 +1,8 @@
 ---
 title: "Risk Elements and Definitions"
-author: "Sarah Gaichas"
 date: "`r Sys.Date()`"
 output: word_document
+highlight: NULL
 csl: frontiers.csl
 bibliography: riskassess.bib
 ---
@@ -29,7 +29,8 @@ listdefs <- function(elname){
   elements[elname] |>
     map_df(str_squish) |> # removes whitespace
     filter(.data[[elname]]!= "") |> # removes blank answers
-    distinct()
+    distinct() |>
+    as.data.frame()
 }
 
 ```

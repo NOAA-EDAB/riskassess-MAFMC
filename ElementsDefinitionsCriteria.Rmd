@@ -54,7 +54,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Stock.Assessment.Performance")`
+```{r}
+listdefs("Stock.Assessment.Performance")
+```
 
 <!-- the below is out of date
 Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, Atlantic mackerel, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innaccurate ageing methods [@richards_2016_2016], so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks as high risk for assessment type because it is assessed with the data limited methods toolkit [https://cran.r-project.org/web/packages/DLMtool/index.html; @carruthers_evaluating_2014].  *Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment was peer-reviewed in November 2017 which may change this ranking.*
@@ -91,10 +93,15 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Fishing.Mortality..F..Status")`
+```{r}
+listdefs("Fishing.Mortality..F..Status")
+```
 
 Proposed definitions:
-`r listdefs("Stock.Biomass..B..Status")`
+```{r}
+listdefs("Stock.Biomass..B..Status")
+```
+
 
 <!-- out of date
 Current assessment results for all Council managed stocks are summarized in Fig. \ref{KOBE}. Based on these results, $F$ and $B$ status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish $F$ status is in the low risk category, and $B$ risk is in the low-moderate risk category. Summer flounder $F$ status is in the high risk category and $B$ status is in the low-moderate risk category. $F$ and $B$ status for northern and southern monkfish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so they were provisionally ranked low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid $B$ is above the established $B$ threshold, and both squid stocks have unknown $F$ status, but $F$ is difficult to estimate because it is very low relative to natural mortality, so they were also ranked low-moderate risk. Blueline tilefish are high risk for $F$ status and have unknown $B$ status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for $B$ status. Finally, Atlantic mackerel has high risk for both $F$ and $B$ status.  *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.* 
@@ -120,7 +127,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
   
   
 Proposed definitions:
-`r listdefs("Food.Web..Council.Managed.Predators.")`
+```{r}
+listdefs("Food.Web..Council.Managed.Predators.")
+```
   
 
 Diet information was gathered from the Northeast Fisheries Science Center (NEFSC) food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008]. Surfclams and ocean quahogs are not predators of other Council managed species, so they rank low risk for this element. Similarly, scup, black sea bass, and golden and blueline tilefish eat primarily benthic invertebrates and rank low risk. Summer flounder, spiny dogfish, bluefish, and monkfish are predators of Council managed species, but do not meet the threshold of >50% of diet. Summer flounder prey on other Council managed species, including longfin and other squid, Atlantic mackerel, scup, and butterfish (not resolved in food web; combined diet >30%). Dogfish have ~20% of total diet from squids and mackerel, bluefish have ~25% of diet from butterfish, squids, bluefish, mackerel, and scup, and monkfish have ~20% of diet from squids, mackerel, summer flounder, scup, and monkfish. Therefore, these three predators rank low risk for food web interactions with other Council managed species. 
@@ -141,7 +150,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Food.Web..Council.Managed.Prey.")`
+```{r}
+listdefs("Food.Web..Council.Managed.Prey.")
+```
 
 The same diet data was used as above. Surfclams and ocean quahogs are not prey of other Council managed species, so they rank low risk for this element. Similarly, spiny dogfish, bluefish, monkfish, summer flounder, scup, black sea bass, and golden and blueline tilefish do not show up individually as >10% of prey by weight in any Council managed species diets, so they rank low risk. While some Council managed species are prey of other managed species, none meet the defined risk threshold, so all are ranked low risk. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish, but is below the threshold (~12% of diet), and the reference point applied to butterfish considers its role as a forage fish in general. Cephalopods, as a group, are prey of summer flounder (~33% of diet), with approximately half of this attributed to "*Loligo* species" in the diet data, very little to *Illex* species, and the rest as unidentified squid. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism; therefore we rank this interaction low-moderate risk. Unmanaged forage (e.g. anchovies, sandlance, >50% of inshore diet) are important prey of bluefish, but Council measures restrict fishery development on these species so they rank low-moderate risk under this element. 
 
@@ -163,7 +174,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Food.Web..Protected.Species.Prey")`
+```{r}
+listdefs("Food.Web..Protected.Species.Prey")
+```
+
 
 Risk ranking criteria for the multispecies protected species category were developed to address interactions across species. Low risk ranking criteria were few interactions with any protected species. Low risk was defined as few interactions with any protected species. Low-Moderate risk was a Council-managed species being important prey of 1-2 protected species, or important prey of 3 or more protected species with management consideration of the interaction. Moderate-High risk criteria was a Council-managed species being important prey of 3 or more protected species. Finally, High risk criteria was a Council-managed species being critical (>50%) prey for a protected species. 
 
@@ -214,7 +228,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Ecosystem.Productivity")`  
+```{r}
+listdefs("Ecosystem.Productivity")
+```
 
  For primary production and fish productivity, the spatial scale of analysis is the Mid-Atlantic Ecosystem Production Unit, as indicated in Figure \ref{EPUmap}.   
 
@@ -260,7 +276,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 Proposed definitions:
-`r listdefs("Population.Diversity")`
+```{r}
+listdefs("Population.Diversity")
+```
+
 
 ### Ecological Diversity (left aside)
 
@@ -279,7 +298,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 Proposed definitions:
-`r listdefs("Ecological.Diversity")`
+```{r}
+listdefs("Ecological.Diversity")
+```
+
   
 
 ### Climate
@@ -298,7 +320,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Climate")`
+```{r}
+listdefs("Climate")
+```
+
 
 All Council-managed species were either highly or very highly exposed to climate risk, and range from low to very high sensitivity to expected climate change. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here as risk ranking criteria.  (Fig. \ref{NEVAvul}).   
 
@@ -324,7 +349,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Proposed definitions:
-`r listdefs("Distribution.Shifts")`
+```{r}
+listdefs("Distribution.Shifts")
+```
+
 
 All Council-managed species, with the exception of golden tilefish, had either high or very high risk of distribution shifts in the Northeast US. 
  
@@ -358,7 +386,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Species were defined as low risk if not dependent on nearshore coastal or estuarine habitat. Low-Moderate risk were estuarine dependent species with a stable estuarine condition. Moderate-High risk were estuarine dependent species with a fair estuarine condition. High risk were estuarine dependent species with a poor estuarine condition.
 
 Proposed definitions:
-`r listdefs("Estuarine.and.Nearshore.Coastal.Habitat")`
+```{r}
+listdefs("Estuarine.and.Nearshore.Coastal.Habitat")
+```
+
 
 The National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on 2003-2006 nearshore and estuarine summer sampling. Although the overall coastal condition was rated fair for the entire region, this includes offshore conditions which the Council intended to address separately (see next section). Therefore, estuarine dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition, and all others were ranked low risk due to lower dependence on this habitat type. 
 
@@ -366,7 +397,18 @@ The National Coastal Condition Assessment for the Northeast US [@us_epa_national
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from species-specific habitat modeling. Because the habitat index was still being studied and improved, habitat risk rankings based on this were considered preliminary by the EOP, and were not included in the risk assessment (see supplementary material for details). 
 
 Proposed definitions:
-`r listdefs("Offshore.Habitat")`
+```{r}
+listdefs("Offshore.Habitat")
+```
+
+
+### Invasive Species (new)
+
+Proposed definitions:
+```{r}
+listdefs("Invasive.Species")
+```
+
 
 
 ## Economic elements
@@ -389,6 +431,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
+Proposed definitions:
+`r listdefs("Commercial.Revenue")`
 
 Aggregate commercial revenue for Council-managed species was calculated (Fig. \ref{econinds}, Upper left). Consistent with other published work (@gaichas_framework_2016, Figs 2-3) there is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. 
  
@@ -410,6 +454,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 Angler days and trips are the proxy indicators for the value generated from recreational fishing. Low risk was defined as no trend and low variability in angler days/trips. Low-Moderate risk was increasing variability or overall high variability in angler days/trips. Moderate-High risk  was significant long-term decreases in angler days/trips. High risk  was significant recent decreases in angler days/trips. 
+
+Proposed definitions:
+`r listdefs("Marine.Recreational.Angler.Days.Trips")`
 
 Both trends and interannual variability in recreational participation are affected by economic drivers including human population growth, changes in disposable income and generational shifts in leisure time preferences, management actions such as species bag limits, fish population availability, and a host of other issues that affect how people choose to spend their time. Although there is an overall long-term trend of increasing recreational fishery participation in terms of number of angler days, the most recent 10 years has shown a striking decline in both recreation indices (Fig. \ref{econinds}, Lower left). These significant recent decreases in number of anglers and number of trips indicate high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish).
  
@@ -433,6 +480,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Low risk was defined as no trend and low variability in the diversity measure. Low-Moderate risk was increasing or overall high variability in the diversity measure. Moderate-High risk was a significant long term decrease in the diversity measure. High risk  was a significant recent decrease in the diversity measure.
 
+Proposed definitions:
+`r listdefs("Commercial.Fishery.Resilience..Revenue.Diversity.")`
+
 This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of Council-managed species within a year (including both monkfish and spiny dogfish). Although the exact value of the effective Shannon index is relatively uninformative in this context, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
   
   
@@ -440,7 +490,7 @@ This diversity index is the average effective Shannon index for species revenue 
 This index shows no significant trend, which would suggest a low risk to fishery business resilience based on diversity in species revenue (Fig. \ref{econinds}, Upper right). 
 
  
-## Fishery Resilience (2)
+## Fishery Resilience (2, left aside)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to access to capital. 
 
 ```{r riskfrel2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -455,9 +505,12 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+Proposed definitions:
+`r listdefs("Fishery.Resilience..2.")`
+
 There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 
-## Fishery Resilience (3)
+## Fishery Resilience (3, left aside)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to insurance availability. 
 
 ```{r riskfrel3, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -471,6 +524,9 @@ tabl <- "
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
+
+Proposed definitions:
+`r listdefs("Fishery.Resilience..3.")`
 
 There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
   
@@ -493,14 +549,22 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Low risk was defined as no trend and low variability in the number of shoreside support businesses. Low-Moderate risk was increasing variability or overall high variability in shoreside support businesses. Moderate-High risk was a significant recent decrease in one measure of shoreside support businesses. High risk was a significant recent decrease in multiple measures of shoreside support businesses.
 
+Proposed definitions:
+`r listdefs("Commercial.Fishery.Resilience..Shoreside.Support.")`
+
 The number of shoreside support businesses were tallied for all Mid-Atlantic states in two categories: number of companies (Quarterly Census of Employment and Wages. Obtained September 27, 2017. US Department of Labor, Bureau of Labor Statistics. https://www.bls.gov/cew/home.htm) and number of non-employer entities Nonemployer Statistics.” Obtained September 28, 2017. U.S. Census Bureau.
 https://www.census.gov/programs-surveys/nonemployer-statistics.html), which we consider separately. Nonemployer entities are businesses that have no paid employees (i.e. entrepreneurs, or the owner is the workforce), while the shoreside support companies include all businesses with paid employees. Some state level data was not included due to confidentiality. 
  
   
 The number of shoreside support companies include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states. The indicator shows a significant long-term and short-term decrease, which represents moderate-high risk to fishery resilience. The number of non-employer entities, including seafood preparation and packaging and seafood markets, shows a long-term increase (Fig. \ref{econinds}, Lower right). Data from other shoreside fishery supporting businesses, such as gear manufacturers and welding companies, are not included here due to aggregation of the statistics across non-fishing industries (e.g. net manufacturers combined with all other businesses).
 
+### Recreatioal Fishery Resilience (new)
+
+Proposed definitions:
+`r listdefs("Recreational.Fishery.Resilience..Shoreside.Support.")`
+
  
-### Fishery Resilience (5)
+### Fishery Resilience (5, left aside)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to limited access to emerging markets/opportunities. *This risk element needs further clarification*
 
  
@@ -516,12 +580,13 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Proposed definitions:
+`r listdefs("Fishery.Resilience..5.")`
   
 
 ## Social-cultural elements
 
-### Fleet diversity
+### Commercial fleet diversity
 This element is applied at the ecosystem level, and ranks the risk to maintaining equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination to evaluate current fleet diversity throughout the Mid-Atlantic region. 
 
 Beyond equity concerns, maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Below are diversity estimates for fleets landing Council-managed species. This measure identifies the diversity in revenue generated by different fleet segments. A fleet is defined here as the combination of gear (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above).  
@@ -540,12 +605,19 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+Proposed definitions:
+`r listdefs("Commercial.Fleet.Diversity")`
   
  
 At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
 
   
 A declining trend in diversity indicates a less diverse fleet is currently active in Council-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring, rather merely that the fleet composition is changing, which might warrant additional scrutiny. There is a long term decrease in the fleet count metric (Fig. \ref{commrisk}, top panel). Therefore, this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+
+### Recreational Fleet Diversity (new)
+
+Proposed definitions:
+`r listdefs("Recreational.Fleet.Diversity")`
 
 ### Community Vulnerability
 This element is applied at the ecosystem level. The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
@@ -570,6 +642,9 @@ Below is a brief description for each vulnerability category based on the NOAA s
 *	**Gentrification pressure** indices characterize those factors that, over time may indicate a threat to commercial or recreational working waterfront, including infrastructure. 
 
 Here, we define gentrification in fishing communities as described by @colburn_social_2012, where coastal population growth combined with an influx of higher-income people seeking waterfront property can increase property values and displace working-class residents engaged in resource-dependent activities. "Three common elements of gentrification are reuse of waterfront structures, construction of new housing, and growth within the services sector [@colburn_social_2012]."
+
+Proposed definitions:
+`r listdefs("Community.Vulnerability")`
 
 Communities are ranked as high, medium high, moderate, or low relative to the respective indicator (Table \ref{reliance}). Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing. While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. 
 
@@ -611,6 +686,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 
+Proposed definitions:
+`r listdefs("Commercial.Seafood.Production")`
+
 Commercial seafood landings from Council managed species were assembled (Fig. \ref{seafood}, Left). Because this is total landings, years prior to 1977 include foreign landings (in particular, of Atlantic mackerel, which account for much of the observed spike). Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
  
   
@@ -634,12 +712,22 @@ Low risk was defined as no trend, or an increase in recreational seafood landing
 
 Total recreational harvest (all species) and harvest per angler were evaluated indicators in the Mid-Atlantic region (Fig. \ref{seafood}, Right).
  
-   
+Proposed definitions:
+`r listdefs("Recreational.Subsistence.Seafood.Production")`
 
 This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to recreational food production.
 
+## Commercial Employment (left aside)
+
+Proposed definitions:
+`r listdefs("Commercial.Employment")`
+
+## Recreational Employment (left aside)
+
+Proposed definitions:
+`r listdefs("Recreational.Employment")`
  
-## Seafood Safety
+## Seafood Safety (left aside)
 This element is applied at the species level. This element describes the risk to market access (e.g. spiny dogfish EU market; surfclam on GB and PSP) as well as potential risks to human health. The number of advisories https://fishadvisoryonline.epa.gov/General.aspx for an Council managed species is evaluated to determine risk. If trend information becomes available, that could be used as well. *this needs legwork may not complete by October*
 
 ```{r risksafe, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -654,7 +742,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Proposed definitions:
+`r listdefs("Seafood.Safety")`
   
 
 ## Management elements
@@ -679,6 +768,9 @@ The ability to control total catch within the ABC is necessary to prevent overfi
 
 This element was evaluated by fishery sector (commercial and recreational). For the commercial fishery, NMFS dealer data in conjunction with estimates of dead discards are used to compare the annual catch target to actual annual catch. For the recreational sector, Marine Recreational Information Program (MRIP) estimates of recreational landings and dead discards are used to compare the annual catch target to actual annual catch estimates. Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%. For both sectors, low risk was defined as no history of overages. Low-moderate risk was small but infrequent overages. Moderate-high risk was routine, but small-moderate overages, and high risk was routine, significant overages.
 
+Proposed definitions:
+`r listdefs("Fishing.Mortality.Control")`
+
 Both surfclam and ocean quahog were low risk because they are well within recent quotas and are managed as ITQ fisheries. Recreational fisheries for scup, Atlantic mackerel, blueline tilefish, and spiny dogfish and commercial fisheries for scup, mackerel, butterfish, longfin squid, shortfin squid, golden and blueline tilefish, bluefish, and spiny dogfish were also low risk with no overages for the past 5 years and generally sufficient measures are in place to avoid overages. Recreational golden tilefish  was unranked because there are no catch and landings limits associated with the recreational fishery and  appear to be a minor component of total removals. Recreational bluefish and commercial summer flounder and black sea bass fisheries were low-moderate risk with catches always within <2% of quota and limits exceeded by <5% twice in the past 5 years. Recreational summer flounder ranked moderate-high risk with highly variable performance relative to catch limits with two minor overages of the RHL between 2012-2016. Recreational black sea bass was ranked high risk because catch limits were exceeded substantially in all of the past 5 years.
 
 ### Technical interactions
@@ -698,6 +790,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
   
 
 Evaluation of this risk element requires quantification of the likelihood that non-Council AMs would be triggered and impactfishing activities for Council managed species. In addition, NMFS manages incidental mortality of mammals through take reductions plans which could negatively impact a fishery. Low risk were defined as no interactions with species managed by another agency. Low-Moderate risk were infrequent interactions with non-Council managed species,, equivalent to a Category II fishery under MMPA, or non-Council AMs not likely triggered. Moderate-High risk were that AMs in non-Council managed species may be triggered by Council-managed fishing activity, or a Category I fishery under MMPA but takes less than potential biological removal (PBR) threshold. High risk were triggered AMs in non-Council managed species, or a Category I fishery under MMPA and takes above PBR.
+
+Proposed definitions:
+`r listdefs("Technical.Interactions")`
 
 All recreational sector fisheries and commercial fisheries for surfclams, ocean quahogs, bluefish, golden and blueline tilefish were ranked low risk as there are no known interactions with protected resources or AMs in other fisheries. Black sea bass, Atlantic mackerel, butterfish, and shortfin squid commercial fisheries were low-moderate risk as Category II fisheries and/or having infrequent interactions with marine mammals or  river herring and shad. Moderate-high risk rankings included commercial sector summer flounder and scup (Category II fisheries with potential to trigger AMs for windowpane flounder, a New England managed species), longfin squid (marine mammal interactions and turtle takes) and spiny dogfish (marine mammal interactions and sturgeon takes).
 
@@ -719,7 +814,31 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Council staff used expert knowledge to determine impacts to fishery access and habitat quality and function due to other ocean uses, as quantitative evaluation of activities in early planning stages is not practical. Low risk ranking was defined as no overlap of the fishery with other ocean activities and/or no impact on habitat. Low-Moderate risk was defined as potential for fishery overlap and/or minor habitat impacts but transient. Moderate-High risk were potential loss of access to some fishing areas and/or minor habitat impacts but persistent. High risk were other ocean uses would restrict fishing in the prime fishing areas and/or result in major permanent habitat impacts. As the footprint of offshore energy development becomes clearer, this element could be evaluated through GIS analyses which quantify the degree of overlap ocean uses and quantitative risk criteria (e.g. 30% overlap) could also be used. 
 
+Proposed definitions:
+`r listdefs("Other.Ocean.Uses")`
+
 Recreational fisheries for Atlantic mackerel, golden and blueline tilefish, bluefish, and spiny dogfish and commercial fisheries for both tilefish were low risk due to no overlap with other ocean uses. Commercial fisheries for surfclams, ocean quahogs, shortfin squid, and bluefish, and both sectors for summer flounder and scup ranked low-moderate risk due to the potential for minor habitat or fishery impacts from other ocean uses; these will depend on extent of development of those activities (i.e., energy, aquaculture, etc.). Recreational black sea bass and commercial Atlantic mackerel, butterfish, and spiny dogfish ranked moderate-high risk due to potential for loss of access to fishing grounds (especially by mobile gear) and habitat loss due to offshore energy development in some prime fishing areas. However, it was noted for black sea bass that hard subsurface structures associated with energy production might provide some mitigation of habitat loss. Commercial black sea bass (mobile gear) and longfin squid ranked high risk due to potential for loss of access to fishing grounds and habitat loss due to offshore energy development in many prime fishing areas. Deepsea corals are also under management as protected habitat by the Council, and were ranked moderate-high risk for other ocean uses due to their sensitivity to benthic disturbance by offshore energy development, deep sea exploration, and mining.
+
+### Offshore Wind Biological Ecosystem (new)
+
+Proposed definitions:
+`r listdefs("Offshore.Wind..Biological.Ecosystem.")`
+
+### Offshore Wind Fishery Science (new)
+
+Proposed definitions:
+`r listdefs("Offshore.Wind..Fishery.Science.")`
+
+### Offshore Energy Exclusive of Wind (new)
+
+Proposed definitions:
+`r listdefs("Offshore.Energy..Exclusive.of.Wind.")`
+
+### Aquaculture (new)
+
+Proposed definitions:
+`r listdefs("Aquaculture")`
+
 
 ### Regulatory complexity and stability
 This element is applied at the species and sector level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.   
@@ -738,6 +857,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
   
 
 This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes, based on evaluation of the Code of Federal Regulations. In terms of recreational fisheries, the magnitude and frequency of change in management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. For this assessment, Council staff used expert opinion to assess risk. Low risk rankings were simple/few regulations that rarely, if ever, change. Low-Moderate risk were low-moderate complexity regulations and/or occasional changes. Moderate-High risk were moderate-high complexity and occasional changes. High risk were highly complex or frequently changing regulations.
+
+Proposed definitions:
+`r listdefs("Regulatory.Complexity.and.Stability")`
+
 
 Surfclam, ocean quahog, recreational bluefish, Atlantic mackerel and spiny dogfish and both golden tilefish fisheries ranked low risk for complexity with only minor/no changes to regulations in recent years,  relatively stable catch specifications and/or limited regulatory complexity. Commercial bluefish and shortfin squid ranked low-moderate risk with fairly complex regulations that have been stable over time, but may change in the near future. Both sectors for scup and commercial summer flounder and black sea bass fisheries ranked moderate-high risk with minimum size, commercial gear requirements, quota allocation systems, and reporting all very stable, but regulations can be complex, particularly at the state level with varying trip limits, permitting, and reporting systems. The moderate-high risk rankings for both recreational and commercial blueline tilefish and commercial spiny dogfish fisheries were based on recent and frequent changes in regulations. Recreational fisheries for summer flounder and black sea bass ranked high risk due to nearly annual changes in size, season, and possession limits, significant differences between states, reporting, and data estimation changes. Similarly, commercial fisheries for Atlantic mackerel, butterfish, and longfin squid regulations are highly complex and frequently changed, resulting in a high risk ranking.
 
@@ -759,6 +882,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 NMFS provides estimates of discards by species based, in large part, on at-sea observations collected in the Northeast Fisheries Observer Program, for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards were evaluated for each species and fishery with a focus on identifying discards caused by regulations for each fishery sector. Low risk was defined as no significant discards (<5%). Low-Moderate risk was low or episodic discarding (<20%). Moderate-High risk was regular discarding (20% or more) but managed at an acceptable level. High risk was high discarding (>40%) and difficulty in management.
 
+Proposed definitions:
+`r listdefs("Discards")`
+
 Surfclams and ocean quahogs ranked low risk because discards are a small percentage of total catch; these fisheries are allocated minimal observer coverage as a result. Recreational spiny dogfish, recreational Atlantic mackerel, all tilefish, and shortfin squid  fisheries were also determined to be of low risk because of low discards and/or low mortality associated with discards. Commercial fisheries for summer flounder, black sea bass, Atlantic mackerel, bluefish, and spiny dogfish ranked low-moderate risk due to relatively low (<20% of total catch) but consistent levels of overall discards. Moderate-high risk fisheries included scup (both sectors), commercial butterfish, recreational black sea bass, and recreational bluefish due to relatively high, regular discarding. Recreational summer flounder fishery was ranked high risk due to live discards making up over 85% of recreational catch; however these estimates can be uncertain and variable. Longfin squid fisheries ranked high risk due to high discards of both squid and butterfish.
 
 ### Allocation
@@ -779,6 +905,17 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Each species and sector’s risk level was evaluated based on whether there is ongoing or recent (last three years) discussion of allocation by the Council. The EOP was unable to specify intermediate levels of risk for this element, so only low and high risk criteria were developed. A Low risk ranking was no recent or ongoing Council discussion about allocation. High risk was defined as recent or ongoing Council discussion about allocation.
 
+Proposed definitions:
+`r listdefs("Allocation")`
+
+
 Surfclam and ocean quahog rank low risk, with a single allocation applied to entire EEZ, plus a small allocation for the Maine quahog fishery and there has been no recent Council discussion of allocation. Similarly, scup (both sectors), butterfish, shortfin squid, golden tilefish (both sectors), and recreational spiny dogfish are not subject to recent allocation discussions, and ranked low risk. All other fisheries (summer flounder, black sea bass, Atlantic mackerel, blueline tilefish, bluefish, and commercial spiny dogfish) have recent and often contentions ongoing allocation discussions and thus rank high risk.
+
+### Essential Fish Habitat (new)
+
+Proposed definitions:
+`r listdefs("Essential.Fish.Habitat")`
+
+
 
 ## References

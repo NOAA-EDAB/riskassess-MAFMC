@@ -1,6 +1,5 @@
 ---
 title: "Risk Definition Summary"
-author: "Sarah Gaichas"
 date: "`r Sys.Date()`"
 output: word_document
 ---
@@ -39,6 +38,9 @@ names(responses) <- sub("^X.*\\.\\.\\.","",names(responses))
 
 # take only the elements
 elements <- responses[,4:46]
+
+currentelements <- elements[,1:24]
+newelements <- elements[,25:43]
   
 
 ```
@@ -49,7 +51,9 @@ We had `r nrow(responses)` responses.
 
 Ordered by most frequent answer
 
-```{r plotresults, fig.height=10, fig.width=7.5}
+#### Current Risk Elements
+
+```{r plotcurrent, fig.height=10, fig.width=7.5}
 # barplot for each column of a dataframe from https://stackoverflow.com/questions/52822840/ggplot2-create-a-barplot-for-every-column-of-a-dataframe
 
 # desired workflow:
@@ -70,20 +74,60 @@ Ordered by most frequent answer
 #   scale_x_discrete(labels = function(x) str_wrap(x, width = 20)) +
 #   labs(title = element)
 
-for(i in 1:length(names(elements))){
-  n <- names(elements)[i]
-  barpl <- elements[i] |>
-    map_df(str_squish) |> # removes whitespace
-    filter(.data[[n]]!= "") |>
-    ggplot(aes(x = reorder(.data[[n]],.data[[n]], function(x)-length(x)))) +
-    geom_bar() +
-    theme_bw() +
-    scale_x_discrete(labels = function(x) str_wrap(x, width = 20)) +
-    xlab(NULL) +
-    labs(title = n)
-  print(barpl)
+plotdef <- function(elements){
+  for(i in 1:length(names(elements))){
+    n <- names(elements)[i]
+    barpl <- elements[i] |>
+      map_df(str_squish) |> # removes whitespace
+      filter(.data[[n]]!= "") |>
+      ggplot(aes(x = reorder(.data[[n]],.data[[n]], function(x)-length(x)))) +
+      geom_bar() +
+      theme_bw() +
+      scale_x_discrete(labels = function(x) str_wrap(x, width = 20)) +
+      xlab(NULL) +
+      labs(title = n)
+    cat("\n")
+    print(barpl)
+    cat("\n")
+  }
   
 }
+
+plotdef(currentelements)
+
+```
+
+#### Potentially New Risk Elements
+
+```{r plotnew, fig.height=10, fig.width=7.5}
+plotdef(newelements)
+```
+
+```{r plotflip, fig.height=10, fig.width=7.5}
+
+plotdefflip <- function(elements){
+  for(i in 1:length(names(elements))){
+    n <- names(elements)[i]
+    barpl <- elements[i] |>
+      map_df(str_squish) |> # removes whitespace
+      filter(.data[[n]]!= "") |>
+      ggplot(aes(x = reorder(.data[[n]],.data[[n]], function(x)+length(x)))) +
+      geom_bar() +
+      theme_bw() +
+      scale_x_discrete(labels = function(x) str_wrap(x, width = 60)) +
+      xlab(NULL) +
+      coord_flip() +
+      labs(title = n)
+    cat("\n")
+    print(barpl)
+    cat("\n")
+  }
+  
+}
+
+longnewelements <- elements[,41:42]
+
+plotdefflip(longnewelements)
 
 ```
 

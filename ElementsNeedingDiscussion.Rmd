@@ -9,7 +9,8 @@ bibliography: riskassess.bib
 
 ```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
-                      fig.asp=.45)
+                      fig.asp=.45,
+                      message = FALSE)
 
 library(tidyverse)
 library(ecodata)
@@ -37,10 +38,10 @@ listdefs <- function(elname){
 
 ```
 
-```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-setup.R")}
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-setup.R"), message=FALSE}
 ```
 
-```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/LTL_MAB.Rmd-setup.R")}
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/LTL_MAB.Rmd-setup.R"), message=FALSE}
 ```
 
 ## Ecological elements

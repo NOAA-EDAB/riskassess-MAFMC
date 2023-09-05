@@ -7,8 +7,9 @@ csl: frontiers.csl
 bibliography: riskassess.bib
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      fig.asp=.45)
 
 library(tidyverse)
 library(ecodata)
@@ -34,6 +35,12 @@ listdefs <- function(elname){
     as.data.frame()
 }
 
+```
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-setup.R")}
+```
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/LTL_MAB.Rmd-setup.R")}
 ```
 
 ## Ecological elements
@@ -86,7 +93,7 @@ Indicators:
 
 Indicators of predation pressure on a Council managed species could be based on food habits information for predators of the species combined with key predator trends. This could be derived from empirical information or food web/multispecies models. Predators could include all species (protected, HMS, Council managed, other-managed, and unmanaged) or a subset as determined by the EOP and Council. 
 
-Potential risk critieria:  
+Potential risk criteria:  
 ```{r riskfw11, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
@@ -122,7 +129,7 @@ Indicators (previously used):
 
 As above, food web models and diet information can be used to establish thresholds of "importance" for predators and prey. Although monkfish occasionally ingest seabirds [@perry_predation_2013], there are no Council-managed species that are important predators of protected species [@smith_trophic_2010], so here we rank only risks where Council managed species represent prey of protected species. An important prey of protected species is defined here as individually comprising >30% of the predator's diet by weight. Critical prey warranting a high risk ranking would be a majority (>50%) of diet for an individual protected species. 
 
-Potential risk critieria:
+Potential risk criteria:
  
 ```{r riskfw2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -230,7 +237,7 @@ Population Diversity - Risk of not achieving OY due to reduced species/stock div
 Indicators:
 Stock specific indicators of size and age diversity could be derived from stock assessment information. Indicators of genetic and reproductive diversity would require investigation to determine availability by stock.
 
-Potential risk critieria:
+Potential risk criteria:
 ```{r riskpopdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
@@ -267,7 +274,7 @@ Ecological diversity indicators from surveys (adult fish, juvenile fish, and zoo
 #exp-n, fig.cap = "Adult fish diversity the Mid-Atlantic Bight, based on expected number of species."
 ```
 
-Potential risk critieria:
+Potential risk criteria:
 
 ```{r riskecodiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -295,7 +302,7 @@ Indicators:
 
 Indicators of offshore habitat trends are available from species-specific habitat modeling through the Northeast Regional Habitat Assessment and multiple other efforts throughout the region. 
 
-Potential risk critieria:
+Potential risk criteria:
 
 
 ### Invasive Species: new
@@ -310,8 +317,14 @@ Risk of not achieving OY due to invasive species threats to managed species prod
 
 Indicators:
 Invasive species in the Northwest Atlantic would be identified through a combination of literature search, survey, and fishery data. 
-Potential risk critieria:
+Potential risk criteria:
 
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-setup.R")}
+```
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-GIS-setup.R")}
+```
 
 ## Economic elements
 
@@ -334,7 +347,7 @@ Currently the average effective Shannon index for species revenue at the permit 
 
 Other metrics for diversity exist. The Simpson index is a common measure of biodiversity, but has the undesirable attribute of being asymmetric and weighing more common types more heavily than the less common types. Although the Shannon index provides a measure proportional to each type’s relative frequency, the effective Shannon index has the added benefit of converting diversity measures onto a common scale, which is important when averaging across permits after calculation.  As such, the effective Shannon index was selected as the preferred index of fishing diversity, consistent with the literature (Thunberg & Correia 2015).
 
-Potential risk critieria:
+Potential risk criteria:
 
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -406,7 +419,7 @@ Current indicators include the number of shoreside support businesses. The numbe
 
 The number of shoreside support companies include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states. The indicator shows a significant long-term and short-term decrease, which represents moderate-high risk to fishery resilience. The number of non-employer entities, including seafood preparation and packaging and seafood markets, shows a long-term increase (Fig. , Lower right). Data from other shoreside fishery supporting businesses, such as gear manufacturers and welding companies, are not included here due to aggregation of the statistics across non-fishing industries (e.g. net manufacturers combined with all other businesses).
 
-Potential risk critieria:
+Potential risk criteria:
 
 ```{r riskfrel4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -462,7 +475,7 @@ Currently the diversity in revenue generated by different fleet segments, as wel
 
 Other metrics for diversity exist. The Simpson index is a common measure of biodiversity, but has the undesirable attribute of being asymmetric and weighing more common types more heavily than the less common types. Although the Shannon index provides a measure proportional to each type’s relative frequency, the effective Shannon index has the added benefit of converting diversity measures onto a common scale.  As such, the effective Shannon index was selected as the preferred index of fishing diversity, consistent with the literature and ensuring no differential treatment between large and small fleets (Thunberg & Correia 2015). 
 
-Potential risk critieria:
+Potential risk criteria:
 
 Low risk was defined as no trend and low variability in the diversity measure. Low-Moderate risk was increasing variability or overall high variability in the diversity measure. Moderate-High risk was a significant long-term decrease in the diversity measure. High risk was a significant recent decrease in the diversity measure.
  
@@ -500,11 +513,11 @@ Recreational fleet effort diversity is already presented in the Mid-Atlantic Sta
 
 Other metrics for diversity exist. The Simpson index is a common measure of biodiversity, but has the undesirable attribute of being asymmetric and weighing more common types more heavily than the less common types. Although the Shannon index provides a measure proportional to each type’s relative frequency, the effective Shannon index has the added benefit of converting diversity measures onto a common scale.  As such, the effective Shannon index was selected as the preferred index of fishing diversity, consistent with the literature and ensuring no differential treatment between large and small mode contributions (Thunberg & Correia 2015). 
 
-Potential risk critieria:
+Potential risk criteria:
 
 Similar criteria could be applied as for comercial diversity. Low risk was defined as no trend and low variability in the diversity measure. Low-Moderate risk was increasing variability or overall high variability in the diversity measure. Moderate-High risk was a significant long-term decrease in the diversity measure. High risk was a significant recent decrease in the diversity measure.
  
-```{r riskfltdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r riskrecfltdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
@@ -535,7 +548,7 @@ Total recreational harvest (all species) and harvest per angler were evaluated i
 ```
 
 
-Potential risk critieria:
+Potential risk criteria:
  
 ```{r riskrfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -565,7 +578,7 @@ Risk of not optimizing commercial job creation and retention
 Indicators:
 Number of individuals employed by commercial fisheries. This indicator needs to be refined. For example, should this include solely those employed directly by fishing vessels, or should this include all employment (e.g. ice houses, gas, etc.)? Should it be estimated at the system level, state level, or something else?
 
-Potential risk critieria:
+Potential risk criteria:
 
 ## Recreational Employment (left aside)
 
@@ -577,7 +590,7 @@ Risk of not optimizing recreational job creation and retention
 Indicators:
 Number of individuals employed by recreational fisheries. This indicator needs to be refined. For example, should this include solely those employed directly by charter/party fishing vessels, or should this include all employment (e.g. bait shops, marinas, etc.)? Should it be estimated at the system level, state level, or something else?
 
-Potential risk critieria:
+Potential risk criteria:
 
 
 ## Management elements
@@ -631,7 +644,7 @@ Information and relevant data at the species level available in the NOAA Tech Me
 Species distribution overlap with offshore wind from a couple of potential data sources (e.g., https://apps-st.fisheries.noaa.gov/dismap/DisMAP.html). Translating exposure into a risk of impacts, which is likely to be different by species, may be challenging. 
 
 
-Potential risk critieria:
+Potential risk criteria:
 
 
 ### Offshore Wind Fishery Science and Access (new)
@@ -661,7 +674,7 @@ Information and relevant data at the species level available in the NOAA Tech Me
 FishRules and FishBrain apps for recreational fishing spatial overlap information (work is still under review).
 
 
-Potential risk critieria:
+Potential risk criteria:
 
 
 ### Offshore Energy Exclusive of Wind (new): combine with Other Ocean Activities
@@ -705,7 +718,7 @@ Indicators:
 
 This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes, based on evaluation of the Code of Federal Regulations. In terms of recreational fisheries, the magnitude and frequency of change in management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. To date, Council staff have considered the frequency of regulatory change over the last 5 years by fishery and sector. The number of law enforcement citations or warnings could be used determine compliance, but information at the fishery and sector level could be limited. For the recreational fishery, the proportion of non-compliant harvest relative to total harvest reported by MRIP could be used as a measure of compliance for each recreational fishery.
 
-Potential risk critieria:
+Potential risk criteria:
  
 ```{r riskcomplex, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -734,7 +747,7 @@ Risk of not identifying and/or protecting essential fish habitat and implication
 Indicators:
 The Northeast Habitat Climate Vulnerability Assessment and the Northeast Regional Habitat Assessment (https://www.mafmc.org/nrha) Data Explorer could be used to help identify EFH and critical habitats and potentially quantify changes in the total/spatial extent of these habitats over time. The Council is currently reviewing EFH designations for all Council-managed species and outcomes from that action could be applied here.
 
-Potential risk critieria:
+Potential risk criteria:
 
 
 

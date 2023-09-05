@@ -520,7 +520,22 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ## Food production elements
 
 ### Recreational/subsistence food production
-This element is applied at the ecosystem level, and describes the risk of not maintaining personal food production. Recreational seafood landings (as opposed to total catch which includes catch and release that are captured under other Risk Elements/indicators) were used to assess food use of recreationally caught fish.
+This element is applied at the ecosystem level, and describes the risk of not maintaining personal food production. 
+
+Proposed definition:
+Risk of not maintaining personal food production (current)
+
+Indicators:
+
+Total recreational harvest (all species) and harvest per angler were evaluated indicators in the Mid-Atlantic region. Recreational seafood landings (as opposed to total catch which includes catch and release that are captured under other Risk Elements/indicators) were used to assess food use of recreationally caught fish.
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-landings.R"), fig.asp=.4}
+#, rec-landings, fig.cap = paste0("Total recreational seafood harvest (millions of fish) in the ",region," region.")
+
+```
+
+
+Potential risk critieria:
  
 ```{r riskrfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -536,59 +551,52 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
   
 Low risk was defined as no trend, or an increase in recreational seafood landings. Low-Moderate risk was increasing or high variability in recreational seafood landings. Moderate-High risk was a significant long-term decrease in recreational seafood landings. High risk was a significant recent decrease in recreational seafood landings.
 
-Total recreational harvest (all species) and harvest per angler were evaluated indicators in the Mid-Atlantic region (Fig. \ref{seafood}, Right).
- 
-Proposed definitions:
-```{r}
-listdefs("Recreational.Subsistence.Seafood.Production")
-```
-
+Previous risk discussion:
 
 This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to recreational food production.
 
 ## Commercial Employment (left aside)
 
-Proposed definitions:
-```{r}
-listdefs("Commercial.Employment")
-```
+This element ranks the risk of not optimizing employment opportunities in the commercial sector. This objective should be refined if possible. What does optimized employment entail?
 
+Proposed definition:
+Risk of not optimizing commercial job creation and retention
+
+Indicators:
+Number of individuals employed by commercial fisheries. This indicator needs to be refined. For example, should this include solely those employed directly by fishing vessels, or should this include all employment (e.g. ice houses, gas, etc.)? Should it be estimated at the system level, state level, or something else?
+
+Potential risk critieria:
 
 ## Recreational Employment (left aside)
 
-Proposed definitions:
-```{r}
-listdefs("Recreational.Employment")
-```
+This element ranks the risk of not optimizing employment opportunities in the recreational sector. This objective should be refined if possible. What does optimized employment entail?
 
- 
-## Seafood Safety (left aside)
-This element is applied at the species level. This element describes the risk to market access (e.g. spiny dogfish EU market; surfclam on GB and PSP) as well as potential risks to human health. The number of advisories https://fishadvisoryonline.epa.gov/General.aspx for an Council managed species is evaluated to determine risk. If trend information becomes available, that could be used as well. *this needs legwork may not complete by October*
+Proposed definition:
+Risk of not optimizing recreational job creation and retention
 
-```{r risksafe, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | No current seafood safety advisory |
-| Low-Moderate | Current seafood safety advisory for high risk individuals in some states |
-| Moderate-High | Current seafood safety advisory for general population in some states |
-| High | Current seafood safety advisory for general population in majority of states |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
-```
+Indicators:
+Number of individuals employed by recreational fisheries. This indicator needs to be refined. For example, should this include solely those employed directly by charter/party fishing vessels, or should this include all employment (e.g. bait shops, marinas, etc.)? Should it be estimated at the system level, state level, or something else?
 
-Proposed definitions:
-```{r}
-listdefs("Seafood.Safety")
-```
+Potential risk critieria:
 
-  
 
 ## Management elements
 
+### Other ocean uses: rename "Other Ocean Activities" and refine indicators, or separate into components following
 
-### Other ocean uses
-This element is applied at the species and sector (commercial and recreational) level, and addresses the risk of fishery displacement or damage of a fishery resource and/or supporting habitat as a result of non-fishing activities in the ocean (e.g., energy development/sand mining/other industrial uses, etc.). Many of these activities are in planning stages but not yet implemented in the region. It also includes evaluation of risk to Council fisheries from area-based measures outside of the control of the Council, including area closures implemented by other Councils to protect sensitive habitats, spawning areas, etc. and/or through marine monument or other types of area-based management designations.     
+Current description:
+
+This element is applied at the species and sector (commercial and recreational) level, and addresses the risk of fishery displacement or damage of a fishery resource and/or supporting habitat as a result of non-fishing activities in the ocean (e.g., energy development/sand mining/other industrial uses, etc.). Many of these activities are in planning stages but not yet implemented in the region. It also includes evaluation of risk to Council fisheries from area-based measures outside of the control of the Council, including area closures implemented by other Councils to protect sensitive habitats, spawning areas, etc. and/or through marine monument or other types of area-based management designations.  
+
+Proposed definition:
+
+Risk of not achieving OY due to fishery displacement or damage to resource/habitat from non-fishing ocean activities
+
+Indicators:
+
+There currently is no specific indicator for this element and expert judgment is used to determine impacts to fishery access and habitat quality and function due to other ocean uses. A more quantitative approach (similar to that done for offshore wind) could be applied with GIS mapping to determine the spatial footprint of current and future planned non-fishing activities could be calculated and qualify and spatial overlap with existing habitat and/or fishing ground locations. Could look to see what information and at what spatial scale is available from the NMFS Habitat Climate Vulnerability Assessment, the Mid-Atlantic Council NRHA data explorer, and the America the CCC Area-Based Management tool. 
+
+Current risk criteria:
  
 ```{r riskoou, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -602,52 +610,102 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
+Previous risk discussion:  
 
 Council staff used expert knowledge to determine impacts to fishery access and habitat quality and function due to other ocean uses, as quantitative evaluation of activities in early planning stages is not practical. Low risk ranking was defined as no overlap of the fishery with other ocean activities and/or no impact on habitat. Low-Moderate risk was defined as potential for fishery overlap and/or minor habitat impacts but transient. Moderate-High risk were potential loss of access to some fishing areas and/or minor habitat impacts but persistent. High risk were other ocean uses would restrict fishing in the prime fishing areas and/or result in major permanent habitat impacts. As the footprint of offshore energy development becomes clearer, this element could be evaluated through GIS analyses which quantify the degree of overlap ocean uses and quantitative risk criteria (e.g. 30% overlap) could also be used. 
 
-Proposed definitions:
-```{r}
-listdefs("Other.Ocean.Uses")
-```
-
-
 Recreational fisheries for Atlantic mackerel, golden and blueline tilefish, bluefish, and spiny dogfish and commercial fisheries for both tilefish were low risk due to no overlap with other ocean uses. Commercial fisheries for surfclams, ocean quahogs, shortfin squid, and bluefish, and both sectors for summer flounder and scup ranked low-moderate risk due to the potential for minor habitat or fishery impacts from other ocean uses; these will depend on extent of development of those activities (i.e., energy, aquaculture, etc.). Recreational black sea bass and commercial Atlantic mackerel, butterfish, and spiny dogfish ranked moderate-high risk due to potential for loss of access to fishing grounds (especially by mobile gear) and habitat loss due to offshore energy development in some prime fishing areas. However, it was noted for black sea bass that hard subsurface structures associated with energy production might provide some mitigation of habitat loss. Commercial black sea bass (mobile gear) and longfin squid ranked high risk due to potential for loss of access to fishing grounds and habitat loss due to offshore energy development in many prime fishing areas. Deepsea corals are also under management as protected habitat by the Council, and were ranked moderate-high risk for other ocean uses due to their sensitivity to benthic disturbance by offshore energy development, deep sea exploration, and mining.
 
-### Offshore Wind Biological Ecosystem (new)
+### Offshore Wind Biological/Ecosystem (new)
 
-Proposed definitions:
-```{r}
-listdefs("Offshore.Wind..Biological.Ecosystem.")
+This element would be applied at the species level and considers the risks of offshore wind development on Council-managed fishery resources and/or the supporting habitat. Offshore wind development is expected to cover 2.4 million acres of ocean space by 2030 in the Greater Atlantic region (ME through NC). Within these lease areas, there are 3,400 foundations (i.e., wind turbines) with over 9,000 miles of interconnecting cable proposed for construction. Offshore wind siting, construction, and operation has the potential for a variety of biological impacts and associated risks for fisheries resources. Habitat alteration, local hydrodynamic changes, underwater noise, and electromagnetic fields (EMF) can affect stock productivity, food availability and migration patterns. However, these risks are likely different across species and habitat types and more research is needed to fully understand these impacts.
+
+Proposed definition:
+Risk of not achieving OY due to biological impacts to stock productivity, distribution, and ecosystem structure/function/interactions
+
+Additional EOP/Council input is needed to identify a preference for either one Offshore Wind risk element that captures all potential risks or separate out risks into different risk elements. The risks associated with a biologically focused element are more likely to remain relatively stationary (i.e., the impacts for a particular species will be the same, but the scale may change as more offshore development changes), while scientific and access risks may be more dynamic and more tractable. Of the two biological/ecosystem focused definitions considered here, definition #1 seems to be more appropriate.
+
+Indicators:
+Information and relevant data at the species level available in the NOAA Tech Memo titled “Fisheries and Offshore Wind Interactions: Synthesis of Science”. 
+
+Species distribution overlap with offshore wind from a couple of potential data sources (e.g., https://apps-st.fisheries.noaa.gov/dismap/DisMAP.html). Translating exposure into a risk of impacts, which is likely to be different by species, may be challenging. 
+
+
+Potential risk critieria:
+
+
+### Offshore Wind Fishery Science and Access (new)
+
+This element would be applied at the species and sector (commercial and recreational) level and considers the risks of offshore wind development on data and science quality and to fishery/fleet access for Council-managed fishery resources. Given the anticipated overlap between offshore wind lease areas and spatial coverage of many fishery-dependent survey strata, there are anticipated survey impacts through “preclusion, habitat change, changes in statistical design, and reduced sampling productivity” (Hogan et al. 2023). These impacts to the quality and quantity of the data could have implications for stock assessments, scientific uncertainty, and catch levels. As wind turbine construction and operation continues and expands, fishing fleet access, fishing operations, and revenue are anticipated to change.  
+
+Proposed definition:
+Risk of not achieving OY due to fishery impacts to due access, stock availability, and scientific uncertainty
+
+Similar to the comment under the Offshore Wind - Biological/Ecosystem risk element above, this is really how the EOP/Council wants to consider risks from offshore wind development - a comprehensive element or separate risk elements for different risks. Under this option, EOP Committee and AP feedback favored a more comprehensive risk element. 
+
+Indicators:
+
+Indicators for the Mid-Atlantic State of the Ecosystem and socioeconomic impacts web site- Fishery revenue and party charter activity from within lease areas by species, fleet, or community, community vulnerability/engagement/EEJ, spatial overlap of lease areas and federal fisheries surveys. 
+
+```{r, code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-spp-rev.R")}
+#, fig.width=5, fig.asp=.4
+#wea-spp-rev, fig.cap="Wind energy revenue in the Mid-Atlantic."
+```
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-port-rev.R"), fig.asp=1.1}
 ```
 
 
-### Offshore Wind Fishery Science (new)
+Information and relevant data at the species level available in the NOAA Tech Memo titled “Fisheries and Offshore Wind Interactions: Synthesis of Science”
 
-Proposed definitions:
-```{r}
-listdefs("Offshore.Wind..Fishery.Science.")
-```
+FishRules and FishBrain apps for recreational fishing spatial overlap information (work is still under review).
 
 
-### Offshore Energy Exclusive of Wind (new)
-
-Proposed definitions:
-```{r}
-listdefs("Offshore.Energy..Exclusive.of.Wind.")
-```
+Potential risk critieria:
 
 
-### Aquaculture (new)
+### Offshore Energy Exclusive of Wind (new): combine with Other Ocean Activities
 
-Proposed definitions:
-```{r}
-listdefs("Aquaculture")
-```
+This element would be applied at the species and sector (commercial and recreational) level and considers the risks of non-wind related energy development offshore, which could include tidal energy turbines, oil and gas extraction, and other development of offshore energy infrastructure.
 
+
+Proposed definition:
+
+Additional EOP/Council input on this risk element is needed. There are other risk elements that consider other ocean uses (some with/without offshore wind considerations) and habitat condition which could address the risks associated with the proposed definitions included here. Clarity and additional feedback on the metric objectives and associated risks the EOP are interested in considering for this element would be beneficial. 
+
+Indicators:
+Depends upon definition.
+
+
+### Aquaculture (new): combine with Other Ocean Activities
+
+There is growing interest in the continued development and expansion of aquaculture production to support the increasing consumption of seafood and complement wild-caught fisheries. The Council does have an  aquaculture policy, but does not have regulatory authority over aquaculture permitting, development, or operation. This element would be applied at the species level and would consider the biological and/or spatial risks of aquaculture development on Mid-Atlantic Council managed fisheries. 
+
+Proposed definition:
+
+Additional feedback from the EOP/Council on this risk element would be beneficial.   
+
+Indicators:
+Previous Mid-Atlantic State of the Ecosystem report have included an aquaculture indicator that provides information on total aquaculture production in the Mid-Atlantic. As offshore aquaculture develops, the spatial overlap and revenue impacts between aquaculture areas and existing fishing operations could be developed (similar to analyses conducted for offshore wind). 
 
 
 ### Regulatory complexity and stability
-This element is applied at the species and sector level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.   
+This element is applied at the species and sector (commercial and recreational) level. Constituents have frequently raised concerns about the complexity and continually changing fishery regulations and the need to simplify them to improve their efficacy. Complex and constantly changing regulations may lead to non-compliance and/or impact other fisheries. Non-compliance could have stock assessment, data quality,  management, and fairness and equity implications. 
+
+
+This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes, based on evaluation of the Code of Federal Regulations. In terms of recreational fisheries, the magnitude and frequency of change in management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. For this assessment, Council staff used expert opinion to assess risk. Low risk rankings were simple/few regulations that rarely, if ever, change. Low-Moderate risk were low-moderate complexity regulations and/or occasional changes. Moderate-High risk were moderate-high complexity and occasional changes. High risk were highly complex or frequently changing regulations.
+
+Proposed definitions:
+
+1 - Regulatory Compliance - Risk of not achieving regulatory compliance due to complexity and modifications
+2 (current) - Regulatory Complexity and Stability - Risk of not achieving compliance due to regulatory complexity and modifications
+3 - Regulatory Complexity and Stability - Risk of not achieving OY due to regulatory complexity and modifications
+
+Indicators:
+
+This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes, based on evaluation of the Code of Federal Regulations. In terms of recreational fisheries, the magnitude and frequency of change in management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. To date, Council staff have considered the frequency of regulatory change over the last 5 years by fishery and sector. The number of law enforcement citations or warnings could be used determine compliance, but information at the fishery and sector level could be limited. For the recreational fishery, the proportion of non-compliant harvest relative to total harvest reported by MRIP could be used as a measure of compliance for each recreational fishery.
+
+Potential risk critieria:
  
 ```{r riskcomplex, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -661,26 +719,22 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
-
-This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes, based on evaluation of the Code of Federal Regulations. In terms of recreational fisheries, the magnitude and frequency of change in management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. For this assessment, Council staff used expert opinion to assess risk. Low risk rankings were simple/few regulations that rarely, if ever, change. Low-Moderate risk were low-moderate complexity regulations and/or occasional changes. Moderate-High risk were moderate-high complexity and occasional changes. High risk were highly complex or frequently changing regulations.
-
-Proposed definitions:
-```{r}
-listdefs("Regulatory.Complexity.and.Stability")
-```
-
+Previous risk discussion:
 
 Surfclam, ocean quahog, recreational bluefish, Atlantic mackerel and spiny dogfish and both golden tilefish fisheries ranked low risk for complexity with only minor/no changes to regulations in recent years,  relatively stable catch specifications and/or limited regulatory complexity. Commercial bluefish and shortfin squid ranked low-moderate risk with fairly complex regulations that have been stable over time, but may change in the near future. Both sectors for scup and commercial summer flounder and black sea bass fisheries ranked moderate-high risk with minimum size, commercial gear requirements, quota allocation systems, and reporting all very stable, but regulations can be complex, particularly at the state level with varying trip limits, permitting, and reporting systems. The moderate-high risk rankings for both recreational and commercial blueline tilefish and commercial spiny dogfish fisheries were based on recent and frequent changes in regulations. Recreational fisheries for summer flounder and black sea bass ranked high risk due to nearly annual changes in size, season, and possession limits, significant differences between states, reporting, and data estimation changes. Similarly, commercial fisheries for Atlantic mackerel, butterfish, and longfin squid regulations are highly complex and frequently changed, resulting in a high risk ranking.
 
 
-
 ### Essential Fish Habitat (new)
 
-Proposed definitions:
-```{r}
-listdefs("Essential.Fish.Habitat")
-```
+The MSA requires federal fishery management councils and NOAA’s National Marine Fisheries Service to designate Essential Fish Habitat (EFH) for species managed under federal fishery management plans. EFH designation is important because it means those areas will be given additional consideration before any federal agencies are allowed to carry out activities in those areas. This element would be applied at the species level and would consider risks for not properly identifying and/or projecting EFH for Council-managed species.
 
+Proposed definition:
+Risk of not identifying and/or protecting essential fish habitat and implications for Council-managed species
+
+Indicators:
+The Northeast Habitat Climate Vulnerability Assessment and the Northeast Regional Habitat Assessment (https://www.mafmc.org/nrha) Data Explorer could be used to help identify EFH and critical habitats and potentially quantify changes in the total/spatial extent of these habitats over time. The Council is currently reviewing EFH designations for all Council-managed species and outcomes from that action could be applied here.
+
+Potential risk critieria:
 
 
 

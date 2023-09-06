@@ -78,6 +78,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+ 
+\newpage 
 
 ### Food web (Council-managed prey): change to "Food web: Predation pressure"
 
@@ -107,6 +109,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+ 
+\newpage 
 
 ### Food web (protected species prey): clarify definition
 
@@ -150,6 +154,8 @@ Risk ranking criteria for the multispecies protected species category were devel
 
 Diet information for protected species tends to be more uncertain than for fished species, and diet compositions are not reported to the species level, so we consider diet at the family level for these rankings. Atlantic salmon, both species of sturgeon, and sea turtles rarely if ever prey on Council managed species, as reviewed in the Council Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. We restrict further analysis to marine mammal and seabird prey. Longfin squids are estimated to comprise >30% of diet for one protected species, pilot whale, in the Northeast US [@smith_consumption_2015; @gannon_stomach_1997], therefore we rank this species low-moderate risk for this element. Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk. Unmanaged forage fish such as sand lance and saury were identified as important prey for >3 seabird species in the Northeast US [@powers_energy_1987], as well as grey seals [@smith_consumption_2015]. The Council has enacted measures to restrict fishing on unmanaged forage species, such that they rank low-moderate risk for this element. All other Council-managed species do not meet the threshold of important prey of protected species based on available information for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013], so they rank low risk for this element.
 
+ 
+\newpage 
 
 ### Ecosystem productivity: incorporate forage base indicators
 
@@ -225,7 +231,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Previous risk discussion:
 
 To summarize, primary production shows no trend (although the seasonal timing of primary production may be changing). Similarly, there are no trends in overall zooplankton abundance, but a dominant Mid-Atlantic species shows different trends by season, possibly also indicating a shift in timing. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is a significant decreasing trend in aggregate numbers of small fish per large fish (Fig. \ref{ecoprod}). This one clear trend, along with changes in timing at lower trophic levels, suggest a low-moderate risk of changing ecosystem productivity in the Mid-Atlantic ecosystem. 
+
  
+\newpage 
+
 ### Population diversity: new, prioritize species
 
 This element is applied at the species level. Changes (particularly reduction) in diversity at the species/stock level (size, sex, reproductive). *Needs data workup by species, select priority species for age/size diversity*
@@ -251,6 +260,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+ 
+\newpage 
 
 ### Ecological Diversity: new
 
@@ -289,7 +300,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-
+ 
+\newpage 
 
 ### Offshore habitat: new
 
@@ -305,6 +317,8 @@ Indicators of offshore habitat trends are available from species-specific habita
 
 Potential risk criteria:
 
+ 
+\newpage 
 
 ### Invasive Species: new
 
@@ -326,9 +340,58 @@ Potential risk criteria:
 
 ```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-GIS-setup.R")}
 ```
+ 
+\newpage 
 
 ## Economic elements
 
+### Commercial revenue
+This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. Lack of cost information across all fleet segments precludes the assessment of risk to profitability itself at the ecosystem level.
+
+Proposed definition:
+
+Risk of not maximizing commercial fishery value. 
+
+Indicators: 
+
+Gross revenue is the current indicator for this element, and can be developed for all fishing activity within the Mid-Atlantic and for all Council managed species. Revenue serves as a proxy for commercial profits, which is the component of a fishery’s value that this element is ultimately attempting to assess risk towards. Currently this indicator is aggregated and presented at the ecosystem-level.
+
+```{r , code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-comm-revenue.R")}
+#, fig.width = 5, fig.asp = 0.45
+#comm-revenue, fig.width = 4, fig.asp = 0.45, fig.cap = "Total revenue for the region (black) and revenue from MAFMC managed species (red)."
+```
+
+Net revenue (Gross revenue - trip costs) is a better proxy for trip value, in an economic context. However, this metric can be calculated only for trips by vessels holding federal licenses and submitting Vessel Trip Reports. This indicator would thus not capture all fishing within the region, and of potential interest to the Council.
+
+Catch per unit effort has been suggested by the AP/Committee. However, clarity would be needed in terms of how this indicator should be calculated and interpreted in order to better inform Council decision-making. 
+
+Potentially, multiple indicators could be used to better proxy for commercial fishery value. 
+
+
+Proposed risk criteria:
+
+
+Low risk was defined as no trend and low variability in revenue. Low-Moderate risk was increasing or overall high variability in revenue. Moderate-High risk was a significant long-term revenue decrease. High risk was a significant recent decrease in revenue.
+
+ 
+```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend and low variability in revenue |
+| Low-Moderate | Increasing or high variability in revenue |
+| Moderate-High | Significant long term revenue decrease |
+| High | Significant recent decrease in revenue |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+  
+
+Previous risk discussion:
+
+Aggregate commercial revenue for Council-managed species was calculated. Consistent with other published work (@gaichas_framework_2016, Figs 2-3) there is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. 
+ 
+\newpage  
 
 ### Commercial fishery resilience (revenue diversity)
 This element is applied at the ecosystem level, and addresses the potential risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
@@ -366,7 +429,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Low risk was defined as no trend and low variability in the diversity measure. Low-Moderate risk was increasing or overall high variability in the diversity measure. Moderate-High risk was a significant long term decrease in the diversity measure. High risk  was a significant recent decrease in the diversity measure.
 
  
-## Fishery Resilience (4,5,6): combine into Commercial fishery resilience (business and economic pressures)
+\newpage 
+
+### Fishery Resilience (4,5,6): combine into Commercial fishery resilience (business and economic pressures)
 
 This element is applied at the *??* level. 
 
@@ -404,7 +469,23 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+### Seafood Safety (merge into discussion of fishery resilience)
+This element is applied at the ??? level. This element describes the risk to market access (e.g. spiny dogfish EU market; surfclam on GB and PSP) more than potential risks to human health. 
 
+```{r risksafe, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No current seafood safety advisory |
+| Low-Moderate | Current seafood safety advisory for high risk individuals in some states |
+| Moderate-High | Current seafood safety advisory for general population in some states |
+| High | Current seafood safety advisory for general population in majority of states |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+\newpage 
 
 ### Commercial fishery resilience (shoreside support)
 
@@ -442,6 +523,8 @@ https://www.census.gov/programs-surveys/nonemployer-statistics.html), which we c
  
   
 The number of shoreside support companies include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states. The indicator shows a significant long-term and short-term decrease, which represents moderate-high risk to fishery resilience. The number of non-employer entities, including seafood preparation and packaging and seafood markets, shows a long-term increase (Fig. \ref{econinds}, Lower right). Data from other shoreside fishery supporting businesses, such as gear manufacturers and welding companies, are not included here due to aggregation of the statistics across non-fishing industries (e.g. net manufacturers combined with all other businesses).
+ 
+\newpage 
 
 ### Recreational Fishery Resilience (new)
 
@@ -456,7 +539,8 @@ Number of shoreside support businesses, including marinas and bait and tackle sh
 
 Potential risk criteria:
 
-
+ 
+\newpage 
 
 ## Social-cultural elements
 
@@ -496,6 +580,9 @@ Previous risk discussion:
   
 A declining trend in diversity indicates a less diverse fleet is currently active in Council-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring, rather merely that the fleet composition is changing, which might warrant additional scrutiny. There is a long term decrease in the fleet count metric (Fig. \ref{commrisk}, top panel). Therefore, this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
+ 
+\newpage 
+
 ### Recreational Fleet Diversity (new)
 
 This element is applied at the ecosystem level, and ranks the risk to maintaining equity in recreational access to fishery resources. Beyond equity concerns, maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability.
@@ -530,6 +617,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+ 
+\newpage 
 
 ## Food production elements
 
@@ -569,7 +658,10 @@ Previous risk discussion:
 
 This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to recreational food production.
 
-## Commercial Employment (left aside)
+ 
+\newpage 
+
+### Commercial Employment (left aside)
 
 This element ranks the risk of not optimizing employment opportunities in the commercial sector. This objective should be refined if possible. What does optimized employment entail?
 
@@ -580,8 +672,10 @@ Indicators:
 Number of individuals employed by commercial fisheries. This indicator needs to be refined. For example, should this include solely those employed directly by fishing vessels, or should this include all employment (e.g. ice houses, gas, etc.)? Should it be estimated at the system level, state level, or something else?
 
 Potential risk criteria:
+ 
+\newpage 
 
-## Recreational Employment (left aside)
+### Recreational Employment (left aside)
 
 This element ranks the risk of not optimizing employment opportunities in the recreational sector. This objective should be refined if possible. What does optimized employment entail?
 
@@ -593,6 +687,8 @@ Number of individuals employed by recreational fisheries. This indicator needs t
 
 Potential risk criteria:
 
+ 
+\newpage 
 
 ## Management elements
 
@@ -630,6 +726,9 @@ Council staff used expert knowledge to determine impacts to fishery access and h
 
 Recreational fisheries for Atlantic mackerel, golden and blueline tilefish, bluefish, and spiny dogfish and commercial fisheries for both tilefish were low risk due to no overlap with other ocean uses. Commercial fisheries for surfclams, ocean quahogs, shortfin squid, and bluefish, and both sectors for summer flounder and scup ranked low-moderate risk due to the potential for minor habitat or fishery impacts from other ocean uses; these will depend on extent of development of those activities (i.e., energy, aquaculture, etc.). Recreational black sea bass and commercial Atlantic mackerel, butterfish, and spiny dogfish ranked moderate-high risk due to potential for loss of access to fishing grounds (especially by mobile gear) and habitat loss due to offshore energy development in some prime fishing areas. However, it was noted for black sea bass that hard subsurface structures associated with energy production might provide some mitigation of habitat loss. Commercial black sea bass (mobile gear) and longfin squid ranked high risk due to potential for loss of access to fishing grounds and habitat loss due to offshore energy development in many prime fishing areas. Deepsea corals are also under management as protected habitat by the Council, and were ranked moderate-high risk for other ocean uses due to their sensitivity to benthic disturbance by offshore energy development, deep sea exploration, and mining.
 
+ 
+\newpage 
+
 ### Offshore Wind Biological/Ecosystem (new)
 
 This element would be applied at the species level and considers the risks of offshore wind development on Council-managed fishery resources and/or the supporting habitat. Offshore wind development is expected to cover 2.4 million acres of ocean space by 2030 in the Greater Atlantic region (ME through NC). Within these lease areas, there are 3,400 foundations (i.e., wind turbines) with over 9,000 miles of interconnecting cable proposed for construction. Offshore wind siting, construction, and operation has the potential for a variety of biological impacts and associated risks for fisheries resources. Habitat alteration, local hydrodynamic changes, underwater noise, and electromagnetic fields (EMF) can affect stock productivity, food availability and migration patterns. However, these risks are likely different across species and habitat types and more research is needed to fully understand these impacts.
@@ -647,6 +746,8 @@ Species distribution overlap with offshore wind from a couple of potential data 
 
 Potential risk criteria:
 
+ 
+\newpage 
 
 ### Offshore Wind Fishery Science and Access (new)
 
@@ -677,6 +778,8 @@ FishRules and FishBrain apps for recreational fishing spatial overlap informatio
 
 Potential risk criteria:
 
+ 
+\newpage 
 
 ### Offshore Energy Exclusive of Wind (new): combine with Other Ocean Activities
 
@@ -690,6 +793,8 @@ Additional EOP/Council input on this risk element is needed. There are other ris
 Indicators:
 Depends upon definition.
 
+ 
+\newpage 
 
 ### Aquaculture (new): combine with Other Ocean Activities
 
@@ -702,6 +807,8 @@ Additional feedback from the EOP/Council on this risk element would be beneficia
 Indicators:
 Previous Mid-Atlantic State of the Ecosystem report have included an aquaculture indicator that provides information on total aquaculture production in the Mid-Atlantic. As offshore aquaculture develops, the spatial overlap and revenue impacts between aquaculture areas and existing fishing operations could be developed (similar to analyses conducted for offshore wind). 
 
+ 
+\newpage 
 
 ### Regulatory complexity and stability
 This element is applied at the species and sector (commercial and recreational) level. Constituents have frequently raised concerns about the complexity and continually changing fishery regulations and the need to simplify them to improve their efficacy. Complex and constantly changing regulations may lead to non-compliance and/or impact other fisheries. Non-compliance could have stock assessment, data quality,  management, and fairness and equity implications. 
@@ -737,6 +844,8 @@ Previous risk discussion:
 
 Surfclam, ocean quahog, recreational bluefish, Atlantic mackerel and spiny dogfish and both golden tilefish fisheries ranked low risk for complexity with only minor/no changes to regulations in recent years,  relatively stable catch specifications and/or limited regulatory complexity. Commercial bluefish and shortfin squid ranked low-moderate risk with fairly complex regulations that have been stable over time, but may change in the near future. Both sectors for scup and commercial summer flounder and black sea bass fisheries ranked moderate-high risk with minimum size, commercial gear requirements, quota allocation systems, and reporting all very stable, but regulations can be complex, particularly at the state level with varying trip limits, permitting, and reporting systems. The moderate-high risk rankings for both recreational and commercial blueline tilefish and commercial spiny dogfish fisheries were based on recent and frequent changes in regulations. Recreational fisheries for summer flounder and black sea bass ranked high risk due to nearly annual changes in size, season, and possession limits, significant differences between states, reporting, and data estimation changes. Similarly, commercial fisheries for Atlantic mackerel, butterfish, and longfin squid regulations are highly complex and frequently changed, resulting in a high risk ranking.
 
+ 
+\newpage 
 
 ### Essential Fish Habitat (new)
 
@@ -750,6 +859,7 @@ The Northeast Habitat Climate Vulnerability Assessment and the Northeast Regiona
 
 Potential risk criteria:
 
-
+ 
+\newpage 
 
 ## References

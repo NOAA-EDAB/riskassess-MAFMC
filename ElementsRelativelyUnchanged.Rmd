@@ -275,54 +275,6 @@ The National Coastal Condition Assessment for the Northeast US [@us_epa_national
 
 ## Economic elements
 
-### Commercial revenue
-This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. Lack of cost information across all fleet segments precludes the assessment of risk to profitability itself at the ecosystem level.
-
-Proposed definition:
-
-Risk of not maximizing commercial fishery value. 
-
-Indicators: 
-
-Gross revenue is the current indicator for this element, and can be developed for all fishing activity within the Mid-Atlantic and for all Council managed species. Revenue serves as a proxy for commercial profits, which is the component of a fishery’s value that this element is ultimately attempting to assess risk towards. Currently this indicator is aggregated and presented at the ecosystem-level.
-
-```{r , code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-comm-revenue.R")}
-#, fig.width = 5, fig.asp = 0.45
-#comm-revenue, fig.width = 4, fig.asp = 0.45, fig.cap = "Total revenue for the region (black) and revenue from MAFMC managed species (red)."
-```
-
-Net revenue (Gross revenue - trip costs) is a better proxy for trip value, in an economic context. However, this metric can be calculated only for trips by vessels holding federal licenses and submitting Vessel Trip Reports. This indicator would thus not capture all fishing within the region, and of potential interest to the Council.
-
-Catch per unit effort has been suggested by the AP/Committee. However, clarity would be needed in terms of how this indicator should be calculated and interpreted in order to better inform Council decision-making. 
-
-Potentially, multiple indicators could be used to better proxy for commercial fishery value. 
-
-
-Proposed risk criteria:
-
-
-Low risk was defined as no trend and low variability in revenue. Low-Moderate risk was increasing or overall high variability in revenue. Moderate-High risk was a significant long-term revenue decrease. High risk was a significant recent decrease in revenue.
-
- 
-```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend and low variability in revenue |
-| Low-Moderate | Increasing or high variability in revenue |
-| Moderate-High | Significant long term revenue decrease |
-| High | Significant recent decrease in revenue |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
-```
-  
-
-Previous risk discussion:
-
-Aggregate commercial revenue for Council-managed species was calculated. Consistent with other published work (@gaichas_framework_2016, Figs 2-3) there is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. 
- 
-\newpage  
-
 ### Marine recreational angler days/trips 
 Providing recreational opportunities is a stated goal of optimal fishery management under the legal definition of “benefits to the nation”. Recreational fishing is important in the Mid-Atlantic region with the economic and social aspects of many coastal communities being highly dependent on recreational fishing.
 
@@ -472,24 +424,6 @@ Commercial seafood landings from Council managed species were assembled (Fig. \r
  
 \newpage  
  
-## Seafood Safety (merge into discussion of fishery resilience)
-This element is applied at the species level. This element describes the risk to market access (e.g. spiny dogfish EU market; surfclam on GB and PSP) as well as potential risks to human health. The number of advisories https://fishadvisoryonline.epa.gov/General.aspx for an Council managed species is evaluated to determine risk. If trend information becomes available, that could be used as well. *this needs legwork may not complete by October*
-
-```{r risksafe, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | No current seafood safety advisory |
-| Low-Moderate | Current seafood safety advisory for high risk individuals in some states |
-| Moderate-High | Current seafood safety advisory for general population in some states |
-| High | Current seafood safety advisory for general population in majority of states |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
-```
-
-
-\newpage    
-
 ## Management elements
 
 ### Fishing mortality control

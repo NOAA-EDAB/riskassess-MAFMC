@@ -158,10 +158,7 @@ Indicators:
 
 Indicators for climate productivity risk were taken from a climate vulnerability assessment [@hare_vulnerability_2016] that evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. Additional indicators linking temperature and ocean acidification to individual stocks are presented in the State of the Ecosystem reports. 
 
-```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
-knitr::include_graphics(here::here("images/NEVAvulmid.png"))
-
-```
+![:img NEVAvulall](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/journal.pone.0146756.g003.PNG)
 
 Indicator: Mid Atlantic Ocean acidification
 ![:img Mid Seasonal pH](https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC.jpg)
@@ -193,14 +190,27 @@ While this risk assessment focuses on overall vulnerability to impacts of climat
 \newpage
 
 ### Distribution shifts
-This element is applied at the species level. Species distribution shifts can increase risks of ineffective spatial catch allocation; if catch allocation is greatly mismatched with species distribution OY may not be achieved. Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here, as explained above. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
+Climate change is expected to drive changes in spatial distribution for managed fish in the Northeast US as environmental conditions become more or less favorable for each stock throughout its range. Species distribution shifts in turn can increase risks of ineffective spatial catch allocation; if catch allocation is greatly mismatched with species distribution OY may not be achieved. This element is applied at the species level, and evaluates risks of species distribution shifts due to projected climate change in the Northeast US. 
 
 Proposed definition:
 
+Risk of not achieving OY due to spatial mismatch of stocks and management as a result of climate-driven distribution shifts. 
+
 Indicators: 
 
-Proposed risk criteria:
+Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly in the risk assessment. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 
+#### Historical vs. current distribution
+Spatial distribution has changed over time for some species more than for others. The distribution of black sea bass, as measured by NEFSC surveys, has shifted northward relative to historical distributions. In contrast, the distribution of longfin squid in the Mid-Atlantic has remained relatively stable. 
+ 
+  
+A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+
+#### Changes in along shelf position
+The annual centroid of a species’ distribution can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360 km, which relates to positions along the axis from the origin in the southwest to the northeast. The mean annual along shelf distance for several Council-managed species is shown below; most are consistent with theoretical predictions [@hare_vulnerability_2016] and, aside from squids, show a northeastward change in distribution (Fig. \ref{shifts}). Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.  
+
+
+Proposed risk criteria:
  
 ```{r riskdist, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -214,34 +224,25 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
-Proposed definitions:
-```{r}
-listdefs("Distribution.Shifts")
-```
 
 Previous risk discussion:
 
 All Council-managed species, with the exception of golden tilefish, had either high or very high risk of distribution shifts in the Northeast US. 
- 
-  
 
-#### Historical vs. current distribution
-Spatial distribution has changed over time for some species more than for others. The distribution of black sea bass, as measured by NEFSC surveys, has shifted northward relative to historical distributions. In contrast, the distribution of longfin squid in the Mid-Atlantic has remained relatively stable. 
- 
-  
-A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
-
-#### Changes in along shelf position
-The annual centroid of a species’ distribution can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360 km, which relates to positions along the axis from the origin in the southwest to the northeast. The mean annual along shelf distance for several Council-managed species is shown below; most are consistent with theoretical predictions [@hare_vulnerability_2016] and, aside from squids, show a northeastward change in distribution (Fig. \ref{shifts}). Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.  
 
 \newpage
 
 ### Estuarine and coastal habitat
-This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds (estuarine) was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. An assessment of national coastal and estuarine condition was used in this assessment. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound, and other coastal estuaries can be considered in the future. 
+Estuarine and coastal habitat provides important nursery grounds for Council managed species, and is changing in quality and quantity due to multiple stressors from climate, land use, and coastal development. This element is applied at the species level, and evaluates risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds.   
 
 Proposed definition:
 
+Risk of not achieving OY due to threats to estuarine/nursery habitat.
+
 Indicators: 
+
+Risk was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. An assessment of national coastal and estuarine condition was used in this assessment. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound, and other coastal estuaries have been developed and can be considered in the future. The National Coastal Condition Assessment for the Northeast US (US EPA, 2012) was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. State of the Ecosystem reports now include up to date indicators of Chesapeake Bay habitat conditions. 
+
 
 Proposed risk criteria:
 
@@ -260,10 +261,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
   
 Species were defined as low risk if not dependent on nearshore coastal or estuarine habitat. Low-Moderate risk were estuarine dependent species with a stable estuarine condition. Moderate-High risk were estuarine dependent species with a fair estuarine condition. High risk were estuarine dependent species with a poor estuarine condition.
 
-Proposed definitions:
-```{r}
-listdefs("Estuarine.and.Nearshore.Coastal.Habitat")
-```
 
 Previous risk discussion:
 
@@ -298,10 +295,6 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
-Proposed definitions:
-```{r}
-listdefs("Commercial.Revenue")
-```
 
 Previous risk discussion:
 
@@ -333,10 +326,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
   
 Angler days and trips are the proxy indicators for the value generated from recreational fishing. Low risk was defined as no trend and low variability in angler days/trips. Low-Moderate risk was increasing variability or overall high variability in angler days/trips. Moderate-High risk  was significant long-term decreases in angler days/trips. High risk  was significant recent decreases in angler days/trips. 
 
-Proposed definitions:
-```{r}
-listdefs("Marine.Recreational.Angler.Days.Trips")
-```
 
 Previous risk discussion:
 
@@ -377,10 +366,6 @@ Below is a brief description for each vulnerability category based on the NOAA s
 
 Here, we define gentrification in fishing communities as described by @colburn_social_2012, where coastal population growth combined with an influx of higher-income people seeking waterfront property can increase property values and displace working-class residents engaged in resource-dependent activities. "Three common elements of gentrification are reuse of waterfront structures, construction of new housing, and growth within the services sector [@colburn_social_2012]."
 
-Proposed definitions:
-```{r}
-listdefs("Community.Vulnerability")
-```
 
 
 Communities are ranked as high, medium high, moderate, or low relative to the respective indicator (Table \ref{reliance}). Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing. While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. 
@@ -433,10 +418,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 
-Proposed definitions:
-```{r}
-listdefs("Commercial.Seafood.Production")
-```
 
 Previous risk discussion:
 
@@ -459,10 +440,6 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Proposed definitions:
-```{r}
-listdefs("Seafood.Safety")
-```
 
 \newpage    
 
@@ -474,6 +451,8 @@ This element is applied at the species and sector (commercial and recreational) 
 Proposed definition:
 
 Indicators: 
+
+
 
 Proposed risk criteria:
 
@@ -495,10 +474,6 @@ The ability to control total catch within the ABC is necessary to prevent overfi
 
 This element was evaluated by fishery sector (commercial and recreational). For the commercial fishery, NMFS dealer data in conjunction with estimates of dead discards are used to compare the annual catch target to actual annual catch. For the recreational sector, Marine Recreational Information Program (MRIP) estimates of recreational landings and dead discards are used to compare the annual catch target to actual annual catch estimates. Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%. For both sectors, low risk was defined as no history of overages. Low-moderate risk was small but infrequent overages. Moderate-high risk was routine, but small-moderate overages, and high risk was routine, significant overages.
 
-Proposed definitions:
-```{r}
-listdefs("Fishing.Mortality.Control")
-```
 
 Previous risk discussion:
 
@@ -531,10 +506,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Evaluation of this risk element requires quantification of the likelihood that non-Council AMs would be triggered and impactfishing activities for Council managed species. In addition, NMFS manages incidental mortality of mammals through take reductions plans which could negatively impact a fishery. Low risk were defined as no interactions with species managed by another agency. Low-Moderate risk were infrequent interactions with non-Council managed species,, equivalent to a Category II fishery under MMPA, or non-Council AMs not likely triggered. Moderate-High risk were that AMs in non-Council managed species may be triggered by Council-managed fishing activity, or a Category I fishery under MMPA but takes less than potential biological removal (PBR) threshold. High risk were triggered AMs in non-Council managed species, or a Category I fishery under MMPA and takes above PBR.
 
-Proposed definitions:
-```{r}
-listdefs("Technical.Interactions")
-```
 
 Previous risk discussion:
 
@@ -566,10 +537,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 NMFS provides estimates of discards by species based, in large part, on at-sea observations collected in the Northeast Fisheries Observer Program, for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards were evaluated for each species and fishery with a focus on identifying discards caused by regulations for each fishery sector. Low risk was defined as no significant discards (<5%). Low-Moderate risk was low or episodic discarding (<20%). Moderate-High risk was regular discarding (20% or more) but managed at an acceptable level. High risk was high discarding (>40%) and difficulty in management.
 
-Proposed definitions:
-```{r}
-listdefs("Discards")
-```
 
 Previous risk discussion:
 
@@ -602,10 +569,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Each species and sector’s risk level was evaluated based on whether there is ongoing or recent (last three years) discussion of allocation by the Council. The EOP was unable to specify intermediate levels of risk for this element, so only low and high risk criteria were developed. A Low risk ranking was no recent or ongoing Council discussion about allocation. High risk was defined as recent or ongoing Council discussion about allocation.
 
-Proposed definitions:
-```{r}
-listdefs("Allocation")
-```
 
 Previous risk discussion:
 

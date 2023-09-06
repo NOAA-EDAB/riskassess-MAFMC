@@ -158,10 +158,10 @@ Indicators:
 
 Indicators for climate productivity risk were taken from a climate vulnerability assessment [@hare_vulnerability_2016] that evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. Additional indicators linking temperature and ocean acidification to individual stocks are presented in the State of the Ecosystem reports. 
 
-![:img NEVAvulall](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/journal.pone.0146756.g003.PNG)
+![Hare et al., 2016 Climate vulnerability by species, Northeast US](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/journal.pone.0146756.g003.PNG)
 
 Indicator: Mid Atlantic Ocean acidification
-![:img Mid Seasonal pH](https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC.jpg)
+![Grace Saba SOE 2023 Mid-Atlantic Seasonal OA](https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC.jpg)
 
 Proposed risk criteria:
 
@@ -198,12 +198,17 @@ Risk of not achieving OY due to spatial mismatch of stocks and management as a r
 
 Indicators: 
 
-Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly in the risk assessment. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
+Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly in the risk assessment.
+
+![Hare et al., 2016 Distribution shift risk by species, Northeast US](https://journals.plos.org/plosone/article/figure/image?size=large&id=10.1371/journal.pone.0146756.g004)
+
+
+In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 
 #### Historical vs. current distribution
 Spatial distribution has changed over time for some species more than for others. The distribution of black sea bass, as measured by NEFSC surveys, has shifted northward relative to historical distributions. In contrast, the distribution of longfin squid in the Mid-Atlantic has remained relatively stable. 
  
-  
+[below not true find new maps]  
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 #### Changes in along shelf position
@@ -275,7 +280,23 @@ This element is applied at the ecosystem level, and addresses the risk of not ma
 
 Proposed definition:
 
+Risk of not maximizing commercial fishery value. 
+
 Indicators: 
+
+Gross revenue is the current indicator for this element, and can be developed for all fishing activity within the Mid-Atlantic and for all Council managed species. Revenue serves as a proxy for commercial profits, which is the component of a fishery’s value that this element is ultimately attempting to assess risk towards. Currently this indicator is aggregated and presented at the ecosystem-level.
+
+```{r , code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-comm-revenue.R")}
+#, fig.width = 5, fig.asp = 0.45
+#comm-revenue, fig.width = 4, fig.asp = 0.45, fig.cap = "Total revenue for the region (black) and revenue from MAFMC managed species (red)."
+```
+
+Net revenue (Gross revenue - trip costs) is a better proxy for trip value, in an economic context. However, this metric can be calculated only for trips by vessels holding federal licenses and submitting Vessel Trip Reports. This indicator would thus not capture all fishing within the region, and of potential interest to the Council.
+
+Catch per unit effort has been suggested by the AP/Committee. However, clarity would be needed in terms of how this indicator should be calculated and interpreted in order to better inform Council decision-making. 
+
+Potentially, multiple indicators could be used to better proxy for commercial fishery value. 
+
 
 Proposed risk criteria:
 
@@ -298,16 +319,27 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Previous risk discussion:
 
-Aggregate commercial revenue for Council-managed species was calculated (Fig. \ref{econinds}, Upper left). Consistent with other published work (@gaichas_framework_2016, Figs 2-3) there is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. 
+Aggregate commercial revenue for Council-managed species was calculated. Consistent with other published work (@gaichas_framework_2016, Figs 2-3) there is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. 
  
 \newpage  
 
-### Marine recreational angler days/trips
+### Marine recreational angler days/trips 
+Providing recreational opportunities is a stated goal of optimal fishery management under the legal definition of “benefits to the nation”. Recreational fishing is important in the Mid-Atlantic region with the economic and social aspects of many coastal communities being highly dependent on recreational fishing.
+
 This element is assessed at the ecosystem level where it applies equally to all recreationally fished species. Providing recreational opportunities is a stated goal of optimal fishery management under the legal definition of “benefits to the nation”. Recreational fishing is important in the Mid-Atlantic region with the economic and social aspects of many coastal communities being highly dependent on recreational fishing. 
 
 Proposed definition:
 
+Risk of not maximizing recreational fishery value and opportunities
+
 Indicators: 
+
+Currently, angler days and trips are the proxy indicators for the value generated from recreational fishing. Although willingness to pay would better capture the economic concept of recreational value, this information is not gathered systematically in the region. Potentially, multiple indicators could be used to better proxy for recreational fishery value. 
+
+```{r , code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-effort.R")}
+#rec-op, fig.cap = paste0("Recreational effort in the ",region,".")
+```
+
 
 Proposed risk criteria:
 
@@ -336,11 +368,18 @@ Both trends and interannual variability in recreational participation are affect
 ## Social-cultural elements
 
 ### Community Vulnerability
-This element is applied at the ecosystem level. The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
+
+This element ranks the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. Vulnerability metrics can help assess the relative impact of system changes on human communities dependent on and engaged in fishing activities. 
+
+This element is applied at the ecosystem level. 
 
 Proposed definition:
 
+Risk of reduced community resilience (vulnerability, reliance, engagement).
+
 Indicators: 
+
+The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
 
 Proposed risk criteria:
 
@@ -366,9 +405,7 @@ Below is a brief description for each vulnerability category based on the NOAA s
 
 Here, we define gentrification in fishing communities as described by @colburn_social_2012, where coastal population growth combined with an influx of higher-income people seeking waterfront property can increase property values and displace working-class residents engaged in resource-dependent activities. "Three common elements of gentrification are reuse of waterfront structures, construction of new housing, and growth within the services sector [@colburn_social_2012]."
 
-
-
-Communities are ranked as high, medium high, moderate, or low relative to the respective indicator (Table \ref{reliance}). Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing. While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. 
+Communities are ranked as high, medium high, moderate, or low relative to the respective indicator. Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing. While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. 
 
 The social and economic impacts of climate change have been modeled through application of social indicators of fishing dependent communities [@jepson_development_2013]. Assessment of a range of social indicators has been applied in the Mid-Atlantic Region to predict vulnerability of communities to regulatory changes and disasters.  More recently this methodology has been extended to include specific indicators of vulnerability to climate change and linked to species vulnerability assessments [@colburn_indicators_2016; @hare_vulnerability_2016]. The tools developed through this approach are vital to an evaluation of the risks of climate change facing coastal communities dependent on fishing. Below is a description of the CSVIs related to climate change.
 
@@ -395,11 +432,21 @@ More information on Northeast coastal communities is available here: http://www.
 ## Food production elements
 
 ### Commercial seafood production
+
 This element is applied at the ecosystem level, and describes the risk of not optimizing domestic seafood production from Council-managed species. Commercial seafood landings (as opposed to total landings which include bait and industrial uses) were used to assess seafood provision.
 
 Proposed definition:
 
+Risk of not optimizing commercial seafood production 
+
 Indicators: 
+
+Commercial seafood landings from Council managed species, in red below (as opposed to total landings in black below which include bait and industrial uses) were used to assess seafood provision.
+
+```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R"), fig.asp=.5}
+#total-landings, fig.cap = paste0("Total commercial seafood landings (black) and ",region," managed seafood landings (red).")
+```
+
 
 Proposed risk criteria:
 
@@ -425,7 +472,7 @@ Commercial seafood landings from Council managed species were assembled (Fig. \r
  
 \newpage  
  
-## Seafood Safety (left aside)
+## Seafood Safety (merge into discussion of fishery resilience)
 This element is applied at the species level. This element describes the risk to market access (e.g. spiny dogfish EU market; surfclam on GB and PSP) as well as potential risks to human health. The number of advisories https://fishadvisoryonline.epa.gov/General.aspx for an Council managed species is evaluated to determine risk. If trend information becomes available, that could be used as well. *this needs legwork may not complete by October*
 
 ```{r risksafe, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -446,12 +493,28 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ## Management elements
 
 ### Fishing mortality control
-This element is applied at the species and sector (commercial and recreational) level, and addresses the level of management control in terms of catch estimation (measurement) and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY. Actual catch is compared with the specified Acceptable Biological Catch (ABC, a reduction from MSY based on scientific uncertainty to ensure <50% probability of overfishing; @prager_deriving_2010) over the most recent five year history of the fishery. 
+This element is applied at the species and sector (commercial and recreational) level, and addresses the level of management control in terms of catch estimation and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY.
+
+The ability to control total catch within the specified Acceptable Biological Catch (ABC) is necessary to prevent overfishing, which is a fundamental requirement of US fisheries law. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished and requiring a stock rebuilding plan. The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species and sector which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures (AMs). Under certain circumstances, specification of management measures which are too strict could lead to “underfishing” (not achieving the desired quota) and hence not achieving OY.
 
 Proposed definition:
 
+Risk of not achieving OY due to a mismatch of projected effects of management controls with harvest targets
+
 Indicators: 
 
+This element is currently  evaluated by fishery sector (commercial and recreational); therefore, total catch at the fishery sector level compared to the appropriate catch limit (ABC or Annual Catch Limit, ACL). For the commercial fishery, NMFS dealer data in conjunction with estimates of dead discards from the most recent stock assessment are used to compare the annual catch limit to actual annual catch. For the recreational sector, Marine Recreational Information Program (MRIP) estimates of recreational landings and dead discards in conjunction with stock assessment estimates of recreational discards in weight are used to compare the annual catch limit to actual annual catch estimates. 
+
+Landings only information could potentially be considered if underfishing appears to be more important or if discards are low for a fishery sector. Discards are also addressed under a separate risk element. However, the current risk element is “Fishing Mortality Control” which would include both landings and discards. The Mid-Atlantic State of the Ecosystem report now includes an indicator that looks at total catch divided by total ABC or ACL across all Mid-Atlantic species if a broader look across managed species is preferred. 
+
+```{r , code =  readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-stacked.R")}
+#, fig.width = 5, fig.asp = 0.5
+#abcacl-stacked, fig.cap="Sum of catch limits across all MAFMC managed fisheries."
+```
+
+```{r , code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-catch.R"), fig.width=5, fig.asp=0.4}
+#abcacl-catch, fig.cap = "Catch divided by ABC/ACL for MAFMC managed fisheies. Chub mackerel removed due extremely low catch. Outliers = Recreational Black Sea Bass.  Possible management success story? - See comment in google doc."
+```
 
 
 Proposed risk criteria:
@@ -470,11 +533,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
 
-The ability to control total catch within the ABC is necessary to prevent overfishing ($F$ in excess of $F_{MSY}$), which is a fundamental requirement of US fisheries law. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished ($B$ < 0.5 $B_{MSY}$) and requiring a stock rebuilding plan. The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures (AMs). Under certain circumstances, specification of management measures which are too strict could lead to “underfishing” (not achieving the desired quota) and hence not achieving OY.
-
-This element was evaluated by fishery sector (commercial and recreational). For the commercial fishery, NMFS dealer data in conjunction with estimates of dead discards are used to compare the annual catch target to actual annual catch. For the recreational sector, Marine Recreational Information Program (MRIP) estimates of recreational landings and dead discards are used to compare the annual catch target to actual annual catch estimates. Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%. For both sectors, low risk was defined as no history of overages. Low-moderate risk was small but infrequent overages. Moderate-high risk was routine, but small-moderate overages, and high risk was routine, significant overages.
-
-
 Previous risk discussion:
 
 Both surfclam and ocean quahog were low risk because they are well within recent quotas and are managed as ITQ fisheries. Recreational fisheries for scup, Atlantic mackerel, blueline tilefish, and spiny dogfish and commercial fisheries for scup, mackerel, butterfish, longfin squid, shortfin squid, golden and blueline tilefish, bluefish, and spiny dogfish were also low risk with no overages for the past 5 years and generally sufficient measures are in place to avoid overages. Recreational golden tilefish  was unranked because there are no catch and landings limits associated with the recreational fishery and  appear to be a minor component of total removals. Recreational bluefish and commercial summer flounder and black sea bass fisheries were low-moderate risk with catches always within <2% of quota and limits exceeded by <5% twice in the past 5 years. Recreational summer flounder ranked moderate-high risk with highly variable performance relative to catch limits with two minor overages of the RHL between 2012-2016. Recreational black sea bass was ranked high risk because catch limits were exceeded substantially in all of the past 5 years.
@@ -482,11 +540,15 @@ Both surfclam and ocean quahog were low risk because they are well within recent
 \newpage  
 
 ### Technical interactions
-This element is applied at the species and sector (commercial and recreational) level, and addresses the risk of not achieving OY due to interactions with non-Council-managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under Council FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, interactions with species protected under the U.S. Marine Mammal Protection Act (MMPA) could result in greater restrictions in Council managed fisheries, increasing the risk that OY would not be achieved in those fisheries. 
+This element is applied at the species and sector (commercial and recreational) level and considerers potential interactions with non-Council-managed species, including protected species, on Council-managed fisheries. Here the risk is caused by negative consequences from fishing activity regulated under Council FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, interactions with species protected under the U.S. Marine Mammal Protection Act (MMPA) could result in greater restrictions in Council managed fisheries, increasing the risk that OY would not be achieved in those fisheries.
 
 Proposed definition:
 
+Risk of not achieving OY due to interactions with non-Council managed species, including protected species
+
 Indicators: 
+
+The current indicator used is the MMPA category fishery level (Category I - frequent incidental mortality or injury; Category II - occasional incidental mortality or injury; Category III, remote likelihood of incidental mortality or injury) assigned to the dominant gear type associated with the fishery sector. This indicator is relatively static over time and may appropriately track risk associated with these technical interactions. Could look at the total number of protected species “takes” by a fishery sector by year or five year period. Could also consider regulatory changes that were considered and/or implemented to reduce technical interactions in Mid-Atlantic fisheries.
 
 Proposed risk criteria:
 
@@ -514,13 +576,19 @@ All recreational sector fisheries and commercial fisheries for surfclams, ocean 
 \newpage  
 
 ### Discards
-This element is applied at the species and sector level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
+This element is applied at the species and sector level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste. Discards of either the target or non-target species in the fishery would be taken into consideration.
  
 Proposed definition:
 
+This is up to the EOP/Council to decide what is of most interest. Minimizing discard mortality is an important management goal and is a risk to optimizing yield and stock biomass. Including discard/bycatch mortality as part of this risk element can help highlight this priority and risk for the Council and stakeholders, but tracking with an indicator may be challenging (see additional information below). 
+
 Indicators: 
 
+NMFS provides estimates of discards by species based, in large part, on at-sea observations collected in the Northeast Fisheries Observer Program (NEFOP), for stock assessment purposes and quota monitoring. The observer program provides information on the reason for discarding during a commercial trip. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards were evaluated for each species and fishery with a focus on identifying discards caused by regulations for each fishery sector. The ratio of regulatory discards to total discards for the target species could be applied or the ratio of discards to overall catch of the target species could be applied. A similar, or combined, approach could be applied for non-target species. Discard mortality indicators might more challenging, at least in terms of tracking improvements/declines over time. Discard mortality rates by species and gear type are not estimated annually, or even every 10 years, and are typically based on results developed from targeted research projects. Therefore, a static discard mortality rate by species and gear is applied to the discard estimate.
+
 Proposed risk criteria:
+
+Low risk was defined as no significant discards (<5%). Low-Moderate risk was low or episodic discarding (<20%). Moderate-High risk was regular discarding (20% or more) but managed at an acceptable level. High risk was high discarding (>40%) and difficulty in management.
 
 ```{r riskdisc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -534,10 +602,6 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
   
-
-NMFS provides estimates of discards by species based, in large part, on at-sea observations collected in the Northeast Fisheries Observer Program, for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards were evaluated for each species and fishery with a focus on identifying discards caused by regulations for each fishery sector. Low risk was defined as no significant discards (<5%). Low-Moderate risk was low or episodic discarding (<20%). Moderate-High risk was regular discarding (20% or more) but managed at an acceptable level. High risk was high discarding (>40%) and difficulty in management.
-
-
 Previous risk discussion:
 
 Surfclams and ocean quahogs ranked low risk because discards are a small percentage of total catch; these fisheries are allocated minimal observer coverage as a result. Recreational spiny dogfish, recreational Atlantic mackerel, all tilefish, and shortfin squid  fisheries were also determined to be of low risk because of low discards and/or low mortality associated with discards. Commercial fisheries for summer flounder, black sea bass, Atlantic mackerel, bluefish, and spiny dogfish ranked low-moderate risk due to relatively low (<20% of total catch) but consistent levels of overall discards. Moderate-high risk fisheries included scup (both sectors), commercial butterfish, recreational black sea bass, and recreational bluefish due to relatively high, regular discarding. Recreational summer flounder fishery was ranked high risk due to live discards making up over 85% of recreational catch; however these estimates can be uncertain and variable. Longfin squid fisheries ranked high risk due to high discards of both squid and butterfish.
@@ -545,11 +609,16 @@ Surfclams and ocean quahogs ranked low risk because discards are a small percent
 \newpage  
 
 ### Allocation
-This element is applied at the species and sector level, and addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations or because of sub-optimal allocation by sector and/or area. Indicators quantifying the difficulty of allocation could include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation. Ultimately a more qualitative assessment was used.
+
+Many Mid-Atlantic fisheries have some allocation component and any adjustments/changes in allocation can be driven by a number of factors which can present a variety of management, biological, and fishery risks. This element is applied at the species and sector level, and addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations or because of sub-optimal allocation by sector and/or area.
 
 Proposed definition:
 
+EOP feedback on this element was nearly equally divided across the definition options, including the option to incorporate this risk as part of the “Distribution Shift” risk element. The risks associated with Allocation appear to be of interest to the EOP, but allocation risks due to spatial mis-match may/may not be the primary area of interest. Additional feedback from the EOP/Council on how allocation risks should be considered and what risks are most important.    
+
 Indicators: 
+
+Currently, the Allocation indicator consists of whether or not the Council is considering or an ongoing management action that might have any sort of allocation outcome/implication (by sector, region, permit holder etc.). However, this indicator does not directly get at the actual risk associated with any of the possible Allocation definitions. Indicators quantifying the difficulty of allocation could include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation. There are new analyses and tools available (Palacios-Abrentes et al 2023 -https://doi.org/10.1371/journal.pone.0279025) that could provide more insight on actual mismatch risks for some species and sectors. 
 
 Proposed risk criteria:
 

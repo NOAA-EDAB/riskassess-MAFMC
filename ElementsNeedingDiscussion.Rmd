@@ -1,8 +1,10 @@
 ---
 title: "Risk Elements and Definitions Needing Discussion"
 date: "`r Sys.Date()`"
-output: word_document
-highlight: NULL
+output:
+  html_document:
+    df_print: paged
+highlight: null
 csl: frontiers.csl
 bibliography: riskassess.bib
 ---
@@ -743,6 +745,7 @@ Information and relevant data at the species level available in the NOAA Tech Me
 
 Species distribution overlap with offshore wind from a couple of potential data sources (e.g., https://apps-st.fisheries.noaa.gov/dismap/DisMAP.html). Translating exposure into a risk of impacts, which is likely to be different by species, may be challenging. 
 
+![Right whale hot spots overlap with offshore wind lease areas](https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/SOE_2023_right_whales_hatteras_frame_v3.jpg)
 
 Potential risk criteria:
 
@@ -769,6 +772,8 @@ Indicators for the Mid-Atlantic State of the Ecosystem and socioeconomic impacts
 
 ```{r, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-port-rev.R"), fig.asp=1.1}
 ```
+
+![Surveys overlap with offshore wind lease areas](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/SurveyMap202133.png)
 
 
 Information and relevant data at the species level available in the NOAA Tech Memo titled “Fisheries and Offshore Wind Interactions: Synthesis of Science”

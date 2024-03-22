@@ -218,6 +218,10 @@ of this to "Assessment uncertainty" to match what the SSC is evaluating.
   High            Assessment failed peer review or no assessment,
                   data-limited tools applied
   -----------------------------------------------------------------------
+  
+**Risk Assessment**
+
+Summarize ranking rationale by species
 
 ### Fishing Mortality Status and Stock Biomass Status
 
@@ -253,30 +257,21 @@ evidence for risk of overfishing and overfished status based on evidence
 outside the stock assessment, and this evaluation is used in the EAFM
 risk assessment.
 
-![Summary of single species status for MAFMC and jointly federally
-managed stocks (Spiny dogfish and both Goosefish). The dotted verticxal
-line is the target bioomass reference point of Bmsy. The dashed lines
-are the management trehsolds of one half Bmsy (vertical) or Fmsy
-(horizontal). Stocks in red are below the biomass threshold (overfished)
-and have fishing mortality above the limit (subject to overfishing),
-stocks in green are above the biomass threshold but have fishing
-mortality above the limit. Remaining stocks have fishing mortality
-within limits: stocks in orange are above the biomass threshold but
-below the biomass target, and stocks in purple are above the biomass
-target.](media/image2.png){width="5.833333333333333in"
-height="2.9166666666666665in"}
+```{r stock-status, fig.width = 7.5,  fig.asp = 0.5, fig.cap = "Summary of single species status for MAFMC and jointly federally managed stocks (Spiny dogfish and both Goosefish). The dotted vertical line is the target biomass reference point of $B_{MSY}$. The dashed lines are the management thresholds of one half $B_{MSY}$ (vertical) or $F_{MSY}$. (horizontal). Stocks in orange are below the biomass threshold (overfished) or have fishing mortality above the limit (subject to overfishing), so are not meeting objectives. Stocks in purple  are above the biomass threshold but below the biomass target with fishing mortality within the limit. Stocks in green are above the biomass target, with fishing mortality within the limit."}
 
-*Summary of single species status for MAFMC and jointly federally
-managed stocks (Spiny dogfish and both Goosefish). The dotted vertical
-line is the target biomass reference point of Bmsy. The dashed lines are
-the management thresholds of one half Bmsy (vertical) or Fmsy
-(horizontal). Stocks in red are below the biomass threshold (overfished)
-and have fishing mortality above the limit (subject to overfishing),
-stocks in green are above the biomass threshold but have fishing
-mortality above the limit. Remaining stocks have fishing mortality
-within limits: stocks in orange are above the biomass threshold but
-below the biomass target, and stocks in purple are above the biomass
-target.*
+# code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-stock-status.R"), 
+
+a <- ecodata::plot_stock_status(report = "MidAtlantic")
+
+a$p + ggplot2::coord_cartesian(xlim=c(0,2), ylim=c(0,2)) 
+
+#+
+#  ggplot2::annotation_custom(gridExtra::tableGrob(a$unknown,
+#                             theme = gridExtra::ttheme_default(base_size = 7), 
+#                             rows=NULL), 
+#                             xmin=0.8, xmax=1.8, ymin=1.5, ymax=2)
+
+```
 
 **Proposed risk criteria:**
 
@@ -317,6 +312,10 @@ evidence indicating low risk that the population is depleted.
 
   High            B \< 0.5 Bmsy
   -----------------------------------------------------------------------
+  
+**Risk Assessment**
+
+Summarize ranking rationale by species
 
 ### Food Web (1) - Prey Availability
 
@@ -385,6 +384,11 @@ Center (NEFSC) food habits database and other sources (Smith and Link,
                   and declining availability, poor condition
   -----------------------------------------------------------------------
 
+**Risk Assessment**
+
+Summarize ranking rationale by species
+
+
 ### Food Web (2) - Predation Pressure
 
 **Description:**
@@ -433,6 +437,11 @@ inform the risk criteria levels.
   High            Predation pressure represents high proportion of
                   overall mortality, increasing mortality trend
   -----------------------------------------------------------------------
+
+**Risk Assessment**
+
+Summarize ranking rationale by species
+
 
 ### Food Web (3) - Protected Species Prey
 
@@ -489,24 +498,9 @@ would be a majority (\>50%) of diet for an individual protected species.
   High            Managed species is sole prey for a protected species
   -----------------------------------------------------------------------
 
-### Food Web (4) -- Other
+**Risk Assessment**
 
-**Description:**
-
-Fish stocks and protected species stocks are managed using single
-species approaches, but fish and protected species stocks exist within a
-food web of predator and prey interactions. This element would be
-applied at the species level. The proposed new element would address
-risks to HMS management objectives from Council managed activities.
-
-**Definition:**
-
-Risks to maintaining HMS and shorebird populations due to interactions
-with Council-managed species.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended removing this as a stand-alone risk element and consider as
-a potential indicator under the Food Web (2) and (3) risk elements.**
+Summarize ranking rationale by species
 
 ### Ecosystem Productivity
 
@@ -645,67 +639,11 @@ risk criterion was decreasing trends across 4 or more indicators.
   High            Decreasing trend in ecosystem productivity, 4+ measures
   -----------------------------------------------------------------------
 
-### Forage Base (new)
+**Risk Assessment**
 
-**Description:**
+Summarize ranking rationale
 
-The amount of forage available is one important driver of fish
-productivity. This element would be applied at the ecosystem level, and
-evaluates whether there is sufficient aggregate forage available to
-provide supporting ecosystem services to managed and protected species.
-
-**Definition:**
-
-Risk to not maintaining aggregate forage base and ecosystem function for
-Council-managed species and protected species.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended** **removing this as a stand-alone risk element and consider
-as a potential indicator under the Ecosystem Productivity risk
-element.**
-
-### Population Diversity (new)
-
-**Description:**
-
-This element would be applied at the species level.
-
-Changes (particularly reduction) in diversity at the species/stock level
-(size, sex, reproductive) can impact stock productivity, and therefore
-yield.
-
-**Definition:**
-
-Risk of not achieving OY due to reduced species/stock diversity (size,
-sex, genetic, reproductive).
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended parking this risk element and consider potentially
-incorporating it later when more information is available and potential
-indicators could be developed.**
-
-### Ecological Diversity (new)
-
-**Description:**
-
-This element would be applied at the ecosystem level.
-
-Diversity of species within ecosystems provides the capacity to adapt to
-change at the ecosystem level, stabilizing ecosystem structure and
-function for dependent fishing communities.
-
-**Definition:**
-
-Risk of not achieving OY due to reduced species diversity and altered
-ecosystem structure and function.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended parking this risk element and continue to track potential
-indicators (e.g., zooplankton, larval, and adult diversity) in the State
-of the Ecosystem reports and determine how these may be incorporated in
-the future.**
-
-[]{#bookmark=id.26in1rg .anchor}**Climate**
+### Climate
 
 **Description:**
 
@@ -765,7 +703,11 @@ Low-Moderate risk was a moderate climate vulnerability ranking.
 Moderate-High risk was a high climate vulnerability ranking. High risk
 was a very high climate vulnerability ranking.
 
-[]{#_Toc145171762 .anchor}**Distribution Shifts**
+**Risk Assessment**
+
+Summarize ranking rationale by species
+
+### Distribution Shifts
 
 **Description:**
 
@@ -848,9 +790,11 @@ height="5.847222222222222in"}
                   distribution shifts
   -----------------------------------------------------------------------
 
-### 
+**Risk Assessment**
 
-[]{#_Toc145171763 .anchor}**Estuarine and Coastal Habitat**
+Summarize ranking rationale by species
+
+### Estuarine and Coastal Habitat
 
 **Description:**
 
@@ -915,6 +859,10 @@ with a stable estuarine condition. Moderate-High risk were estuarine
 dependent species with a fair estuarine condition. High risk were
 estuarine dependent species with a poor estuarine condition.
 
+**Risk Assessment**
+
+Summarize ranking rationale by species
+
 ### Offshore Habitat (new)
 
 **Description:**
@@ -965,29 +913,10 @@ temperature within the feature.
   High            Decreasing trend in offshore habitat, 4+ measures
   -----------------------------------------------------------------------
 
-### Invasive Species (new)
+**Risk Assessment**
 
-**Description:**
+Summarize ranking rationale by species
 
-Invasive species (defined as non-native to the ecosystem *and* likely to
-cause harm to the environment and or economy) are spread by human
-activity and have the potential to disrupt ecosystem structure and
-function.
-
-This element would be applied at the ?? ecosystem level.
-
-It would evaluate risks to OY across all Council managed species due to
-invasive species interactions and impacts on stock productivity.
-
-**Definition:**
-
-Risk of not achieving OY due to invasive species threats to managed
-species productivity.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended removing this as a stand alone risk element and consider as
-a potential indicator under the Estuarine/Coastal Habitat and Offshore
-Habitat risk elements.**
 
 ## Economic Elements
 
@@ -1050,8 +979,11 @@ risk was a significant recent decrease in revenue.
   High            Significant recent decrease in revenue
   -----------------------------------------------------------------------
 
-[]{#bookmark=id.44sinio .anchor}**Marine Recreational Angler
-Days/Trips**
+**Risk Assessment**
+
+Summarize ranking rationale
+
+### Marine Recreational Angler Days/Trips
 
 **Description:**
 
@@ -1103,6 +1035,10 @@ from recreational fishing.
 
   High            Significant recent decreases in angler days/trips
   -----------------------------------------------------------------------
+
+**Risk Assessment**
+
+Summarize ranking rationale
 
 ### Commercial Fishery Resilience (1) - Revenue Diversity
 
@@ -1156,6 +1092,10 @@ measure. Low-Moderate risk was an increasing trend or overall high
 variance in the diversity measure. Moderate-High risk was a significant
 long term decrease in the diversity measure. High risk was a significant
 recent decrease in the diversity measure.
+
+**Risk Assessment**
+
+Summarize ranking rationale
 
 ### Commercial Fishery Resilience (2) - Shoreside Support
 
@@ -1215,60 +1155,14 @@ businesses).
                   shoreside support businesses
   -----------------------------------------------------------------------
 
-### Recreational Fishery Resilience - Shoreside Support (new)
+**Risk Assessment**
 
-**Description:**
+Summarize ranking rationale
 
-This element ranks the risk of reduced fishery business resilience due
-to shoreside support infrastructure by examining the number of shoreside
-support businesses.
-
-**Definition:**
-
-Risk of reduced fishery business resilience due to shoreside support
-infrastructure (marinas, bait and tackle shops, etc.).
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended parking this risk element, collect additional information,
-and allow for continued development of potential indicators.**
-
-### Commercial Fishery Resilience (4,5,6) - Capital, Insurance Availability, and Emerging Markets/Opportunities (new)
-
-**Description:**
-
-This element is applied at the *??* level.
-
-**Definition:**
-
-Risk of reduced fishery business resilience due to business and economic
-pressures.
-
-**Indicators:**
-
-Indicators capturing the risk envisioned by the Committee/AP could
-include access to capital, inflation, gas prices, insurance prices, etc.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended removing these as stand-alone risk elements but consider
-them for potential indicator development that could inform other
-commercial fishery resilience risk elements.**
-
-### Seafood Safety (new)
-
-This element is applied at the ??? level. This element describes the
-risk to market access (e.g. spiny dogfish EU market; surfclam on GB and
-PSP) for Council-managed species. This element would not consider the
-potential risks to human health.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended removing as a stand-alone risk element and consider as a
-potential indicator in other commercial fishery resilience risk
-elements.**
 
 ## Social-Cultural Elements
 
-[]{#bookmark=id.1ci93xb .anchor}**Commercial Fishery Resilience (3) --
-Fleet Diversity**
+### Commercial Fishery Resilience (3) -- Fleet Diversity
 
 **Description:**
 
@@ -1332,7 +1226,9 @@ significant recent decrease in the diversity measure.
   High            Significant recent downward trend in diversity measure
   -----------------------------------------------------------------------
 
-### 
+**Risk Assessment**
+
+Summarize ranking rationale
 
 ### Recreational Fleet Diversity (new)
 
@@ -1397,10 +1293,12 @@ decrease in the diversity measure.
   High            Significant recent downward trend in diversity measure
   -----------------------------------------------------------------------
 
-**\
-**
+**Risk Assessment**
 
-[]{#_Toc146143128 .anchor}**Community Vulnerability**
+Summarize ranking rationale
+
+
+## Fishing Community Vulnerability
 
 **Description:**
 
@@ -1553,6 +1451,11 @@ dependent communities with 3 or more high vulnerability ratings. High
 risk was a majority (\>50%) of fishery dependent communities with 3 or
 more high vulnerability ratings.
 
+**Risk Assessment**
+
+Summarize ranking rationale
+
+
 ## Food Production Elements
 
 ### Commercial Fishing Production
@@ -1586,6 +1489,10 @@ Database.
 
 The criteria still needs to be developed to account for both seafood and
 total commercial landings.
+
+**Risk Assessment**
+
+Summarize ranking rationale
 
 ### Recreational/Subsistence Food Production
 
@@ -1633,49 +1540,14 @@ recreational seafood landings. Moderate-High risk was a significant
 long-term decrease in recreational seafood landings. High risk was a
 significant recent decrease in recreational seafood landings.
 
-### Commercial Employment (new)
+**Risk Assessment**
 
-**Description:**
+Summarize ranking rationale
 
-This element ranks the risk of not optimizing or maintaining employment
-opportunities in the commercial sector. What does optimized employment
-entail?
-
-**Definition:**
-
-Risk of not optimizing or maintaining commercial job creation and
-retention
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended parking this risk element until additional work and
-development could occur. As a potential indicator, the group suggested
-utilizing commercial VTR information (number of crew and days absent)
-that might provide a timeseries of employment (or proxy for employment)
-at the individual level.**
-
-### Recreational Employment (new)
-
-**Description:**
-
-This element ranks the risk of not optimizing or maintaining employment
-opportunities in the recreational sector. What does optimized employment
-entail?
-
-**Definition:**
-
-Risk of not optimizing or maintaining recreational job creation and
-retention.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended parking this risk element until additional work and
-development could occur. As a potential indicator, the group suggested
-utilizing party/charter VTR information (number of crew and days/trips)
-that might provide a timeseries of employment (or proxy for employment)
-at the individual level.**
 
 ## Management Elements
 
-[]{#bookmark=id.2p2csry .anchor}**Fishing Mortality Control**
+### Fishing Mortality Control
 
 **Description:**
 
@@ -1748,9 +1620,11 @@ height="2.3333333333333335in"}
   High            Routine recent significant overages
   -----------------------------------------------------------------------
 
-## 
+**Risk Assessment**
 
-[]{#_Toc145171771 .anchor}**Technical Interactions**
+Summarize ranking rationale
+
+### Technical Interactions
 
 **Description:**
 
@@ -1809,8 +1683,11 @@ could negatively impact a fishery.
                   Category I fishery under MMPA and takes above PBR
   -----------------------------------------------------------------------
 
-[]{#_Toc146143137 .anchor}**Offshore Wind -- Biological/Ecosystem
-(new)**
+**Risk Assessment**
+
+Summarize ranking rationale
+
+### Offshore Wind -- Biological/Ecosystem (new)
 
 **Description:**
 
@@ -1874,6 +1751,10 @@ Atlantic Chub Mackerel, **(G)** Spanish Sardine, **(H)** Butterfish, and
 
 To be developed.
 
+**Risk Assessment**
+
+Summarize ranking rationale
+
 ### Offshore Wind -- Fishery Science and Access (new)
 
 **Description:**
@@ -1931,47 +1812,9 @@ information (work is still under review).
                   spatial overlap for relevant survey(s)
   -----------------------------------------------------------------------
 
-### Offshore Energy Exclusive of Wind (new)
+**Risk Assessment**
 
-**Description:**
-
-This element would be applied at the species and sector (commercial and
-recreational) level and considers the risks of non-wind related energy
-development offshore, which could include tidal energy turbines, oil and
-gas extraction, and other development of offshore energy infrastructure.
-
-**Definition:**
-
-Risks of all offshore energy exploration and/or production on fishery
-displacement.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended removing this as a stand-alone risk element and be included
-as a potential indicator under the Other Ocean Activities risk element
-(see below).**
-
-### Aquaculture (new)
-
-**Description:**
-
-There is growing interest in the continued development and expansion of
-aquaculture production to support the increasing consumption of seafood
-and complement wild-caught fisheries. The Council does have an
-aquaculture policy, but does not have regulatory authority over
-aquaculture permitting, development, or operation. This element would be
-applied at the species level and would consider the biological and/or
-spatial risks of aquaculture development on Mid-Atlantic Council managed
-fisheries.
-
-**Definition:**
-
-Risks to fishery access from area closures due to aquaculture
-development in the Mid-Atlantic.
-
-**The Ecosystem and Ocean Planning Committee and Advisory Panel
-recommended removing this as a stand-alone risk element and be included
-as a potential indicator under the Other Ocean Activities risk element
-(see below).**
+Summarize ranking rationale
 
 ### Other Ocean Activities
 
@@ -2028,6 +1871,10 @@ and overlap calculations.
 Further refinement of the criteria will be needed to identify potential
 thresholds to indicate a specific risk level.
 
+**Risk Assessment**
+
+Summarize ranking rationale
+
 ### Regulatory Complexity and Stability 
 
 **Description:**
@@ -2063,7 +1910,11 @@ harvest relative to total harvest reported by MRIP to track compliance.
 Risk levels and definitions will need to be updated depending upon the
 indicators developed for this risk element.
 
-[]{#bookmark=id.32hioqz .anchor}**Allocation**
+**Risk Assessment**
+
+Summarize ranking rationale
+
+### Allocation
 
 **Description:**
 
@@ -2116,7 +1967,11 @@ developed. A Low risk ranking was no recent or ongoing Council
 discussion about allocation. High risk was defined as recent or ongoing
 Council discussion about allocation.
 
-[]{#_Toc145171772 .anchor}**Discards**
+**Risk Assessment**
+
+Summarize ranking rationale
+
+### Discards
 
 **Description:**
 
@@ -2182,67 +2037,12 @@ gear; mortality \>50% for dominant gear.
                   manage; high discard mortality.
   -----------------------------------------------------------------------
 
-### 
+**Risk Assessment**
 
-### Essential Fish Habitat (new)
+Summarize ranking rationale
 
-**Description:**
 
-The MSA requires federal fishery management councils and NOAA's National
-Marine Fisheries Service to designate Essential Fish Habitat (EFH) for
-species managed under federal fishery management plans. EFH designation
-is important because it means those areas will be given additional
-consideration before any federal agencies are allowed to carry out
-activities in those areas. This element would be applied at the species
-level and would consider risks for not properly identifying and/or
-projecting EFH for Council-managed species.
-
-**Definition:**
-
-Risk of not identifying and/or protecting essential fish habitat and
-implications for Council-managed species.
-
-**Indicators:**
-
-The Northeast Habitat Climate Vulnerability Assessment and the Northeast
-Regional Habitat Assessment (<https://www.mafmc.org/nrha>) Data Explorer
-could be used to help identify EFH and critical habitats and potentially
-quantify changes in the total/spatial extent of these habitats over time
-(ie., compare current EFH areas to updated EFH areas). Quantifying the
-spatial overlap of offshore wind lease areas and EFH footprint.
-
-The Council is currently reviewing EFH designations for all
-Council-managed species and outcomes from that action could be used to
-develop the indicators considered here.
-
-**Potential risk criteria:**
-
-  -----------------------------------------------------------------------
-  *Risk Level*    *Definition*
-  --------------- -------------------------------------------------------
-  Low             No-little change in EFH quantity; little-small spatial
-                  overlap between offshore wind lease area and designated
-                  EFH []{.mark}
-
-  Low-Moderate    Low -moderate change in EFH quantity; low-moderate
-                  overlap between offshore wind lease area and designated
-                  EFH
-
-  Moderate-High   Moderate-high change in EFH quantity; moderate-high
-                  overlap between offshore wind lease area and designated
-                  EFH
-
-  High            High change in EFH quantity; high overlap between
-                  offshore wind lease area and designated EFH
-  -----------------------------------------------------------------------
-
-The Council is currently working on an amendment to update EFH
-designations for Council managed species. Development of any indicators,
-if using those provided above, and evaluation of ranking criteria would
-likely not occur until sometime in 2025 once the EFH amendment is
-complete.
-
-## References
+# References
 
 Able, K. W. (2005). A re-examination of fish estuarine dependence:
 Evidence for connectivity between estuarine and ocean habitats.

@@ -85,6 +85,8 @@ information about the risk element.
 **Risk Criteria** - help specify what is the risk, ranging from low to
 high.
 
+**Risk Assessment** - applies the criteria to the indicators.
+
 The risk elements included in the Council's 2024 updated assessment span biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).
 
 \newpage
@@ -351,10 +353,11 @@ includes 22 forage species and was designed for bluefish, but also
 includes important forage for summer flounder and other Council managed
 species.
 
-![](media/image3.png){width="5.833333333333333in" height="3.5in"}
+```{r foragebio, fig.cap = "Forage fish index in the MAB for spring (blue) and fall (red) surveys, with a decline (purple) in fall. Index values are relative to the maximum observation within a region across surveys.", fig.asp=.6}
+#, code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-forage-index.R")
 
-*Forage fish index developed for the 2022 bluefish research track stock
-assessment*
+ecodata::plot_forage_index()
+```
 
 A secondary indicator of prey availability would include the fish
 condition indicators from the State of the Ecosystem report (shown below
@@ -550,11 +553,9 @@ Shifts in timing of low trophic level production can affect Council
 managed fish species through early life history stages that feed on
 zooplankton.
 
-![](media/image4.png){width="6.5in" height="4.069444444444445in"}
-
-*[Monthly primary production trends show the annual cycle (i.e. the peak
-during the summer months) and the changes over time for each
-month.]{.mark}*
+```{r, fig.cap="Monthly primary production trends show the annual cycle (i.e. the peak during the summer months) and the changes over time for each month.", fig.width=9, fig.asp=.8}
+ecodata::plot_chl_pp(varName = "pp", plottype = "monthly")
+```
 
 #### Zooplankton abundance
 
@@ -573,9 +574,15 @@ a seasonal shift in abundance. This suggests a change in timing of
 zooplankton reproductive cycles, which may impact fish species such as
 Atlantic mackerel.
 
-![](media/image5.png){width="6.0in" height="3.59375in"}
+```{r zoopanom, fig.cap="Changes in zooplankton abundance in the MAB for large (top left) and small (top right) copepods, Cnidarians (bottom left), and Euphausiids (bottom right), with significant increases (orange) in small copeods and Cnidarians.", fig.width=5, fig.asp=.8}
+a <- ecodata::plot_zoo_abundance_anom(report = "MidAtlantic", varName = "copepod") + 
+  ggplot2::facet_wrap(~EPU~Var, labeller = labeller(EPU = function(x) {rep("", length(x))}))
+b <- ecodata::plot_zoo_abundance_anom(report = "MidAtlantic", varName = "euphausid") + 
+  ggplot2::facet_wrap(~EPU~Var, labeller = labeller(EPU = function(x) {rep("", length(x))}))
 
-*Time series of zooplankton abundance from 2019 SOE*
+a/b
+
+```
 
 #### Forage Base - new indicator
 
@@ -587,8 +594,7 @@ available. Food habits data from surveys and literature could be used to
 define the forage base common to all Council managed and protected
 species.
 
-![](media/image3.png){width="5.598958880139983in"
-height="3.3593755468066493in"}
+
 
 #### Fish condition
 
@@ -598,7 +604,16 @@ a change in condition across all species at around 2000. Around
 2010-2013 many species started to have better condition, though black
 sea bass remain thinner for their length on average.
 
-![](media/image6.png){width="7.0in" height="4.157204724409449in"}
+```{r mab-cf, fig.cap = "Condition factor for fish species in the MAB based on fall NEFSC bottom trawl survey data. MAB data are missing for 2017 due to survey delays, and no survey was conducted in 2020.", fig.width=9}
+
+ecodata::plot_condition() +
+  theme(#legend.position = 'bottom',
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 11),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 10),
+        plot.title = element_text(size = 12))
+```
 
 #### Fish productivity
 
@@ -612,9 +627,25 @@ skate, fourspot flounder, little skate, scup, spiny dogfish, summer
 flounder, thorny skate, windowpane flounder, winter flounder, and winter
 skate.
 
-![](media/image7.png){width="5.833333333333333in" height="4.375in"}
+```{r productivity-anomaly, fig.cap = "Fish productivity measures. Left: Small fish per large fish survey biomass anomaly in the Mid-Atlantic Bight. Right: assessment recruitment per spawning stock biomass anomaly for stocks mainly in the Mid-Atlantic. The summed anomaly across species is shown by the black line, drawn across all years with the same number of stocks analyzed.", fig.width=8, fig.asp=0.6}
+#out.width='49%', fig.show='hold',
+a <- ecodata::plot_productivity_anomaly(report = "MidAtlantic") + 
+  ggplot2::guides(fill=guide_legend(ncol=2)) + 
+  ggplot2::theme(legend.position = "bottom",
+                      legend.title = ggplot2::element_blank(),
+                 plot.title =element_text(size = 11))
 
-![](media/image8.png){width="5.833333333333333in" height="4.375in"}
+b <- ecodata::plot_productivity_anomaly(report = "MidAtlantic", varName = "assessment")+ 
+  ggplot2::guides(fill=guide_legend(ncol=2)) +
+  ggplot2::theme(legend.position = "bottom",
+                      legend.title = ggplot2::element_blank(),
+                 plot.title =element_text(size = 11))
+
+a + b
+
+```
+
+
 
 **Potential risk criteria:**
 
@@ -673,13 +704,13 @@ Additional indicators linking temperature and ocean acidification to
 individual stocks are presented in the State of the Ecosystem reports.
 
 ![Hare et al., 2016 Climate vulnerability by species, Northeast
-US](media/image9.png){width="5.833333333333333in"
+US](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/journal.pone.0146756.g003.PNG){width="5.833333333333333in"
 height="4.232697944006999in"}
 
 *Hare et al., 2016 Climate vulnerability by species, Northeast US*
 
-Indicator: Mid Atlantic Ocean acidification ![Grace Saba SOE 2023
-Mid-Atlantic Seasonal OA](media/image10.jpg){width="5.833333333333333in"
+Indicator: Mid Atlantic Ocean acidification ![Grace Saba SOE 2024
+Mid-Atlantic Seasonal OA](https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images/Figure6_GraceSaba_2024.png){width="5.833333333333333in"
 height="3.055395888013998in"}
 
 **Potential risk criteria:**
@@ -733,7 +764,7 @@ al., 2016). We applied those distribution shift risk rankings directly
 in the risk assessment.
 
 ![Hare et al., 2016 Distribution shift risk by species, Northeast
-US](media/image11.png){width="5.833333333333333in"
+US]((https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/NEVAvulmid.png){width="5.833333333333333in"
 height="5.085990813648294in"}
 
 *Hare et al., 2016 Distribution shift risk by species, Northeast US*
@@ -744,7 +775,7 @@ indicators are derived from these surveys: kernel density plots of
 recent distribution compared with 1970s distribution, and time series of
 the along shelf position of the center of distribution.
 
-*Historical vs. current distribution*
+*Historical vs.current distribution*
 
 Spatial distribution has changed over time for some species more than
 for others. The distribution of black sea bass, as measured by NEFSC
@@ -768,11 +799,15 @@ deeper water. Individual Council managed species distribution
 centeroids, aside from squids, also showed this trend to the northeast
 along the shelf in previous analysis.
 
-![A graph of different sizes and colors Description automatically
-generated with medium confidence](media/image12.png){width="6.5in"
-height="5.847222222222222in"}
+```{r species-dist, fig.cap = "Aggregate species distribution metrics for species in the Northeast Large Marine Ecosystem: along shelf distance with increasing trend (orange), and depth with decreasing trend indicating deeper water (purple).", fig.width = 8, fig.asp=0.3}
 
-*Aggregate species shifts from the 2023 State of the Ecosystem report*
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-species-dist.R")
+
+a <- ecodata::plot_species_dist(varName = "along") + ggplot2::coord_cartesian(xlim = c(1969,2021))
+b <- ecodata::plot_species_dist(varName = "depth") + ggplot2::coord_cartesian(xlim = c(1969,2021)) 
+
+a+b
+``` 
 
 **Potential risk criteria:**
 
@@ -824,11 +859,9 @@ coastal habitat quality as well as fish contamination. State of the
 Ecosystem reports now include up to date indicators of Chesapeake Bay
 habitat conditions which could be included as indicators.
 
-![A graph with lines and dots Description automatically
-generated](media/image13.png){width="6.5in"
-height="2.9305555555555554in"}
-
-*Improvement in overall Chesapeake Bay water quality, from 2022 SOE*
+```{r, fig.cap="Chesapeake Bay water quality trend, 3 year running mean proportion of areas meeting or exceeding quality thresholds based on dissolved oxygen, chlorophyll, water clarity, and submerged aquatic vegetation."}
+ecodata::plot_ches_bay_wq()
+```
 
 Species specific habitat use indicators for Chesapeake Bay are in
 development. As reported in the 2023 SOE, Chesapeake Bay suitable
@@ -944,7 +977,14 @@ profits, which is the component of a fishery's value that this element
 is ultimately attempting to assess risk towards. Currently this
 indicator is aggregated and presented at the ecosystem-level.
 
-![](media/image14.png){width="5.833333333333333in" height="2.625in"}
+```{r comm-revenue, fig.width = 6, fig.asp = 0.45, fig.cap = "Revenue for the for the Mid-Atlantic region: total (black) and from MAFMC managed species (red), with a significant decrease (purple) for total revenue."}
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-comm-revenue.R")
+
+ecodata::plot_comdat(report="MidAtlantic", varName="revenue") + 
+  ggplot2::theme(legend.position = "right",
+                      legend.title = ggplot2::element_blank())
+
+```
 
 Net revenue (Gross revenue - trip costs) is a better proxy for trip
 value, in an economic context. However, this metric can be calculated
@@ -958,7 +998,7 @@ Canadian border versus what net revenue can be calculated for. The
 Ecosystem and Ocean Planning Committee and Advisory Panel recommended
 continued development of this indicator.
 
-![](media/image15.png){width="6.5in" height="5.305555555555555in"}
+![](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Cost_Coverage.png){width="6.5in" height="5.305555555555555in"}
 
 **Potential risk criteria:**
 
@@ -1014,10 +1054,12 @@ information is not gathered systematically in the region. Potentially,
 multiple indicators could be used to better proxy for recreational
 fishery value.
 
-![A graph showing the growth of a company Description automatically
-generated with medium
-confidence](media/image16.png){width="5.833333333333333in"
-height="2.625in"}
+```{r rec-op, fig.cap = "Recreational effort (number of trips, black) in the Mid-Atlantic, with significant increase (orange line)."}
+# code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-effort.R")
+
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effort")
+```
+
 
 **Potential risk criteria:**
 
@@ -1062,8 +1104,12 @@ and spiny dogfish). Although the exact value of the effective Shannon
 index is relatively uninformative in this context, the relative value
 identifies changes in diversity.
 
-![](media/image17.png){width="5.833333333333333in"
-height="2.3333333333333335in"}
+```{r commercial-div-species-div,  fig.cap = paste0("Species revenue diversity in the Mid Atlantic.")}
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
+
+ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue species diversity")
+```
+
 
 Although the Shannon index provides a measure proportional to each
 type's relative frequency, the effective Shannon index has the added
@@ -1189,11 +1235,11 @@ of revenue across these fleets. Although the exact value of the
 effective Shannon index is relatively uninformative in this context, the
 relative value identifies changes in diversity.
 
-![A graph of a number of different types of data Description
-automatically generated with medium
-confidence](media/image18.png){width="5.833333333333333in"
-height="4.958333333333333in"}
+```{r commercial-div,  fig.cap = paste0("Commercialfleet  diversity in the Mid Atlantic.")}
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
 
+ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet count")
+```
 Other metrics for diversity exist. The Simpson index is a common measure
 of biodiversity, but has the undesirable attribute of being asymmetric
 and weighing more common types more heavily than the less common types.
@@ -1250,9 +1296,13 @@ modes).
 Recreational fleet effort diversity is already presented in the
 Mid-Atlantic State of the Ecosystem Report. This indicator is an
 effective Shannon estimate of diversity of effort across mode
-(i.e. effort by shoreside, private boat, and for-hire anglers).
+(i.e. effort by shoreside, private boat, and for-hire anglers).
 
-![](media/image19.png){width="5.833333333333333in" height="2.625in"}
+```{r rec-div, fig.cap = "Recreational fleet effort diversity (black) in the Mid-Atlantic, with significant decrease (purple line)."}
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")
+
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity")
+```
 
 Other metrics for diversity exist. The Simpson index is a common measure
 of biodiversity, but has the undesirable attribute of being asymmetric
@@ -1478,9 +1528,12 @@ Commercial seafood landings from Council managed species (in red below)
 and total landings (in black) which include bait and industrial uses
 were used to assess fishing production.
 
-![A graph of different colored lines Description automatically
-generated](media/image20.png){width="5.833333333333333in"
-height="2.9166666666666665in"}
+```{r, comm-landings, fig.asp=1.6, fig.cap ="Total commercial landings in the Mid-Atlantic Bight (black) and MAFMC-managed U.S seafood landings (red) by feeding guild, with significant declines (purple) in total planktivore landings and both total and MAFMC managed benthos landings and a significant increase (orange) in total benthivore landings."}
+#code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-commercial-landings.R"),
+
+ecodata::plot_comdat(report = "MidAtlantic", plottype = "guild")
+
+```
 
 Time series of landings of bait from the Federal Commercial Dealer
 Database.
@@ -1517,8 +1570,11 @@ The Ecosystem and Ocean Planning Committee and Advisory Panel also
 supported the potential development of new indicators that would
 evaluate the subsistence component of this risk element.
 
-![](media/image21.png){width="5.833333333333333in"
-height="2.3333333333333335in"}
+```{r, rec-landings, fig.cap ="Total recreational seafood harvest (millions of pounds, black, significant decrease, purple) in the Mid-Atlantic region."}
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-landings.R")
+
+ecodata::plot_recdat(report = "MidAtlantic", varName ="landings")
+```
 
 **Potential risk criteria:**
 
@@ -1598,13 +1654,19 @@ that looks at total catch divided by total ABC or ACL across all
 Mid-Atlantic species if a broader look across managed species is
 preferred.
 
-![A chart of different colored bars Description automatically
-generated](media/image22.png){width="5.833333333333333in"
-height="2.625in"}
+```{r abcacl-stacked, fig.cap="Sum of catch limits across all MAFMC managed commercial (C) and recreational (R) fisheries.", fig.width = 6, fig.asp = 0.4}
+#, code =  readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-stacked.R")
 
-![A graph with numbers and lines Description automatically
-generated](media/image23.png){width="5.833333333333333in"
-height="2.3333333333333335in"}
+ecodata::plot_abc_acl(report = "MidAtlantic", plottype = "Stacked")
+
+```
+
+```{r abcacl-catch, fig.cap = "Catch divided by ABC/ACL for MAFMC managed fisheries. High points are recreational black sea bass (up to 2021) and scup (2022). Red line indicates the median ratio across all fisheries."}
+#, code =  readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-catch.R")
+
+ecodata::plot_abc_acl(report = "MidAtlantic", plottype = "Catch")
+
+```
 
 **Potential risk criteria:**
 
@@ -1727,7 +1789,7 @@ From the State of the Ecosystem report - Right whale spatial overlap
 with offshore wind lease areas to help inform the ecosystem
 structure/function component of the definition.
 
-![](media/image24.png){width="6.5in" height="8.402777777777779in"}
+![](https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images/NARW_hotspots_final_2024.jpg){width="6.5in" height="8.402777777777779in"}
 
 *Right whale hot spots overlap with offshore wind lease areas*
 
@@ -1737,7 +1799,7 @@ evaluated the habitat usage by forage species within and outside of
 offshore wind lease areas. This information could also be used to help
 inform the ecosystem structure/function component of the definition.
 
-![](media/image25.jpg){width="6.5in" height="6.930555555555555in"}
+![](https://afspubs.onlinelibrary.wiley.com/cms/asset/0f9efc39-be84-4800-9804-c9a39d6d7867/mcf210230-fig-0004-m.jpg){width="6.5in" height="6.930555555555555in"}
 
 Mean occupancy habitats at the 20% (light blue) and 80% (dark blue)
 quantile thresholds across forage species; gray shows the model extent.
@@ -1785,9 +1847,14 @@ lease areas by species, fleet, or community, community
 vulnerability/engagement/EEJ, spatial overlap of lease areas and federal
 fisheries surveys.
 
-![](media/image26.png){width="5.833333333333333in" height="2.625in"}
+```{r wea-spp-rev, fig.cap="Fishery revenue in wind energy lease areas in the Mid-Atlantic.",  fig.width=5, fig.asp=.4}
+#code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-spp-rev.R"),
 
-![](media/image27.png){width="6.5in"
+ecodata::plot_wind_revenue(report = "MidAtlantic", varName = "value", plottype = "nofacets")
+
+```
+
+![](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/SurveyMap202133.png){width="6.5in"
 height="10.041666666666666in"}Spatial overlap map with NEFSC surveys
 (From 2021 SOE; wind areas are out of date)
 

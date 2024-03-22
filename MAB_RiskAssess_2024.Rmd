@@ -39,6 +39,7 @@ library(tidyr)
 library(ecodata)
 library(here)
 library(kableExtra)
+library(patchwork)
 
 ```
 
@@ -703,15 +704,23 @@ multiple life history factors, and number of non-climate stressors.
 Additional indicators linking temperature and ocean acidification to
 individual stocks are presented in the State of the Ecosystem reports.
 
-![Hare et al., 2016 Climate vulnerability by species, Northeast
-US](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/journal.pone.0146756.g003.PNG){width="5.833333333333333in"
-height="4.232697944006999in"}
+```{r, fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
+magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAvulmid.png")
+```
 
-*Hare et al., 2016 Climate vulnerability by species, Northeast US*
 
-Indicator: Mid Atlantic Ocean acidification ![Grace Saba SOE 2024
-Mid-Atlantic Seasonal OA](https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images/Figure6_GraceSaba_2024.png){width="5.833333333333333in"
-height="3.055395888013998in"}
+Indicator: Mid Atlantic Ocean acidification 
+
+```{r mab-oa, out.width = '100%', fig.cap = "Locations where bottom aragonite saturation state ($\\Omega_{Arag}$; summer only: June-August) were at or below the laboratory-derived sensitivity level for Atlantic sea scallop (left panel) and longfin squid (right panel) for the time periods 2007-2022 (dark cyan) and 2023 only (magenta). Gray circles indicate locations where bottom $\\Omega_{Arag}$ values were above the species specific sensitivity values.."}
+
+
+#knitr::include_graphics("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC-GraceSaba.jpg")
+
+magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images/Figure6_GraceSaba_2024.png")
+
+#magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC - Grace Saba.jpg")
+
+```
 
 **Potential risk criteria:**
 
@@ -763,11 +772,10 @@ the Northeast US were assessed in a comprehensive assessment (Hare et
 al., 2016). We applied those distribution shift risk rankings directly
 in the risk assessment.
 
-![Hare et al., 2016 Distribution shift risk by species, Northeast
-US]((https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/NEVAvulmid.png){width="5.833333333333333in"
-height="5.085990813648294in"}
+```{r, fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
+magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAshiftmid.png")
 
-*Hare et al., 2016 Distribution shift risk by species, Northeast US*
+```
 
 In addition, changes in species distribution are monitored using
 fisheries independent bottom trawl surveys. Two distribution shift
@@ -998,7 +1006,9 @@ Canadian border versus what net revenue can be calculated for. The
 Ecosystem and Ocean Planning Committee and Advisory Panel recommended
 continued development of this indicator.
 
-![](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Cost_Coverage.png){width="6.5in" height="5.305555555555555in"}
+```{r, fig.cap="Cost coverage"}
+magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Cost_Coverage.png")
+```
 
 **Potential risk criteria:**
 
@@ -1789,7 +1799,16 @@ From the State of the Ecosystem report - Right whale spatial overlap
 with offshore wind lease areas to help inform the ecosystem
 structure/function component of the definition.
 
-![](https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images/NARW_hotspots_final_2024.jpg){width="6.5in" height="8.402777777777779in"}
+```{r whales-wind, out.width="55%", fig.cap="Northern Right Whale persistent hotspots (red shading) and Wind Energy Areas (black outlines)."}
+#knitr::include_graphics("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/right_whales.png")
+
+#magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/right_whales.jpg")
+
+# NEW FILE 
+magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images/NARW_hotspots_final_2024.jpg")
+
+
+```
 
 *Right whale hot spots overlap with offshore wind lease areas*
 
@@ -1799,15 +1818,12 @@ evaluated the habitat usage by forage species within and outside of
 offshore wind lease areas. This information could also be used to help
 inform the ecosystem structure/function component of the definition.
 
-![](https://afspubs.onlinelibrary.wiley.com/cms/asset/0f9efc39-be84-4800-9804-c9a39d6d7867/mcf210230-fig-0004-m.jpg){width="6.5in" height="6.930555555555555in"}
+```{r, results='hide', fig.cap="Mean occupancy habitats at the 20% (light blue) and 80% (dark blue) quantile thresholds across forage species; gray shows the model extent. Taxa with autumn models include **(D)** Round Herring, **(E)** longfin inshore squid, **(F)** Atlantic Chub Mackerel, **(G)** Spanish Sardine, **(H)** Butterfish, and **(I)** Atlantic Thread Herring."}
 
-Mean occupancy habitats at the 20% (light blue) and 80% (dark blue)
-quantile thresholds across forage species; gray shows the model extent.
-Taxa with spring models include **(A)** Atlantic Mackerel, **(B)**
-Atlantic Menhaden, and **(C)** Atlantic Herring; taxa with autumn models
-include **(D)** Round Herring, **(E)** longfin inshore squid, **(F)**
-Atlantic Chub Mackerel, **(G)** Spanish Sardine, **(H)** Butterfish, and
-**(I)** Atlantic Thread Herring.
+magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Friedlandetal2023_fallforageoccupancy.png")
+```
+
+
 
 **Potential risk criteria:**
 
@@ -1854,9 +1870,10 @@ ecodata::plot_wind_revenue(report = "MidAtlantic", varName = "value", plottype =
 
 ```
 
-![](https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/SurveyMap202133.png){width="6.5in"
-height="10.041666666666666in"}Spatial overlap map with NEFSC surveys
-(From 2021 SOE; wind areas are out of date)
+
+```{r, fig.cap="Spatial overlap map with NEFSC surveys (From 2021 SOE; wind areas are out of date)"}
+magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/SurveyMap202133.png")
+```
 
 FishRules and FishBrain apps for recreational fishing spatial overlap
 information (work is still under review).

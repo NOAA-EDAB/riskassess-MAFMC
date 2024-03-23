@@ -704,7 +704,7 @@ multiple life history factors, and number of non-climate stressors.
 Additional indicators linking temperature and ocean acidification to
 individual stocks are presented in the State of the Ecosystem reports.
 
-```{r, fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
+```{r, out.width = '50%', fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAvulmid.png")
 ```
 
@@ -772,7 +772,7 @@ the Northeast US were assessed in a comprehensive assessment (Hare et
 al., 2016). We applied those distribution shift risk rankings directly
 in the risk assessment.
 
-```{r, fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
+```{r, out.width = '50%', fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAshiftmid.png")
 
 ```
@@ -1006,7 +1006,7 @@ Canadian border versus what net revenue can be calculated for. The
 Ecosystem and Ocean Planning Committee and Advisory Panel recommended
 continued development of this indicator.
 
-```{r, fig.cap="Cost coverage"}
+```{r, out.width = '50%', fig.cap="Cost coverage"}
 magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Cost_Coverage.png")
 ```
 
@@ -1538,11 +1538,10 @@ Commercial seafood landings from Council managed species (in red below)
 and total landings (in black) which include bait and industrial uses
 were used to assess fishing production.
 
-```{r, comm-landings, fig.asp=1.6, fig.cap ="Total commercial landings in the Mid-Atlantic Bight (black) and MAFMC-managed U.S seafood landings (red) by feeding guild, with significant declines (purple) in total planktivore landings and both total and MAFMC managed benthos landings and a significant increase (orange) in total benthivore landings."}
-#code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-commercial-landings.R"),
-
-ecodata::plot_comdat(report = "MidAtlantic", plottype = "guild")
-
+```{r, total-landings, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
+#code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
+ecodata::plot_comdat(report = "MidAtlantic", varName = "landings") #+
+  #ggplot2::ylab("")
 ```
 
 Time series of landings of bait from the Federal Commercial Dealer

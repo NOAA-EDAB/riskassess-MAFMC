@@ -117,7 +117,7 @@ all$Element <- factor(all$Element, levels=c("Assessment performance", "F status"
 allwide <- all %>% 
   spread(Ranking, Criteria)
 
-kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Ranking Criteria used for each Risk Element. Additional detail and information on each risk elements definition and indicator(s) can be found in the full risk assessment text.\\label{allcriteria}") %>%
+kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Ranking Criteria used for each Risk Element. Additional information on the risk ranking criteria can be found in the full risk assessment text.\\label{allcriteria}") %>%
   kable_styling(font_size=8, latex_options=c("repeat_header")) %>%
   column_spec(1, width="2cm") %>%
   column_spec(2:5, width="5cm") %>%
@@ -1608,14 +1608,7 @@ Risk of not achieving OY due to a mismatch of projected effects of management co
 
 This risk element is currently defined at “Fishing Mortality Control” which includes both landings and dead discards. Therefore, the total catch at the fishery sector level is compared to the appropriate catch limit (ABC or Annual Catch Limit, ACL). For the commercial fishery, NMFS dealer data in conjunction with estimates of dead discards from the most recent stock assessment are used to compare the annual ABC/ACL to estimated annual commercial catch. For the recreational sector, Marine Recreational Information Program (MRIP) estimates of recreational landings and dead discards in conjunction with stock assessment estimates of recreational discards in weight are used to compare the annual ACL to estimated annual recreational catch estimates.
 
-The Mid-Atlantic State of the Ecosystem report now includes an indicator that looks at total catch divided by total ABC or ACL provides a visualization of this indicator across all Mid-Atlantic species.
-
-```{r abcacl-stacked, fig.cap="Sum of catch limits across all MAFMC managed commercial (C) and recreational (R) fisheries.", fig.width = 6, fig.asp = 0.4}
-#, code =  readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-stacked.R")
-
-ecodata::plot_abc_acl(report = "MidAtlantic", plottype = "Stacked")
-
-```
+The Mid-Atlantic State of the Ecosystem report now includes an indicator that looks at total catch divided by total ABC or ACL provides a visualization of this indicator across all Mid-Atlantic species (Fig. \ref{fig:abcacl-catch}).
 
 ```{r abcacl-catch, fig.cap = "Catch divided by ABC/ACL for MAFMC managed fisheries. High points are recreational black sea bass (up to 2021) and scup (2022). Red line indicates the median ratio across all fisheries."}
 #, code =  readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-catch.R")
@@ -2041,7 +2034,7 @@ risk.species %>%
   mutate_at(vars(-Species), function(x){ 
     cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "lowest", "lowmod", "modhigh", "highest"),c("gray","black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "lowest", "lowmod", "modhigh", "highest"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
   kable(format = "latex", escape = F, booktabs = T, linesep = "",
-        caption="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}") %>%
+        caption="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red). Greyed out risk elements to be completed later in 2024.\\label{sptable}") %>%
   kable_styling(latex_options = "scale_down")
   #kable_styling(font_size = 10) 
 ```
@@ -2079,7 +2072,7 @@ risk.eco %>%
   mutate_at(vars(-System), function(x){ 
     cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "lowest", "lowmod", "modhigh", "highest"),c("gray","black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "lowest", "lowmod", "modhigh", "highest"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
   kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "",
-        caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{ecotable}") %>%
+        caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red). Greyed out risk elements to be completed later in 2024.\\label{ecotable}") %>%
   kable_styling(latex_options = "scale_down") 
 
 ```
@@ -2114,7 +2107,7 @@ risk.sppsector %>%
   mutate_at(vars(-Species), function(x){ 
     cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "lowest", "lowmod", "modhigh", "highest"),c("gray", "black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "lowest", "lowmod", "modhigh", "highest"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
   kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "",
-        caption="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{spsectable}")
+        caption="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red). Greyed out risk elements to be completed later in 2024.\\label{spsectable}")
   #kable_styling(font_size = 10) 
 
 ```

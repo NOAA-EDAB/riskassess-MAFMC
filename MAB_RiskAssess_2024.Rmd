@@ -1595,52 +1595,20 @@ Summarize ranking rationale
 
 **Description:**
 
-This element is applied at the species and sector (commercial and
-recreational) level, and addresses the level of management control in
-terms of catch estimation and monitoring to prevent overfishing.
-Adequate management control indicates a low risk of overfishing, while
-poor management control indicates a higher risk of overfishing and hence
-not achieving OY.
+This element is applied at the species and sector (commercial and recreational) level, and addresses the level of management control in terms of catch estimation and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY.
 
-The ability to control total catch within the specified Acceptable
-Biological Catch (ABC) is necessary to prevent overfishing, which is a
-fundamental requirement of US fisheries law. Chronic or persistent
-overfishing can lead to stock depletion and ultimately to a stock being
-declared as overfished and requiring a stock rebuilding plan. The
-ability to constrain catch is a function of the efficacy of the catch
-monitoring program for each species and sector which relies on both
-proactive (in -season closure) and reactive (pay backs for overages in
-subsequent years) accountability measures (AMs). Under certain
-circumstances, specification of management measures which are too strict
-could lead to "underfishing" (not achieving the desired quota) and hence
-not achieving OY.
+The ability to control total catch within the specified Acceptable Biological Catch (ABC) is necessary to prevent overfishing, which is a fundamental requirement of US fisheries law. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished and requiring a stock rebuilding plan. The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species and sector which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures (AMs). Under certain circumstances, specification of management measures which are too strict could lead to “underfishing” (not achieving the desired quota) and hence not achieving OY.
+
 
 **Definition:**
 
-Risk of not achieving OY due to a mismatch of projected effects of
-management controls with harvest/catch targets.
+Risk of not achieving OY due to a mismatch of projected effects of management controls with harvest/catch targets.
 
 **Indicators:**
 
-Total catch at the fishery sector level compared to the appropriate
-catch limit (ABC or Annual Catch Limit, ACL). For the commercial
-fishery, NMFS dealer data in conjunction with estimates of dead discards
-from the most recent stock assessment are used to compare the annual
-catch limit to actual annual catch. For the recreational sector, Marine
-Recreational Information Program (MRIP) estimates of recreational
-landings and dead discards in conjunction with stock assessment
-estimates of recreational discards in weight are used to compare the
-annual catch limit to actual annual catch estimates.
+This risk element is currently defined at “Fishing Mortality Control” which includes both landings and dead discards. Therefore, the total catch at the fishery sector level is compared to the appropriate catch limit (ABC or Annual Catch Limit, ACL). For the commercial fishery, NMFS dealer data in conjunction with estimates of dead discards from the most recent stock assessment are used to compare the annual ABC/ACL to estimated annual commercial catch. For the recreational sector, Marine Recreational Information Program (MRIP) estimates of recreational landings and dead discards in conjunction with stock assessment estimates of recreational discards in weight are used to compare the annual ACL to estimated annual recreational catch estimates.
 
-Landings only information could potentially be considered if
-underfishing appears to be more important or if discards are low for a
-fishery sector. Discards are also addressed under a separate risk
-element. However, the current risk element is "Fishing Mortality
-Control" which would include both landings and discards. The
-Mid-Atlantic State of the Ecosystem report now includes an indicator
-that looks at total catch divided by total ABC or ACL across all
-Mid-Atlantic species if a broader look across managed species is
-preferred.
+The Mid-Atlantic State of the Ecosystem report now includes an indicator that looks at total catch divided by total ABC or ACL provides a visualization of this indicator across all Mid-Atlantic species.
 
 ```{r abcacl-stacked, fig.cap="Sum of catch limits across all MAFMC managed commercial (C) and recreational (R) fisheries.", fig.width = 6, fig.asp = 0.4}
 #, code =  readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-abcacl-stacked.R")
@@ -1656,7 +1624,7 @@ ecodata::plot_abc_acl(report = "MidAtlantic", plottype = "Catch")
 
 ```
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1670,52 +1638,27 @@ ecodata::plot_abc_acl(report = "MidAtlantic", plottype = "Catch")
   High            Routine recent significant overages
   -----------------------------------------------------------------------
 
+Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%. For both sectors, low risk was defined as no history of overages during the last 5 years (2018-2022). Low-moderate risk was small but infrequent overages (1-2 overages). Moderate-high risk was routine (3 or more overages), but small-moderate overages, and high risk was routine, significant overages.
+
 **Risk Assessment**
 
-Summarize ranking rationale
+Both surfclam and ocean quahog remain as low risk because they are well within recent quotas and are managed as ITQ fisheries. Commercial fisheries for scup, Atlantic mackerel, butterfish, longfin squid, golden tilefish, bluefish, spiny dogfish, and chub mackerel as well as recreational blueline tilefish and spiny dogfish were also low risk with no recent overages and a variety of management measures in place to avoid overages. While there are no stock assessments or ABCs in place for the Council’s unmanaged forage species, there is no indication that the existing trip limits (1,700 pounds) for these species have been exceeded and therefore have a low risk criteria score. Commercial summer flounder, scup, shortfin squid, and blueline tilefish as well as recreational summer flounder, Atlantic mackerel, and bluefish were ranked as low-moderate risk all with one, small overage during the last five years. Shortfin squid did have two overages early in the time period. Recreational scup and black sea bass are the only two sectors ranked as high risk each with three or more overages greater than 10% within the last five years. Recreational golden tilefish remain unranked because there are no catch and landing limits associated with the recreational fishery and appear to be a relatively minor component of total removals. Future stock assessments may include recreational removals and may warrant additional consideration at that time.
 
 ### Technical Interactions
 
 **Description:**
 
-This element is applied at the species and sector (commercial and
-recreational) level and considerers potential interactions with
-non-Council-managed species, including protected species, on
-Council-managed fisheries. Here the risk is caused by negative
-consequences from fishing activity regulated under Council FMPs which
-interacts with species managed by other agencies, including bycatch of
-protected species. For example, interactions with species protected
-under the U.S. Marine Mammal Protection Act (MMPA) could result in
-greater restrictions in Council managed fisheries, increasing the risk
-that OY would not be achieved in those fisheries.
+This element is applied at the species and sector (commercial and recreational) level and considerers potential interactions with non-Council-managed species, including protected species, on Council-managed fisheries. Here the risk is caused by negative consequences from fishing activity regulated under Council FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, interactions with species protected under the U.S. Marine Mammal Protection Act (MMPA) could result in greater restrictions in Council managed fisheries, increasing the risk that OY would not be achieved in those fisheries.
 
 **Definition:**
 
-Risk of not achieving OY due to interactions with non-Council managed
-species, including protected species.
+Risk of not achieving OY due to interactions with non-Council managed species, including protected species.
 
 **Indicators:**
 
-The current indicator used is the MMPA category fishery level (Category
-I - frequent incidental mortality or injury; Category II - occasional
-incidental mortality or injury; Category III, remote likelihood of
-incidental mortality or injury) assigned to the dominant gear type
-associated with the fishery sector. This indicator is relatively static
-over time and may not appropriately track risk associated with these
-technical interactions.
+Indicators used for this element include the MMPA category fishery level (Category I - frequent incidental mortality or injury; Category II - occasional incidental mortality or injury; Category III, remote likelihood of incidental mortality or injury) assigned to the dominant gear type associated with the fishery sector. The occurrence of any accountability measures (AMs) from non-Council  managed species, documented interactions with non-Council managed species, and new or anticipated regulatory changes to reduce interactions of protected species over the last 5 years (2018-2022) were also used as indicators. 
 
-Could look at the total number of protected species "takes" by a fishery
-sector by year or five year period. Could also consider regulatory
-changes that were considered and/or implemented to reduce technical
-interactions in Mid-Atlantic fisheries.
-
-**Proposed risk criteria:**
-
-Evaluation of this risk element requires quantification of the
-likelihood that non-Council AMs would be triggered and impact fishing
-activities for Council managed species. In addition, NMFS manages
-incidental mortality of mammals through take reductions plans which
-could negatively impact a fishery.
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1733,9 +1676,11 @@ could negatively impact a fishery.
                   Category I fishery under MMPA and takes above PBR
   -----------------------------------------------------------------------
 
+Evaluation of this risk element requires quantification of the likelihood that non-Council AMs would be triggered and impact fishing activities for Council managed species. In addition, NMFS manages incidental mortality of mammals through take reductions plans which could negatively impact a fishery.
+
 **Risk Assessment**
 
-Summarize ranking rationale
+All recreational fisheries are ranked as low risk with hook and line gear having no/very limited known interactions with protected species and no AMs have been triggered from non-Council managed fisheries that have implications for the recreational sector. Similalrly, the commercial fisheries for ocean quahogs, surfclams, golden tilefish, blueline tilefish, bluefish, and unmanaged forage species were ranked low risk as there are no known interactions with protected resources or AMs in other fisheries. Summer flounder, scup, black sea bass, Atlantic mackerel, butterfish, shortfin squid, and chub mackerel commercial fisheries were ranked as low-moderate risk due to Category II fisheries (primarily trawl and pot fisheries) with some infrequent interactions with marine mammals and shad and river herring catch cap implications from the Atlantic herring fishery. Moderate-high risk ranking were identified for the commercial longfin squid fishery (some marine mammal interactions, sea turtle and Atlantic sturgeon takes, and river herring/shad catch cap implications) and the spiny dogfish commercial fishery (some marine mammal interactions, sea turtle and Atlantic sturgeon takes, and new regulations anticipated to minimize takes of Atlantic sturgeon). 
 
 ### Offshore Wind -- Biological/Ecosystem (new)
 
@@ -1809,7 +1754,7 @@ To be developed.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+To be developed later in the year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 ### Offshore Wind -- Fishery Science and Access (new)
 
@@ -1876,7 +1821,7 @@ information (work is still under review).
 
 **Risk Assessment**
 
-Summarize ranking rationale
+To be developed later in the year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 ### Other Ocean Activities
 
@@ -1935,153 +1880,55 @@ thresholds to indicate a specific risk level.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 ### Regulatory Complexity and Stability 
 
 **Description:**
 
-This element is applied at the species and sector (commercial and
-recreational) level. Constituents have frequently raised concerns about
-the complexity and continually changing fishery regulations and the need
-to simplify them to improve their efficacy. Complex and constantly
-changing regulations may lead to non-compliance and/or impact other
-fisheries. Non-compliance could have stock assessment, data quality,
-management, and fairness and equity implications.
+This element is applied at the species and sector (commercial and recreational) level. Constituents have frequently raised concerns about the complexity and continually changing fishery regulations and the need to simplify them to improve their efficacy. Complex and constantly changing regulations may lead to non-compliance and/or impact other fisheries. Non-compliance could have stock assessment, data quality, management, and fairness and equity implications.
 
 **Revised definition:**
 
-Risk of not achieving OY due to frequency of regulatory modifications
-and regulatory complexity, which may have an adverse effect on
-compliance.
+Risk of not achieving OY due to frequency of regulatory modifications and regulatory complexity, which may have an adverse effect on compliance.
 
 **Indicators:**
 
-Continue with a qualitative evaluation using the frequency of any
-regulatory change over the last 5 years by fishery and sector.
-
-Potential alternative indicators include: quantifying the number of
-regulations and/or the frequency of regulatory changes, based on
-evaluation of the Code of Federal Regulations; frequency of mid-changes;
-number of states in management unit with different regulations
-(recreational bluefish versus black sea bass for example); noncompliant
-harvest relative to total harvest reported by MRIP to track compliance.
-
-**Potential risk criteria:**
-
-Risk levels and definitions will need to be updated depending upon the
-indicators developed for this risk element.
-
-**Risk Assessment**
-
-Summarize ranking rationale
-
-### Allocation
-
-**Description:**
-
-Many Mid-Atlantic fisheries have some allocation component and any
-adjustments/changes in allocation can be driven by a number of factors
-which can present a variety of management, biological, and fishery
-risks. This element is applied at the species and sector level, and
-addresses the risk of not achieving OY due to spatial mismatch of stocks
-and management allocations or because of sub-optimal allocation by
-sector and/or area.
-
-**Definition:**
-
-Risk of not achieving OY due to spatial mismatch of stocks and
-management or sub-optimal allocation by sector and/or area.
-
-**Indicators:**
-
-Currently, the Allocation indicator consists of whether or not the
-Council is considering or an ongoing management action that might have
-any sort of allocation outcome/implication (by sector, region, permit
-holder etc.). However, this indicator does not directly get at the
-actual risk associated with spatial mis-match or sub-optimal allocation.
-
-Indicators quantifying the difficulty of allocation could include a
-combination of distribution shifts (see above) and the number of
-interests (sectors, states, etc.) requiring allocation. There are new
-analyses and tools available (Palacios-Abrentes et al 2023
--<https://doi.org/10.1371/journal.pone.0279025>) that could provide more
-insight on actual mismatch risks for some species and sectors.
+For this element, a combination of qualitative and quantitative indicators were used. Council staff used a qualitative evaluation of the relative complexity of the regulations contained within an FMP and a quantitative approach that considered the frequency of any regulatory change over the last 5 years by fishery and sector. In addition, for the recreational sector, the number of states in management unit with different regulations was also used. 
 
 **Potential risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             No recent or ongoing Council discussion about
-                  allocation
+  Low             Simple/few regulations; rarely/if ever change; same recreational regulations for all states in the management unit
 
-  Low-Moderate    *This category not used*
+  Low-Moderate    Low-moderate complexity; occasional changes within last 5 years; few (1-2) recreational regulations across states in the management unit
 
-  Moderate-High   *This category not used*
+  Moderate-High   Moderate-high complexity; occasional changes within last 5 years; moderate (3-4) recreational regulations across states in management unit
 
-  High            Recent or ongoing Council discussion about allocation
+  High            High complexity; frequent changes within last 5 years; many (5+) recreational regulations across states in management unit
   -----------------------------------------------------------------------
-
-Currently, there are no definitions to specify intermediate levels of
-risk for this element, so only low and high risk criteria have been
-developed. A Low risk ranking was no recent or ongoing Council
-discussion about allocation. High risk was defined as recent or ongoing
-Council discussion about allocation.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+Surfclam, ocean quahog, commercial and recreational golden tilefish, commercial blueline tilefish, recreational spiny dogfish, chub mackerel and unmanaged forage all scored as low risk. These fisheries are generally smaller fisheries with fairly consistent catch specifications with few to little overages, if applicable; therefore, there have been minor/few regulation changes over the last five years, regulations have limited complexity and are fairly consistent across all states. Commercial summer flounder, scup, black sea bass, and bluefish ranked low-moderate risk with moderately complex regulations, particularly at the state level, but have changed very little recently. Recreational Atlantic mackerel and blueline tilefish also ranked as low-moderate due to their less complex regulations that are consistent across states, but have undergone some recent changes. The moderate-high risk ranking for butterfish, longfin squid, and shortfin squid were based on their high complexity and pending changes to the shortfin squid fishery. Recreational bluefish also scored as moderate-high risk based on recent regulation changes and a high degree of variability in regulations across the states. While the frequency of regulation changes in the recreational fisheries for summer flounder, scup, and black sea bass has declined recently, they still ranked as high risk due as changes can still occur fairly regularly, regulations can be complex with a range of mode and seasonal differences and there is a high degree of variability across states. The commercial fisheries for Atlantic mackerel and spiny dogfish also ranked as high risk due to their highly complex and frequently changing regulations, sometimes year to year or within year. 
 
 ### Discards
 
 **Description:**
 
-This element is applied at the species and sector level. Stakeholders
-have identified the reduction of discards as a high priority in the
-Council management program, especially those caused by regulations since
-they represent biological and economic waste. Discards of either the
-target or non-target species in the fishery would be taken into
-consideration.
+This element is applied at the species and sector level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste. Discards of either the target or non-target species in the fishery would be taken into consideration.
 
 **Definition:**
 
-Risk of not minimizing regulatory discards, bycatch mortality, and
-incidental catch to extent practicable.
+Risk of not minimizing regulatory discards, bycatch mortality, and incidental catch to extent practicable.
 
 **Indicators:**
 
-NMFS provides estimates of discards by species based, in large part, on
-at-sea observations collected in the Northeast Fisheries Observer
-Program (NEFOP), for stock assessment purposes and quota monitoring. The
-observer program provides information on the reason for discarding
-during a commercial trip. In addition, the MRIP provides estimate of
-discards by species for the recreational fisheries. Discards and
-incidental catch will be evaluated for each species and fishery with a
-focus on identifying discards caused by regulations for each fishery
-sector. The ratio of regulatory discards to total discards for the
-target species could be applied or the ratio of discards to overall
-catch of the target species could be applied. A similar, or combined,
-approach could be applied for non-target species.
-
-Discard mortality indicators might be more challenging, at least in
-terms of tracking improvements/declines over time. Discard mortality
-rates by species and gear type are not estimated annually, or even every
-10 years, and are typically based on results developed from targeted
-research projects. Therefore, a static discard mortality rate by species
-and gear is applied to the discard estimate.
+NMFS provides estimates of discards by species based, in large part, on at-sea observations collected in the Northeast Fisheries Observer Program (NEFOP), for stock assessment purposes and quota monitoring. The observer program provides information on the reason for discarding during a commercial trip. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards and incidental catch were evaluated for each species and fishery with a focus on identifying discards caused by regulations for each fishery sector. All of this information was used to estimate total dead discards by fishing sector. The proportion of dead discards to overall catch (dead discards + harvest) of the target species by sector was calculated as one indicator. The discard mortality rate for the dominant gear type used in the stock assessment were used as another indicator. The relative proportion of non-target species to the total catch was also considered when evaluating the criteria. 
 
 **Potential risk criteria:**
-
-Low risk was defined as no significant discards and incidental catch
-(\<5%). Low-Moderate risk was low or episodic discarding and incidental
-catch (\<20%). Moderate-High risk was regular discarding and incidental
-catch (20% or more) but managed at an acceptable level. High risk was
-high discarding and incidental catch (\>40%) and difficulty in
-management. A similar approach could be applied to discard mortality
-risks: low - mortality \<5% for dominant gear; low-moderate - mortality
-\<25% for dominant gear; moderate-high - mortality \<50% for dominant
-gear; mortality \>50% for dominant gear.
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -2098,10 +1945,56 @@ gear; mortality \>50% for dominant gear.
   High            High discards and incidental catch, difficult to
                   manage; high discard mortality.
   -----------------------------------------------------------------------
+  
+Low risk was defined as no significant discards and incidental catch
+(\<5%). Low-Moderate risk was low or episodic discarding and incidental
+catch (\<20%). Moderate-High risk was regular discarding and incidental
+catch (20% or more) but managed at an acceptable level. High risk was
+high discarding and incidental catch (\>40%) and difficulty in
+management. A similar approach could be applied to discard mortality
+risks: low - mortality \<5% for dominant gear; low-moderate - mortality
+\<25% for dominant gear; moderate-high - mortality \<50% for dominant
+gear; mortality \>50% for dominant gear.
+
+**Risk Assessment**
+
+The commercial and recreational fisheries for both golden and blueline tilefish were ranked low risk. There is minimal data for the blueline tilefish fisheries, but discards are assumed to be small and there are few vessels targeting blueline tilefish. Recreational tilefish discards are also negligible and the ITQ commercial golden tilefish fishery is prohibited from discarding tilefish. Shortfin squid, chub mackerel, and unmanaged forage were also ranked as low risk due to the low discards and incidental catch associated with these fisheries. The commercial and recreational fisheries for Atlantic mackerel, bluefish, and spiny dogfish were all ranked at low-moderate risk. While discards occur frequently in these fisheries, dead discards comprise a relatively low proportion of total catch, are generally managed, and discard mortality for most gears is relatively low. Discards in the surfclam and ocean quahog fisheries is a low percent of the overall catch; however, the co-occurrence of surfclams and ocean quahogs has become a significant issue in the fishery and lead to discarding events and has been ranked as medium-high risk. The commercial fisheries for summer flounder, scup, butterfish, and longfin squid were also ranked as medium-high risk. For summer flounder and scup commercial discards comprise a relatively small portion of the total commercial catch but can be highly variable and the discard mortality rate associated with trawl gear is high. A high proportion of butterfish are discarded and nearly 33% of the longfin squid catch is comprised of discarded non-target species. The recreational summer flounder, scup, and black sea bass fisheries all ranked as medium-high risk where discard mortality is assumed to be 15% or less but discards make up a high proportion of the total catch, as high as 90%, and have led, in part, to recent ACL overages. The commercial black sea bass fishery ranked as high risk because dead discards account for 26% of the total commercial catch, discards have also been highly variable, and the dominant gear type (trawls) has a 100% discard mortality rate.  
+
+### Allocation
+
+**Description:**
+
+Many Mid-Atlantic fisheries have some allocation component and any adjustments/changes in allocation can be driven by a number of factors which can present a variety of management, biological, and fishery risks. This element is applied at the species and sector level, and addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations or because of sub-optimal allocation by sector and/or area.
+
+**Definition:**
+
+Risk of not achieving OY due to spatial mismatch of stocks and management or sub-optimal allocation by sector and/or area.
+
+**Indicators:**
+
+The Allocation indicator consists of whether or not the Council is considering or an ongoing management action that might have any sort of allocation outcome/implication (by sector, region, permit holder etc.). 
+
+**Risk criteria:**
+
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             No recent or ongoing Council discussion about
+                  allocation
+
+  Low-Moderate    *This category not used*
+
+  Moderate-High   *This category not used*
+
+  High            Recent or ongoing Council discussion about allocation
+  -----------------------------------------------------------------------
+
+Currently, there are no definitions to specify intermediate levels of risk for this element, so only low and high risk criteria have been developed. A Low risk ranking was no recent or ongoing Council discussion about allocation. High risk was defined as recent or ongoing Council discussion about allocation.
 
 **Risk Assessment**
 
 Summarize ranking rationale
+
 
 # Summary
 

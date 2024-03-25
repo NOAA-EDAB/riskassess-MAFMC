@@ -43,52 +43,31 @@ library(patchwork)
 
 ```
 
-# Introduction
-
-(original Council Oct 2023 doc, to be replaced by Brandon's intro)
+# Introduction  
 
 *Risk Element Information and Recommendations for Council Consideration*
 
-Below is a list of all 43 risk elements, grouped by category
-(Ecological, Socio-economic, and Management), considered by the
-Council's Ecosystem and Ocean Planning (EOP) Committee and Advisory
-Panel (AP) during their comprehensive review of the EAFM risk
-assessment. For each element, there is an element description,
-definition, indicator(s) (if applicable), and risk criteria (if
-applicable). The information associated with each element incorporates
-the most recent feedback and recommendations developed by the EOP
-Committee and AP at their September 13-14, 2023 meeting. The Council
-will review the EOP Committee and AP recommendations at the October 3-5,
-2023 Council meeting and will finalize the list of risk elements to
-potentially be included in a revised risk assessment report. Technical
-staff from the Council and NEFSC will develop a revised draft risk
-assessment in early 2014 using the most recent information and
-indicators from the 2024 Mid-Atlantic State of the Ecosystem report. The
-draft risk assessment will be presented to the EOP Committee and AP in
-March 2024 for final feedback and recommendations regarding the
-inclusion, deletion, or parking/later consideration of any risk element
-for Council consideration. The Council will then review and approve the
-new EAFM risk assessment for use by the Council in future management
-documents, priorities, and decisions.
+The Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management^[http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf], and revised the document in February 2019^[http://www.mafmc.org/s/EAFM-Doc-Revised-2019-02-08.pdf]. The Council’s stated goal for EAFM is “to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function.” Ecologically sustainable utilization is further defined as “utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem.” Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@gaichas_implementing_2018]. The Council completed its first risk assessment in 2017 and the risk elements included in the assessment spanned biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).
 
-As a reminder:
+The risk assessment was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account.
 
-**Risk Elements** - identify what we are measuring. They can be any
-aspect that may threaten achieving the biological, economic, or social
-objectives that the Council desires from a fishery.
+Given the length of time since its initial development, the availability of new information and analyses, and ever-changing risks facing Council-managed fisheries, the Council conducted a comprehensive review of the EAFM risk assessment in 2023. The goal of the review was to produce an updated risk assessment that incorporates the latest scientific information, reflects the Council’s current priorities, and can be adaptive and responsive to new and changing conditions that can support a variety of Council management needs. At the conclusion of the review, the Council identified 28 risk elements to be included in the updated assessment – 24 existing elements and 4 new elements. In addition, the Council supported new and/or revised indicators for 16 of the existing risk elements. 
 
-**Definitions** - describe why we are measuring it and clearly state
-what is at risk.
+This draft document revises the Mid-Atlantic Council’s EAFM risk assessment and includes the changes approved by the Council as part of its comprehensive review and updates the assessment with the most recent data available, indicators from the 2024 State of the Ecosystem report, and with new analyses conducted by Council and Center staff for relevant risk elements. This report does not include rankings for 3 existing elements and the 4 new elements approved by the Council. Additional time is needed to develop the indicators and risk ranking criteria for these elements. Once developed, this information will be shared with the Council’s Ecosystem and Ocean Planning Committee and Advisory Panel for review and feedback. A final EAFM risk assessment report with information on all 28 risk elements will then be presented to the Council later this year for approval. 
 
-**Indicators** - are how we measure risk and are observations that gives
-information about the risk element.
+*Components of the EAFM risk assessment*
 
-**Risk Criteria** - help specify what is the risk, ranging from low to
-high.
+**Risk Elements** - identify what we are measuring. They can be any aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery.
 
-**Risk Assessment** - applies the criteria to the indicators.
+**Definitions** - describe why we are measuring it and clearly state what is at risk. In general, because the Council is charged with managing fisheries for Optimum Yield (OY), many risk definitions are centered on a particular element’s potential impact on achieving OY. However, some Risk Elements addressed additional Council objectives (e.g. maximizing fishery value, optimizing employment).
 
-The risk elements included in the Council's 2024 updated assessment span biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).
+**Indicators** - are how we measure risk and are observations that gives information about the risk element. Indicators may be a time series of data, may come from an individual study, or from qualitative information. 
+
+**Risk Criteria** - help specify what is the risk and include the following risk levels: low, low-moderate, moderate-high, and high. 
+
+**Risk Assessment** - applies the risk criteria to the indicators and summarizes the rationale for the risk ranking.
+
+The risk elements included in the Council’s 2024 updated assessment span biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).
 
 \newpage
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}

@@ -154,36 +154,16 @@ Risk of not achieving OY due to analytical limitations
 
 **Indicators:**
 
-The Council currently uses indicators from stock assessment review and a
-qualitative assessment of general assessment data quality. The EOP and
+Stock assessment review and general assessment data quality contribute to assessment of assessment performance risk. The EOP and
 Council can continue to use pass/fail criteria from independent stock
-assessment reviews, and more formally incorporate data quality
+assessment reviews while more formally incorporating data quality
 indicators (including data quality impacts from any source of scientific
 survey constraint), assessment retrospective performance indicators, or
 other indicators of analytical limitations. The SSC OFL CV process
 already reviews many aspects of analytical assessment uncertainty,
-including data quality and retrospective performance, which may be
-incorporated in this EAFM risk assessment.
+including data quality and retrospective performance, which may further refine criteria used in this EAFM risk assessment.
 
-**Proposed risk criteria:**
-
-Low risk for assessment performance was defined as stock assessment
-model(s) passing peer review, and stocks having high data quality.
-Low-Moderate risk was assessment passing peer review, but some key data
-and/or reference points are lacking. The Moderate-High risk category was
-not used for this element in the past, but could include consideration
-of major data gaps and or large retrospective patterns that require
-adjustment. High risk was the assessment failing peer review, and/or
-that considerable data shortcomings required the use of data-limited
-tools.
-
-An alternative set of criteria could apply OFL CVs used by the SSC for
-establishing ABC, which represent overall assessment uncertainty. An OFL
-CV of 60% could represent the low risk category, 100% the low-moderate
-risk category, 150% the moderate-high risk category, and stocks without
-an assessment (where OFL CV is usually not applied) remaining in the
-high risk category. If applying these criteria, we could change the name
-of this to "Assessment uncertainty" to match what the SSC is evaluating.
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -201,9 +181,17 @@ of this to "Assessment uncertainty" to match what the SSC is evaluating.
                   data-limited tools applied
   -----------------------------------------------------------------------
   
+An alternative set of criteria could apply OFL CVs used by the SSC for
+establishing ABC, which represent overall assessment uncertainty. An OFL
+CV of 60% could represent the low risk category, 100% the low-moderate
+risk category, 150% the moderate-high risk category, and stocks without
+an assessment (where OFL CV is usually not applied) remaining in the
+high risk category. If applying these criteria, we could change the name
+of this to "Assessment uncertainty" to match what the SSC is evaluating.
+
 **Risk Assessment**
 
-Summarize ranking rationale by species
+Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, Atlantic mackerel, butterfish, golden tilefish, bluefish, and spiny dogfish. Longfin squid are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for longfin squid are lacking. Shortfin squid also lack reference points, and the 2022 Research Track assessment was unable to put any analytical method forward to evaluate stock status or trends, so assessment performance risk increased to high. The monkfish 2016 operational assessment was unable to model growth or population status due to innaccurate ageing methods, so both northern and southern stocks rank high risk for this element. Blueline tilefish ranks as high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox, and chub mackerel rank high risk due to no assessment.
 
 ### Fishing Mortality Status and Stock Biomass Status
 
@@ -255,7 +243,19 @@ a$p + ggplot2::coord_cartesian(xlim=c(0,2), ylim=c(0,2))
 
 ```
 
-**Proposed risk criteria:**
+```{r unkstocks}
+
+flextable::flextable(a$unknown) |>
+  flextable::set_header_labels(F.Fmsy = "F/Fmsy",
+                               B.Bmsy = "B/Bmsy") |>
+  flextable::colformat_num(na_str = "-") |>
+  flextable::set_caption("Unknown or partially known stock status for MAFMC and jointly managed species.") |>
+  flextable::autofit() 
+
+
+```
+
+**Risk criteria:**
 
 We applied low and high risk criteria for these elements as defined in
 U.S. law. Low risk criteria are $F$ \< $F_{MSY}$ and $B$ \> $B_{MSY}$
@@ -297,7 +297,9 @@ evidence indicating low risk that the population is depleted.
   
 **Risk Assessment**
 
-Summarize ranking rationale by species
+Single species management objectives (1. maintaining biomass above minimum thresholds and 2. maintaining fishing mortality below overfishing limits) are being met for all but two MAFMC-managed species (Fig. \ref{fig:stock-status}), though the status of six stocks is unknown (Table \ref{tab:unkstocks}).  Based on current assessment results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, and black sea bass. Butterfish, bluefish, and golden tilefish F status is in the low risk category, and B risk is in the low-moderate risk category. Spiny dogfish F status is in the high risk category, and B status is in the low risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. Atlantic mackerel F status is in the low risk category and B status is in the high risk category. 
+
+Stocks with unknown status have a range of rankings. F and B status for chub mackerel and northern and southern monkfish stocks are ranked low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they were also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. 
 
 ### Food Web (1) - Prey Availability
 
@@ -331,7 +333,7 @@ predators, as was used for the 2022 bluefish research track assessment
 and presented in the 2023 State of the Ecosystem report. This index
 includes 22 forage species and was designed for bluefish, but also
 includes important forage for summer flounder and other Council managed
-species.
+species (Fig. \ref{fig:foragebio}).
 
 ```{r foragebio, fig.cap = "Forage fish index in the MAB for spring (blue) and fall (red) surveys, with a decline (purple) in fall. Index values are relative to the maximum observation within a region across surveys.", fig.asp=.6}
 #, code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-forage-index.R")
@@ -345,9 +347,6 @@ under Ecosystem Productivity). These would not rely on detailed diet
 information, instead reflecting the impact of environmental drivers
 including prey availability on fish growth.
 
-Diet information was gathered from the Northeast Fisheries Science
-Center (NEFSC) food habits database and other sources (Smith and Link,
-2010; Johnson et al 2008).
 
 **Potential risk criteria:**
 
@@ -369,7 +368,7 @@ Center (NEFSC) food habits database and other sources (Smith and Link,
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 
 ### Food Web (2) - Predation Pressure
@@ -423,7 +422,7 @@ inform the risk criteria levels.
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 
 ### Food Web (3) - Protected Species Prey
@@ -483,7 +482,9 @@ would be a majority (\>50%) of diet for an individual protected species.
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
+Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. MAFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of MAFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
+
+Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Longfin squids are estimated to comprise >30% of diet for one protectes species, pilot whale, in the Northeast US [@smith_consumption_2015; @gannon_stomach_1997], therefore we rank this species low-moderate risk for this element. Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk. Unmanaged forage fish such as sand lance and saury were identified as important prey for >3 seabird species in the Northeast US [@powers_energy_1987], as well as grey seals [@smith_consumption_2015]. MAFMC has enacted measures to restrict fishing on these species, such that they rank low-moderate risk for this element. Other MAFMC managed species do not meet the threshold of important prey of protected species based on available information, so they rank low risk for this element.
 
 ### Ecosystem Productivity
 
@@ -569,11 +570,10 @@ a/b
 The amount of forage available is one important driver of fish
 productivity. Indicators of aggregate pelagic forage fish biomass and
 forage fish energy content are presented in the State of the Ecosystem
-report. Indicators of benthic forage are under development but not yet
+report (Fig. \ref{fig:foragebio}). Indicators of benthic forage are under development but not yet
 available. Food habits data from surveys and literature could be used to
 define the forage base common to all Council managed and protected
 species.
-
 
 
 #### Fish condition
@@ -626,7 +626,6 @@ a + b
 ```
 
 
-
 **Potential risk criteria:**
 
 Low risk for this element was defined as no trends in ecosystem
@@ -673,22 +672,21 @@ acidification impacts on species productivity.
 **Indicators:**
 
 Indicators for climate productivity risk were taken from a climate
-vulnerability assessment (Hare et al., 2016) that evaluated exposure of
+vulnerability assessment [@hare_vulnerability_2016] that evaluated exposure of
 each species to multiple climate threats, including ocean and air
 temperature, ocean acidification, ocean salinity, ocean currents,
 precipitation, and sea level rise. The assessment also evaluated the
 sensitivity (*not extinction risk*) of each species based on habitat and
 prey specificity, sensitivity to temperature and ocean acidification,
 multiple life history factors, and number of non-climate stressors.
-Additional indicators linking temperature and ocean acidification to
-individual stocks are presented in the State of the Ecosystem reports.
 
-```{r, out.width = '50%', fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
+
+```{r NEVAvul, out.width = '50%', fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAvulmid.png")
 ```
 
-
-Indicator: Mid Atlantic Ocean acidification 
+Additional indicators linking temperature and ocean acidification to
+individual stocks are presented in the State of the Ecosystem reports, and will be expanded in the future as more temperature sensitivity information for each managed species becomes available.
 
 ```{r mab-oa, out.width = '100%', fig.cap = "Locations where bottom aragonite saturation state ($\\Omega_{Arag}$; summer only: June-August) were at or below the laboratory-derived sensitivity level for Atlantic sea scallop (left panel) and longfin squid (right panel) for the time periods 2007-2022 (dark cyan) and 2023 only (magenta). Gray circles indicate locations where bottom $\\Omega_{Arag}$ values were above the species specific sensitivity values.."}
 
@@ -701,7 +699,7 @@ magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images
 
 ```
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -724,7 +722,10 @@ was a very high climate vulnerability ranking.
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
+Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). 
+
+As noted in the SOE, ocean quahog have highest climate vulnerability among Mid-Atlantic managed species. Surfclams, black sea bass, and both species of tilefish ranked moderate-high risk. Summer flounder, scup, and Atlantic mackerel ranked moderate-high risk. The remaining species ranked low risk. Chub mackerel, unmanaged forage, and deepsea corals were not ranked in the CVA.
+
 
 ### Distribution Shifts
 
@@ -747,8 +748,7 @@ management as a result of climate-driven distribution shifts.
 **Indicators:**
 
 Risks of species distribution shifts due to projected climate change in
-the Northeast US were assessed in a comprehensive assessment (Hare et
-al., 2016). We applied those distribution shift risk rankings directly
+the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly
 in the risk assessment.
 
 ```{r, out.width = '50%', fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
@@ -796,7 +796,7 @@ b <- ecodata::plot_species_dist(varName = "depth") + ggplot2::coord_cartesian(xl
 a+b
 ``` 
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -814,7 +814,7 @@ a+b
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
+All Mid-Atlantic species with the exception of golden and blueline tilefish had either high or very high risk of distribution shifts in the Northeast US. Chub mackerel, unmanaged forage, and deepsea corals distribution shift risks were not ranked in the CVA.
 
 ### Estuarine and Coastal Habitat
 
@@ -840,7 +840,7 @@ estuarine condition was used in this assessment. Water and habitat
 quality assessments produced for Chesapeake Bay, Delaware Bay, Long
 Island Sound, and other coastal estuaries have been developed and can be
 considered in the future. The National Coastal Condition Assessment for
-the Northeast US (US EPA, 2012) was used to evaluate estuarine and
+the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and
 coastal condition. This report lists water, sediment, benthic, and
 coastal habitat quality as well as fish contamination. State of the
 Ecosystem reports now include up to date indicators of Chesapeake Bay
@@ -859,7 +859,7 @@ fresh SAV, oyster reefs), but eelgrass is declining. Similar information
 from multiple East Coast estuaries could be integrated into the risk
 assessment as it becomes available.
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -881,15 +881,15 @@ estuarine dependent species with a poor estuarine condition.
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
+Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006 [@us_epa_national_2012]. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
 
 ### Offshore Habitat (new)
 
 **Description:**
 
-This element would be applied at the species level.
+This element is applied at the species level.
 
-Offshore habitat , defined here as all habitat outside of the estuary
+Offshore habitat, defined here as all habitat outside of the estuary
 and beyond the immediate coastal/nearshore areas, supports all life
 stages of many Council managed species, and is changing in quality and
 quantity due to multiple stressors from climate to other ocean uses such
@@ -935,8 +935,7 @@ temperature within the feature.
 
 **Risk Assessment**
 
-Summarize ranking rationale by species
-
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 ## Economic Elements
 

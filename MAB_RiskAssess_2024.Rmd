@@ -2059,7 +2059,7 @@ risk.eco <- risk.eco %>%
 #make table
 risk.eco %>%
   mutate_at(vars(-System), function(x){ 
-    cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "low", "lowmod", "modhigh", "high"),c("gray","black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "lowest", "lowmod", "modhigh", "highest"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
+    cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "low", "lowmod", "modhigh", "high"),c("gray","black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "low", "lowmod", "modhigh", "high"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
   kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "",
         caption="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red). Greyed out risk elements to be completed later in 2024.\\label{ecotable}") %>%
   kable_styling(latex_options = "scale_down") 
@@ -2094,7 +2094,7 @@ risk.sppsector <- risk.sppsector %>%
 #make table
 risk.sppsector %>%
   mutate_at(vars(-Species), function(x){ 
-    cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "low", "lowmod", "modhigh", "high"),c("gray", "black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "lowest", "lowmod", "modhigh", "highest"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
+    cell_spec(x, format="latex", color = factor(x, c("tbd", "na", "low", "lowmod", "modhigh", "high"),c("gray", "black", "black", "black", "black", "white")), align = "c", background =factor(x, c("tbd","na", "low", "lowmod", "modhigh", "high"),c("gray","white", "green", "yellow", "orange", "red")), background_as_tile=F)}) %>%
   kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "",
         caption="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red). Greyed out risk elements to be completed later in 2024.\\label{spsectable}")
   #kable_styling(font_size = 10) 

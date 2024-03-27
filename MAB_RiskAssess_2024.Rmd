@@ -69,7 +69,6 @@ This draft document revises the Mid-Atlantic Council’s EAFM risk assessment an
 
 The risk elements included in the Council’s 2024 updated assessment span biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).
 
-\newpage
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
 #tab.cap="Risk Elements, Definitions, and Indicators Used\\label{riskel}",
@@ -204,8 +203,7 @@ are applied at the species level. Because OY is the objective, and OY is
 at most MSY under U.S. law, fishing mortality ($F$) limit reference
 points are based on $F_{MSY}$, while the stock biomass ($B$) target is
 biomass at MSY ($B_{MSY}$). $F$ and $B$ status relative to established
-MSY-based target and limit reference points or proxies (Gabriel and
-Mace, 1999) from stock assessments therefore indicate the level of risk
+MSY-based target and limit reference points or proxies [@gabriel_review_1999] from stock assessments therefore indicate the level of risk
 to achieving OY from either overfishing or stock depletion,
 respectively.
 
@@ -227,30 +225,27 @@ evidence for risk of overfishing and overfished status based on evidence
 outside the stock assessment, and this evaluation is used in the EAFM
 risk assessment.
 
-```{r stock-status, fig.width = 7.5,  fig.asp = 0.5, fig.cap = "Summary of single species status for MAFMC and jointly federally managed stocks (Spiny dogfish and both Goosefish). The dotted vertical line is the target biomass reference point of $B_{MSY}$. The dashed lines are the management thresholds of one half $B_{MSY}$ (vertical) or $F_{MSY}$. (horizontal). Stocks in orange are below the biomass threshold (overfished) or have fishing mortality above the limit (subject to overfishing), so are not meeting objectives. Stocks in purple  are above the biomass threshold but below the biomass target with fishing mortality within the limit. Stocks in green are above the biomass target, with fishing mortality within the limit."}
+```{r stock-status, fig.width = 7.5, fig.asp = 0.6, fig.cap = "Summary of single species status for MAFMC and jointly federally managed stocks (Spiny dogfish and both Goosefish). The dotted vertical line is the target biomass reference point of $B_{MSY}$. The dashed lines are the management thresholds of one half $B_{MSY}$ (vertical) or $F_{MSY}$. (horizontal). Stocks in orange are below the biomass threshold (overfished) or have fishing mortality above the limit (subject to overfishing), so are not meeting objectives. Stocks in purple  are above the biomass threshold but below the biomass target with fishing mortality within the limit. Stocks in green are above the biomass target, with fishing mortality within the limit."}
 
 # code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-stock-status.R"), 
 
 a <- ecodata::plot_stock_status(report = "MidAtlantic")
 
-a$p + ggplot2::coord_cartesian(xlim=c(0,2), ylim=c(0,2)) 
-
-#+
-#  ggplot2::annotation_custom(gridExtra::tableGrob(a$unknown,
-#                             theme = gridExtra::ttheme_default(base_size = 7), 
-#                             rows=NULL), 
-#                             xmin=0.8, xmax=1.8, ymin=1.5, ymax=2)
+a$p + ggplot2::coord_cartesian(xlim=c(0,2), ylim=c(0,2)) + ggplot2::annotation_custom(gridExtra::tableGrob(a$unknown,
+                            theme = gridExtra::ttheme_default(base_size = 7),
+                            rows=NULL),
+                            xmin=0.8, xmax=1.8, ymin=1.5, ymax=2)
 
 ```
 
 ```{r unkstocks}
 
-flextable::flextable(a$unknown) |>
-  flextable::set_header_labels(F.Fmsy = "F/Fmsy",
-                               B.Bmsy = "B/Bmsy") |>
-  flextable::colformat_num(na_str = "-") |>
-  flextable::set_caption("Unknown or partially known stock status for MAFMC and jointly managed species.") |>
-  flextable::autofit() 
+# flextable::flextable(a$unknown) |>
+#   flextable::set_header_labels(F.Fmsy = "F/Fmsy",
+#                                B.Bmsy = "B/Bmsy") |>
+#   flextable::colformat_num(na_str = "-") |>
+#   flextable::set_caption("Unknown or partially known stock status for MAFMC and jointly managed species.") |>
+#   flextable::autofit() 
 
 
 ```
@@ -456,9 +451,8 @@ with Council-managed species
 
 Food web models and diet information can be used to establish thresholds
 of "importance" for predators and prey. Although monkfish occasionally
-ingest seabirds (Perry et al., 2013), there are no Council-managed
-species that are important predators of protected species (Smith and
-Link, 2010), so here we rank only risks where Council managed species
+ingest seabirds [@perry_predation_2013], there are no Council-managed
+species that are important predators of protected species  [@smith_trophic_2010], so here we rank only risks where Council managed species
 represent prey of protected species. An important prey of protected
 species is defined here as individually comprising \>30% of the
 predator's diet by weight. Critical prey warranting a high risk ranking
@@ -549,11 +543,7 @@ pathway for these changes to manifest. Therefore these indices are
 relevant to both productivity and trophic structure objectives.
 
 The time series of zooplankton biovolume suggest that overall
-zooplankton production has not changed over time. However, the dominant
-species of zooplankton in the Mid-Atlantic, *Centropages typicus*, shows
-a seasonal shift in abundance. This suggests a change in timing of
-zooplankton reproductive cycles, which may impact fish species such as
-Atlantic mackerel.
+zooplankton production has not changed over time. However, increasing zooplankton diversity and increasing small copepods and cnidarians in the Mid-Atlantic (Fig. \ref{fig:zoopanom}) suggest a change in zooplankton community composition which may affect fish species such as mackerel.
 
 ```{r zoopanom, fig.cap="Changes in zooplankton abundance in the MAB for large (top left) and small (top right) copepods, Cnidarians (bottom left), and Euphausiids (bottom right), with significant increases (orange) in small copeods and Cnidarians.", fig.width=5, fig.asp=.8}
 a <- ecodata::plot_zoo_abundance_anom(report = "MidAtlantic", varName = "copepod") + 
@@ -580,9 +570,8 @@ species.
 
 Fish condition is measured as the weight per length--a measure of
 "fatness". This information is from NEFSC bottom trawl surveys and shows
-a change in condition across all species at around 2000. Around
-2010-2013 many species started to have better condition, though black
-sea bass remain thinner for their length on average.
+a change in condition across all species at around 2000 (Fig. \ref{fig:mab-cf}). Around
+2010-2013 some species started to have better condition. In 2023, condition was mixed, with general improvement since a relatively low condition year in 2021. Preliminary analyses show that changes in temperature, zooplankton, fishing pressure, and population size influence the condition of different fish species.
 
 ```{r mab-cf, fig.cap = "Condition factor for fish species in the MAB based on fall NEFSC bottom trawl survey data. MAB data are missing for 2017 due to survey delays, and no survey was conducted in 2020.", fig.width=9}
 
@@ -600,12 +589,7 @@ ecodata::plot_condition() +
 The number of small fish relative to the biomass of larger fish of the
 same species, as derived from the NEFSC survey, is a simple measure of
 productivity intended to complement model-based stock assessment
-estimates of recruitment. There is a general decrease in this indicator
-when aggregated across managed and unmanaged species in the
-Mid-Atlantic. The plot includes black sea bass, butterfish, clearnose
-skate, fourspot flounder, little skate, scup, spiny dogfish, summer
-flounder, thorny skate, windowpane flounder, winter flounder, and winter
-skate.
+estimates of recruitment. Fish productivity has been declining in the Mid-Atlantic since the early 2000s, as described by the small-fish-per-large-fish anomaly indicator (Fig. \ref{fig:productivity-anomaly}). This decline in fish productivity is also shown by a similar analysis based on stock assessment model outputs (recruitment per spawning stock biomass anomaly).
 
 ```{r productivity-anomaly, fig.cap = "Fish productivity measures. Left: Small fish per large fish survey biomass anomaly in the Mid-Atlantic Bight. Right: assessment recruitment per spawning stock biomass anomaly for stocks mainly in the Mid-Atlantic. The summed anomaly across species is shown by the black line, drawn across all years with the same number of stocks analyzed.", fig.width=8, fig.asp=0.6}
 #out.width='49%', fig.show='hold',
@@ -651,7 +635,7 @@ risk criterion was decreasing trends across 4 or more indicators.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+Two measures of ecosystem productivity have significant trends, so the ranking for this element is low-moderate risk.  The forage index shows a significant decrease in fall, and several zooplankton indicators show significant increasing trends.  However, the potential for changing seasonality of primary production warrants further attention, as do patterns in condition and productivity across multiple stocks. 
 
 ### Climate
 
@@ -661,7 +645,7 @@ Climate change is expected to alter environmental conditions for managed
 fish in the Northeast US. This element is applied at the species level,
 and evaluates risks to species productivity (and therefore to achieving
 OY) due to projected climate change factors in the region using a
-comprehensive assessment (Hare et al., 2016) and other climate
+comprehensive assessment [@hare_vulnerability_2016] and other climate
 indicators (e.g., Mid-Atlantic ocean acidification).
 
 **Definition:**
@@ -678,17 +662,17 @@ temperature, ocean acidification, ocean salinity, ocean currents,
 precipitation, and sea level rise. The assessment also evaluated the
 sensitivity (*not extinction risk*) of each species based on habitat and
 prey specificity, sensitivity to temperature and ocean acidification,
-multiple life history factors, and number of non-climate stressors.
+multiple life history factors, and number of non-climate stressors (Fig. \ref{fig:NEVAvul}).
 
 
 ```{r NEVAvul, out.width = '50%', fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAvulmid.png")
 ```
 
-Additional indicators linking temperature and ocean acidification to
+Additional indicators linking temperature and ocean acidification (Fig. \ref{fig:mab-oa}) to
 individual stocks are presented in the State of the Ecosystem reports, and will be expanded in the future as more temperature sensitivity information for each managed species becomes available.
 
-```{r mab-oa, out.width = '100%', fig.cap = "Locations where bottom aragonite saturation state ($\\Omega_{Arag}$; summer only: June-August) were at or below the laboratory-derived sensitivity level for Atlantic sea scallop (left panel) and longfin squid (right panel) for the time periods 2007-2022 (dark cyan) and 2023 only (magenta). Gray circles indicate locations where bottom $\\Omega_{Arag}$ values were above the species specific sensitivity values.."}
+```{r mab-oa, out.width = '100%', fig.cap = "Locations where bottom aragonite saturation state ($\\Omega_{Arag}$; summer only: June-August) were at or below the laboratory-derived sensitivity level for Atlantic sea scallop (left panel) and longfin squid (right panel) for the time periods 2007-2022 (dark cyan) and 2023 only (magenta). Gray circles indicate locations where bottom $\\Omega_{Arag}$ values were above the species specific sensitivity values."}
 
 
 #knitr::include_graphics("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC-GraceSaba.jpg")
@@ -722,7 +706,7 @@ was a very high climate vulnerability ranking.
 
 **Risk Assessment**
 
-Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). 
+Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{fig:NEVAvul}). 
 
 As noted in the SOE, ocean quahog have highest climate vulnerability among Mid-Atlantic managed species. Surfclams, black sea bass, and both species of tilefish ranked moderate-high risk. Summer flounder, scup, and Atlantic mackerel ranked moderate-high risk. The remaining species ranked low risk. Chub mackerel, unmanaged forage, and deepsea corals were not ranked in the CVA.
 
@@ -749,26 +733,19 @@ management as a result of climate-driven distribution shifts.
 
 Risks of species distribution shifts due to projected climate change in
 the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly
-in the risk assessment.
+in the risk assessment (Fig. \ref{fig:NEVAshift}).
 
-```{r, out.width = '50%', fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
+```{r NEVAshift, out.width = '50%', fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAshiftmid.png")
 
 ```
 
 In addition, changes in species distribution are monitored using
 fisheries independent bottom trawl surveys. Two distribution shift
-indicators are derived from these surveys: kernel density plots of
-recent distribution compared with 1970s distribution, and time series of
+indicators are derived from these surveys: species distribution models, and time series of
 the along shelf position of the center of distribution.
 
 *Historical vs.current distribution*
-
-Spatial distribution has changed over time for some species more than
-for others. The distribution of black sea bass, as measured by NEFSC
-surveys, has shifted northward relative to historical distributions. In
-contrast, the distribution of longfin squid in the Mid-Atlantic has
-remained relatively stable.
 
 Species distribution models incorporating habitat variables show where
 distributions have increased or decreased over time:
@@ -782,7 +759,7 @@ to the northeast, referred to as the along shelf distance, and by depth.
 Along shelf distances range from 0 to 1360 km, which relates to
 positions along the axis from the origin in the southwest to the
 northeast. All species combined show a shift to the northeast and into
-deeper water. Individual Council managed species distribution
+deeper water (Fig. \ref{fig:species-dist}). Individual Council managed species distribution
 centeroids, aside from squids, also showed this trend to the northeast
 along the shelf in previous analysis.
 
@@ -844,9 +821,9 @@ the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and
 coastal condition. This report lists water, sediment, benthic, and
 coastal habitat quality as well as fish contamination. State of the
 Ecosystem reports now include up to date indicators of Chesapeake Bay
-habitat conditions which could be included as indicators.
+habitat conditions which could be included as indicators (Fig. \ref{fig:cheswq}).
 
-```{r, fig.cap="Chesapeake Bay water quality trend, 3 year running mean proportion of areas meeting or exceeding quality thresholds based on dissolved oxygen, chlorophyll, water clarity, and submerged aquatic vegetation."}
+```{r cheswq, fig.cap="Chesapeake Bay water quality trend, 3 year running mean proportion of areas meeting or exceeding quality thresholds based on dissolved oxygen, chlorophyll, water clarity, and submerged aquatic vegetation."}
 ecodata::plot_ches_bay_wq()
 ```
 
@@ -988,12 +965,7 @@ continued development of this indicator.
 magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Cost_Coverage.png")
 ```
 
-**Potential risk criteria:**
-
-Low risk was defined as no trend and low variability in revenue.
-Low-Moderate risk was increasing or overall high variability in revenue.
-Moderate-High risk was a significant long-term revenue decrease. High
-risk was a significant recent decrease in revenue.
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1009,7 +981,7 @@ risk was a significant recent decrease in revenue.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+There is a long term significant decrease in gross revenue, indicating moderate-high risk to commercial fishery value.  
 
 ### Marine Recreational Angler Days/Trips
 
@@ -1022,12 +994,7 @@ economic and social aspects of many coastal communities being highly
 dependent on recreational fishing.
 
 This element is assessed at the ecosystem level where it applies equally
-to all recreationally fished species. Providing recreational
-opportunities is a stated goal of optimal fishery management under the
-legal definition of "benefits to the nation". Recreational fishing is
-important in the Mid-Atlantic region with the economic and social
-aspects of many coastal communities being highly dependent on
-recreational fishing.
+to all recreationally fished species. 
 
 **Definition:**
 
@@ -1035,7 +1002,7 @@ Risk of not maximizing recreational fishery value and opportunities.
 
 **Indicators:**
 
-Currently, angler days and trips are the proxy indicators for the value
+Currently, angler trips is the proxy indicator for the value
 generated from recreational fishing. Although willingness to pay would
 better capture the economic concept of recreational value, this
 information is not gathered systematically in the region. Potentially,
@@ -1049,26 +1016,23 @@ ecodata::plot_recdat(report = "MidAtlantic", varName = "effort")
 ```
 
 
-**Potential risk criteria:**
-
-Angler days and trips are the proxy indicators for the value generated
-from recreational fishing.
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             No trends in angler days/trips
+  Low             No trends in angler trips
 
-  Low-Moderate    Increasing or high variability in angler days/trips
+  Low-Moderate    Increasing or high variability in angler trips
 
-  Moderate-High   Significant long term decreases in angler days/trips
+  Moderate-High   Significant long term decreases in angler trips
 
-  High            Significant recent decreases in angler days/trips
+  High            Significant recent decreases in angler trips
   -----------------------------------------------------------------------
 
 **Risk Assessment**
 
-Summarize ranking rationale
+There is a long term significant increase in angler trips, indicating low-moderate risk to recreational fishery value. In addition, the indicator has shown high interannal variation since 2017.
 
 ### Commercial Fishery Resilience (1) - Revenue Diversity
 
@@ -1086,7 +1050,7 @@ reduced commercial fishery business resilience (at permit level).
 **Indicators:**
 
 Currently the average effective Shannon index for species revenue at the
-permit level is used to calculate diversity for all permits landing any
+permit level (Fig. \ref{fig:commercial-div-species-div}) is used to calculate diversity for all permits landing any
 amount of Council-managed species within a year (including both monkfish
 and spiny dogfish). Although the exact value of the effective Shannon
 index is relatively uninformative in this context, the relative value
@@ -1099,14 +1063,7 @@ ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue s
 ```
 
 
-Although the Shannon index provides a measure proportional to each
-type's relative frequency, the effective Shannon index has the added
-benefit of converting diversity measures onto a common scale, which is
-important when averaging across permits after calculation. As such, the
-effective Shannon index was selected as the preferred index of fishing
-diversity, consistent with the literature (Thunberg & Correia 2015).
-
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1121,15 +1078,10 @@ diversity, consistent with the literature (Thunberg & Correia 2015).
   High            Significant recent downward trend in diversity measure
   -----------------------------------------------------------------------
 
-Low risk was defined as no trend and low variability in the diversity
-measure. Low-Moderate risk was an increasing trend or overall high
-variance in the diversity measure. Moderate-High risk was a significant
-long term decrease in the diversity measure. High risk was a significant
-recent decrease in the diversity measure.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+Permit revenue species diversity has less than 30 years in the time series, therefore trend was not assessed. With no trend, this element ranks low risk. However, a decline prior to 2000 is visually apparent and could be assessed with updated methods for the 2025 risk assessment.
 
 ### Commercial Fishery Resilience (2) - Shoreside Support
 
@@ -1155,22 +1107,14 @@ and number of non-employer entities Non-employer Statistics." Obtained
 September 28, 2017. U.S. Census Bureau.
 <https://www.census.gov/programs-surveys/nonemployer-statistics.html>),
 which we consider separately. Non-employer entities are businesses that
-have no paid employees (i.e. entrepreneurs, or the owner is the
+have no paid employees (i.e. entrepreneurs, or the owner is the
 workforce), while the shoreside support companies include all businesses
 with paid employees. Some state level data was not included due to
 confidentiality.
 
 The number of shoreside support companies include seafood merchant
 wholesalers, seafood product preparation and packaging, and seafood
-markets across all Mid-Atlantic states. The indicator shows a
-significant long-term and short-term decrease, which represents
-moderate-high risk to fishery resilience. The number of non-employer
-entities, including seafood preparation and packaging and seafood
-markets, shows a long-term increase. Data from other shoreside fishery
-supporting businesses, such as gear manufacturers and welding companies,
-are not included here due to aggregation of the statistics across
-non-fishing industries (e.g. net manufacturers combined with all other
-businesses).
+markets across all Mid-Atlantic states. 
 
 **Potential risk criteria:**
 
@@ -1191,7 +1135,14 @@ businesses).
 
 **Risk Assessment**
 
-Summarize ranking rationale
+The indicator shows a significant long-term decrease, which represents
+moderate-high risk to fishery resilience. The number of non-employer
+entities, including seafood preparation and packaging and seafood
+markets, shows a long-term increase. Data from other shoreside fishery
+supporting businesses, such as gear manufacturers and welding companies,
+are not included here due to aggregation of the statistics across
+non-fishing industries (e.g. net manufacturers combined with all other
+businesses).
 
 
 ## Social-Cultural Elements
@@ -1214,7 +1165,7 @@ Risk of reduced fishery resilience (number and diversity of fleets).
 
 Currently the diversity in revenue generated by different fleet
 segments, as well as a count of the number of active fleets, at the
-ecosystem level. A fleet is defined here as the combination of gear
+ecosystem level (Fig. \ref{fig:commercial-div}). A fleet is defined here as the combination of gear
 (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom
 Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel
 length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and
@@ -1228,6 +1179,7 @@ relative value identifies changes in diversity.
 
 ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet count")
 ```
+
 Other metrics for diversity exist. The Simpson index is a common measure
 of biodiversity, but has the undesirable attribute of being asymmetric
 and weighing more common types more heavily than the less common types.
@@ -1236,16 +1188,9 @@ type's relative frequency, the effective Shannon index has the added
 benefit of converting diversity measures onto a common scale. As such,
 the effective Shannon index was selected as the preferred index of
 fishing diversity, consistent with the literature and ensuring no
-differential treatment between large and small fleets (Thunberg &
-Correia 2015).
+differential treatment between large and small fleets [@thunberg_measures_2015].
 
-**Potential risk criteria:**
-
-Low risk was defined as no trend and low variability in the diversity
-measure. Low-Moderate risk was increasing variability or overall high
-variability in the diversity measure. Moderate-High risk was a
-significant long-term decrease in the diversity measure. High risk was a
-significant recent decrease in the diversity measure.
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1262,7 +1207,7 @@ significant recent decrease in the diversity measure.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+The commercial fleet count metric has less than 30 years in the time series, therefore trend was not assessed. With no trend, this element ranks low risk. However, a decline is visually apparent and could be assessed with updated methods for the 2025 risk assessment.
 
 ### Recreational Fleet Diversity (new)
 
@@ -1281,10 +1226,10 @@ modes).
 
 **Indicators:**
 
-Recreational fleet effort diversity is already presented in the
-Mid-Atlantic State of the Ecosystem Report. This indicator is an
+Recreational fleet effort diversity has been presented in the
+Mid-Atlantic State of the Ecosystem Report for several years. This indicator is an
 effective Shannon estimate of diversity of effort across mode
-(i.e. effort by shoreside, private boat, and for-hire anglers).
+(i.e. effort by shoreside, private boat, and for-hire anglers; Fig. \ref{fig:rec-div}).
 
 ```{r rec-div, fig.cap = "Recreational fleet effort diversity (black) in the Mid-Atlantic, with significant decrease (purple line)."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")
@@ -1292,31 +1237,15 @@ effective Shannon estimate of diversity of effort across mode
 ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity")
 ```
 
-Other metrics for diversity exist. The Simpson index is a common measure
-of biodiversity, but has the undesirable attribute of being asymmetric
-and weighing more common types more heavily than the less common types.
-Although the Shannon index provides a measure proportional to each
-type's relative frequency, the effective Shannon index has the added
-benefit of converting diversity measures onto a common scale. As such,
-the effective Shannon index was selected as the preferred index of
-fishing diversity, consistent with the literature and ensuring no
-differential treatment between large and small mode contributions
-(Thunberg & Correia 2015).
-
 The Ecosystem and Ocean Planning Committee and AP also recommended a
 harvest:catch ratio by mode indicator. The intent of this indicator
 would be to evaluate if recreational fishing behavior/preferences are
 changing (i.e., harvest versus catch and release) within the different
 recreational modes/sectors.
 
-**Potential risk criteria:**
+At present, proposed criteria are based only on the existing diversity indicator.
 
-Similar criteria could be applied as for commercial diversity. Low risk
-was defined as no trend and low variability in the diversity measure.
-Low-Moderate risk was increasing variability or overall high variability
-in the diversity measure. Moderate-High risk was a significant long-term
-decrease in the diversity measure. High risk was a significant recent
-decrease in the diversity measure.
+**Proposed risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1333,7 +1262,9 @@ decrease in the diversity measure.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+The significant long term decline in recreational fleet effort diversity would rank moderate-high risk using the proposed criteria above.
+
+The downward effort diversity trend is driven by party/charter contraction (down from 2% in 2021 to 1.4% in 2023), and a shift toward shorebased angling, which currently makes up 59% of angler trips. Effort in private boats has increased slightly to 40% of trips from 37% in 2021.
 
 
 ## Fishing Community Vulnerability
@@ -1357,7 +1288,7 @@ engagement).
 **Indicators:**
 
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
-Jepson and Colburn (2013)) are statistical measures of the vulnerability
+@jepson_development_2013) are statistical measures of the vulnerability
 of communities to events such as regulatory changes to fisheries, wind
 farms, and other ocean-based businesses, as well as to natural hazards,
 disasters, and climate change. The CSVIs currently serve as indicators
@@ -1386,8 +1317,7 @@ communities to evaluate overall social risk levels.
   -----------------------------------------------------------------------
 
 Below is a brief description for each vulnerability category based on
-the NOAA social indicator study (Colburn et al., 2016; Jepson and
-Colburn, 2013):
+the NOAA social indicator study [@colburn_indicators_2016; @jepson_development_2013]:
 
 -   **Fishing dependence** indices portray the importance or level of
     dependence of commercial or recreational fishing to coastal
@@ -1403,12 +1333,12 @@ Colburn, 2013):
     working waterfront, including infrastructure.
 
 Here, we define gentrification in fishing communities as described by
-Colburn and Jepson (2012), where coastal population growth combined with
+@colburn_social_2012, where coastal population growth combined with
 an influx of higher-income people seeking waterfront property can
 increase property values and displace working-class residents engaged in
 resource-dependent activities. "Three common elements of gentrification
 are reuse of waterfront structures, construction of new housing, and
-growth within the services sector (Colburn and Jepson, 2012)."
+growth within the services sector [@colburn_social_2012]."
 
 Communities are ranked as high, medium high, moderate, or low relative
 to the respective indicator. Community dependence on commercial and
@@ -1422,12 +1352,12 @@ New Jersey.
 
 The social and economic impacts of climate change have been modeled
 through application of social indicators of fishing dependent
-communities (Jepson and Colburn, 2013). Assessment of a range of social
+communities @jepson_development_2013. Assessment of a range of social
 indicators has been applied in the Mid-Atlantic Region to predict
 vulnerability of communities to regulatory changes and disasters. More
 recently this methodology has been extended to include specific
 indicators of vulnerability to climate change and linked to species
-vulnerability assessments (Colburn et al., 2016; Hare et al., 2016). The
+vulnerability assessments [@colburn_indicators_2016; @hare_vulnerability_2016]. The
 tools developed through this approach are vital to an evaluation of the
 risks of climate change facing coastal communities dependent on fishing.
 Below is a description of the CSVIs related to climate change.
@@ -1449,9 +1379,9 @@ Below is a description of the CSVIs related to climate change.
 
 Sea level rise is predicted to have variable impacts on coastal
 communities. The Mid-Atlantic region has a 3-4 times higher than global
-average sea level rise rate (Sallenger et al. 2012). Mid-Atlantic
+average sea level rise rate [@sallenger_hotspot_2012]. Mid-Atlantic
 communities clustered around the Chesapeake Bay area and the New Jersey
-shore had especially high vulnerability to sea level rise (Fig. ). These
+shore had especially high vulnerability to sea level rise. These
 vulnerabilities include infrastructure (docks, marinas, bait shops, gear
 storage) and access to shore-based facilities due realignment of coastal
 communities.
@@ -1463,18 +1393,31 @@ Index). A number of communities in southern New Jersey, Maryland and
 Virginia are highly dependent on species such as clams that are highly
 vulnerable to climate change while displaying low catch composition
 diversity. Communities with this situation are considered more
-vulnerable to climate change in general.
+vulnerable to climate change in general [@colburn_indicators_2016].
 
-While the maps provide an overview of the social and climate indicator
-results for the Mid-Atlantic coastal communities, Table identifies
-Mid-Atlantic communities that are most highly dependent on both
-commercial and recreational fishing. The varying vulnerability level to
-social factors, gentrification pressure, and climate change in these
-communities provide a more comprehensive profile and should be taken
-into account in the decision making process for fishery management.
+A subset of social vulnerability factors, the poverty index, population composition index, and personal disruption index, can be used to assess potential environmental justice issues. The most highly engaged and reliant commercial and recreational fishing communities (Figs \ref{fig:commercial-engagement} and \ref{fig:recreational-engagement}) in the Mid-Atlantic were evaluated for environmental justice (EJ) vulnerability based on 2021 data. 
+
+```{r commercial-engagement, fig.cap= "Commercial engagement, reliance, and environmental justice vulnerability for the top commercially engaged and reliant fishing communities in the Mid-Atlantic.", fig.width = 7, fig.asp = 0.85, results='hide'}
+#Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-engagement.R")
+#fig.width = 6.5, fig.asp = 0.75
+#(* Scored high (1.00 and above)) for both commercial engagement and reliance indicators)
+
+ecodata::plot_engagement(report = "MidAtlantic", varName = "Commercial") 
+```
+
+```{r recreational-engagement, fig.cap= "Recreational engagement and reliance, and environmental justice vulnerability, for the top recreationally engaged and reliant fishing communities in the Mid-Atlantic.", fig.width = 7, fig.asp = 0.85, results='hide'}
+#Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both recreational engagement and reliance indicators.
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recreational-engagement.R")
+#fig.width = 6.5, fig.asp = 0.75
+
+#(* Scored high (1.00 and above) for both recreational engagement and reliance indicators;
+
+ecodata::plot_engagement(report = "MidAtlantic", varName = "Recreational")
+```
 
 To estimate "high" vulnerability across all current indicators (which
-are ranked on different scales), we tallied rankings from Table of
+are ranked on different scales), we tallied rankings  of
 MedHigh or High for social vulnerability and gentrification pressure,
 along with rankings of High risk from sea level rise, High/Very High
 species vulnerability, and rankings of Low catch composition diversity.
@@ -1491,7 +1434,7 @@ more high vulnerability ratings.
 
 **Risk Assessment**
 
-Summarize ranking rationale
+In past risk assessments, four of the top communities (20%) had three or more of these high risk rankings, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
 
 
 ## Food Production Elements
@@ -1512,9 +1455,9 @@ Risk of not optimizing total commercial fishing production.
 
 **Indicators:**
 
-Commercial seafood landings from Council managed species (in red below)
-and total landings (in black) which include bait and industrial uses
-were used to assess fishing production.
+Commercial seafood landings from Council managed species (in red, Fig. \ref{fig:total-landings})
+and total landings (in black) which include bait and industrial uses managed by all entities
+were used to assess fishing production. 
 
 ```{r, total-landings, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
 #code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
@@ -1522,17 +1465,27 @@ ecodata::plot_comdat(report = "MidAtlantic", varName = "landings") #+
   #ggplot2::ylab("")
 ```
 
-Time series of landings of bait from the Federal Commercial Dealer
-Database.
 
-**Potential risk criteria:**
+**Risk criteria:**
 
-The criteria still needs to be developed to account for both seafood and
-total commercial landings.
+New criteria still need to be developed to account for both seafood and
+total commercial landings. Criteria used previously are below.
+
+```{r riskcfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend or increase in seafood landings |
+| Low-Moderate | Increasing or high variability in seafood landings |
+| Moderate-High | Significant long term decrease in seafood landings |
+| High | Significant recent decrease in seafood landings |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
 **Risk Assessment**
 
-Summarize ranking rationale
+There is a significant long term decrease in total commercial landings and U.S. seafood landings in the Mid-Atlantic, indicating moderate-high risk using previous criteria.
 
 ### Recreational/Subsistence Food Production
 
@@ -1547,7 +1500,7 @@ Risk of not maintaining personal food production
 
 **Indicators:**
 
-Total recreational harvest (all species) and harvest per angler are
+Total recreational harvest (all species) is
 currently used as indicators in the Mid-Atlantic region. Recreational
 seafood landings (as opposed to total catch which includes catch and
 release that are captured under other Risk Elements/indicators) were
@@ -1563,7 +1516,7 @@ evaluate the subsistence component of this risk element.
 ecodata::plot_recdat(report = "MidAtlantic", varName ="landings")
 ```
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1577,16 +1530,9 @@ ecodata::plot_recdat(report = "MidAtlantic", varName ="landings")
   High            Significant recent decrease in recreational landings
   -----------------------------------------------------------------------
 
-Low risk was defined as no trend, or an increase in recreational seafood
-landings. Low-Moderate risk was increasing or high variability in
-recreational seafood landings. Moderate-High risk was a significant
-long-term decrease in recreational seafood landings. High risk was a
-significant recent decrease in recreational seafood landings.
-
 **Risk Assessment**
 
-Summarize ranking rationale
-
+This significant long term decrease in both recreational landings represents a moderate-high risk to food production.
 
 ## Management Elements
 
@@ -1726,13 +1672,12 @@ magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/dev/workshop/images
 
 *Right whale hot spots overlap with offshore wind lease areas*
 
-In addition, recent work by Friedland et al. 2023 (
-[[https://afspubs.onlinelibrary.wiley.com/doi/full/10.1002/mcf2.10230]{.underline}](https://afspubs.onlinelibrary.wiley.com/doi/full/10.1002/mcf2.10230)),
+In addition, recent work by @friedland_forage_2023
 evaluated the habitat usage by forage species within and outside of
-offshore wind lease areas. This information could also be used to help
+offshore wind lease areas (Fig. \ref{fig:foragewind}). This information could also be used to help
 inform the ecosystem structure/function component of the definition.
 
-```{r, results='hide', fig.cap="Mean occupancy habitats at the 20% (light blue) and 80% (dark blue) quantile thresholds across forage species; gray shows the model extent. Taxa with autumn models include **(D)** Round Herring, **(E)** longfin inshore squid, **(F)** Atlantic Chub Mackerel, **(G)** Spanish Sardine, **(H)** Butterfish, and **(I)** Atlantic Thread Herring."}
+```{r foragewind, results='hide', fig.cap="Mean occupancy habitats at the 20% (light blue) and 80% (dark blue) quantile thresholds across forage species; gray shows the model extent. Taxa with autumn models include **(D)** Round Herring, **(E)** longfin inshore squid, **(F)** Atlantic Chub Mackerel, **(G)** Spanish Sardine, **(H)** Butterfish, and **(I)** Atlantic Thread Herring."}
 
 magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Friedlandetal2023_fallforageoccupancy.png")
 ```
@@ -1772,10 +1717,10 @@ scientific uncertainty.
 **Indicators:**
 
 Indicators for the Mid-Atlantic State of the Ecosystem and socioeconomic
-impacts web site. Fishery revenue and party charter activity from within
+impacts web site. Fishery revenue (Fig. \ref{fig:wea-spp-rev}) and party charter activity from within
 lease areas by species, fleet, or community, community
 vulnerability/engagement/EEJ, spatial overlap of lease areas and federal
-fisheries surveys.
+fisheries surveys (Fig. \ref{fig:survey}).
 
 ```{r wea-spp-rev, fig.cap="Fishery revenue in wind energy lease areas in the Mid-Atlantic.",  fig.width=5, fig.asp=.4}
 #code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-spp-rev.R"),
@@ -1785,7 +1730,7 @@ ecodata::plot_wind_revenue(report = "MidAtlantic", varName = "value", plottype =
 ```
 
 
-```{r, fig.cap="Spatial overlap map with NEFSC surveys (From 2021 SOE; wind areas are out of date)"}
+```{r survey, fig.cap="Spatial overlap map with NEFSC surveys (From 2021 SOE; wind areas are out of date)"}
 magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/SurveyMap202133.png")
 ```
 
@@ -1879,7 +1824,7 @@ To be developed later in year in collaboration with the EOP Committee and AP onc
 
 This element is applied at the species and sector (commercial and recreational) level. Constituents have frequently raised concerns about the complexity and continually changing fishery regulations and the need to simplify them to improve their efficacy. Complex and constantly changing regulations may lead to non-compliance and/or impact other fisheries. Non-compliance could have stock assessment, data quality, management, and fairness and equity implications.
 
-**Revised definition:**
+**Definition:**
 
 Risk of not achieving OY due to frequency of regulatory modifications and regulatory complexity, which may have an adverse effect on compliance.
 
@@ -1978,6 +1923,7 @@ Currently, there are no definitions to specify intermediate levels of risk for t
 
 The recreational fisheries for summer flounder, scup, black sea bass, and bluefish all ranked as high risk because the Council has initiated an amendment that, among other things, will consider sector separation within the recreational sector which may include designating allocations between the for-hire and private recreational sectors. All other fisheries were ranked as low risk because recent allocation decisions have been finalized and/or there are currently no allocation related issues under consideration. There have been some recent discussions regarding allocations in both the golden and blueline tilefish fisheries and may be considered in the future if recreational landings continue to increase for golden tilefish. 
 
+\newpage 
 # Summary
 
 *Species level risk elements*
@@ -2101,164 +2047,5 @@ risk.sppsector %>%
 
 ```
 
+\newpage
 # References
-
-Able, K. W. (2005). A re-examination of fish estuarine dependence:
-Evidence for connectivity between estuarine and ocean habitats.
-*Estuarine, Coastal and Shelf Science* 64, 5--17.
-doi:[10.1016/j.ecss.2005.02.002](https://doi.org/10.1016/j.ecss.2005.02.002).
-
-Barrett, R. T., Camphuysen, K. (C. J. )., Anker-Nilssen, T., Chardine,
-J. W., Furness, R. W., Garthe, S., et al. (2007). Diet studies of
-seabirds: A review and recommendations. *ICES Journal of Marine Science*
-64, 1675--1691.
-doi:[10.1093/icesjms/fsm152](https://doi.org/10.1093/icesjms/fsm152).
-
-Bowser, A. K., Diamond, A. W., and Addison, J. A. (2013). From puffins
-to plankton: A DNA-based analysis of a seabird food chain in the
-northern Gulf of Maine. *PLoS One* 8:e83152.
-
-Burke, V. T., Morreale, S. J., and Standora, E. A. (1994). Diet of the
-Kemps ridley sea turtle, Lepidochelys kempii, in New York waters.
-*Fishery Bulletin* 92, 26--32.
-
-Burke, V. T., Standora, E. A., and Morreale, S. J. (1993). Diet of
-Juvenile Kemp's Ridley and Loggerhead Sea Turtles from Long Island, New
-York. *Copeia* 1993, 1176--1180.
-
-Carruthers, T. R., Punt, A. E., Walters, C. J., MacCall, A., McAllister,
-M. K., Dick, E. J., et al. (2014). Evaluating methods for setting catch
-limits in data-limited fisheries. *Fisheries Research* 153, 48--68.
-doi:[10.1016/j.fishres.2013.12.014](https://doi.org/10.1016/j.fishres.2013.12.014).
-
-Colburn, L. L., and Jepson, M. (2012). Social Indicators of
-Gentrification Pressure in Fishing Communities: A Context for Social
-Impact Assessment. *Coastal Management* 40, 289--300.
-doi:[10.1080/08920753.2012.677635](https://doi.org/10.1080/08920753.2012.677635).
-
-Colburn, L. L., Jepson, M., Weng, C., Seara, T., Weiss, J., and Hare, J.
-A. (2016). Indicators of climate change and social vulnerability in
-fishing dependent communities along the Eastern and Gulf Coasts of the
-United States. *Marine Policy* 74, 323--333.
-doi:[10.1016/j.marpol.2016.04.030](https://doi.org/10.1016/j.marpol.2016.04.030).
-
-Friedland, K.D., Ganley, L.C., Dimarchopoulou, D., Gaichas, S., Morse,
-R.E., Jordaan, A., 2023. Change in body size in a rapidly warming marine
-ecosystem: Consequences of tropicalization. Science of The Total
-Environment 903, 166117.
-[[https://doi.org/10.1016/j.scitotenv.2023.166117]{.underline}](https://doi.org/10.1016/j.scitotenv.2023.166117)
-
-Gabriel, W. L., and Mace, P. M. (1999). "A Review of Biological
-Reference Points in the Context of the Precautionary Approach," in
-*Proceedings of the Fifth National NMFS Stock Assessment Workshop:
-Providing Scientific Advice to Implement the Precautionary Approach
-Under the Magnuson-Stevens Fishery Conservation and Management Act. NOAA
-Tech. Memo. NMFS-F/SPO-40.*, ed. V. R. Restrepo (U.S. Dep. Commer.),
-34--45. Available at:
-<https://www.st.nmfs.noaa.gov/Assets/stock/documents/workshops/nsaw_5/gabriel_.pdf>.
-
-Gaichas, S. K., Seagraves, R. J., Coakley, J. M., DePiper, G. S., Guida,
-V. G., Hare, J. A., et al. (2016). A Framework for Incorporating
-Species, Fleet, Habitat, and Climate Interactions into Fishery
-Management. *Frontiers in Marine Science* 3.
-doi:[10.3389/fmars.2016.00105](https://doi.org/10.3389/fmars.2016.00105).
-
-Gannon, D. P., Read, A. J., Craddock, J. E., and Mead, J. G. (1997).
-Stomach contents of long-finned pilot whales (Globicephala melas)
-stranded on the U.S. Mid-Atlantic coast. *Marine*
-
-*Mammal Science* 13, 405--418. Available at:
-<https://www.greateratlantic.fisheries.noaa.gov/prot_res/atgtrp/ai/bgl/3.pdf>
-\[Accessed November 17, 2017\].
-
-Hare, J. A., Morrison, W. E., Nelson, M. W., Stachura, M. M., Teeters,
-E. J., Griffis, R. B., et al. (2016). A Vulnerability Assessment of Fish
-and Invertebrates to Climate Change on the Northeast U.S. Continental
-Shelf. *PLOS ONE* 11, e0146756.
-doi:[10.1371/journal.pone.0146756](https://doi.org/10.1371/journal.pone.0146756).
-
-Jepson, M., and Colburn, L. L. (2013). *Development of Social Indicators
-of Fishing Community Vulnerability and Resilience in the US Southeast
-and Northeast Regions. NOAA Technical Memorandum NMFS-F/SPO-129 (US Dept
-Commerce, 2013)*. Available at:
-<http://www.nmfs.noaa.gov/sfa/management/councils/training/2014/r_h3_fishing_community_vulnerability.pdf>
-\[Accessed September 25, 2015\].
-
-Johnson, A.K., Richards, A., Cullen, D.W., Sutherland, S.J., 2008.
-Growth, reproduction, and feeding of large monkfish, Lophius americanus.
-ICES Journal of Marine Science 65, 1306--1315.
-
-Johnson, J. H., Dropkin, D. S., Warkentine, B. E., Rachlin, J. W., and
-Andrews, W. D. (1997). Food Habits of Atlantic Sturgeon off the Central
-New Jersey Coast. *Transactions of the American Fisheries Society* 126,
-166--170.
-
-McClellan, C. M., and Read, A. J. (2007). Complexity and variation in
-loggerhead sea turtle life history. *Biological Letters* 3, 592--594.
-
-Palacios-Abrantes J, Crosson S, Dumas C, Fujita R, Levine A, Longo C, et
-al. (2023) Quantifying fish range shifts across poorly defined
-management boundaries. PLoS ONE 18(1): e0279025.
-[[https://doi.org/10.1371/journal.pone.0279025]{.underline}](https://doi.org/10.1371/journal.pone.0279025)
-
-Perry, M. C., Olsen, G. H., Richards, A., and Osenton, P. C. (2013).
-Predation on Dovekies by Goosefish over Deep Water in the Northwest
-Atlantic Ocean. *Northeastern Naturalist* 20, 148--154. Available at:
-<https://www.eaglehill.us/NENAonline/articles/NENA-20-1/20-Perry.shtml>
-\[Accessed September 26, 2017\].
-
-Powers, K. D. (1983). Pelagic distributions of marine birds off the
-Northeastern United States. *NOAA Technical Memorandum NMFS-F/NEC 27.
-Woods Hole, MA*.
-
-Powers, K. D., and Backus, E. H. (1987). "Energy transfer to seabirds,"
-in *Georges Bank*, eds. R. H. Backus and D. W. Bourne (Cambridge, MA:
-MIT Press), 372--374.
-
-Powers, K. D., and Brown, R. G. B. (1987). "Seabirds," in *Georges
-Bank*, eds. R. H. Backus and D. W. Bourne (Cambridge, MA: MIT Press),
-359--371.
-
-Richards, R. A. (2016). 2016 Monkfish Operational Assessment. US Dept
-Commer, Northeast Fish Sci Cent Ref Doc. 16-09. National Marine
-Fisheries Service, 166 Water Street, Woods Hole, MA 02543-1026 Available
-at: <https://www.nefsc.noaa.gov/publications/crd/crd1609/crd1609.pdf>
-\[Accessed October 2, 2018\].
-
-Savoy, T. (2007). Prey eaten by Atlantic sturgeon in Connecticut waters.
-Pages 157-166 in J. Munro, D. Hatin, J. E. Hightower, K. McKown, K. J.
-Sulak, A. W. Kahnle, and F. Caron, editors. Anadromous sturgeons:
-Habitats, threats, and management. *American Fisheries Society,
-Symposium 56. American Fisheries Society, Bethesda, MD*.
-
-Schneider, D. C., and Heinemann, D. W. (1996). "The state of marine bird
-populations from Cape Hatteras to the Gulf of Maine," in *The Northeast
-Shelf Ecosystem: Assessment, Sustainability, and Management*, eds. K.
-Sherman, N. A. Jaworski, and T. J. Smayda (Cambridge, MA: Blackwell
-Science), 197--216.
-
-Seney, E. E., and Musick, J. A. (2007). Historical Diet Analysis of
-Loggerhead Sea Turtles (Caretta Caretta) in Virginia. *Copeia* 2007,
-478--489.
-doi:[10.1643/0045-8511(2007)7\[478:HDAOLS\]2.0.CO;2](https://doi.org/10.1643/0045-8511(2007)7%5B478:HDAOLS%5D2.0.CO;2).
-
-Shoop, C. R., and Kenney, R. D. (1992). Seasonal Distributions and
-Abundances of Loggerhead and Leatherback Sea Turtles in Waters of the
-Northeastern United States. *Herpetological Monographs* 6, 43--67.
-
-Smith, B. E., and Link, J. S. (2010). *The Trophic Dynamics of 50
-Finfish and 2 Squid Species on the Northeast US Continental Shelf. NOAA
-Technical Memorandum NMFS-NE-216*. National Marine Fisheries Service,
-166 Water Street, Woods Hole, MA 02543-1026 Available at:
-<http://www.nefsc.noaa.gov/publications/tm/tm216/> \[Accessed April 26,
-2016\].
-
-Smith, L. A., Link, J. S., Cadrin, S. X., and Palka, D. L. (2015).
-Consumption by marine mammals on the Northeast U.S. Continental shelf.
-*Ecological Applications* 25, 373--389.
-doi:[10.1890/13-1656.1](https://doi.org/10.1890/13-1656.1).
-
-US EPA (2012). National Coastal Condition Report IV, EPA-842-R-10-003.
-Washington, DC: United States Environmental Protection Agency, Office of
-Research; Development/Office of Water Available at:
-<http://www.epa.gov/nccr>.

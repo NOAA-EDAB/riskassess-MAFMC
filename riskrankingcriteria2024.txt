@@ -26,15 +26,15 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Ecosystem productivity  | Low  | No trends in ecosystem productivity 
  Ecosystem productivity  | Low-Moderate | Trend in ecosystem productivity (1-2 measures, increase or decrease) 
  Ecosystem productivity  | Moderate-High | Trend in ecosystem productivity (3+ measures, increase or decrease) 
- Ecosystem productivity  | High | Decreasing trend in ecosystem productivity, all measures 
+ Ecosystem productivity  | High | Decreasing trend in ecosystem productivity, 4+ measures 
  Climate              | Low  | Low climate vulnerability ranking 
  Climate              | Low-Moderate | Moderate climate vulnerability ranking 
  Climate              | Moderate-High | High climate vulnerability ranking 
  Climate              | High | Very high climate vulnerability ranking 
  Distribution shifts  | Low  | Low potential for distribution shifts 
  Distribution shifts  | Low-Moderate | Moderate potential for distribution shifts 
- Distribution shifts  | Moderate-High | High potential for distribution shifts 
- Distribution shifts  | High | Very high potential for distribution shifts 
+ Distribution shifts  | Moderate-High | High potential and observed distribution shifts 
+ Distribution shifts  | High | Very high potential and observed distribution shifts 
  Estuarine habitat    | Low  | Not dependent on nearshore coastal or estuarine habitat 
  Estuarine habitat    | Low-Moderate | Estuarine dependent, estuarine condition stable 
  Estuarine habitat    | Moderate-High | Estuarine dependent, estuarine condition fair 
@@ -47,10 +47,10 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Commercial value   | Low-Moderate | Increasing or high variability in revenue 
  Commercial value   | Moderate-High | Significant long term revenue decrease 
  Commercial value   | High | Significant recent decrease in revenue 
- Recreational angler days/trips   | Low  | No trends in angler days/trips 
- Recreational angler days/trips   | Low-Moderate | Increasing or high variability in angler days/trips 
- Recreational angler days/trips   | Moderate-High | Significant long term decreases in angler days/trips 
- Recreational angler days/trips   | High | Significant recent decreases in angler days/trips 
+ Recreational angler days/trips   | Low  | No trends in angler trips 
+ Recreational angler days/trips   | Low-Moderate | Increasing or high variability in angler trips 
+ Recreational angler days/trips   | Moderate-High | Significant long term decreases in angler trips 
+ Recreational angler days/trips   | High | Significant recent decreases in angler trips 
  Commercial fishery resilience (Revenue diversity)  | Low  | No trend in diversity measure 
  Commercial fishery resilience (Revenue diversity)  | Low-Moderate | Increasing or high variability in diversity measure 
  Commercial fishery resilience (Revenue diversity)  | Moderate-High | Significant long term downward trend in diversity measure
@@ -59,10 +59,10 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Commercial fishery resilience (Shoreside support)  | Low-Moderate | Increasing or high variability in shoreside support businesses 
  Commercial fishery resilience (Shoreside support)  | Moderate-High | Significant recent decrease in one measure of shoreside support businesses 
  Commercial fishery resilience (Shoreside support)  | High | Significant recent decrease in multiple measures of shoreside support businesses 
- Commercial fleet resilience      | Low  | No trend in diversity measure 
- Commercial fleet resilience      | Low-Moderate | Increasing or high variability in diversity measure 
- Commercial fleet resilience      | Moderate-High | Significant long term downward trend in diversity measure
- Commercial fleet resilience      | High | Significant recent downward trend in diversity measure 
+ Commercial fishery resilience (Fleet diversity)      | Low  | No trend in diversity measure 
+ Commercial fishery resilience (Fleet diversity)     | Low-Moderate | Increasing or high variability in diversity measure 
+ Commercial fishery resilience (Fleet diversity)      | Moderate-High | Significant long term downward trend in diversity measure
+ Commercial fishery resilience (Fleet diversity)      | High | Significant recent downward trend in diversity measure 
  Recreational fleet diversity      | Low  | No trend in diversity measure 
  Recreational fleet diversity      | Low-Moderate | Increasing or high variability in diversity measure 
  Recreational fleet diversity      | Moderate-High | Significant long term downward trend in diversity measure
@@ -71,22 +71,22 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Fishing community vulnerability      | Low-Moderate | 10-25% of fishery dependent communities with >3 high vulnerability ratings 
  Fishing community vulnerability      | Moderate-High | 25-50% of fishery dependent communities with >3 high vulnerability ratings 
  Fishing community vulnerability      | High | Majority (>50%) of fishery dependent communities with >3 high vulnerability ratings 
- Commercial     | Low  | No trend or increase in seafood landings 
- Commercial     | Low-Moderate | Increasing or high variability in seafood landings 
- Commercial     | Moderate-High | Significant long term decrease in seafood landings 
- Commercial     | High | Significant recent decrease in seafood landings 
- Recreational   | Low  | No trend or increase in recreational landings 
- Recreational   | Low-Moderate | Increasing or high variability in recreational landings 
- Recreational   | Moderate-High | Significant long term decrease in recreational landings 
- Recreational   | High | Significant recent decrease in recreational landings 
- F Control     | Low  | No history of overages 
- F Control     | Low-Moderate | Small overages, but infrequent 
- F Control     | Moderate-High | Routine overages, but small to moderate 
- F Control     | High | Routine significant overages 
- Interactions   | Low  | No interactions with non-MAFMC managed species 
- Interactions   | Low-Moderate | Interactions with non-MAFMC managed species but infrequent, Category II fishery under MMPA; or AMs not likely triggered 
- Interactions   | Moderate-High | AMs in non-MAFMC managed species may be triggered; or Category I fishery under MMPA (but takes less than PBR) 
- Interactions   | High | AMs in non-MAFMC managed species triggered; or Category I fishery under MMPA and takes above PBR   
+ Commercial fishing production     | Low  | No trend or increase in seafood landings 
+ Commercial fishing production    | Low-Moderate | Increasing or high variability in seafood landings 
+ Commercial fishing production     | Moderate-High | Significant long term decrease in seafood landings 
+ Commercial fishing production     | High | Significant recent decrease in seafood landings 
+ Recreational fishing production  | Low  | No trend or increase in recreational landings 
+ Recreational fishing production  | Low-Moderate | Increasing or high variability in recreational landings 
+ Recreational fishing production  | Moderate-High | Significant long term decrease in recreational landings 
+ Recreational fishing production  | High | Significant recent decrease in recreational landings 
+ F Control     | Low  | No recent history (last 5 years) of overages 
+ F Control     | Low-Moderate | Small recent overages, but infrequent 
+ F Control     | Moderate-High | Routine recent overages, but small to moderate 
+ F Control     | High | Routine recent significant overages 
+ Tech Interactions   | Low  | No interactions with non-MAFMC managed species 
+ Tech Interactions   | Low-Moderate | Interactions with non-MAFMC managed species but infrequent, Category II fishery under MMPA; or AMs not likely triggered 
+ Tech Interactions   | Moderate-High | AMs in non-MAFMC managed species may be triggered; or Category I fishery under MMPA (but takes less than PBR) 
+ Tech Interactions   | High | AMs in non-MAFMC managed species triggered; or Category I fishery under MMPA and takes above PBR   
  Offshore wind (Bio/Ecosystem)   | Low  | TBD 
  Offshore wind (Bio/Ecosystem)   | Low-Moderate | TBD 
  Offshore wind (Bio/Ecosystem)   | Moderate-High | TBD 
@@ -99,14 +99,14 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Other ocean activities   | Low-Moderate | Low-moderate overlap; minor habitat impacts but transient 
  Other ocean activities   | Moderate-High | Moderate-high overlap; minor habitat impacts but persistent 
  Other ocean activities   | High | High overlap; other uses could seriously disrupt fishery prosecution; major permanent habitat impacts 
- Regulatory complexity   | Low  | Simple/few regulations; rarely if ever change 
- Regulatory complexity   | Low-Moderate | Low-moderate complexity; occasional changes 
- Regulatory complexity   | Moderate-High | Moderate-high complexity; occasional changes 
- Regulatory complexity   | High | High complexity; frequently changed 
- Discards   | Low  | No significant discards 
- Discards   | Low-Moderate | Low or episodic discard 
- Discards   | Moderate-High | Regular discard but managed 
- Discards   | High | High discard, difficult to manage 
+ Regulatory complexity   | Low  | Simple/few regulations; rarely if ever change; same recreational regs across all states 
+ Regulatory complexity   | Low-Moderate | Low-moderate complexity; occasional recent changes; few (1-2) recreational regulation differences across states 
+ Regulatory complexity   | Moderate-High | Moderate-high complexity; occasional recent changes; moderate (3-4) recreational regulation differences across states 
+ Regulatory complexity   | High | High complexity; frequent recent changes; many (5+) recreational regulation differences across states 
+ Discards   | Low  | No significant discards or incidental catch; no significant discard mortality 
+ Discards   | Low-Moderate | Low or episodic discards and incidental catch; low discard mortality
+ Discards   | Moderate-High | Regular discards and incidental catch but managed; moderate discard mortality 
+ Discards   | High | High discards and incidental catch, difficult to manage; high discard mortality 
  Allocation  | Low  | No recent or ongoing Council discussion about allocation 
  Allocation  | Low-Moderate | *This category not used* 
  Allocation  | Moderate-High | *This category not used* 

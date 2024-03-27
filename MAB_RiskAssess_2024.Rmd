@@ -110,7 +110,7 @@ all$Ranking <- factor(all$Ranking, levels=c("Low", "Low-Moderate",  "Moderate-Hi
 all$Element <- factor(all$Element, levels=c("Assessment performance", "F status", "B status", "Food web (Prey availability)", "Food web (Predation pressure)", "Food web  (Protected species prey)",
                                             "Ecosystem productivity", "Climate", "Distribution shifts", "Estuarine habitat", "Offshore habitat", "Commercial value",
                                             "Recreational angler days/trips", "Commercial fishery resilience (Revenue diversity)", "Commercial fishery resilience (Shoreside support)",
-                                            "Commercial fleet resilience", "Recreational fleet diversity", "Fishing community vulnerability", "Commercial", "Recreational", "F Control", "Interactions", "Offshore wind (Bio/Ecosystem)", "Offshore wind (Science/Access)", "Other ocean activities", "Regulatory complexity", 
+                                            "Commercial fishery resilience (Fleet diversity)", "Recreational fleet diversity", "Fishing community vulnerability", "Commercial fishing production", "Recreational fishing production", "F Control", "Tech Interactions", "Offshore wind (Bio/Ecosystem)", "Offshore wind (Science/Access)", "Other ocean activities", "Regulatory complexity", 
                                             "Discards", "Allocation"))
 
 allwide <- all %>% 
@@ -1060,6 +1060,8 @@ identifies changes in diversity.
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
 
 ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue species diversity")
+
+
 ```
 
 
@@ -1174,10 +1176,14 @@ of revenue across these fleets. Although the exact value of the
 effective Shannon index is relatively uninformative in this context, the
 relative value identifies changes in diversity.
 
-```{r commercial-div,  fig.cap = paste0("Commercial fleet revenue diversity in the Mid Atlantic.")}
+```{r commercial-div, fig.width = 8, fig.asp = 0.3, fig.cap = "Commercial fleet count and revenue diversity in the Mid Atlantic."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
 
-ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet diversity in revenue")
+a <- ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet count")
+
+b <- ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet diversity in revenue")
+
+a + b
 ```
 
 Other metrics for diversity exist. The Simpson index is a common measure
@@ -1207,7 +1213,7 @@ differential treatment between large and small fleets [@thunberg_measures_2015].
 
 **Risk Assessment**
 
-The commercial fleet count metric has less than 30 years in the time series, therefore trend was not assessed, and no apparent visual trend exists. With no trend, this element ranks low risk. 
+The commercial fleet count and revenue diversity have less than 30 years in the time series, therefore trend was not assessed. For fleet count a visual trend may be apparent, while for revenue diversity no apparent visual trend exists. With no trend, this element ranks low risk. 
 
 ### Recreational Fleet Diversity (new)
 

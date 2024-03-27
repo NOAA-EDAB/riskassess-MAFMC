@@ -665,7 +665,7 @@ prey specificity, sensitivity to temperature and ocean acidification,
 multiple life history factors, and number of non-climate stressors (Fig. \ref{fig:NEVAvul}).
 
 
-```{r NEVAvul, out.width = '50%', fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
+```{r NEVAvul, out.width = '75%', fig.cap="Hare et al., 2016 Climate vulnerability by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAvulmid.png")
 ```
 
@@ -735,7 +735,7 @@ Risks of species distribution shifts due to projected climate change in
 the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly
 in the risk assessment (Fig. \ref{fig:NEVAshift}).
 
-```{r NEVAshift, out.width = '50%', fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
+```{r NEVAshift, out.width = '75%', fig.cap="Hare et al., 2016 Distribution shift risk by species, Northeast US"}
 magick::image_read("https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/NEVAshiftmid.png")
 
 ```
@@ -1683,7 +1683,7 @@ evaluated the habitat usage by forage species within and outside of
 offshore wind lease areas (Fig. \ref{fig:foragewind}). This information could also be used to help
 inform the ecosystem structure/function component of the definition.
 
-```{r foragewind, results='hide', fig.cap="Mean occupancy habitats at the 20% (light blue) and 80% (dark blue) quantile thresholds across forage species; gray shows the model extent. Taxa with autumn models include **(D)** Round Herring, **(E)** longfin inshore squid, **(F)** Atlantic Chub Mackerel, **(G)** Spanish Sardine, **(H)** Butterfish, and **(I)** Atlantic Thread Herring."}
+```{r foragewind, out.width='75%', fig.cap="Mean occupancy habitats at the 20th (light blue) and 80th (dark blue) quantile thresholds across forage species; gray shows the model extent. Taxa with autumn models include (D) Round Herring, (E) longfin inshore squid, (F) Atlantic Chub Mackerel, (G) Spanish Sardine, (H) Butterfish, and (I) Atlantic Thread Herring."}
 
 magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Friedlandetal2023_fallforageoccupancy.png")
 ```

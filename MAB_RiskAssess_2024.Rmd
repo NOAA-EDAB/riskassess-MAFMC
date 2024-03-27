@@ -1174,10 +1174,10 @@ of revenue across these fleets. Although the exact value of the
 effective Shannon index is relatively uninformative in this context, the
 relative value identifies changes in diversity.
 
-```{r commercial-div,  fig.cap = paste0("Commercialfleet  diversity in the Mid Atlantic.")}
+```{r commercial-div,  fig.cap = paste0("Commercial fleet revenue diversity in the Mid Atlantic.")}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
 
-ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet count")
+ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Fleet diversity in revenue")
 ```
 
 Other metrics for diversity exist. The Simpson index is a common measure
@@ -1207,7 +1207,7 @@ differential treatment between large and small fleets [@thunberg_measures_2015].
 
 **Risk Assessment**
 
-The commercial fleet count metric has less than 30 years in the time series, therefore trend was not assessed. With no trend, this element ranks low risk. However, a decline is visually apparent and could be assessed with updated methods for the 2025 risk assessment.
+The commercial fleet count metric has less than 30 years in the time series, therefore trend was not assessed, and no apparent visual trend exists. With no trend, this element ranks low risk. 
 
 ### Recreational Fleet Diversity (new)
 

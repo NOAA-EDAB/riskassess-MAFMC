@@ -84,7 +84,7 @@ names(elem) <- c("Element", "Definition", "Indicator")
 #                                             "Discards", "Allocation"))
 
 kable(elem, format = "latex", booktabs = T, longtable=T, caption="Risk Elements, Brief Definitions, and Indicators Used. Additional detail and information on each risk elements definition and indicator(s) can be found in the full risk assessment text.\\label{riskel}") %>%
-  kable_styling(font_size=8, latex_options=c("repeat_header")) %>%
+  kable_styling(font_size=8, latex_options=c("repeat_header", "striped")) %>%
   column_spec(1, width="2.5cm") %>%
   column_spec(2:3, width="7cm") %>%
   group_rows("Ecological",1,11) %>%
@@ -117,7 +117,7 @@ allwide <- all %>%
   spread(Ranking, Criteria)
 
 kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Ranking Criteria used for each Risk Element. Additional information on the risk ranking criteria can be found in the full risk assessment text.\\label{allcriteria}") %>%
-  kable_styling(font_size=8, latex_options=c("repeat_header")) %>%
+  kable_styling(font_size=8, latex_options=c("repeat_header", "striped")) %>%
   column_spec(1, width="2cm") %>%
   column_spec(2:5, width="5cm") %>%
   landscape()
@@ -524,11 +524,11 @@ an apparent shift in the timing of the bloom cycle in the Mid-Atlantic.
 Comparing remote sensing information from the 1970-80s to 1997-2015
 information suggests that winter productivity was historically higher in
 the MAB and that the spring bloom we see today was less prominent.
-Shifts in timing of low trophic level production can affect Council
+Shifts in timing of low trophic level production (Fig. \ref{fig:monthlypp}) can affect Council
 managed fish species through early life history stages that feed on
 zooplankton.
 
-```{r, fig.cap="Monthly primary production trends show the annual cycle (i.e. the peak during the summer months) and the changes over time for each month.", fig.width=9, fig.asp=.8}
+```{r monthlypp, fig.cap="Monthly primary production trends show the annual cycle (i.e. the peak during the summer months) and the changes over time for each month.", fig.width=9, fig.asp=.8}
 ecodata::plot_chl_pp(varName = "pp", plottype = "monthly")
 ```
 
@@ -956,12 +956,12 @@ Trip Reports. This indicator would thus not capture all fishing within
 the region, and of potential interest to the Council. It underrepresents
 the total revenue generated regionally by about ½, and does not present
 the same trends as the subset for which net revenue can be generated.
-See figure below for the comparison of all revenue from Hatteras to the
+See Fig. \ref{fig:costcov} for the comparison of all revenue from Hatteras to the
 Canadian border versus what net revenue can be calculated for. The
 Ecosystem and Ocean Planning Committee and Advisory Panel recommended
 continued development of this indicator.
 
-```{r, out.width = '50%', fig.cap="Cost coverage"}
+```{r costcov, out.width = '50%', fig.cap="Cost coverage"}
 magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Cost_Coverage.png")
 ```
 
@@ -1003,7 +1003,7 @@ Risk of not maximizing recreational fishery value and opportunities.
 **Indicators:**
 
 Currently, angler trips is the proxy indicator for the value
-generated from recreational fishing. Although willingness to pay would
+generated from recreational fishing (Fig. \ref{fig:rec-op}). Although willingness to pay would
 better capture the economic concept of recreational value, this
 information is not gathered systematically in the region. Potentially,
 multiple indicators could be used to better proxy for recreational
@@ -1235,7 +1235,7 @@ modes).
 Recreational fleet effort diversity has been presented in the
 Mid-Atlantic State of the Ecosystem Report for several years. This indicator is an
 effective Shannon estimate of diversity of effort across mode
-(i.e. effort by shoreside, private boat, and for-hire anglers; Fig. \ref{fig:rec-div}).
+(i.e. effort by shoreside, private boat, and for-hire anglers; Fig. \ref{fig:rec-div}). The downward effort diversity trend is driven by party/charter contraction (down from 2% in 2021 to 1.4% in 2023), and a shift toward shorebased angling, which currently makes up 59% of angler trips. Effort in private boats has increased slightly to 40% of trips from 37% in 2021.
 
 ```{r rec-div, fig.cap = "Recreational fleet effort diversity (black) in the Mid-Atlantic, with significant decrease (purple line)."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")
@@ -1268,10 +1268,7 @@ At present, proposed criteria are based only on the existing diversity indicator
 
 **Risk Assessment**
 
-The significant long term decline in recreational fleet effort diversity would rank moderate-high risk using the proposed criteria above.
-
-The downward effort diversity trend is driven by party/charter contraction (down from 2% in 2021 to 1.4% in 2023), and a shift toward shorebased angling, which currently makes up 59% of angler trips. Effort in private boats has increased slightly to 40% of trips from 37% in 2021.
-
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
 ## Fishing Community Vulnerability
 
@@ -1709,7 +1706,7 @@ Council-managed fishery resources. Given the anticipated overlap between
 offshore wind lease areas and spatial coverage of many fishery-dependent
 survey strata, there are anticipated survey impacts through "preclusion,
 habitat change, changes in statistical design, and reduced sampling
-productivity" (Hogan et al. 2023). These impacts to the quality and
+productivity" [@hogan_fisheries_2023]. These impacts to the quality and
 quantity of the data could have implications for stock assessments,
 scientific uncertainty, and catch levels. As wind turbine construction
 and operation continues and expands, fishing fleet access, fishing

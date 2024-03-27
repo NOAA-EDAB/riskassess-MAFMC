@@ -39,10 +39,10 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Estuarine habitat    | Low-Moderate | Estuarine dependent, estuarine condition stable 
  Estuarine habitat    | Moderate-High | Estuarine dependent, estuarine condition fair 
  Estuarine habitat    | High | Estuarine dependent, estuarine condition poor 
- Offshore habitat     | Low  | No change in offshore habitat quality or quantity 
- Offshore habitat     | Low-Moderate | Increasing variability in habitat quality or quantity 
- Offshore habitat     | Moderate-High | Significant long term decrease in habitat quality or quantity 
- Offshore habitat     | High | Significant recent decrease in habitat quality or quantity 
+ Offshore habitat     | Low  | TBD 
+ Offshore habitat     | Low-Moderate | TBD 
+ Offshore habitat     | Moderate-High | TBD 
+ Offshore habitat     | High | TBD 
  Commercial value   | Low  | No trend and low variability in revenue 
  Commercial value   | Low-Moderate | Increasing or high variability in revenue 
  Commercial value   | Moderate-High | Significant long term revenue decrease 
@@ -63,10 +63,10 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Commercial fishery resilience (Fleet diversity)     | Low-Moderate | Increasing or high variability in diversity measure 
  Commercial fishery resilience (Fleet diversity)      | Moderate-High | Significant long term downward trend in diversity measure
  Commercial fishery resilience (Fleet diversity)      | High | Significant recent downward trend in diversity measure 
- Recreational fleet diversity      | Low  | No trend in diversity measure 
- Recreational fleet diversity      | Low-Moderate | Increasing or high variability in diversity measure 
- Recreational fleet diversity      | Moderate-High | Significant long term downward trend in diversity measure
- Recreational fleet diversity      | High | Significant recent downward trend in diversity measure 
+ Recreational fleet diversity      | Low  | TBD 
+ Recreational fleet diversity      | Low-Moderate | TBD
+ Recreational fleet diversity      | Moderate-High | TBD
+ Recreational fleet diversity      | High | TBD 
  Fishing community vulnerability      | Low  | Few (<10%) vulnerable fishery dependent communities 
  Fishing community vulnerability      | Low-Moderate | 10-25% of fishery dependent communities with >3 high vulnerability ratings 
  Fishing community vulnerability      | Moderate-High | 25-50% of fishery dependent communities with >3 high vulnerability ratings 
@@ -95,10 +95,10 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Offshore wind (Science/Access)   | Low-Moderate | TBD 
  Offshore wind (Science/Access)   | Moderate-High | TBD 
  Offshore wind (Science/Access)   | High | TBD
- Other ocean activities   | Low  | No overlap; no impact on habitat 
- Other ocean activities   | Low-Moderate | Low-moderate overlap; minor habitat impacts but transient 
- Other ocean activities   | Moderate-High | Moderate-high overlap; minor habitat impacts but persistent 
- Other ocean activities   | High | High overlap; other uses could seriously disrupt fishery prosecution; major permanent habitat impacts 
+ Other ocean activities   | Low  | TBD 
+ Other ocean activities   | Low-Moderate | TBD 
+ Other ocean activities   | Moderate-High | TBD 
+ Other ocean activities   | High | TBD 
  Regulatory complexity   | Low  | Simple/few regulations; rarely if ever change; same recreational regs across all states 
  Regulatory complexity   | Low-Moderate | Low-moderate complexity; occasional recent changes; few (1-2) recreational regulation differences across states 
  Regulatory complexity   | Moderate-High | Moderate-high complexity; occasional recent changes; moderate (3-4) recreational regulation differences across states 

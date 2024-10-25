@@ -1,0 +1,446 @@
+---
+bibliography: riskassess.bib
+csl: plos.csl
+fontsize: 10pt
+geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
+link-citations: true
+output:
+  bookdown::word_document2: default
+subparagraph: true
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+
+# library(tint)
+# # invalidate cache when the package version changes
+# knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tint'))
+# options(htmltools.dir.version = FALSE)
+
+#Default Rmd options
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      #dev = "cairo_pdf",
+                      warning = FALSE,
+                      fig.width = 4,
+                      fig.asp = 0.45,
+                      fig.align = 'center'
+                      ) #allows for inserting R code into captions
+
+#Plotting and data libraries
+#remotes::install_github("noaa-edab/ecodata@0.1.0") #change to 2020 ecodata version for release
+library(tidyverse)
+library(tidyr)
+library(ecodata)
+library(here)
+library(kableExtra)
+library(patchwork)
+
+```
+
+\pagestyle{fancy}
+
+# Risk Assessment
+
+## Ecological Elements
+
+
+### Food Web (2) - Predation Pressure
+
+**Description:**
+
+This element is applied at the species level.
+
+Fish stocks and protected species stocks are managed using single species approaches, but fish and protected species stocks exist within a food web of predator and prey interactions. This element is one of two separating food web risks to achieving OY for Council managed species from two sources. This second food web risk element assesses predation pressure on each species, and the first element assesses prey availability for each species (see Food Web (1) Prey availability).
+
+**Definition:**
+
+Risk of not achieving OY for Council managed species due to predation
+pressure.
+
+**Indicators:**
+
+First, the estimated predation mortality and major predators for each Council-managed species could be identified using food web models, empirical data, and/or literature review. 
+A food web model can also determine whether predation mortality is a “low” proportion of overall mortality, with the EOP deciding on a threshold (for example, < 10%). 
+
+For Council managed species with 10% or more of total mortality from predation, the EOP could decide on a threshold for identifying major predators, such as those contributing 5% or more of total mortality on average. Then, all predators contributing that amount to mortality would be considered together in the risk indicators to evaluate total predation pressure risk. 
+
+Given that predation mortality exceeds the EOP threshold and major predators are identified, we envision four types of indicators that will provide insight into predation pressure trends across a variety of species data availability.
+
+* Predator-prey spatial and temporal overlap. This can be calculated from survey data for many species and does not require detailed diet information. However, overlap alone may not be a complete indicator of mortality.
+
+* Estimated consumption by fish predators. This requires detailed diet information and time series of biomass for predators, available for some Council-managed species (see https://fwdp.shinyapps.io/tm2020/#7_TOTAL_CONSUMPTION_AND_CB_RATIOS where these estimates are available for Atlantic mackerel, butterfish, and longfin squid). Estimates of total consumption are also available from literature. However, consumption alone may not be a complete indicator of mortality, and these estimates do not include consumption by HMS, mammals, and birds.
+
+* Predation pressure index (PPI). This requires some diet information and time series of biomass for major predators. This method can include mammal and bird predators as well as fish, and is being implemented for Atlantic mackerel. 
+
+* Model-estimated time series of total predation mortality. Food web and multispecies models exist and are being updated for the Mid-Atlantic and full Northeast US shelf. These models can be fitted to available biomass, catch, and diet data. Food web models include predation from all sources (fish, birds, mammals) while multispecies models may estimate age- or size-specific predation mortality from a subset of predators. Model-estimated time series could be available in late 2025.
+
+**Potential risk criteria:**
+
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             Predation pressure represents low proportion of overall
+                  mortality
+
+  Low-Moderate    Predation pressure moderate proportion of overall
+                  mortality, decreasing overlap/consumption/PPI/mortality trend
+
+  Moderate-High   Predation pressure moderate proportion of overall
+                  mortality, increasing overlap/consumption/PPI/mortality trend
+
+  High            Predation pressure represents high proportion of
+                  overall mortality, increasing overlap/consumption/PPI/mortality trend
+  -----------------------------------------------------------------------
+
+**Risk Assessment**
+
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+
+**Questions for Committee and AP feedback**
+
+* Do we want both the overall amount of predation mortality (low, moderate, high) and the trend in mortality included in the criteria as in the table above?
+
+* What level of predation do we consider a “low” proportion of overall mortality for the low risk category?
+
+* What level of predation do we consider a “high” proportion of overall mortality for the high risk category? (Moderate would be the range between low and high)
+
+* How much mortality should a predator cause to be considered a “major” predator and tracked with indicators?
+
+* Are we ok with treating trends from the different indicator types similarly in the risk criteria as drafted above?
+
+
+### Offshore Habitat (new)
+
+**Description:**
+
+This element is applied at the species level.
+
+Offshore habitat, defined here as all habitat outside of the estuary
+and beyond the immediate coastal/nearshore areas, supports all life
+stages of many Council managed species, and is changing in quality and
+quantity due to multiple stressors from climate to other ocean uses such
+as offshore wind development. This element evaluates risk of achieving
+OY due to changes in offshore habitat quality and quantity.
+
+**Definition:**
+
+Risk of not achieving OY due to changing offshore habitat. The rationale
+is that multiple drivers of offshore habitat change, including ocean
+industrialization, are included in this definition.
+
+**Indicators:**
+
+Indicators of offshore habitat trends are available from
+species-specific habitat modeling through the [[Northeast Regional
+Habitat
+Assessment]{.underline}](https://nrha.shinyapps.io/dataexplorer/#!/),
+[[NEFSC]{.underline}](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem),
+and multiple other efforts throughout the region.
+
+Potential indicators include the amount of habitat, quality of habitat, or other
+aspects of habitat important to support fish productivity. For example,
+the cold pool is a seasonal habitat feature linked to several species in
+the Mid-Atlantic with indicators for spatial extent, duration, and
+temperature within the feature.
+
+An integrated habitat model could be updated to evaluate trends in available or favorable habitat for each Council managed species. Random forest habitat models have been developed for many Council managed species to estimate spring and fall habitat use based on the NEFSC bottom trawl survey. The variables included in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. 
+
+**Potential risk criteria:**
+
+Criteria for using multiple habitat indicators
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             No trends in offshore habitat
+
+  Low-Moderate    Trend in offshore habitat (1-2 measures, increase or
+                  decrease)
+
+  Moderate-High   Trend in offshore habitat (3+ measures, increase or
+                  decrease)
+
+  High            Decreasing trend in offshore habitat, 4+ measures
+  -----------------------------------------------------------------------
+
+Alternative for single integrated habitat indicator
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             No change in offshore habitat indicator
+
+  Low-Moderate    Increasing variability in habitat quality or quantity
+
+  Moderate-High   Significant long term decrease in habitat quality or quantity
+
+  High            Significant recent decrease in habitat quality or quantity
+  -----------------------------------------------------------------------
+
+**Risk Assessment**
+
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+
+**Questions for Committee and AP feedback**
+
+* Is an integrated habitat model preferred, or should each species have a set of habitat indicators specific to the species?
+
+* What process should be used to identify important habitat indicators for each species? Is there a life stage that should be prioritized?
+
+
+### Food Web (1) - Prey Availability
+
+**Description:**
+
+This element is applied at the species level.
+
+Fish stocks and protected species stocks are managed using single species approaches, but fish and protected species stocks exist within a food web of predator and prey interactions. This element is one of two separating food web risks to achieving OY for Council managed species from two sources. This first element assesses prey availability for each species, and the second food web risk element assesses predation pressure on each species (see Food Web (2)- Predation Pressure).
+
+**Definition:**
+
+Risk of not achieving OY for Council managed species due to availability
+of prey.
+
+**Indicators:**
+
+Indicators of prey availability for each Council managed species would
+be based on food habits information for the Council managed species
+combined with population trends for key prey species (if available). Major prey can be identified using food habits data and considered in aggregate.
+
+Aggregate prey indices can be developed using survey data, stomach contents data, or a combination. For example, indicators of aggregated benthic invertebrates and aggregate forage fish were developed using stomach contents of multiple fish predators (Fig. \ref{fig:foragebio}, left column).
+
+```{r foragebio, fig.cap = "Example indicators for prey availability risk. Major prey in left column, managed species condition in right column. Top row: benthic invertebrate prey of black sea bass have been declining since the mid-2000s, as has body condition for black sea bass. Taken together these indicate higher risk. Bottom row: forage fish prey of bluefish show a long term decline, but bluefish body condition has been stable or increasing recently. Taken together these indicate lower risk due to prey availability.", fig.asp=.6}
+#, code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-forage-index.R")
+
+ecodata::plot_forage_index()
+```
+
+However, trends in prey alone may not indicate risk if the prey are fluctuating well above a threshold where Council managed species might experience scarcity. Body condition indicators can be used to suggest whether Council managed species are heavier or lighter than expected for their length. Low body condition combined with declining prey trends could indicate higher risk that prey availability might impact OY. 
+
+
+**Potential risk criteria:**
+
+This suggests that good body condition is low risk, and being uncorrelated with the major prey trend is also low risk. Conversely, poor condition indicates elevated risk of prey availability, and higher risk if poor condition coincides with decreasing trends in major prey. If these are correlated that may be highest risk. Correlation does not imply causation, but the predator condition having a history of fluctuating with the prey index should cause deeper investigation.
+
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             Fish condition good for most recent 5 years, no correlation 
+                  with major prey trends
+
+  Low-Moderate    Fish condition moderate for most recent 5 years, aggregate 
+                  prey for this species has stable orbincreasing trend
+
+  Moderate-High   Fish condition poor for most recent 5 years, aggregate prey 
+                  for this species has significant decreasing trend
+
+  High            Fish condition poor for most recent 5 years, species highly 
+                  dependent on prey with limited and declining availability,
+                  prey trend and condition trend correlated.
+  -----------------------------------------------------------------------
+
+**Risk Assessment**
+
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+
+**Questions for Committee and AP feedback**
+
+* Should fish condition be the leading indicator of prey availability?  
+
+* Is the most recent 5 years of condition appropriate for assessing risk?  
+
+* What criteria should be applied to ensure all major prey are included? Aggregated prey representing >50% of identified diet? 
+
+# Plots for other sections
+
+Adding the new short term trend detection to the most recent 10 years of series
+
+## Recreational Fleet Effort Diversity
+
+```{r rec-div, fig.cap = "Recreational fleet effort diversity (black) in the Mid-Atlantic, with significant decrease (purple line)."}
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")
+
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity")
+```
+
+## Commercial Fishing Production
+
+```{r, total-landings, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
+#code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
+ecodata::plot_comdat(report = "MidAtlantic", varName = "landings") #+
+  #ggplot2::ylab("")
+```
+
+
+
+## Fishing Community Vulnerability
+
+**Description:**
+
+This element ranks the vulnerability of communities to events such as
+regulatory changes to fisheries, wind farms, and other ocean-based
+businesses, as well as to natural hazards, disasters, and climate
+change. Vulnerability metrics can help assess the relative impact of
+system changes on human communities dependent on and engaged in fishing
+activities.
+
+This element is applied at the ecosystem level.
+
+**Definition:**
+
+Risk of reduced community resilience (vulnerability, reliance,
+engagement).
+
+**Indicators:**
+
+The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
+@jepson_development_2013) are statistical measures of the vulnerability
+of communities to events such as regulatory changes to fisheries, wind
+farms, and other ocean-based businesses, as well as to natural hazards,
+disasters, and climate change. The CSVIs currently serve as indicators
+of social vulnerability, gentrification pressure vulnerability,
+commercial and recreational fishing dependence (with dependence being a
+function of both reliance and engagement), sea level rise risk, species
+vulnerability to climate change, and catch composition diversity. We use
+a combination of these five indicators for the most fishery dependent
+communities to evaluate overall social risk levels.
+
+**Potential risk criteria:**
+
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             Few (\<10%) vulnerable fishery dependent communities
+
+  Low-Moderate    10-25% of fishery dependent communities with \>3 high
+                  vulnerability ratings
+
+  Moderate-High   25-50% of fishery dependent communities with \>3 high
+                  vulnerability ratings
+
+  High            Majority (\>50%) of fishery dependent communities with
+                  \>3 high vulnerability ratings
+  -----------------------------------------------------------------------
+
+Below is a brief description for each vulnerability category based on
+the NOAA social indicator study [@colburn_indicators_2016; @jepson_development_2013]:
+
+-   **Fishing dependence** indices portray the importance or level of
+    dependence of commercial or recreational fishing to coastal
+    communities.
+
+-   **Social vulnerability** indices represent social factors that can
+    shape either an individual or community's ability to adapt to
+    change. These factors exist within all communities regardless of the
+    importance of fishing.
+
+-   **Gentrification pressure** indices characterize those factors that,
+    over time may indicate a threat to commercial or recreational
+    working waterfront, including infrastructure.
+
+Here, we define gentrification in fishing communities as described by
+@colburn_social_2012, where coastal population growth combined with
+an influx of higher-income people seeking waterfront property can
+increase property values and displace working-class residents engaged in
+resource-dependent activities. "Three common elements of gentrification
+are reuse of waterfront structures, construction of new housing, and
+growth within the services sector [@colburn_social_2012]."
+
+Communities are ranked as high, medium high, moderate, or low relative
+to the respective indicator. Community dependence on commercial and
+recreational fishing is mixed, with notably more communities in the
+Mid-Atlantic dependent on recreational fishing. While communities with
+high to medium high risk for social vulnerability are broadly
+distributed in suburban and rural areas of the Mid-Atlantic region,
+communities with high to medium high gentrification pressure are
+concentrated in beachfront communities near urban areas in New York and
+New Jersey.
+
+The social and economic impacts of climate change have been modeled
+through application of social indicators of fishing dependent
+communities @jepson_development_2013. Assessment of a range of social
+indicators has been applied in the Mid-Atlantic Region to predict
+vulnerability of communities to regulatory changes and disasters. More
+recently this methodology has been extended to include specific
+indicators of vulnerability to climate change and linked to species
+vulnerability assessments [@colburn_indicators_2016; @hare_vulnerability_2016]. The
+tools developed through this approach are vital to an evaluation of the
+risks of climate change facing coastal communities dependent on fishing.
+Below is a description of the CSVIs related to climate change.
+
+-   **Sea level rise index** is a measure of the overall risk of
+    inundation from sea level rise based on community area lost from one
+    to six foot level projections over the next \~90 years. A high rank
+    indicates a community more vulnerable to sea level rise.
+
+-   **Species vulnerability** is measured by the proportion of community
+    fish landings that attributed to species vulnerable to climate
+    change.
+
+-   **Catch composition diversity** is the relative abundance of species
+    landed in a community. It is measured by Simpson's Reciprocal Index,
+    and a higher index value indicates greater diversity. Communities
+    with a diverse array of species landed may be less vulnerable to
+    climate change.
+
+Sea level rise is predicted to have variable impacts on coastal
+communities. The Mid-Atlantic region has a 3-4 times higher than global
+average sea level rise rate [@sallenger_hotspot_2012]. Mid-Atlantic
+communities clustered around the Chesapeake Bay area and the New Jersey
+shore had especially high vulnerability to sea level rise. These
+vulnerabilities include infrastructure (docks, marinas, bait shops, gear
+storage) and access to shore-based facilities due realignment of coastal
+communities.
+
+Mid-Atlantic fishing communities with total landings value of \$100,000
+or more were mapped for their dependence on species vulnerable to
+climate change and catch composition diversity (Simpson Reciprocal
+Index). A number of communities in southern New Jersey, Maryland and
+Virginia are highly dependent on species such as clams that are highly
+vulnerable to climate change while displaying low catch composition
+diversity. Communities with this situation are considered more
+vulnerable to climate change in general [@colburn_indicators_2016].
+
+A subset of social vulnerability factors, the poverty index, population composition index, and personal disruption index, can be used to assess potential environmental justice issues. The most highly engaged and reliant commercial and recreational fishing communities (Figs \ref{fig:commercial-engagement} and \ref{fig:recreational-engagement}) in the Mid-Atlantic were evaluated for environmental justice (EJ) vulnerability based on 2021 data. 
+
+```{r commercial-engagement, fig.cap= "Commercial engagement, reliance, and environmental justice vulnerability for the top commercially engaged and reliant fishing communities in the Mid-Atlantic.", fig.width = 7, fig.asp = 0.85, results='hide'}
+#Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-engagement.R")
+#fig.width = 6.5, fig.asp = 0.75
+#(* Scored high (1.00 and above)) for both commercial engagement and reliance indicators)
+
+ecodata::plot_engagement(report = "MidAtlantic", varName = "Commercial") 
+```
+
+```{r recreational-engagement, fig.cap= "Recreational engagement and reliance, and environmental justice vulnerability, for the top recreationally engaged and reliant fishing communities in the Mid-Atlantic.", fig.width = 7, fig.asp = 0.85, results='hide'}
+#Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both recreational engagement and reliance indicators.
+#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recreational-engagement.R")
+#fig.width = 6.5, fig.asp = 0.75
+
+#(* Scored high (1.00 and above) for both recreational engagement and reliance indicators;
+
+ecodata::plot_engagement(report = "MidAtlantic", varName = "Recreational")
+```
+
+To estimate "high" vulnerability across all current indicators (which
+are ranked on different scales), we tallied rankings  of
+MedHigh or High for social vulnerability and gentrification pressure,
+along with rankings of High risk from sea level rise, High/Very High
+species vulnerability, and rankings of Low catch composition diversity.
+We considered a majority (3 or more out 5) to represent high risk to a
+community overall because with only 5 indicators, this means that a
+majority (60-100%) of the individual indicators were high risk. Low risk
+ranking was defined as few (\<10%) vulnerable fishery dependent
+communities with 3 or more high vulnerability rating. Low-Moderate risk
+was 10-25% of fishery dependent communities with 3 or more high
+vulnerability ratings. Moderate-High risk was 25-50% of fishery
+dependent communities with 3 or more high vulnerability ratings. High
+risk was a majority (\>50%) of fishery dependent communities with 3 or
+more high vulnerability ratings.
+
+**Risk Assessment**
+
+In past risk assessments, four of the top communities (20%) had three or more of these high risk rankings, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
+
+
+\newpage
+# References

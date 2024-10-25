@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       message = FALSE,
                       #dev = "cairo_pdf",
                       warning = FALSE,
-                      fig.width = 4,
+                      fig.width = 6,
                       fig.asp = 0.45,
                       fig.align = 'center'
                       ) #allows for inserting R code into captions
@@ -149,6 +149,7 @@ An integrated habitat model could be updated to evaluate trends in available or 
 **Potential risk criteria:**
 
 Criteria for using multiple habitat indicators
+
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
@@ -163,7 +164,9 @@ Criteria for using multiple habitat indicators
   High            Decreasing trend in offshore habitat, 4+ measures
   -----------------------------------------------------------------------
 
+
 Alternative for single integrated habitat indicator
+
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
@@ -208,13 +211,187 @@ combined with population trends for key prey species (if available). Major prey 
 
 Aggregate prey indices can be developed using survey data, stomach contents data, or a combination. For example, indicators of aggregated benthic invertebrates and aggregate forage fish were developed using stomach contents of multiple fish predators (Fig. \ref{fig:foragebio}, left column).
 
-```{r foragebio, fig.cap = "Example indicators for prey availability risk. Major prey in left column, managed species condition in right column. Top row: benthic invertebrate prey of black sea bass have been declining since the mid-2000s, as has body condition for black sea bass. Taken together these indicate higher risk. Bottom row: forage fish prey of bluefish show a long term decline, but bluefish body condition has been stable or increasing recently. Taken together these indicate lower risk due to prey availability.", fig.asp=.6}
+However, trends in prey alone may not indicate risk if the prey are fluctuating well above a threshold where Council managed species might experience scarcity. Body condition indicators can be used to suggest whether Council managed species are heavier or lighter than expected for their length (Fig. \ref{fig:foragebio}, right column). Low body condition combined with declining prey trends could indicate higher risk that prey availability might impact OY. 
+
+
+```{r foragebio, fig.cap = "Example indicators for prey availability risk. Major prey in left column, managed species condition in right column. Top row: benthic invertebrate prey of black sea bass have been declining since the mid-2000s, as has body condition for black sea bass. Taken together these indicate higher risk. Bottom row: forage fish prey of bluefish show a long term decline, but bluefish body condition has been stable or increasing recently. Taken together these indicate lower risk due to prey availability.", out.width='100%'}
 #, code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-forage-index.R")
 
-ecodata::plot_forage_index()
-```
+fallmacro <- readRDS(url("https://github.com/NOAA-EDAB/foodweb-risk/raw/main/preyindices/fallmacrobenthosindex.rds"))
 
-However, trends in prey alone may not indicate risk if the prey are fluctuating well above a threshold where Council managed species might experience scarcity. Body condition indicators can be used to suggest whether Council managed species are heavier or lighter than expected for their length. Low body condition combined with declining prey trends could indicate higher risk that prey availability might impact OY. 
+fixmacro<- fallmacro |>
+      dplyr::filter(Var %in% c("Fall Macrobenthos Biomass Index Estimate"),
+                    EPU %in% c("MAB")) |>
+      dplyr::group_by(EPU) |>
+      dplyr::summarise(max = max(Value))
+
+    pfallmac <- fallmacro |>
+      dplyr::filter(Var %in% c("Fall Macrobenthos Biomass Index Estimate",
+                               "Fall Macrobenthos Biomass Index Estimate SE"),
+                    EPU %in% c("MAB")) |>
+      dplyr::group_by(EPU) |>
+      tidyr::separate(Var, into = c("Season", "A", "B", "C", "D", "Var")) |>
+      dplyr::mutate(Var = tidyr::replace_na(Var, "Mean")) |> #,
+      #max = as.numeric(Value)) |>
+      tidyr::pivot_wider(names_from = Var, values_from = Value) |>
+      dplyr::left_join(fixmacro) |>
+      dplyr::mutate(#Value = Value/resca,
+        Mean = as.numeric(Mean),
+        #max = as.numeric(Value),
+        Mean = Mean/max,
+        SE = SE/max,
+        Upper = Mean + SE,
+        Lower = Mean - SE) |>
+      ggplot2::ggplot(ggplot2::aes(x = Time, y = Mean, group = Season))+
+      #ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+      #                  xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+      #                  ymin = -Inf, ymax = Inf) +
+      ggplot2::geom_ribbon(ggplot2::aes(ymin = Lower, ymax = Upper, fill = Season), alpha = 0.5)+
+      ggplot2::geom_point()+
+      ggplot2::geom_line()+
+      ggplot2::ggtitle("Benthic invertebrate prey index")+
+      ggplot2::ylab(expression("Relative macrofauna biomass"))+
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::facet_wrap(.~EPU)+
+      ecodata::geom_gls()+
+      ecodata::theme_ts()+
+      ecodata::theme_facet()+
+      ecodata::theme_title()
+    
+  #p 
+  
+
+
+pforage  <-  ecodata::forage_index |>
+      dplyr::filter(Var %in% c("Fall Forage Fish Biomass Estimate",
+                               "Fall Forage Fish Biomass Estimate SE"),
+                    EPU %in% c("MAB")) |>
+      dplyr::group_by(EPU) |>
+      tidyr::separate(Var, into = c("Season", "A", "B", "C", "D", "Var")) |>
+      dplyr::mutate(Var = tidyr::replace_na(Var, "Mean")) |> #,
+      #max = as.numeric(Value)) |>
+      tidyr::pivot_wider(names_from = Var, values_from = Value) |>
+      dplyr::left_join(fixmacro) |>
+      dplyr::mutate(#Value = Value/resca,
+        Mean = as.numeric(Mean),
+        #max = as.numeric(Value),
+        Mean = Mean/max,
+        SE = SE/max,
+        Upper = Mean + SE,
+        Lower = Mean - SE) |>
+      ggplot2::ggplot(ggplot2::aes(x = Time, y = Mean, group = Season))+
+      #ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+      #                  xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+      #                  ymin = -Inf, ymax = Inf) +
+      ggplot2::geom_ribbon(ggplot2::aes(ymin = Lower, ymax = Upper, fill = Season), alpha = 0.5)+
+      ggplot2::geom_point()+
+      ggplot2::geom_line()+
+      ggplot2::ggtitle("Forage fish prey index")+
+      ggplot2::ylab(expression("Relative forage biomass"))+
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::facet_wrap(.~EPU)+
+      ecodata::geom_gls()+
+      ecodata::theme_ts()+
+      ecodata::theme_facet()+
+      ecodata::theme_title()
+
+#p
+
+mafmc_cond <- c("Atlantic mackerel",
+           "Black sea bass",
+           "Bluefish",
+           "Butterfish",
+           "Goosefish",
+           "Illex", #not in condition
+           "Loligo",  #not in condition
+           "Scup",
+           "Spiny dogfish",
+           "Summer flounder",
+           "Surf clam",  #not in condition
+           "Ocean quahog")  #not in condition
+           #"Clams", # Atlantic surfclam and ocean quahog not separate groups
+           #"Tilefish") # Blueline and golden tilefish not separate groups
+
+AnnualRelCond2023_Fall <- readr::read_csv("https://raw.githubusercontent.com/NOAA-EDAB/foodweb-risk/main/condition/AnnualRelCond2023_Fall.csv")
+
+
+
+survEPUcond <- AnnualRelCond2023_Fall |>
+  dplyr::select(Time = YEAR,
+                Var = Species,
+                EPU,
+                Value = MeanCond,
+                nCond) |>
+  dplyr::group_by(EPU, Var) |>
+  dplyr::mutate(scaleCond = scale(Value,scale =T,center=T)) 
+
+xs <- quantile(survEPUcond$scaleCond, seq(0,1, length.out = 6), na.rm = TRUE)
+
+survEPUcond <- survEPUcond |>
+  dplyr::mutate(category = cut(scaleCond,
+                                  breaks = xs,
+                                  labels = c( "Poor Condition",
+                                              "Below Average",
+                                              "Neutral",
+                                              "Above Average",
+                                              "Good Condition"),
+                                  include.lowest = TRUE))
+
+condquants <- data.frame(ymin = xs[1:5],
+                         ymax = xs[2:6],
+                         category = sort(unique(survEPUcond$category))
+)
+
+vir <- viridis::viridis_pal()(5)
+
+mafmcsurvEPUcond <- survEPUcond |>
+  dplyr::filter(Var %in% mafmc_cond[2], #BSB
+                EPU %in% c("MAB"))
+
+pbsbcond <-   ggplot2::ggplot() +
+  ggplot2::theme_bw() +
+  ggplot2::geom_rect(data = condquants,
+                     aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+                     alpha = .3) +
+  ggplot2::scale_fill_manual(values=vir) +
+  ggplot2::geom_point(data= mafmcsurvEPUcond, ggplot2::aes(x=Time, y=scaleCond[,1])) +
+  #ggplot2::geom_hline(yintercept = xs[2:5]) +
+  #ggplot2::geom_line() +
+  ggplot2::facet_grid(Var~factor(EPU, levels = c("MAB", "GB", "GOM", "SS", "NA")), ) +
+  ggplot2::ylab("Scaled condition") +
+  ggplot2::ggtitle(paste(unique(mafmcsurvEPUcond$Var), "fall body condition")) +
+  ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
+
+#p
+
+mafmcsurvEPUcond <- survEPUcond |>
+  dplyr::filter(Var %in% mafmc_cond[3], #Bluefish
+                EPU %in% c("MAB"))
+
+pbfcond <-   ggplot2::ggplot() +
+  ggplot2::theme_bw() +
+  ggplot2::geom_rect(data = condquants,
+                     aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+                     alpha = .3) +
+  ggplot2::scale_fill_manual(values=vir) +
+  ggplot2::geom_point(data= mafmcsurvEPUcond, ggplot2::aes(x=Time, y=scaleCond[,1])) +
+  #ggplot2::geom_hline(yintercept = xs[2:5]) +
+  #ggplot2::geom_line() +
+  ggplot2::facet_grid(Var~factor(EPU, levels = c("MAB", "GB", "GOM", "SS", "NA")), ) +
+  ggplot2::ylab("Scaled condition") +
+  ggplot2::ggtitle(paste(unique(mafmcsurvEPUcond$Var), "fall body condition")) +
+  ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
+
+#p
+
+fig4 <- pfallmac + pbsbcond + pforage + pbfcond + plot_layout(nrow = 2)
+
+ggsave("preyavriskex.png", fig4, device="png", width = 12, height = 8, units = "in")
+
+knitr::include_graphics("preyavriskex.png")
+
+
+```
 
 
 **Potential risk criteria:**
@@ -259,14 +436,14 @@ Adding the new short term trend detection to the most recent 10 years of series
 ```{r rec-div, fig.cap = "Recreational fleet effort diversity (black) in the Mid-Atlantic, with significant decrease (purple line)."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")
 
-ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity")
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity") + ecodata::geom_lm(ggplot2::aes(x=Time, y=Value, group = Var), n=10)
 ```
 
 ## Commercial Fishing Production
 
-```{r, total-landings, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
+```{r, total-landings, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant long term declines (purple) in total and U.S. seafood landings, and a significant short term decline (dark purple) in U.S. seafood landings."}
 #code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
-ecodata::plot_comdat(report = "MidAtlantic", varName = "landings") #+
+ecodata::plot_comdat(varName = "landings") + ecodata::geom_lm(ggplot2::aes(x=Time, y=Value, group = Var), n=10) #+
   #ggplot2::ylab("")
 ```
 

@@ -71,7 +71,14 @@ Given that predation mortality exceeds the EOP threshold and major predators are
 
 * Estimated consumption by fish predators. This requires detailed diet information and time series of biomass for predators, available for some Council-managed species (see https://fwdp.shinyapps.io/tm2020/#7_TOTAL_CONSUMPTION_AND_CB_RATIOS where these estimates are available for Atlantic mackerel, butterfish, and longfin squid). Estimates of total consumption are also available from literature. However, consumption alone may not be a complete indicator of mortality, and these estimates do not include consumption by HMS, mammals, and birds.
 
-* Predation pressure index (PPI). This requires some diet information and time series of biomass for major predators. This method can include mammal and bird predators as well as fish, and is being implemented for Atlantic mackerel. 
+* Predation pressure index (PPI). This requires some diet information and time series of biomass for major predators. This method can include mammal and bird predators as well as fish, and is being proposed to be implemented for Atlantic mackerel. (Fig. \ref{fig:PPI}). 
+
+```{r PPI, fig.cap="Draft Atlantic mackerel change in predation mortality from major predators; graph courtesy Laurel Smith, NEFSC."}
+#download.file(url="https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/WGSAM24_PPImackerel_Smith.png", destfile="PPIfig.png")
+
+knitr::include_graphics("PPIfig.png")
+```
+
 
 * Model-estimated time series of total predation mortality. Food web and multispecies models exist and are being updated for the Mid-Atlantic and full Northeast US shelf. These models can be fitted to available biomass, catch, and diet data. Food web models include predation from all sources (fish, birds, mammals) while multispecies models may estimate age- or size-specific predation mortality from a subset of predators. Model-estimated time series could be available in late 2025.
 
@@ -396,7 +403,7 @@ knitr::include_graphics("preyavriskex.png")
 
 **Potential risk criteria:**
 
-This suggests that good body condition is low risk, and being uncorrelated with the major prey trend is also low risk. Conversely, poor condition indicates elevated risk of prey availability, and higher risk if poor condition coincides with decreasing trends in major prey. If these are correlated that may be highest risk. Correlation does not imply causation, but the predator condition having a history of fluctuating with the prey index should cause deeper investigation.
+Good body condition likely represents low risk of prey limitation, and body condition being uncorrelated with the major prey trend also likely represents low risk of prey limitation. Conversely, poor condition indicates elevated risk of prey limitation, and higher risk if poor condition coincides with decreasing trends in major prey. If declining body condition and declining major prey are correlated that may be highest risk. Correlation does not imply causation, but the predator condition and major prey index fluctuating together should warrant deeper investigation.
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -405,14 +412,14 @@ This suggests that good body condition is low risk, and being uncorrelated with 
                   with major prey trends
 
   Low-Moderate    Fish condition moderate for most recent 5 years, aggregate 
-                  prey for this species has stable orbincreasing trend
+                  prey for this species has stable or increasing trend
 
   Moderate-High   Fish condition poor for most recent 5 years, aggregate prey 
                   for this species has significant decreasing trend
 
   High            Fish condition poor for most recent 5 years, species highly 
-                  dependent on prey with limited and declining availability,
-                  prey trend and condition trend correlated.
+                  dependent on prey with limited and declining availability, or
+                  prey trend and condition trend significantly correlated.
   -----------------------------------------------------------------------
 
 **Risk Assessment**
@@ -477,11 +484,76 @@ disasters, and climate change. The CSVIs currently serve as indicators
 of social vulnerability, gentrification pressure vulnerability,
 commercial and recreational fishing dependence (with dependence being a
 function of both reliance and engagement), sea level rise risk, species
-vulnerability to climate change, and catch composition diversity. We use
+vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. We use
 a combination of these five indicators for the most fishery dependent
 communities to evaluate overall social risk levels.
 
+To estimate "high" vulnerability across all current indicators (which
+are ranked on different scales), we tallied rankings  of
+MedHigh or High for social vulnerability and gentrification pressure,
+along with rankings of High risk from sea level rise, High/Very High
+species vulnerability, and rankings of Low catch composition diversity.
+We considered a majority (3 or more out 5) to represent high risk to a
+community overall because with only 5 indicators, this means that a
+majority (60-100%) of the individual indicators were high risk.
+
+Newly available time series indicators can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, stock status, with overall rankings of sensitivity and vulnerability (Fig. \ref{fig.commvulex}).
+
+```{r commvulex, fig.cap="Overall annual climate vulnerability for Mid-Atlantic communities (points), with US Northeast average vulnerability (blue line)."}
+CCCVI <- readxl::read_excel("CCCVI-NE/CCCVI_NE - Tarsila Seara - NOAA Federal.xlsx", sheet = "CCCVI_NE_clean")
+
+CCCVImid <- CCCVI |> 
+  dplyr::filter(STATE_ABB %in% c("MD", "NJ", "VA","NY", "NC", "DE")) 
+
+CCCVImid[CCCVImid == 0] <- NA
+
+vulquants <- data.frame(ymin = c(1,1.6,2.6,3.6),
+                        ymax = c(1.5,2.5,3.5,4),
+                        category = c("Low",
+                                     "Moderate",
+                                     "High",
+                                     "Very High"))
+
+risk = c("darkgreen", "yellow", "orange", "red")
+names(risk) <- c("Low","Moderate","High","Very High")
+
+ggplot2::ggplot() + #, group=PORT_NAME
+  #ggplot2::geom_line(aes(group = PORT_NAME), alpha = 0.05) +
+  ggplot2::geom_rect(data = vulquants,
+                     aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+                     alpha = .3) +
+  ggplot2::scale_fill_manual(values=risk) +
+  ggplot2::geom_point(data = CCCVImid, ggplot2::aes(x=YEAR, y=vulnSum), alpha = 0.05) +
+  ggplot2::geom_line(data = CCCVImid, ggplot2::aes(x=YEAR, y=vulnSum_region), color="blue") +
+  #ggplot2::facet_wrap(~STATE_ABB) +
+  ggplot2::ylim(1,4) +
+  ggplot2::theme_bw() +  
+  ggplot2::theme(legend.position = "blank")
+  
+```
+
+
 **Potential risk criteria:**
+
+Current risk criteria based on the CSVIs 
+
+  -----------------------------------------------------------------------
+  *Risk Level*    *Definition*
+  --------------- -------------------------------------------------------
+  Low             Few (\<10%) vulnerable fishery dependent communities
+
+  Low-Moderate    10-25% of fishery dependent communities with \>3 high
+                  vulnerability ratings
+
+  Moderate-High   25-50% of fishery dependent communities with \>3 high
+                  vulnerability ratings
+
+  High            Majority (\>50%) of fishery dependent communities with
+                  \>3 high vulnerability ratings
+  -----------------------------------------------------------------------
+  
+  
+Potential criteria based on CCCVIs
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -498,125 +570,15 @@ communities to evaluate overall social risk levels.
                   \>3 high vulnerability ratings
   -----------------------------------------------------------------------
 
-Below is a brief description for each vulnerability category based on
-the NOAA social indicator study [@colburn_indicators_2016; @jepson_development_2013]:
-
--   **Fishing dependence** indices portray the importance or level of
-    dependence of commercial or recreational fishing to coastal
-    communities.
-
--   **Social vulnerability** indices represent social factors that can
-    shape either an individual or community's ability to adapt to
-    change. These factors exist within all communities regardless of the
-    importance of fishing.
-
--   **Gentrification pressure** indices characterize those factors that,
-    over time may indicate a threat to commercial or recreational
-    working waterfront, including infrastructure.
-
-Here, we define gentrification in fishing communities as described by
-@colburn_social_2012, where coastal population growth combined with
-an influx of higher-income people seeking waterfront property can
-increase property values and displace working-class residents engaged in
-resource-dependent activities. "Three common elements of gentrification
-are reuse of waterfront structures, construction of new housing, and
-growth within the services sector [@colburn_social_2012]."
-
-Communities are ranked as high, medium high, moderate, or low relative
-to the respective indicator. Community dependence on commercial and
-recreational fishing is mixed, with notably more communities in the
-Mid-Atlantic dependent on recreational fishing. While communities with
-high to medium high risk for social vulnerability are broadly
-distributed in suburban and rural areas of the Mid-Atlantic region,
-communities with high to medium high gentrification pressure are
-concentrated in beachfront communities near urban areas in New York and
-New Jersey.
-
-The social and economic impacts of climate change have been modeled
-through application of social indicators of fishing dependent
-communities @jepson_development_2013. Assessment of a range of social
-indicators has been applied in the Mid-Atlantic Region to predict
-vulnerability of communities to regulatory changes and disasters. More
-recently this methodology has been extended to include specific
-indicators of vulnerability to climate change and linked to species
-vulnerability assessments [@colburn_indicators_2016; @hare_vulnerability_2016]. The
-tools developed through this approach are vital to an evaluation of the
-risks of climate change facing coastal communities dependent on fishing.
-Below is a description of the CSVIs related to climate change.
-
--   **Sea level rise index** is a measure of the overall risk of
-    inundation from sea level rise based on community area lost from one
-    to six foot level projections over the next \~90 years. A high rank
-    indicates a community more vulnerable to sea level rise.
-
--   **Species vulnerability** is measured by the proportion of community
-    fish landings that attributed to species vulnerable to climate
-    change.
-
--   **Catch composition diversity** is the relative abundance of species
-    landed in a community. It is measured by Simpson's Reciprocal Index,
-    and a higher index value indicates greater diversity. Communities
-    with a diverse array of species landed may be less vulnerable to
-    climate change.
-
-Sea level rise is predicted to have variable impacts on coastal
-communities. The Mid-Atlantic region has a 3-4 times higher than global
-average sea level rise rate [@sallenger_hotspot_2012]. Mid-Atlantic
-communities clustered around the Chesapeake Bay area and the New Jersey
-shore had especially high vulnerability to sea level rise. These
-vulnerabilities include infrastructure (docks, marinas, bait shops, gear
-storage) and access to shore-based facilities due realignment of coastal
-communities.
-
-Mid-Atlantic fishing communities with total landings value of \$100,000
-or more were mapped for their dependence on species vulnerable to
-climate change and catch composition diversity (Simpson Reciprocal
-Index). A number of communities in southern New Jersey, Maryland and
-Virginia are highly dependent on species such as clams that are highly
-vulnerable to climate change while displaying low catch composition
-diversity. Communities with this situation are considered more
-vulnerable to climate change in general [@colburn_indicators_2016].
-
-A subset of social vulnerability factors, the poverty index, population composition index, and personal disruption index, can be used to assess potential environmental justice issues. The most highly engaged and reliant commercial and recreational fishing communities (Figs \ref{fig:commercial-engagement} and \ref{fig:recreational-engagement}) in the Mid-Atlantic were evaluated for environmental justice (EJ) vulnerability based on 2021 data. 
-
-```{r commercial-engagement, fig.cap= "Commercial engagement, reliance, and environmental justice vulnerability for the top commercially engaged and reliant fishing communities in the Mid-Atlantic.", fig.width = 7, fig.asp = 0.85, results='hide'}
-#Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both commercial engagement and reliance indicators.
-#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-engagement.R")
-#fig.width = 6.5, fig.asp = 0.75
-#(* Scored high (1.00 and above)) for both commercial engagement and reliance indicators)
-
-ecodata::plot_engagement(report = "MidAtlantic", varName = "Commercial") 
-```
-
-```{r recreational-engagement, fig.cap= "Recreational engagement and reliance, and environmental justice vulnerability, for the top recreationally engaged and reliant fishing communities in the Mid-Atlantic.", fig.width = 7, fig.asp = 0.85, results='hide'}
-#Communities ranked medium-high or above for one or more of the environmental justice indicators are highlighted in bright orange. *Community scored high (1.00 and above) for both recreational engagement and reliance indicators.
-#, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recreational-engagement.R")
-#fig.width = 6.5, fig.asp = 0.75
-
-#(* Scored high (1.00 and above) for both recreational engagement and reliance indicators;
-
-ecodata::plot_engagement(report = "MidAtlantic", varName = "Recreational")
-```
-
-To estimate "high" vulnerability across all current indicators (which
-are ranked on different scales), we tallied rankings  of
-MedHigh or High for social vulnerability and gentrification pressure,
-along with rankings of High risk from sea level rise, High/Very High
-species vulnerability, and rankings of Low catch composition diversity.
-We considered a majority (3 or more out 5) to represent high risk to a
-community overall because with only 5 indicators, this means that a
-majority (60-100%) of the individual indicators were high risk. Low risk
-ranking was defined as few (\<10%) vulnerable fishery dependent
-communities with 3 or more high vulnerability rating. Low-Moderate risk
-was 10-25% of fishery dependent communities with 3 or more high
-vulnerability ratings. Moderate-High risk was 25-50% of fishery
-dependent communities with 3 or more high vulnerability ratings. High
-risk was a majority (\>50%) of fishery dependent communities with 3 or
-more high vulnerability ratings.
 
 **Risk Assessment**
 
-In past risk assessments, four of the top communities (20%) had three or more of these high risk rankings, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
+To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+
+**Questions for Committee and AP feedback**
+
+* 
+
 
 
 \newpage

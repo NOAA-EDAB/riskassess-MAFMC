@@ -497,9 +497,9 @@ We considered a majority (3 or more out 5) to represent high risk to a
 community overall because with only 5 indicators, this means that a
 majority (60-100%) of the individual indicators were high risk.
 
-Newly available time series indicators can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, stock status, with overall rankings of sensitivity and vulnerability (Fig. \ref{fig.commvulex}).
+Newly available time series indicators (CCCVIs) can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, stock status, with overall rankings of sensitivity and vulnerability (Fig. \ref{fig.commvulex}).
 
-```{r commvulex, fig.cap="Overall annual climate vulnerability for Mid-Atlantic communities (points), with US Northeast average vulnerability (blue line)."}
+```{r commvulex, fig.show="hold", fig.cap="Overall annual climate vulnerability for Mid-Atlantic communities (points), with US Northeast average vulnerability (blue line), and map of current vulnerability (map)."}
 CCCVI <- readxl::read_excel("CCCVI-NE/CCCVI_NE - Tarsila Seara - NOAA Federal.xlsx", sheet = "CCCVI_NE_clean")
 
 CCCVImid <- CCCVI |> 
@@ -529,8 +529,11 @@ ggplot2::ggplot() + #, group=PORT_NAME
   ggplot2::ylim(1,4) +
   ggplot2::theme_bw() +  
   ggplot2::theme(legend.position = "blank")
+
+knitr::include_graphics("CCCVI-NE/NE_Total_Vulnerability_092624 - Tarsila Seara - NOAA Federal.jpg")
   
 ```
+
 
 
 **Potential risk criteria:**
@@ -558,16 +561,13 @@ Potential criteria based on CCCVIs
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             Few (\<10%) vulnerable fishery dependent communities
+  Low             Community climate vulnerability low in the Mid-Atlantic
 
-  Low-Moderate    10-25% of fishery dependent communities with \>3 high
-                  vulnerability ratings
+  Low-Moderate    Community climate vulnerability moderate in the Mid-Atlantic
 
-  Moderate-High   25-50% of fishery dependent communities with \>3 high
-                  vulnerability ratings
+  Moderate-High   Community climate vulnerability high in the Mid-Atlantic
 
-  High            Majority (\>50%) of fishery dependent communities with
-                  \>3 high vulnerability ratings
+  High            Community climate vulnerability very high in the Mid-Atlantic
   -----------------------------------------------------------------------
 
 
@@ -577,7 +577,13 @@ To be developed later in year in collaboration with the EOP Committee and AP onc
 
 **Questions for Committee and AP feedback**
 
-* 
+* Should we retain the previous method summing across multiple indices of social and climate vulnerability, combine with the newer time series indicators of climate vulnerability, or focus on climate vulnerability?
+
+* How best to summarize across communities?
+
+* Should we consider change over time in the criteria? Or just the most recent overall vulnerability rating? Should specific temperature, ocean acidification, or stock status vulnerability be included separately?
+
+* Are there other indicators of community vulnerability to consider? 
 
 
 

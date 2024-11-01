@@ -500,7 +500,9 @@ majority (60-100%) of the individual indicators were high risk.
 Newly available time series indicators (CCCVIs) can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, stock status, with overall rankings of sensitivity and vulnerability (Fig. \ref{fig.commvulex}).
 
 ```{r commvulex, fig.show="hold", fig.cap="Overall annual climate vulnerability for Mid-Atlantic communities (points), with US Northeast average vulnerability (blue line), and map of current vulnerability (map)."}
-CCCVI <- readxl::read_excel("CCCVI-NE/CCCVI_NE - Tarsila Seara - NOAA Federal.xlsx", sheet = "CCCVI_NE_clean")
+#CCCVI <- readxl::read_excel("CCCVI-NE/CCCVI_NE - Tarsila Seara - NOAA Federal.xlsx", sheet = "CCCVI_NE_clean")
+
+CCCVI <- readxl::read_excel("CCCVI-NE/NE_CCCVI_00_22.xlsx", sheet = "NE_CCCVI_Final00_22")
 
 CCCVImid <- CCCVI |> 
   dplyr::filter(STATE_ABB %in% c("MD", "NJ", "VA","NY", "NC", "DE")) 
@@ -526,7 +528,7 @@ ggplot2::ggplot() + #, group=PORT_NAME
   ggplot2::geom_point(data = CCCVImid, ggplot2::aes(x=YEAR, y=vulnSum), alpha = 0.05) +
   ggplot2::geom_line(data = CCCVImid, ggplot2::aes(x=YEAR, y=vulnSum_region), color="blue") +
   #ggplot2::facet_wrap(~STATE_ABB) +
-  ggplot2::ylim(1,4) +
+  #ggplot2::ylim(1,4) +
   ggplot2::theme_bw() +  
   ggplot2::theme(legend.position = "blank")
 
@@ -534,6 +536,9 @@ knitr::include_graphics("CCCVI-NE/NE_Total_Vulnerability_092624 - Tarsila Seara 
   
 ```
 
+```{r}
+
+```
 
 
 **Potential risk criteria:**

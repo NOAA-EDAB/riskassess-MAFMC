@@ -536,8 +536,42 @@ knitr::include_graphics("CCCVI-NE/NE_Total_Vulnerability_092624 - Tarsila Seara 
   
 ```
 
-```{r}
+```{r, fig.asp=.5}
 
+props <- CCCVImid |>
+  dplyr::filter(!is.na(vulnSum)) |> #remove communities with no ranking in a given year
+  dplyr::select(YEAR, PORT_NAME, STATE_ABB, class_val_percent, vulnSum, RegionalQuotientVal, vulnSum_region) |>
+  dplyr::group_by(YEAR) |>
+  dplyr::mutate(commn = n(),
+                vulCat = dplyr::case_when(vulnSum <= 1.5 ~ "Low",
+                                          vulnSum > 3.5 ~ "Very High",
+                                          vulnSum > 1.5 & vulnSum <= 2.5 ~ "Moderate",
+                                          vulnSum > 2.5 & vulnSum <= 3.5 ~ "High")) |>
+  dplyr::group_by(YEAR, vulCat) |>
+  dplyr::mutate(catn = n(),
+                propcat = catn/commn)
+
+propsonly <- props |>
+  dplyr::select(YEAR, vulCat, propcat) |>
+  dplyr::distinct()
+
+ggplot2::ggplot() + #, group=PORT_NAME
+  #ggplot2::geom_line(aes(group = PORT_NAME), alpha = 0.05) +
+  # ggplot2::geom_rect(data = vulquants,
+  #                    aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+  #                    alpha = .3) +
+  ggplot2::scale_fill_manual(values=risk) +
+  ggplot2::geom_point(data = propsonly, ggplot2::aes(x=YEAR, y=propcat, color=vulCat)) +
+  ggplot2::geom_line(data = propsonly, ggplot2::aes(x=YEAR, y=propcat, color=vulCat)) +
+  ggplot2::scale_color_manual(values=risk, 
+                              breaks=c('Low', 'Moderate', 'High', 'Very High'),
+                              name="Climate Vulnerability") +
+  #ggplot2::facet_wrap(~STATE_ABB) +
+  #ggplot2::ylim(1,4) +
+  ggplot2::theme_bw() +  
+  #ggplot2::theme(legend.position = "blank")
+  ggplot2::ylab("Proportion Mid-Atlantic communities")
+  
 ```
 
 

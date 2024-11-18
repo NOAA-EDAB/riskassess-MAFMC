@@ -1,7 +1,7 @@
 Risk Element|Risk Ranking|Risk Ranking Criteria
- Assessment performance      | Low  | Assessment model(s) passed peer review, high data quality 
+ Assessment performance      | Low  | Assessment model(s) passed peer review, high data quality, small retrospective pattern 
  Assessment performance      | Low-Moderate | Assessment passed peer review but some key data and/or reference points may be lacking 
- Assessment performance      | Moderate-High | *This category not used* 
+ Assessment performance      | Moderate-High | Assessment passed peer review but with major data quality issue or large retrospective pattern 
  Assessment performance      | High | Assessment failed peer review or no assessment, data-limited tools applied 
  F status             | Low  | F < Fmsy 
  F status             | Low-Moderate | Unknown, but weight of evidence indicates low overfishing risk 
@@ -11,14 +11,14 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  B status             | Low-Moderate | Bmsy > B > 0.5 Bmsy, or unknown, but weight of evidence indicates low risk 
  B status             | Moderate-High | Unknown status 
  B status             | High | B < 0.5 Bmsy 
- Food web (Prey availability)       | Low  | TBD 
- Food web (Prey availability)       | Low-Moderate | TBD  
- Food web (Prey availability)       | Moderate-High | TBD  
- Food web (Prey availability)       | High | TBD  
- Food web (Predation pressure)       | Low  | TBD 
- Food web (Predation pressure)       | Low-Moderate | TBD  
- Food web (Predation pressure)       | Moderate-High | TBD  
- Food web (Predation pressure)       | High | TBD 
+ Food web (Prey availability)       | Low  | Fish condition good, no correlation with major prey trends 
+ Food web (Prey availability)       | Low-Moderate | Fish condition moderate, aggregate prey for this species has stable or increasing trend  
+ Food web (Prey availability)       | Moderate-High | Fish condition poor, aggregate prey for this species has significant decreasing trend  
+ Food web (Prey availability)       | High | Fish condition poor, species highly dependent on prey with limited and declining availability, or prey and condition trends significantly correlated  
+ Food web (Predation pressure)       | Low  | Predation represents a low proportion of overall mortality 
+ Food web (Predation pressure)       | Low-Moderate | Decreasing overlap/consumption/PPI/mortality trend, predation represents a moderate proportion of overall mortality  
+ Food web (Predation pressure)       | Moderate-High | Increasing overlap/consumption/PPI/mortality trend, predation represents a moderate proportion of overall mortality  
+ Food web (Predation pressure)       | High | Increasing overlap/consumption/PPI/mortality trend, predation represents a high proportion of overall mortality 
  Food web  (Protected species prey)       | Low  | Few interactions with any protected species 
  Food web  (Protected species prey)       | Low-Moderate | Important prey of 1-2 protected species, or important prey of 3 or more protected species with management consideration of interaction 
  Food web  (Protected species prey)       | Moderate-High | Important prey of 3 or more protected species 
@@ -39,10 +39,10 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Estuarine habitat    | Low-Moderate | Estuarine dependent, estuarine condition stable 
  Estuarine habitat    | Moderate-High | Estuarine dependent, estuarine condition fair 
  Estuarine habitat    | High | Estuarine dependent, estuarine condition poor 
- Offshore habitat     | Low  | TBD 
- Offshore habitat     | Low-Moderate | TBD 
- Offshore habitat     | Moderate-High | TBD 
- Offshore habitat     | High | TBD 
+ Offshore habitat     | Low  | No trends in offshore habitat measures 
+ Offshore habitat     | Low-Moderate | Trend in offshore habitat (1-2 measures, increase or decrease) 
+ Offshore habitat     | Moderate-High | Trend in offshore habitat (3+ measures, increase or decrease)
+ Offshore habitat     | High | Decreasing trend in offshore habitat, 4+ measures 
  Commercial value   | Low  | No trend and low variability in revenue 
  Commercial value   | Low-Moderate | Increasing or high variability in revenue 
  Commercial value   | Moderate-High | Significant long term revenue decrease 
@@ -63,18 +63,18 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Commercial fishery resilience (Fleet diversity)     | Low-Moderate | Increasing or high variability in diversity measure 
  Commercial fishery resilience (Fleet diversity)      | Moderate-High | Significant long term downward trend in diversity measure
  Commercial fishery resilience (Fleet diversity)      | High | Significant recent downward trend in diversity measure 
- Recreational fleet diversity      | Low  | TBD 
- Recreational fleet diversity      | Low-Moderate | TBD
- Recreational fleet diversity      | Moderate-High | TBD
- Recreational fleet diversity      | High | TBD 
+ Recreational fleet diversity      | Low  | No trend in diversity measure 
+ Recreational fleet diversity      | Low-Moderate | Increasing trend or high variance in diversity measure
+ Recreational fleet diversity      | Moderate-High | Significant long term downward trend in diversity measure
+ Recreational fleet diversity      | High | Significant recent downward trend in diversity measure 
  Fishing community vulnerability      | Low  | Few (<10%) vulnerable fishery dependent communities 
  Fishing community vulnerability      | Low-Moderate | 10-25% of fishery dependent communities with >3 high vulnerability ratings 
  Fishing community vulnerability      | Moderate-High | 25-50% of fishery dependent communities with >3 high vulnerability ratings 
  Fishing community vulnerability      | High | Majority (>50%) of fishery dependent communities with >3 high vulnerability ratings 
- Commercial fishing production     | Low  | No trend or increase in seafood landings 
- Commercial fishing production    | Low-Moderate | Increasing or high variability in seafood landings 
- Commercial fishing production     | Moderate-High | Significant long term decrease in seafood landings 
- Commercial fishing production     | High | Significant recent decrease in seafood landings 
+ Commercial fishing production     | Low  | No trend in landings 
+ Commercial fishing production    | Low-Moderate | Increasing or high variability in landings 
+ Commercial fishing production     | Moderate-High | Significant long-term decrease in one metric of landings 
+ Commercial fishing production     | High | Significant recent decreases in multiple metrics of landings  
  Recreational fishing production  | Low  | No trend or increase in recreational landings 
  Recreational fishing production  | Low-Moderate | Increasing or high variability in recreational landings 
  Recreational fishing production  | Moderate-High | Significant long term decrease in recreational landings 
@@ -87,18 +87,18 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Tech Interactions   | Low-Moderate | Interactions with non-MAFMC managed species but infrequent, Category II fishery under MMPA; or AMs not likely triggered 
  Tech Interactions   | Moderate-High | AMs in non-MAFMC managed species may be triggered; or Category I fishery under MMPA (but takes less than PBR) 
  Tech Interactions   | High | AMs in non-MAFMC managed species triggered; or Category I fishery under MMPA and takes above PBR   
- Offshore wind (Bio/Ecosystem)   | Low  | TBD 
- Offshore wind (Bio/Ecosystem)   | Low-Moderate | TBD 
- Offshore wind (Bio/Ecosystem)   | Moderate-High | TBD 
- Offshore wind (Bio/Ecosystem)   | High | TBD
- Offshore wind (Science/Access)   | Low  | TBD 
- Offshore wind (Science/Access)   | Low-Moderate | TBD 
- Offshore wind (Science/Access)   | Moderate-High | TBD 
- Offshore wind (Science/Access)   | High | TBD
- Other ocean activities   | Low  | TBD 
- Other ocean activities   | Low-Moderate | TBD 
- Other ocean activities   | Moderate-High | TBD 
- Other ocean activities   | High | TBD 
+ Offshore wind (Bio/Ecosystem)   | Low  | No observed stock or habitat distribution overlap within WEAs 
+ Offshore wind (Bio/Ecosystem)   | Low-Moderate | Decreasing or similar observed stock or habitat distribution overlap within WEAs 
+ Offshore wind (Bio/Ecosystem)   | Moderate-High | Moderate increases in stock or habitat distribution overlap within WEAs 
+ Offshore wind (Bio/Ecosystem)   | High | Large increases in stock or habitat distribution overlap within WEAs
+ Offshore wind (Science/Access)   | Low  | No revenue in WEA; no survey overlap with WEAs 
+ Offshore wind (Science/Access)   | Low-Moderate | Low revenue in WEA (</=5%); low survey overlap with WEAs (</=10%) 
+ Offshore wind (Science/Access)   | Moderate-High | Moderate revenue in WEAs (6-19%); moderate survey overlap with WEAs (11-30%) 
+ Offshore wind (Science/Access)   | High | Significant revenue in WEAs (>20%); significant survey overlap with WEA (>30%) 
+ Other ocean activities   | Low  | No or low spatial overlap with fisheries; no or very limited impact on fishery prosecution  
+ Other ocean activities   | Low-Moderate | Low to moderate overlap with fisheries; some impact on fishery prosecution  
+ Other ocean activities   | Moderate-High | Moderate to high overlap with fisheries; large disruptions to fishery prosecution  
+ Other ocean activities   | High | High overlap with fisheries; serious disruptions to fishery prosecution  
  Regulatory complexity   | Low  | Simple/few regulations; rarely if ever change; same recreational regs across all states 
  Regulatory complexity   | Low-Moderate | Low-moderate complexity; occasional recent changes; few (1-2) recreational regulation differences across states 
  Regulatory complexity   | Moderate-High | Moderate-high complexity; occasional recent changes; moderate (3-4) recreational regulation differences across states 

@@ -5,12 +5,16 @@ fontsize: 10pt
 geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
 link-citations: yes
 output:
-  pdf_document:
-    includes:
-      in_header: latex/header.tex
-    keep_tex: yes
-  html_document:
-    df_print: paged
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    code_fold: hide
+  bookdown::pdf_document2:
+    includes: 
+       in_header: latex/header1.tex
+    keep_tex: true
+  bookdown::word_document2:
+    toc: true
 subparagraph: yes
 urlcolor: blue
 ---
@@ -25,7 +29,7 @@ urlcolor: blue
 #Default Rmd options
 knitr::opts_chunk$set(echo = FALSE,
                       message = FALSE,
-                      dev = "cairo_pdf",
+                      #dev = "cairo_pdf",
                       warning = FALSE,
                       fig.width = 4,
                       fig.asp = 0.45,
@@ -302,13 +306,7 @@ Stocks with unknown status have a range of rankings. F and B status for chub mac
 
 This element is applied at the species level.
 
-Fish stocks and protected species stocks are managed using single
-species approaches, but fish and protected species stocks exist within a
-food web of predator and prey interactions. This element is one of two
-separating food web risks to achieving OY for Council managed species
-from two sources. This first element assesses prey availability for each
-species, and the second food web risk element assesses predation
-pressure on each species (see next element).
+Fish stocks and protected species stocks are managed using single species approaches, but fish and protected species stocks exist within a food web of predator and prey interactions. This element is one of two separating food web risks to achieving OY for Council managed species from two sources. This first element assesses prey availability for each species, and the second food web risk element assesses predation pressure on each species (see Food Web (2)- Predation Pressure).
 
 **Definition:**
 
@@ -319,49 +317,218 @@ of prey.
 
 Indicators of prey availability for each Council managed species would
 be based on food habits information for the Council managed species
-combined with population trends for key prey species (if available).
-Prey could include all species (Council managed, other-managed, and
-non-managed) or a subset as determined by the EOP and Council.
+combined with population trends for key prey species (if available). Major prey can be identified using food habits data and considered in aggregate.
 
-Another indicator of prey could be based on stomach contents of
-predators, as was used for the 2022 bluefish research track assessment
-and presented in the 2023 State of the Ecosystem report. This index
-includes 22 forage species and was designed for bluefish, but also
-includes important forage for summer flounder and other Council managed
-species (Fig. \ref{fig:foragebio}).
+Aggregate prey indices can be developed using survey data, stomach contents data, or a combination. For example, indicators of aggregated benthic invertebrates and aggregate forage fish were developed using stomach contents of multiple fish predators (Fig. \ref{fig:foragebio}, left column).
 
-```{r foragebio, fig.cap = "Forage fish index in the MAB for spring (blue) and fall (red) surveys, with a decline (purple) in fall. Index values are relative to the maximum observation within a region across surveys.", fig.asp=.6}
+However, trends in prey alone may not indicate risk if the prey are fluctuating well above a threshold where Council managed species might experience scarcity. Body condition indicators can be used to suggest whether Council managed species are heavier or lighter than expected for their length (Fig. \ref{fig:foragebio}, right column). Low body condition combined with declining prey trends could indicate higher risk that prey availability might impact OY. 
+
+
+```{r foragebio, fig.cap = "Example indicators for prey availability risk. Major prey in left column, managed species condition in right column. Top row: benthic invertebrate prey of black sea bass have been declining since the mid-2000s, as has body condition for black sea bass. Taken together these indicate higher risk. Bottom row: forage fish prey of bluefish show a long term decline, but bluefish body condition has been stable or increasing recently. Taken together these indicate lower risk due to prey availability.", out.width='100%'}
 #, code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/macrofauna_MAB.Rmd-forage-index.R")
 
-ecodata::plot_forage_index()
+fallmacro <- readRDS(url("https://github.com/NOAA-EDAB/foodweb-risk/raw/main/preyindices/fallmacrobenthosindex.rds"))
+
+fixmacro<- fallmacro |>
+      dplyr::filter(Var %in% c("Fall Macrobenthos Biomass Index Estimate"),
+                    EPU %in% c("MAB")) |>
+      dplyr::group_by(EPU) |>
+      dplyr::summarise(max = max(Value))
+
+    pfallmac <- fallmacro |>
+      dplyr::filter(Var %in% c("Fall Macrobenthos Biomass Index Estimate",
+                               "Fall Macrobenthos Biomass Index Estimate SE"),
+                    EPU %in% c("MAB")) |>
+      dplyr::group_by(EPU) |>
+      tidyr::separate(Var, into = c("Season", "A", "B", "C", "D", "Var")) |>
+      dplyr::mutate(Var = tidyr::replace_na(Var, "Mean")) |> #,
+      #max = as.numeric(Value)) |>
+      tidyr::pivot_wider(names_from = Var, values_from = Value) |>
+      dplyr::left_join(fixmacro) |>
+      dplyr::mutate(#Value = Value/resca,
+        Mean = as.numeric(Mean),
+        #max = as.numeric(Value),
+        Mean = Mean/max,
+        SE = SE/max,
+        Upper = Mean + SE,
+        Lower = Mean - SE) |>
+      ggplot2::ggplot(ggplot2::aes(x = Time, y = Mean, group = Season))+
+      #ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+      #                  xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+      #                  ymin = -Inf, ymax = Inf) +
+      ggplot2::geom_ribbon(ggplot2::aes(ymin = Lower, ymax = Upper, fill = Season), alpha = 0.5)+
+      ggplot2::geom_point()+
+      ggplot2::geom_line()+
+      ggplot2::ggtitle("Benthic invertebrate prey index")+
+      ggplot2::ylab(expression("Relative macrofauna biomass"))+
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::facet_wrap(.~EPU)+
+      ecodata::geom_gls()+
+      ecodata::theme_ts()+
+      ecodata::theme_facet()+
+      ecodata::theme_title()
+    
+  #p 
+  
+
+
+pforage  <-  ecodata::forage_index |>
+      dplyr::filter(Var %in% c("Fall Forage Fish Biomass Estimate",
+                               "Fall Forage Fish Biomass Estimate SE"),
+                    EPU %in% c("MAB")) |>
+      dplyr::group_by(EPU) |>
+      tidyr::separate(Var, into = c("Season", "A", "B", "C", "D", "Var")) |>
+      dplyr::mutate(Var = tidyr::replace_na(Var, "Mean")) |> #,
+      #max = as.numeric(Value)) |>
+      tidyr::pivot_wider(names_from = Var, values_from = Value) |>
+      dplyr::left_join(fixmacro) |>
+      dplyr::mutate(#Value = Value/resca,
+        Mean = as.numeric(Mean),
+        #max = as.numeric(Value),
+        Mean = Mean/max,
+        SE = SE/max,
+        Upper = Mean + SE,
+        Lower = Mean - SE) |>
+      ggplot2::ggplot(ggplot2::aes(x = Time, y = Mean, group = Season))+
+      #ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+      #                  xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+      #                  ymin = -Inf, ymax = Inf) +
+      ggplot2::geom_ribbon(ggplot2::aes(ymin = Lower, ymax = Upper, fill = Season), alpha = 0.5)+
+      ggplot2::geom_point()+
+      ggplot2::geom_line()+
+      ggplot2::ggtitle("Forage fish prey index")+
+      ggplot2::ylab(expression("Relative forage biomass"))+
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::facet_wrap(.~EPU)+
+      ecodata::geom_gls()+
+      ecodata::theme_ts()+
+      ecodata::theme_facet()+
+      ecodata::theme_title()
+
+#p
+
+mafmc_cond <- c("Atlantic mackerel",
+           "Black sea bass",
+           "Bluefish",
+           "Butterfish",
+           "Goosefish",
+           "Illex", #not in condition
+           "Loligo",  #not in condition
+           "Scup",
+           "Spiny dogfish",
+           "Summer flounder",
+           "Surf clam",  #not in condition
+           "Ocean quahog")  #not in condition
+           #"Clams", # Atlantic surfclam and ocean quahog not separate groups
+           #"Tilefish") # Blueline and golden tilefish not separate groups
+
+AnnualRelCond2023_Fall <- readr::read_csv("https://raw.githubusercontent.com/NOAA-EDAB/foodweb-risk/main/condition/AnnualRelCond2023_Fall.csv")
+
+
+
+survEPUcond <- AnnualRelCond2023_Fall |>
+  dplyr::select(Time = YEAR,
+                Var = Species,
+                EPU,
+                Value = MeanCond,
+                nCond) |>
+  dplyr::group_by(EPU, Var) |>
+  dplyr::mutate(scaleCond = scale(Value,scale =T,center=T)) 
+
+xs <- quantile(survEPUcond$scaleCond, seq(0,1, length.out = 6), na.rm = TRUE)
+
+survEPUcond <- survEPUcond |>
+  dplyr::mutate(category = cut(scaleCond,
+                                  breaks = xs,
+                                  labels = c( "Poor Condition",
+                                              "Below Average",
+                                              "Neutral",
+                                              "Above Average",
+                                              "Good Condition"),
+                                  include.lowest = TRUE))
+
+condquants <- data.frame(ymin = xs[1:5],
+                         ymax = xs[2:6],
+                         category = sort(unique(survEPUcond$category))
+)
+
+vir <- viridis::viridis_pal()(5)
+
+mafmcsurvEPUcond <- survEPUcond |>
+  dplyr::filter(Var %in% mafmc_cond[2], #BSB
+                EPU %in% c("MAB"))
+
+pbsbcond <-   ggplot2::ggplot() +
+  ggplot2::theme_bw() +
+  ggplot2::geom_rect(data = condquants,
+                     aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+                     alpha = .3) +
+  ggplot2::scale_fill_manual(values=vir) +
+  ggplot2::geom_point(data= mafmcsurvEPUcond, ggplot2::aes(x=Time, y=scaleCond[,1])) +
+  #ggplot2::geom_hline(yintercept = xs[2:5]) +
+  #ggplot2::geom_line() +
+  ggplot2::facet_grid(Var~factor(EPU, levels = c("MAB", "GB", "GOM", "SS", "NA")), ) +
+  ggplot2::ylab("Scaled condition") +
+  ggplot2::ggtitle(paste(unique(mafmcsurvEPUcond$Var), "fall body condition")) +
+  ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
+
+#p
+
+mafmcsurvEPUcond <- survEPUcond |>
+  dplyr::filter(Var %in% mafmc_cond[3], #Bluefish
+                EPU %in% c("MAB"))
+
+pbfcond <-   ggplot2::ggplot() +
+  ggplot2::theme_bw() +
+  ggplot2::geom_rect(data = condquants,
+                     aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+                     alpha = .3) +
+  ggplot2::scale_fill_manual(values=vir) +
+  ggplot2::geom_point(data= mafmcsurvEPUcond, ggplot2::aes(x=Time, y=scaleCond[,1])) +
+  #ggplot2::geom_hline(yintercept = xs[2:5]) +
+  #ggplot2::geom_line() +
+  ggplot2::facet_grid(Var~factor(EPU, levels = c("MAB", "GB", "GOM", "SS", "NA")), ) +
+  ggplot2::ylab("Scaled condition") +
+  ggplot2::ggtitle(paste(unique(mafmcsurvEPUcond$Var), "fall body condition")) +
+  ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
+
+#p
+
+fig4 <- pfallmac + pbsbcond + pforage + pbfcond + plot_layout(nrow = 2)
+
+ggsave("preyavriskex.png", fig4, device="png", width = 12, height = 8, units = "in")
+
+knitr::include_graphics("preyavriskex.png")
+
+
 ```
 
-A secondary indicator of prey availability would include the fish
-condition indicators from the State of the Ecosystem report (shown below
-under Ecosystem Productivity). These would not rely on detailed diet
-information, instead reflecting the impact of environmental drivers
-including prey availability on fish growth.
+**Risk criteria:**
 
+Good body condition likely represents low risk of prey limitation, and body condition being uncorrelated with the major prey trend also likely represents low risk of prey limitation. Conversely, poor condition indicates elevated risk of prey limitation, and higher risk if poor condition coincides with decreasing trends in major prey. If declining body condition and declining major prey are correlated that may be highest risk. Correlation does not imply causation, but the predator condition and major prey index fluctuating together should warrant deeper investigation.
 
-**Potential risk criteria:**
+The criteria evaluate condition status and major prey trends over the most recent 10 years, and using the full time series with a decay factor to emphasize the most recent 10 years, and present to Committee/Council for December meeting. 
+
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             Prey availability high (not limiting) and/or good fish
-                  condition past 5 years
+  Low             Fish condition good, no correlation with major prey trends
 
-  Low-Moderate    Aggregate prey available for this species has stable or
-                  increasing trend, moderate condition
+  Low-Moderate    Fish condition moderate, aggregate prey for this species 
+                  has stable or increasing trend
 
-  Moderate-High   Aggregate prey available for this species has
-                  significant decreasing trend, poor condition
+  Moderate-High   Fish condition poor, aggregate prey for this species 
+                  has significant decreasing trend
 
-  High            Managed species highly dependent on prey with limited
-                  and declining availability, poor condition
+  High            Fish condition poor, species highly dependent on prey with 
+                  limited and declining availability, or prey and condition 
+                  trends significantly correlated.
   -----------------------------------------------------------------------
 
 **Risk Assessment**
+
+
 
 To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
 
@@ -372,13 +539,7 @@ To be developed later in year in collaboration with the EOP Committee and AP onc
 
 This element is applied at the species level.
 
-Fish stocks and protected species stocks are managed using single
-species approaches, but fish and protected species stocks exist within a
-food web of predator and prey interactions. This element is one of two
-separating food web risks to achieving OY for Council managed species
-from two sources. This second food web risk element assesses predation
-pressure on each species, and the first element assesses prey
-availability for each species (see element above).
+Fish stocks and protected species stocks are managed using single species approaches, but fish and protected species stocks exist within a food web of predator and prey interactions. This element is one of two separating food web risks to achieving OY for Council managed species from two sources. This second food web risk element assesses predation pressure on each species, and the first element assesses prey availability for each species (see Food Web (1) Prey availability).
 
 **Definition:**
 
@@ -387,32 +548,55 @@ pressure.
 
 **Indicators:**
 
-Indicators of predation pressure on a Council managed species would be
-based on food habits information for predators of the species combined
-with key predator trends. This could be derived from empirical
-information or food web/multispecies models. Predators could include all
-species (protected, HMS, Council managed, other-managed, and unmanaged)
-or a subset as determined by the EOP and Council. Predation mortality
-(M2) compared to fishing mortality (F) to evaluate the relative
-importance of predation mortality is another indicator that could help
-inform the risk criteria levels.
+First, the estimated predation mortality and major predators for each Council-managed species could be identified using food web models, empirical data, and/or literature review. 
+A food web model can also determine whether predation mortality is a “low” proportion of overall mortality, with the EOP deciding on a threshold (for example, < 10%). 
 
-**Potential risk criteria:**
+For Council managed species with 10% or more of total mortality from predation, the EOP could decide on a threshold for identifying major predators, such as those contributing 5% or more of total mortality on average. Then, all predators contributing that amount to mortality would be considered together in the risk indicators to evaluate total predation pressure risk. 
+
+Given that predation mortality exceeds the EOP threshold and major predators are identified, we envision four types of indicators that will provide insight into predation pressure trends across a variety of species data availability.
+
+* Predator-prey spatial and temporal overlap. This can be calculated from survey data for many species and does not require detailed diet information. However, overlap alone may not be a complete indicator of mortality.
+
+* Estimated consumption by fish predators. This requires detailed diet information and time series of biomass for predators, available for some Council-managed species (see https://fwdp.shinyapps.io/tm2020/#7_TOTAL_CONSUMPTION_AND_CB_RATIOS where these estimates are available for Atlantic mackerel, butterfish, and longfin squid). Estimates of total consumption are also available from literature. However, consumption alone may not be a complete indicator of mortality, and these estimates do not include consumption by HMS, mammals, and birds.
+
+* Predation pressure index (PPI). This requires some diet information and time series of biomass for major predators. This method can include mammal and bird predators as well as fish, and is being proposed to be implemented for Atlantic mackerel. (Fig. \ref{fig:PPI}). 
+
+```{r PPI, fig.cap="Draft Atlantic mackerel change in predation mortality from major predators; graph courtesy Laurel Smith, NEFSC."}
+#download.file(url="https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/WGSAM24_PPImackerel_Smith.png", destfile="PPIfig.png")
+
+knitr::include_graphics("PPIfig.png")
+```
+
+* Model-estimated time series of total predation mortality. Food web and multispecies models exist and are being updated for the Mid-Atlantic and full Northeast US shelf. These models can be fitted to available biomass, catch, and diet data. Food web models include predation from all sources (fish, birds, mammals) while multispecies models may estimate age- or size-specific predation mortality from a subset of predators. Model-estimated time series could be available in late 2025.
+
+Low predation threshold: 10%?
+More weight on trends–primary consideration, proportion consideration for final bin
+Reword the criteria to lead with trend, bin by observed mort proportion for MAFMC managed species, where low = lowest 2, high= highest 2, and the rest in between 
+
+More work!
+
+What percentage of mortality is coming from, e.g. seabirds? How could we handle that?
+
+Sarah - Could add as much information as possible into the food web models and look at where things shake out. Include AT LEAST 50% of predation mortality with selected predators
+
+
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             Predation pressure represents low proportion of overall
+  Low             Predation represents a low proportion of overall
                   mortality
 
-  Low-Moderate    Predation pressure moderate proportion of overall
-                  mortality, decreasing mortality trend
-
-  Moderate-High   Predation pressure moderate proportion of overall
-                  mortality, increasing mortality trend
-
-  High            Predation pressure represents high proportion of
-                  overall mortality, increasing mortality trend
+  Low-Moderate    Decreasing overlap/consumption/PPI/mortality trend, 
+                  Predation represents a moderate proportion of overall mortality 
+                  
+  Moderate-High   Increasing overlap/consumption/PPI/mortality trend, 
+                  Predation represents a moderate proportion of overall mortality
+                  
+  High            Increasing overlap/consumption/PPI/mortality trend,
+                  Predation represents a high proportion of overall mortality 
+                  
   -----------------------------------------------------------------------
 
 **Risk Assessment**
@@ -610,7 +794,7 @@ a + b
 ```
 
 
-**Potential risk criteria:**
+**Risk criteria:**
 
 Low risk for this element was defined as no trends in ecosystem
 productivity across all five indicators. The Low-Moderate risk criterion
@@ -888,13 +1072,19 @@ Assessment]{.underline}](https://nrha.shinyapps.io/dataexplorer/#!/),
 [[NEFSC]{.underline}](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/fisheries-habitat-northeast-us-shelf-ecosystem),
 and multiple other efforts throughout the region.
 
-Indicators include the amount of habitat, quality of habitat, or other
+Potential indicators include the amount of habitat, quality of habitat, or other
 aspects of habitat important to support fish productivity. For example,
 the cold pool is a seasonal habitat feature linked to several species in
 the Mid-Atlantic with indicators for spatial extent, duration, and
 temperature within the feature.
 
-**Potential risk criteria:**
+An integrated habitat model could be updated to evaluate trends in available or favorable habitat for each Council managed species. Random forest habitat models have been developed for many Council managed species to estimate spring and fall habitat use based on the NEFSC bottom trawl survey. The variables included in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. 
+
+The EOP prefers to use species specific habitat indicators from ESPs to start. Maybe model as a backup but not trusted that it captures habitat sufficiently for each species.
+
+**Risk criteria:**
+
+Criteria for using multiple habitat indicators
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*

@@ -672,25 +672,73 @@ Given that predation mortality exceeds the EOP threshold and major predators are
 
 * Estimated consumption by fish predators. This requires detailed diet information and time series of biomass for predators, available for some Council-managed species (see https://fwdp.shinyapps.io/tm2020/#7_TOTAL_CONSUMPTION_AND_CB_RATIOS where these estimates are available for Atlantic mackerel, butterfish, and longfin squid). Estimates of total consumption are also available from literature. However, consumption alone may not be a complete indicator of mortality, and these estimates do not include consumption by HMS, mammals, and birds.
 
+```{r mackcons, fig.width = 8, fig.asp = 0.3, fig.cap="Atlantic mackerel, butterfish, and longfin squid estimated total consumption by major fish predators, NEFSC." }
+
+mackcons <- read.csv("consumption/C.CB.All predators.Atlantic mackerel (Scomber scombrus).2024-11-19.csv")
+buttcons <- read.csv("consumption/C.CB.All predators.Butterfish (Peprilus triacanthus).2024-11-19.csv")
+lolcons <- read.csv("consumption/C.CB.All predators.Loligo squid (Loligo sp.).2024-11-19.csv")
+
+mackbuttlolcons <- dplyr::bind_rows(mackcons, buttcons, lolcons) |>
+  dplyr::select(Var = Prey, Time = Year, Value = Mean.consump, UCI, LCI) |>
+  dplyr::mutate(Value = ifelse(Value == 0, NA, Value)) 
+
+  setup <- ecodata::plot_setup(shadedRegion = NULL,
+                               report="MidAtlantic")
+  
+  cons_agg <- mackbuttlolcons |>
+      dplyr::group_by(Var) |>
+      dplyr::mutate(hline = mean(Value))
+  
+  cons_agg |>
+      ggplot2::ggplot()+
+
+      #Highlight last ten years
+      ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+                        xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+                        ymin = -Inf, ymax = Inf) +
+      ecodata::geom_gls(ggplot2::aes(x = Time, y = Value,
+                                     group = Var),
+                        alpha = setup$trend.alpha, size = setup$trend.size) +
+      ecodata::geom_lm(n=10, ggplot2::aes(x = Time, y = Value,
+                                        group = Var),
+                       alpha = setup$trend.alpha, size = setup$trend.size) +
+      #ecodata::geom_lm(aes(x = Time, y = Value))+
+      ggplot2::geom_line(ggplot2::aes(x = Time, y = Value,), linewidth = setup$lwd) +
+      ggplot2::geom_point(ggplot2::aes(x = Time, y = Value), size = setup$pcex) +
+      ggplot2::scale_x_continuous(breaks = seq(1980, 2020, by = 10), expand = c(0.01, 0.01)) +
+      #ggplot2::scale_color_manual(values = series.col2, aesthetics = "color")+
+      ggplot2::facet_wrap(~Var, scales = "free", ncol = 3)+
+      #ggplot2::guides(color = "none") +
+      #ggplot2::ylab(ylabdat) +
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::theme(legend.position = "none",
+                     legend.title = ggplot2::element_blank())+
+      ggplot2::geom_hline(ggplot2::aes(yintercept = hline,
+                                       color = Var),
+                          linewidth = setup$hline.size,
+                          alpha = setup$hline.alpha,
+                          linetype = setup$hline.lty) +
+      ecodata::theme_ts() +
+      ggplot2::ggtitle(setup$region)+
+      ecodata::theme_title() +
+      ecodata::theme_facet()
+
+
+#knitr::include_graphics("images/mackcons.png")
+```
+
+
 * Predation pressure index (PPI). This requires some diet information and time series of biomass for major predators. This method can include mammal and bird predators as well as fish, and is being proposed to be implemented for Atlantic mackerel. (Fig. \ref{fig:PPI}). 
 
 ```{r PPI, fig.cap="Draft Atlantic mackerel change in predation mortality from major predators; graph courtesy Laurel Smith, NEFSC."}
 #download.file(url="https://raw.githubusercontent.com/NOAA-EDAB/presentations/master/docs/EDAB_images/WGSAM24_PPImackerel_Smith.png", destfile="PPIfig.png")
 
-knitr::include_graphics("PPIfig.png")
+knitr::include_graphics("images/PPIfig.png")
 ```
 
 * Model-estimated time series of total predation mortality. Food web and multispecies models exist and are being updated for the Mid-Atlantic and full Northeast US shelf. These models can be fitted to available biomass, catch, and diet data. Food web models include predation from all sources (fish, birds, mammals) while multispecies models may estimate age- or size-specific predation mortality from a subset of predators. Model-estimated time series could be available in late 2025.
 
-Low predation threshold: 10%?
-More weight on trends–primary consideration, proportion consideration for final bin
-Reword the criteria to lead with trend, bin by observed mort proportion for MAFMC managed species, where low = lowest 2, high= highest 2, and the rest in between 
-
-More work!
-
-What percentage of mortality is coming from, e.g. seabirds? How could we handle that?
-
-Sarah - Could add as much information as possible into the food web models and look at where things shake out. Include AT LEAST 50% of predation mortality with selected predators
+The EOP and AP agreed to a threshold value for low predation of 10%. In addition, at least 50% of predation mortality should be accounted for in selected indicators by combining the most important predators.
 
 
 **Risk criteria:**
@@ -701,7 +749,7 @@ Sarah - Could add as much information as possible into the food web models and l
   Low             Predation represents a low proportion of overall
                   mortality
 
-  Low-Moderate    Decreasing overlap/consumption/PPI/mortality trend, 
+  Low-Moderate    Decreasing or no overlap/consumption/PPI/mortality trend, 
                   predation represents a moderate proportion of overall mortality 
                   
   Moderate-High   Increasing overlap/consumption/PPI/mortality trend, 
@@ -714,7 +762,13 @@ Sarah - Could add as much information as possible into the food web models and l
 
 **Risk Assessment**
 
-To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+According to preliminary food web models of the Mid Atlantic Bight, surf clams and ocean quahogs have <10% of overall mortality attributed to predation, so these species have low predation risk according to the criteria.
+
+Available fish consumption indicators show a recent increasing trend for Atlantic mackerel, a long term increasing trend for butterfish, and no trend for longfin squid (Loligo sp. in the figure.) The PPI trend for Atlantic mackerel, which includes predation from a seabird and seals, is also increasing. Therefore, based on available trends, longfin squid would be in the low-moderate risk category, and Atlantic mackerel and butterfish could be either in the moderate-high or high risk categories depending on the level of predation mortality relative to overall mortality. 
+
+Atlantic mackerel and butterfish have at least 30% of overall mortality attributed to fish predation in preliminary food web models. The EOP and AP did not decide on a threshold for moderate or high proportions of overall mortality. We currently assume that this level of mortality from fish predators is moderate, therefore both are assigned moderate-high predation risk. 
+
+Indicators for the remaining species will be developed further for the 2025 Risk Assessment.
 
 
 ### Food Web (3) - Protected Species Prey
@@ -852,14 +906,14 @@ a/b
 
 ```
 
-#### Forage Base - new indicator
+#### Forage Fish - new indicator
 
 The amount of forage available is one important driver of fish
 productivity. Indicators of aggregate pelagic forage fish biomass and
 forage fish energy content are presented in the State of the Ecosystem
-report (Fig. \ref{fig:foragebio}). Indicators of benthic forage will be available for 2025. Food habits data from surveys and literature could be used to
-define the forage base common to all Council managed and protected
-species.
+report (Fig. \ref{fig:foragebio}) and were shown in the Food Web 1 - Prey availability risk element. 
+
+Aggregate forage fish show a long term decline in the Mid-Atlantic.
 
 
 #### Fish condition
@@ -931,7 +985,7 @@ risk criterion was decreasing trends across 4 or more indicators.
 
 **Risk Assessment**
 
-Two measures of ecosystem productivity have significant trends, so the ranking for this element is low-moderate risk.  The forage index shows a significant decrease in fall, and several zooplankton indicators show significant increasing trends.  However, the potential for changing seasonality of primary production warrants further attention, as do patterns in condition and productivity across multiple stocks. 
+Two measures of ecosystem productivity have significant trends, so the ranking for this element is low-moderate risk.  The forage index shows a significant decrease in fall, and zooplankton indicators show significant increasing trends.  However, the potential for changing seasonality of primary production warrants further attention, as do patterns in condition and productivity across multiple stocks. 
 
 ### Climate
 
@@ -1192,7 +1246,7 @@ temperature within the feature.
 
 An integrated habitat model could be updated to evaluate trends in available or favorable habitat for each Council managed species. Random forest habitat models have been developed for many Council managed species to estimate spring and fall habitat use based on the NEFSC bottom trawl survey. The variables included in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. 
 
-The EOP prefers to use species specific habitat indicators from ESPs to start. Maybe model as a backup but not trusted that it captures habitat sufficiently for each species.
+The EOP prefers to use species specific habitat indicators from ESPs to start. 
 
 **Risk criteria:**
 
@@ -1283,7 +1337,7 @@ magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/E
 
 **Risk Assessment**
 
-There is both a significant recent decrease in revenue and a long term significant decrease in gross revenue, indicating high risk to commercial fishery value.  
+There is a long term significant decrease in gross revenue, indicating moderate-high risk to commercial fishery value.  
 
 ### Marine Recreational Angler Days/Trips
 
@@ -1314,7 +1368,7 @@ fishery value.
 ```{r rec-op, fig.cap = "Recreational effort (number of trips, black) in the Mid-Atlantic, with significant increase (orange line)."}
 # code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-effort.R")
 
-ecodata::plot_recdat(report = "MidAtlantic", varName = "effort")
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effort", n=10)
 ```
 
 
@@ -1361,7 +1415,7 @@ identifies changes in diversity.
 ```{r commercial-div-species-div,  fig.cap = paste0("Species revenue diversity in the Mid Atlantic.")}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
 
-ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue species diversity")
+ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue species diversity") + ecodata::geom_lm(ggplot2::aes(x=Time, y=Value, group = Var), n=10)
 
 
 ```
@@ -1385,7 +1439,7 @@ ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue s
 
 **Risk Assessment**
 
-Permit revenue species diversity has less than 30 years in the time series, therefore trend was not assessed. With no trend, this element ranks low risk. However, a decline prior to 2000 is visually apparent and could be assessed with updated methods for the 2025 risk assessment.
+Permit revenue species diversity has less than 30 years in the time series, therefore long term trend was not assessed. However, a significant recent downward trend was detected, so this element ranks high risk.
 
 ### Commercial Fishery Resilience (2) - Shoreside Support
 
@@ -1420,36 +1474,13 @@ The number of shoreside support companies include seafood merchant
 wholesalers, seafood product preparation and packaging, and seafood
 markets across all Mid-Atlantic states. 
 
-```{r, fig.width = 8, fig.asp = 0.3, fig.cap="Shoreside support businesses"}
-# old code for reference
-#fig.cap="Shoreside support businesses: Number of Companies  \\label{shoresupp1}"
-# opar <- par(mfrow = c(2, 1), mar = c(1, 0, 1, 0), oma = c(4, 6, 2, 6))
-# 
-# aggcomp <- SOE.data[Units %like% "Number of Companies"]
-# setkey(aggcomp, Time, EPU)
-# allcomp <- aggcomp[, sum(Value, na.rm = T), by = key(aggcomp)]
-# setnames(allcomp, 'V1', 'Value')
-# allcomp[, Var := paste('Mid-Atlantic Companies')]
-# allcomp[, Units := 'Number']
-# 
-# soe.plot(allcomp, 'Time', 'Mid-Atlantic Companies', rel.y.num = 0.8, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
-# 
-# #fig.cap="Shoreside support businesses: Number of Nonemployer entities  \\label{shoresupp2}"
-# #opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-# 
-# aggent <- SOE.data[Units %like% "Number of Nonemployer establishments"]
-# setkey(aggent, Time, EPU)
-# allent <- aggent[, sum(Value, na.rm = T), by = key(aggent)]
-# setnames(allent, 'V1', 'Value')
-# allent[, Var := paste('Mid-Atlantic Nonemployer Entities')]
-# allent[, Units := 'Number']
-# 
-# soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x.start = 2001, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
+```{r, fig.width = 8, fig.asp = 0.3, fig.cap="Shoreside support businesses: number of companies and non-employer entities"}
 
 shoreside <- read.csv("shoresideetc/Shoreside_Support_2025 - Geret DePiper - NOAA Federal.csv")
 
 shoreside <- shoreside |>
-  dplyr::select(Time, Value, Var, Region, Units) 
+  dplyr::select(Time, Value, Var, Region, Units) #|>
+  #dplyr::filter(Time < 2017) #check--gets same trends as in 2018 paper
 
   setup <- ecodata::plot_setup(shadedRegion = NULL,
                                report="MidAtlantic")
@@ -1465,9 +1496,9 @@ shoreside <- shoreside |>
       ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
                         xmin = setup$x.shade.min , xmax = setup$x.shade.max,
                         ymin = -Inf, ymax = Inf) +
-      #ecodata::geom_gls(ggplot2::aes(x = Time, y = Value,
-      #                               group = Var),
-      #                  alpha = setup$trend.alpha, size = setup$trend.size) +
+      ecodata::geom_gls(ggplot2::aes(x = Time, y = Value,
+                                     group = Var),
+                        alpha = setup$trend.alpha, size = setup$trend.size) +
       ecodata::geom_lm(n=10, ggplot2::aes(x = Time, y = Value,
                                         group = Var),
                        alpha = setup$trend.alpha, size = setup$trend.size) +
@@ -2300,7 +2331,7 @@ risk.species<-data.frame(
   #FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
   #FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
   PreyA = c("tbd", "tbd", "tbd", "tbd", "h", "lm", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "lm", "tbd", "tbd", "tbd", "tbd"),
-  PredP = c("tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd"),
+  PredP = c("l", "l", "tbd", "tbd", "tbd", "mh", "tbd", "mh", "lm", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd"),
   FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
   Climate = c("h", "mh", "lm", "lm", "mh", "lm", "na", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
   DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "na", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
@@ -2344,9 +2375,9 @@ risk.eco<-data.frame(
   System = c("Mid-Atlantic"),
   EcoProd = c("lm"),
   #EcoDiv = c("lm"),
-  CommVal = c("h"),
+  CommVal = c("mh"),
   RecVal = c("lm"),
-  FishRes1 = c("l"),
+  FishRes1 = c("h"),
   FishRes4 = c("mh"),
   #CommJobs = c("mh"),
   #RecJobs = c("l"),

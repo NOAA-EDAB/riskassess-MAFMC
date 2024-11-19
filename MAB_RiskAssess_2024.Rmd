@@ -1719,12 +1719,11 @@ The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
 of communities to events such as regulatory changes to fisheries, wind
 farms, and other ocean-based businesses, as well as to natural hazards,
 disasters, and climate change. The CSVIs currently serve as indicators
-of social vulnerability, gentrification pressure vulnerability,
-commercial and recreational fishing dependence (with dependence being a
-function of both reliance and engagement), sea level rise risk, species
-vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. We use
-a combination of these five indicators for the most fishery dependent
-communities to evaluate overall social risk levels.
+of environmental justice (poverty, population composition, and personal disruptuon), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing dependence (with dependence being a
+function of both reliance and engagement). 
+
+In past assessments we used static indicators of sea level rise risk, species
+vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. In the current assessment we have time series indicators of community climate vulnerability.
 
 To estimate "high" vulnerability across all current indicators (which
 are ranked on different scales), we tallied rankings  of
@@ -1736,18 +1735,82 @@ community overall because with only 5 indicators, this means that a
 majority (60-100%) of the individual indicators were high risk.
 
 ```{r commtab}
+commsocvul <- read.csv("CSVI-2022/fishdata_2022_CSVI - Robert Murphy - NOAA Federal.csv")
+
+# logic: category gets the max indicator rank, I think this is how EJ works
+
+commsocvulMID <- commsocvul |>
+  dplyr::filter(REGION=="Northeast",
+                STATEABBR %in% c("DE", "MD", "NJ", "NY", "NC", "PA", "VA")) |>
+  dplyr::rowwise() |>
+  dplyr::mutate(EJrank = max(as.numeric(personal_disruption_rank), 
+                             as.numeric(pop_composition_rank), 
+                             as.numeric(poverty_rank)),
+                Econrank = max(as.numeric(labor_force_str_rank),
+                               as.numeric(housing_characteristics_rank)),
+                Gentrank = max(as.numeric(housing_disrupt_rank),
+                               as.numeric(retiree_migration_rank),
+                               as.numeric(urban_sprawl_index_rank)))
+
+# low = rank 1, high = rank 4
+# too much detail
+comranksumm <- commsocvulMID |>
+  dplyr::group_by(ComEng_ct, ComRel_ct) |>
+  dplyr::count(personal_disruption_rank,
+               pop_composition_rank,
+               poverty_rank,
+               labor_force_str_rank,
+               housing_characteristics_rank,
+               housing_disrupt_rank,
+               retiree_migration_rank,
+               urban_sprawl_index_rank)
+
+recranksumm <- commsocvulMID |>
+  dplyr::group_by(RecEng_ct, RecRel_ct) |>
+  dplyr::count(personal_disruption_rank,
+               pop_composition_rank,
+               poverty_rank,
+               labor_force_str_rank,
+               housing_characteristics_rank,
+               housing_disrupt_rank,
+               retiree_migration_rank,
+               urban_sprawl_index_rank)
+
+commall <- commsocvulMID |>
+  dplyr::group_by(ComEng_ct, ComRel_ct) |>
+  dplyr::count()
+
+comranksumm2 <- commsocvulMID |>
+  dplyr::group_by(ComEng_ct, ComRel_ct) |>
+  dplyr::count(EJrank, 
+               Econrank,
+               Gentrank)
+
+recall <- commsocvulMID |>
+  dplyr::group_by(RecEng_ct, RecRel_ct) |>
+  dplyr::count()
+
+recranksumm2 <- commsocvulMID |>
+  dplyr::group_by(RecEng_ct, RecRel_ct) |>
+  dplyr::count(EJrank, 
+               Econrank,
+               Gentrank)
+
+# now use high or med-high in either Eng or Rel to define fishery dependent communities
+
+
 
 ```
 
 
-Newly available time series indicators (CCCVIs) can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, stock status, with overall rankings of sensitivity and vulnerability (Figs. \ref{fig.commvulmap}, \ref{fig.commvulex}). Based on these indicators, a high proportion of Mid-Atlantic communities face high climate related risk to commercial revenue. 
+Newly available time series indicators can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, and stock status, with overall rankings of sensitivity and vulnerability (Figs. \ref{fig.commvulmap}, \ref{fig.commvulex}). Based on these indicators, a majority of Mid-Atlantic communities face high or very high climate-related vulnerability. These indicators are not currently included in the risk assessment criteria.
 
 
-```{r commvulmap, fig.cap="Current 5 year average climate vulnerability for Mid-Atlantic community revenue."}
+```{r commvulmap, out.width='60%', fig.cap="Current 5 year average climate vulnerability for Mid-Atlantic community revenue."}
 knitr::include_graphics("CCCVI-NE/NE_Total_Vulnerability_092624 - Tarsila Seara - NOAA Federal.jpg")
 ```
 
-```{r commvulex, fig.asp=.5, fig.cap="Proportion of Mid-Atlantic communities at each revenue climate vulnerability level over time."}
+```{r commvulex, fig.width = 6, fig.asp=.5, fig.cap="Proportion of Mid-Atlantic communities at each revenue climate vulnerability level over time."}
 
 CCCVI <- readxl::read_excel("CCCVI-NE/NE_CCCVI_00_22.xlsx", sheet = "NE_CCCVI_Final00_22")
 
@@ -1797,9 +1860,10 @@ ggplot2::ggplot() + #, group=PORT_NAME
                               name="Climate Vulnerability") +
   #ggplot2::facet_wrap(~STATE_ABB) +
   #ggplot2::ylim(1,4) +
-  ggplot2::theme_bw() +  
+  ggplot2::theme_bw() + 
+  ggplot2::ggtitle("Mid-Atlantic") +
   #ggplot2::theme(legend.position = "blank")
-  ggplot2::ylab("Proportion Mid-Atlantic communities")
+  ggplot2::ylab("Proportion communities")
   
 ```
 
@@ -1851,7 +1915,7 @@ Commercial seafood landings from Council managed species (in red, Fig. \ref{fig:
 and total landings (in black) which include bait and industrial uses managed by all entities
 were used to assess fishing production. 
 
-```{r, total-landings, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
+```{r, total-landings, fig.width=6, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
 #code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
 ecodata::plot_comdat(report = "MidAtlantic", varName = "landings", n=10) #+
   #ggplot2::ylab("")
@@ -2015,74 +2079,76 @@ All recreational fisheries are ranked as low risk with hook and line gear having
 
 **Description:**
 
-This element would be applied at the species level and considers the
-biological and ecosystem risks of offshore wind development on
-Council-managed fishery resources and/or the supporting habitat.
-Offshore wind development is expected to cover 2.4 million acres of
-ocean space by 2030 in the Greater Atlantic region (ME through NC).
-Within these lease areas, there are 3,400 foundations (i.e., wind
-turbines) with over 9,000 miles of interconnecting cable proposed for
-construction. Offshore wind siting, construction, and operation has the
-potential for a variety of biological impacts and associated risks for
-fisheries resources. Habitat alteration, local hydrodynamic changes,
-underwater noise, and electromagnetic fields (EMF) can affect stock
-productivity, food availability and migration patterns. However, these
-risks are likely different across species and habitat types and more
-research is needed to fully understand these impacts.
+This element would be applied at the species level and considers the biological and ecosystem
+risks of offshore wind development on Council-managed fishery resources and/or the supporting
+habitat. Offshore wind development is expected to cover 2.4 million acres of ocean space by 2030
+in the Greater Atlantic region (ME through NC). Within these lease areas, there are 3,400
+foundations (i.e., wind turbines) with over 9,000 miles of interconnecting cable proposed for
+construction. Offshore wind siting, construction, and operation has the potential for a variety of
+biological impacts and associated risks for fisheries resources. Habitat alteration, local
+hydrodynamic changes, underwater noise, and electromagnetic fields (EMF) can affect stock
+productivity, food availability and migration patterns. However, these risks are likely different
+across species and habitat types and more research is needed to fully understand these impacts.
 
 **Definition:**
 
-Risk of not achieving OY due to biological impacts to stock
-productivity, distribution, and ecosystem structure and function.
+Risk of not achieving OY due to biological impacts to stock productivity, distribution, and
+ecosystem structure and function.
 
 **Indicators:**
 
-Information and relevant data at the species level available in the NOAA
-Tech Memo titled "Fisheries and Offshore Wind Interactions: Synthesis of
-Science".
+In order to determine the changes in species stock and/or habitat distribution and the overlap with
+wind energy areas (WEAs), the spatial distribution of species-specific catches for Mid-Atlantic
+managed fisheries from the NEFSC bottom trawl survey from two different time periods were
+used (2014-2018 and 2019-2023). These time periods were selected based on feedback by the
+Committee and AP in July that recommended using shorter time blocks and the most recent data
+available. GIS mapping layers/shape files for all active (as of October 2024) commercial and
+research offshore wind energy leases along the Atlantic coast were used to determine the spatial
+coverage of each WEA lease. Spatial overlap was then estimated by determining the proportion
+of positive catches for each species inside each WEA during the two time blocks. Also, as
+recommended by the Committee and AP in July, a weighted spatial overlap was calculated based
+on the current development stage of each WEA - planning, construction, or operational. WEAs
+that are currently in a planning phase (e.g., proposed, obtaining permits) were weighted by a
+factor of 0.1 with the assumption those WEAs would have the least/limited effect on
+species/habitat distribution. WEAs in the construction phase were weighted by a factor of 0.5
+with the assumption those WEAs were having some effect (positive or negative) on the
+species/habitat distribution within the WEA. Finally, those WEAs in the operational phase were
+weighted by a factor of 1.0 with the assumption those WEAs would have the greatest effect
+(positive or negative) on the species/habitat distribution within the WEA.
 
-Species distribution overlap with offshore wind from a couple of
-potential data sources (e.g.,
-<https://apps-st.fisheries.noaa.gov/dismap/DisMAP.html>). However,
-translating exposure into a risk of impacts, which is likely to be
-different by species, may be challenging.
-
-From the State of the Ecosystem report - Right whale spatial overlap
-with offshore wind lease areas to help inform the ecosystem
-structure/function component of the definition.
-
-```{r whales-wind, out.width="55%", fig.cap="Northern Right Whale persistent hotspots (red shading) and Wind Energy Areas (black outlines)."}
-#knitr::include_graphics("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/right_whales.png")
-
-#magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/right_whales.jpg")
-
-# NEW FILE 
-magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/workshop/images/NARW_hotspots_final_2024.jpg")
+The total spatial overlap across all WEA’s and a total weighted spatial overlap for the 2014-2018
+and 2019-2023 time blocks for summer flounder are provided below.
 
 
+**Risk criteria:**
+
+```{r riskcfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No observed stock or habitat distribution overlap within WEAs 
+| Low-Moderate | Decreasing or similar observed stock or habitat distribution overlap within WEAs 
+| Moderate-High | Moderate increases in stock or habitat distribution overlap within WEAs 
+| High | Large increases in stock or habitat distribution overlap within WEAs
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-*Right whale hot spots overlap with offshore wind lease areas*
-
-In addition, recent work by @friedland_forage_2023
-evaluated the habitat usage by forage species within and outside of
-offshore wind lease areas (Fig. \ref{fig:foragewind}). This information could also be used to help
-inform the ecosystem structure/function component of the definition.
-
-```{r foragewind, out.width='75%', fig.cap="Mean occupancy habitats at the 20th (light blue) and 80th (dark blue) quantile thresholds across forage species; gray shows the model extent. Taxa with autumn models include (D) Round Herring, (E) longfin inshore squid, (F) Atlantic Chub Mackerel, (G) Spanish Sardine, (H) Butterfish, and (I) Atlantic Thread Herring."}
-
-magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/Friedlandetal2023_fallforageoccupancy.png")
-```
-
-
-
-**Potential risk criteria:**
-
-To be developed.
+The proposed risk criteria are similar to those presented to the Committee and AP back in July
+except under the high-risk definition the term “significant increases” was replaced with “large
+increases”. This change was recommended by the Committee and AP since “significant” has a
+statistical meaning and is not being applied here. In addition, the low-moderate definition now
+includes “decreasing or similar” overlap to account for situations where there is overlap with a
+WEA and stock/habitat distribution but the trend is neither increasing or decreasing. 
 
 **Risk Assessment**
 
-To be developed later in the year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+Using the proposed risk criteria, the example for summer flounder would be assigned low-moderate risk. Summer flounder distribution overlaps with the WEA’s but the stock distribution
+overlap within the WEA’s has declined (unweighted overlap) and/or is similar (weighted
+overlap) during the two time periods. Since the stock/habitat distribution indicator is developed
+at the stock level, the same risk level would be assigned the same for both the commercial and
+recreational summer flounder sectors.
+
 
 ### Offshore Wind -- Fishery Science and Access (new)
 
@@ -2108,11 +2174,15 @@ scientific uncertainty.
 
 **Indicators:**
 
+What: Amount of revenue within and relevant survey overlap with WEAs
+Who: Species specific revenue estimates from NMFS; NEFSC bottom trawl strata and catch by species
+How: Proportion of revenue in WEA relative to total fishery revenue; proportion of NEFSC trawl survey strata by species within WEA
+
 Indicators for the Mid-Atlantic State of the Ecosystem and socioeconomic
 impacts web site. Fishery revenue (Fig. \ref{fig:wea-spp-rev}) and party charter activity from within
 lease areas by species, fleet, or community, community
 vulnerability/engagement/EEJ, spatial overlap of lease areas and federal
-fisheries surveys (Fig. \ref{fig:survey}).
+fisheries surveys.
 
 ```{r wea-spp-rev, fig.cap="Fishery revenue in wind energy lease areas in the Mid-Atlantic.",  fig.width=5, fig.asp=.4}
 #code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-spp-rev.R"),
@@ -2122,10 +2192,6 @@ ecodata::plot_wind_revenue(report = "MidAtlantic", varName = "value", plottype =
 ```
 
 
-```{r survey, fig.cap="Spatial overlap map with NEFSC surveys (From 2021 SOE; wind areas are out of date)"}
-magick::image_read("https://github.com/NOAA-EDAB/presentations/raw/master/docs/EDAB_images/SurveyMap202133.png")
-```
-
 FishRules and FishBrain apps for recreational fishing spatial overlap
 information (work is still under review).
 
@@ -2134,17 +2200,14 @@ information (work is still under review).
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             0-3% revenue in lease area; no/low EEJ concerns; 0-5%
-                  spatial overlap for relevant survey(s)
+  Low             No revenue in WEA; no survey overlap with WEAs
 
-  Low-Moderate    4-10% revenue in lease area; low-moderate EEJ concerns;
-                  5-20% spatial overlap for relevant survey(s)
+  Low-Moderate    Low revenue in WEA (</=5%); low survey overlap with WEAs (</=10%)
 
-  Moderate-High   11-20% revenue in lease area; moderate-high EEJ
-                  concerns; 21-40% spatial overlap for relevant survey(s)
+  Moderate-High   Moderate revenue in WEAs (6-19%); moderate survey overlap with WEAs (11-30%)
 
-  High            \>20% revenue in lease area; high EEJ concerns; \>40%
-                  spatial overlap for relevant survey(s)
+  High            Significant revenue in WEAs (>20%); significant survey overlap with WEA (>30%)
+
   -----------------------------------------------------------------------
 
 **Risk Assessment**
@@ -2155,18 +2218,14 @@ To be developed later in the year in collaboration with the EOP Committee and AP
 
 **Description:**
 
-This element is applied at the species and sector (commercial and
-recreational) level, and addresses the risk of fishery displacement or
-damage of a fishery resource and/or supporting habitat as a result of
-non-fishing activities in the ocean (e.g., energy
-development/aquaculture/shipping/other industrial uses, etc.). Many of
-these activities are in planning stages but not yet implemented in the
-region. It also includes evaluation of risk to Council fisheries from
-area-based measures outside of the control of the Council, including
-area closures implemented by other Councils to protect sensitive
-habitats, spawning areas, etc. and/or through marine
-monument/sanctuaries or other types of area-based management
-designations.
+This element is applied at the species and sector (commercial and recreational) level, and
+addresses the risk of fishery displacement or damage of a fishery resource and/or supporting
+habitat as a result of non-fishing activities in the ocean (e.g., energy
+development/aquaculture/shipping/other industrial uses, etc.). Many of these activities are in
+planning stages but not yet implemented in the region. It also includes evaluation of risk to
+Council fisheries from area-based measures outside of the control of the Council, including area
+closures implemented by other Councils to protect sensitive habitats, spawning areas, etc. and/or
+through marine monument/sanctuaries or other types of area-based management designations.
 
 **Definition:**
 
@@ -2175,40 +2234,61 @@ ocean activities and/or area designations.
 
 **Indicators:**
 
-A more quantitative approach (similar to that done for offshore wind)
-could be applied with GIS mapping to determine the spatial footprint of
-current and future planned non-fishing activities (if available) could
-be calculated and qualify and spatial overlap with existing habitat
-and/or fishing ground locations. With a quantitative evaluation,
-potential to use a range/binned approach to specify risk level (e.g.,
-0-10% overlap, low risk, 11-20% overlap, low-moderate risk etc.), but
-those bins and risk level would likely be arbitrary. Depending on scope
-of element and how applied, could use the NMFS Habitat Climate
-Vulnerability Assessment, the Mid-Atlantic Council NRHA data explorer,
-and the America the CCC Area-Based Management tool for spatial mapping
-and overlap calculations.
+A quantitative approach was applied with GIS mapping to determine the spatial footprint of
+current and future planned non-fishing activities (if available) and to quantify the spatial overlap
+with existing habitat and/or fishing ground locations. The Northeast Regional Habitat Assessment
+(NRHA) habitat distribution model^[For more information on NRHA and the habitat distribution model, please see the NRHA webpage at: https://www.mafmc.org/nrha.] was used to determine the encounter probability or spatial
+distribution of adult habitat in the Northeast (Cape Hatteras, NC to US/Canadian border) for
+available stocks. For the development of this indicator, the estimated habitat distribution for a
+particular species/stock was used as a proxy for potential fishery displacement. It was assumed,
+where habitat is found, the species is likely to be found, and some level of fishing activity is likely
+to occur; however, recognizing that not all habitat quality/quantity and fishing effort is equally
+distributed. The NRHA habitat model is not yet available for all Mid-Atlantic stocks but is
+currently being developed and updated to include more stocks in the near future. GIS mapping
+layers/shape files available for designated shipping lanes, the boundary of the Stellwagen Bank
+National Marine Sanctuary, the boundary of the Northeast Canyons and Seamounts Marine
+National Monument, and the boundary of the Frank R. Lautenberg Deep-Sea Coral Protection
+Areas were used to determine the potential non-fishing activity areas that might restrict or
+displace fishing activities (Figure 8).
 
-**Potential risk criteria:**
+The spatial overlap was then calculated by taking the total area of the non-fishing activities and
+amount of estimated habitat within the non-fishing areas. An example “Other Ocean Activities”
+spatial overlap map and calculations for summer flounder are provided here.
+
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             No spatial overlap with fisheries
+  Low             No or low spatial overlap with fisheries; no or very limited impact on
+                  fishery prosecution 
 
-  Low-Moderate    Low-moderate overlap with fisheries
+  Low-Moderate    Low to moderate overlap with fisheries; some impact on fishery
+                  prosecution
 
-  Moderate-High   Moderate-high overlap with fisheries
+  Moderate-High   Moderate to high overlap with fisheries; large disruptions to fishery
+                  prosecution
 
-  High            High overlap with fisheries; other uses could seriously
-                  disrupt fishery prosecution
+  High            High overlap with fisheries; serious disruptions to fishery prosecution
   -----------------------------------------------------------------------
 
-Further refinement of the criteria will be needed to identify potential
-thresholds to indicate a specific risk level.
+With a quantitative evaluation available for this indicator, there is the potential to use a
+range/binned approach to specify risk level (e.g., 0-10% overlap, low risk; 11-25% overlap, lowmoderate risk; 26-50% overlap, moderate-high risk; >50% overlap, high risk), but the bins
+associated with the risk level would likely be arbitrary. Similarly, without some specificity to the
+risk criteria definition, defining what constitutes “low-moderate”, “moderate”, and “high” risk
+would also be arbitrary. 
 
 **Risk Assessment**
 
-To be developed later in year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+Using the potential risk criteria definitions and/or the example binned levels, the example for
+summer flounder would be assigned low risk. While summer flounder habitat does have
+moderate overlap with shipping lanes, there is minimal, near zero overlap with the currently
+included monuments, sanctuaries, or protected areas. Since the habitat distribution indicator is
+developed at the stock level, the same risk level would be assigned the same for both the
+commercial and recreational summer flounder sectors.
+
+The risk assessment can be completed for the other stocks which have the NRHA habitat distribution model results
+available (bluefish, butterfish, Illex squid). 
 
 ### Regulatory Complexity and Stability 
 

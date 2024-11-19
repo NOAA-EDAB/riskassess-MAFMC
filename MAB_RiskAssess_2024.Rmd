@@ -1420,7 +1420,84 @@ The number of shoreside support companies include seafood merchant
 wholesalers, seafood product preparation and packaging, and seafood
 markets across all Mid-Atlantic states. 
 
-**Potential risk criteria:**
+```{r, fig.width = 8, fig.asp = 0.3, fig.cap="Shoreside support businesses"}
+# old code for reference
+#fig.cap="Shoreside support businesses: Number of Companies  \\label{shoresupp1}"
+# opar <- par(mfrow = c(2, 1), mar = c(1, 0, 1, 0), oma = c(4, 6, 2, 6))
+# 
+# aggcomp <- SOE.data[Units %like% "Number of Companies"]
+# setkey(aggcomp, Time, EPU)
+# allcomp <- aggcomp[, sum(Value, na.rm = T), by = key(aggcomp)]
+# setnames(allcomp, 'V1', 'Value')
+# allcomp[, Var := paste('Mid-Atlantic Companies')]
+# allcomp[, Units := 'Number']
+# 
+# soe.plot(allcomp, 'Time', 'Mid-Atlantic Companies', rel.y.num = 0.8, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
+# 
+# #fig.cap="Shoreside support businesses: Number of Nonemployer entities  \\label{shoresupp2}"
+# #opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+# 
+# aggent <- SOE.data[Units %like% "Number of Nonemployer establishments"]
+# setkey(aggent, Time, EPU)
+# allent <- aggent[, sum(Value, na.rm = T), by = key(aggent)]
+# setnames(allent, 'V1', 'Value')
+# allent[, Var := paste('Mid-Atlantic Nonemployer Entities')]
+# allent[, Units := 'Number']
+# 
+# soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x.start = 2001, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
+
+shoreside <- read.csv("shoresideetc/Shoreside_Support_2025 - Geret DePiper - NOAA Federal.csv")
+
+shoreside <- shoreside |>
+  dplyr::select(Time, Value, Var, Region, Units) 
+
+  setup <- ecodata::plot_setup(shadedRegion = NULL,
+                               report="MidAtlantic")
+  
+  shore_agg <- shoreside |>
+      dplyr::group_by(Var, Region) |>
+      dplyr::mutate(hline = mean(Value))
+  
+  shore_agg |>
+      ggplot2::ggplot()+
+
+      #Highlight last ten years
+      ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+                        xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+                        ymin = -Inf, ymax = Inf) +
+      #ecodata::geom_gls(ggplot2::aes(x = Time, y = Value,
+      #                               group = Var),
+      #                  alpha = setup$trend.alpha, size = setup$trend.size) +
+      ecodata::geom_lm(n=10, ggplot2::aes(x = Time, y = Value,
+                                        group = Var),
+                       alpha = setup$trend.alpha, size = setup$trend.size) +
+      #ecodata::geom_lm(aes(x = Time, y = Value))+
+      ggplot2::geom_line(ggplot2::aes(x = Time, y = Value, color = Var), linewidth = setup$lwd) +
+      ggplot2::geom_point(ggplot2::aes(x = Time, y = Value, color = Var), size = setup$pcex) +
+      ggplot2::scale_x_continuous(breaks = seq(1980, 2020, by = 5), expand = c(0.01, 0.01)) +
+      #ggplot2::scale_color_manual(values = series.col2, aesthetics = "color")+
+      ggplot2::facet_wrap(~Var, scales = "free", ncol = 2)+
+      #ggplot2::guides(color = "none") +
+      #ggplot2::ylab(ylabdat) +
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::theme(legend.position = "none",
+                     legend.title = ggplot2::element_blank())+
+      ggplot2::geom_hline(ggplot2::aes(yintercept = hline,
+                                       color = Var),
+                          linewidth = setup$hline.size,
+                          alpha = setup$hline.alpha,
+                          linetype = setup$hline.lty) +
+      ecodata::theme_ts() +
+      ggplot2::ggtitle(setup$region)+
+      ecodata::theme_title() +
+      ecodata::theme_facet()
+
+
+
+```
+
+
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1515,7 +1592,7 @@ differential treatment between large and small fleets [@thunberg_measures_2015].
 
 **Risk Assessment**
 
-The commercial fleet count and revenue diversity have less than 30 years in the time series, therefore trend was not assessed. For fleet count a visual trend may be apparent, while for revenue diversity no apparent visual trend exists. With no trend, this element ranks low risk. 
+The commercial fleet count and revenue diversity have less than 30 years in the time series, therefore long term trend was not assessed. Short term trends were assessed but no significant 10 year trends were detected. With no trend, this element ranks low risk. 
 
 ### Recreational Fleet Diversity (new)
 
@@ -1551,7 +1628,21 @@ The intent of this indicator would be to evaluate if recreational fishing behavi
 changing (i.e., harvest versus catch and release) within the different
 recreational modes/sectors. 
 
-At present, criteria are based only on the existing diversity indicator.
+The EOP Committee and AP also recommended a harvest:catch ratio by mode indicator. The
+intent of this indicator would be to evaluate if recreational fishing behavior/preferences are
+changing (i.e., harvest versus catch and release) within the different recreational modes/sectors.
+There has been a substantial increase in discards as a proportion of catch across all modes (Fig. \ref{fig:discratio}). However, it is unclear from these indicators what is driving this result (e.g. changes in
+preferences vs. regulatory discards), or exactly how this would be combined with the effort
+diversity indicator to develop a composite measure of risk.
+
+```{r discratio}
+knitr::include_graphics("shoresideetc/Discard_ratio.png")
+
+# see also Geret's code here::here("shoresideetc/Discard_ratio_code_2024.R") and associateddatasets in the same folder to remake this figure
+```
+
+
+At present, the EOP recommends that criteria are based only on the existing diversity indicator.
 
 **Risk criteria:**
 
@@ -1600,11 +1691,89 @@ disasters, and climate change. The CSVIs currently serve as indicators
 of social vulnerability, gentrification pressure vulnerability,
 commercial and recreational fishing dependence (with dependence being a
 function of both reliance and engagement), sea level rise risk, species
-vulnerability to climate change, and catch composition diversity. We use
+vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. We use
 a combination of these five indicators for the most fishery dependent
 communities to evaluate overall social risk levels.
 
-**Potential risk criteria:**
+To estimate "high" vulnerability across all current indicators (which
+are ranked on different scales), we tallied rankings  of
+MedHigh or High for social vulnerability and gentrification pressure,
+along with rankings of High risk from sea level rise, High/Very High
+species vulnerability, and rankings of Low catch composition diversity.
+We considered a majority (3 or more out 5) to represent high risk to a
+community overall because with only 5 indicators, this means that a
+majority (60-100%) of the individual indicators were high risk.
+
+```{r commtab}
+
+```
+
+
+Newly available time series indicators (CCCVIs) can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, stock status, with overall rankings of sensitivity and vulnerability (Figs. \ref{fig.commvulmap}, \ref{fig.commvulex}). Based on these indicators, a high proportion of Mid-Atlantic communities face high climate related risk to commercial revenue. 
+
+
+```{r commvulmap, fig.cap="Current 5 year average climate vulnerability for Mid-Atlantic community revenue."}
+knitr::include_graphics("CCCVI-NE/NE_Total_Vulnerability_092624 - Tarsila Seara - NOAA Federal.jpg")
+```
+
+```{r commvulex, fig.asp=.5, fig.cap="Proportion of Mid-Atlantic communities at each revenue climate vulnerability level over time."}
+
+CCCVI <- readxl::read_excel("CCCVI-NE/NE_CCCVI_00_22.xlsx", sheet = "NE_CCCVI_Final00_22")
+
+CCCVImid <- CCCVI |> 
+  dplyr::filter(STATE_ABB %in% c("MD", "NJ", "VA","NY", "NC", "DE")) 
+
+CCCVImid[CCCVImid == 0] <- NA
+
+vulquants <- data.frame(ymin = c(1,1.6,2.6,3.6),
+                        ymax = c(1.5,2.5,3.5,4),
+                        category = c("Low",
+                                     "Moderate",
+                                     "High",
+                                     "Very High"))
+
+risk = c("darkgreen", "yellow", "orange", "red")
+names(risk) <- c("Low","Moderate","High","Very High")
+
+
+props <- CCCVImid |>
+  dplyr::filter(!is.na(vulnSum)) |> #remove communities with no ranking in a given year
+  dplyr::select(YEAR, PORT_NAME, STATE_ABB, class_val_percent, vulnSum, RegionalQuotientVal, vulnSum_region) |>
+  dplyr::group_by(YEAR) |>
+  dplyr::mutate(commn = n(),
+                vulCat = dplyr::case_when(vulnSum <= 1.5 ~ "Low",
+                                          vulnSum > 3.5 ~ "Very High",
+                                          vulnSum > 1.5 & vulnSum <= 2.5 ~ "Moderate",
+                                          vulnSum > 2.5 & vulnSum <= 3.5 ~ "High")) |>
+  dplyr::group_by(YEAR, vulCat) |>
+  dplyr::mutate(catn = n(),
+                propcat = catn/commn)
+
+propsonly <- props |>
+  dplyr::select(YEAR, vulCat, propcat) |>
+  dplyr::distinct()
+
+ggplot2::ggplot() + #, group=PORT_NAME
+  #ggplot2::geom_line(aes(group = PORT_NAME), alpha = 0.05) +
+  # ggplot2::geom_rect(data = vulquants,
+  #                    aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+  #                    alpha = .3) +
+  ggplot2::scale_fill_manual(values=risk) +
+  ggplot2::geom_point(data = propsonly, ggplot2::aes(x=YEAR, y=propcat, color=vulCat)) +
+  ggplot2::geom_line(data = propsonly, ggplot2::aes(x=YEAR, y=propcat, color=vulCat)) +
+  ggplot2::scale_color_manual(values=risk, 
+                              breaks=c('Low', 'Moderate', 'High', 'Very High'),
+                              name="Climate Vulnerability") +
+  #ggplot2::facet_wrap(~STATE_ABB) +
+  #ggplot2::ylim(1,4) +
+  ggplot2::theme_bw() +  
+  #ggplot2::theme(legend.position = "blank")
+  ggplot2::ylab("Proportion Mid-Atlantic communities")
+  
+```
+
+
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1621,100 +1790,6 @@ communities to evaluate overall social risk levels.
                   \>3 high vulnerability ratings
   -----------------------------------------------------------------------
 
-Below is a brief description for each vulnerability category based on
-the NOAA social indicator study [@colburn_indicators_2016; @jepson_development_2013]:
-
--   **Fishing dependence** indices portray the importance or level of
-    dependence of commercial or recreational fishing to coastal
-    communities.
-
--   **Social vulnerability** indices represent social factors that can
-    shape either an individual or community's ability to adapt to
-    change. These factors exist within all communities regardless of the
-    importance of fishing.
-
--   **Gentrification pressure** indices characterize those factors that,
-    over time may indicate a threat to commercial or recreational
-    working waterfront, including infrastructure.
-
-Here, we define gentrification in fishing communities as described by
-@colburn_social_2012, where coastal population growth combined with
-an influx of higher-income people seeking waterfront property can
-increase property values and displace working-class residents engaged in
-resource-dependent activities. "Three common elements of gentrification
-are reuse of waterfront structures, construction of new housing, and
-growth within the services sector [@colburn_social_2012]."
-
-Communities are ranked as high, medium high, moderate, or low relative
-to the respective indicator. Community dependence on commercial and
-recreational fishing is mixed, with notably more communities in the
-Mid-Atlantic dependent on recreational fishing. While communities with
-high to medium high risk for social vulnerability are broadly
-distributed in suburban and rural areas of the Mid-Atlantic region,
-communities with high to medium high gentrification pressure are
-concentrated in beachfront communities near urban areas in New York and
-New Jersey.
-
-The social and economic impacts of climate change have been modeled
-through application of social indicators of fishing dependent
-communities @jepson_development_2013. Assessment of a range of social
-indicators has been applied in the Mid-Atlantic Region to predict
-vulnerability of communities to regulatory changes and disasters. More
-recently this methodology has been extended to include specific
-indicators of vulnerability to climate change and linked to species
-vulnerability assessments [@colburn_indicators_2016; @hare_vulnerability_2016]. The
-tools developed through this approach are vital to an evaluation of the
-risks of climate change facing coastal communities dependent on fishing.
-Below is a description of the CSVIs related to climate change.
-
--   **Sea level rise index** is a measure of the overall risk of
-    inundation from sea level rise based on community area lost from one
-    to six foot level projections over the next \~90 years. A high rank
-    indicates a community more vulnerable to sea level rise.
-
--   **Species vulnerability** is measured by the proportion of community
-    fish landings that attributed to species vulnerable to climate
-    change.
-
--   **Catch composition diversity** is the relative abundance of species
-    landed in a community. It is measured by Simpson's Reciprocal Index,
-    and a higher index value indicates greater diversity. Communities
-    with a diverse array of species landed may be less vulnerable to
-    climate change.
-
-Sea level rise is predicted to have variable impacts on coastal
-communities. The Mid-Atlantic region has a 3-4 times higher than global
-average sea level rise rate [@sallenger_hotspot_2012]. Mid-Atlantic
-communities clustered around the Chesapeake Bay area and the New Jersey
-shore had especially high vulnerability to sea level rise. These
-vulnerabilities include infrastructure (docks, marinas, bait shops, gear
-storage) and access to shore-based facilities due realignment of coastal
-communities.
-
-Mid-Atlantic fishing communities with total landings value of \$100,000
-or more were mapped for their dependence on species vulnerable to
-climate change and catch composition diversity (Simpson Reciprocal
-Index). A number of communities in southern New Jersey, Maryland and
-Virginia are highly dependent on species such as clams that are highly
-vulnerable to climate change while displaying low catch composition
-diversity. Communities with this situation are considered more
-vulnerable to climate change in general [@colburn_indicators_2016].
-
-To estimate "high" vulnerability across all current indicators (which
-are ranked on different scales), we tallied rankings  of
-MedHigh or High for social vulnerability and gentrification pressure,
-along with rankings of High risk from sea level rise, High/Very High
-species vulnerability, and rankings of Low catch composition diversity.
-We considered a majority (3 or more out 5) to represent high risk to a
-community overall because with only 5 indicators, this means that a
-majority (60-100%) of the individual indicators were high risk. Low risk
-ranking was defined as few (\<10%) vulnerable fishery dependent
-communities with 3 or more high vulnerability rating. Low-Moderate risk
-was 10-25% of fishery dependent communities with 3 or more high
-vulnerability ratings. Moderate-High risk was 25-50% of fishery
-dependent communities with 3 or more high vulnerability ratings. High
-risk was a majority (\>50%) of fishery dependent communities with 3 or
-more high vulnerability ratings.
 
 **Risk Assessment**
 

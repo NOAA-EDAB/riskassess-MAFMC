@@ -12,8 +12,8 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  B status             | Moderate-High | Unknown status 
  B status             | High | B < 0.5 Bmsy 
  Food web (Prey availability)       | Low  | Fish condition good, no correlation with major prey trends 
- Food web (Prey availability)       | Low-Moderate | Fish condition moderate, aggregate prey for this species has stable or increasing trend  
- Food web (Prey availability)       | Moderate-High | Fish condition poor, aggregate prey for this species has significant decreasing trend  
+ Food web (Prey availability)       | Low-Moderate | Fish condition above average or neutral, aggregate prey for this species has stable or increasing trend  
+ Food web (Prey availability)       | Moderate-High | Fish condition below average or neutral, aggregate prey for this species has significant decreasing trend  
  Food web (Prey availability)       | High | Fish condition poor, species highly dependent on prey with limited and declining availability, or prey and condition trends significantly correlated  
  Food web (Predation pressure)       | Low  | Predation represents a low proportion of overall mortality 
  Food web (Predation pressure)       | Low-Moderate | Decreasing overlap/consumption/PPI/mortality trend, predation represents a moderate proportion of overall mortality  

@@ -574,11 +574,52 @@ knitr::include_graphics("preyavriskex.png")
 
 ```
 
+```{r, eval=FALSE}
+mafmcsurvEPUcond <- survEPUcond |>
+  dplyr::filter(Var %in% mafmc_cond[1:3], #BSB
+                EPU %in% c("MAB"))
+
+raw <- ggplot2::ggplot(mafmcsurvEPUcond, ggplot2::aes(x = Time, y = Value)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::facet_grid(~Var)
+
+
+scaled <- ggplot2::ggplot() +
+  ggplot2::theme_bw() +
+  ggplot2::geom_rect(data = condquants,
+                     aes(ymin = ymin, ymax = ymax, fill = category, xmin = -Inf, xmax = Inf),
+                     alpha = .3) +
+  ggplot2::scale_fill_manual(values=vir) +
+  ggplot2::geom_point(data= mafmcsurvEPUcond, ggplot2::aes(x=Time, y=scaleCond[,1])) +
+  #ggplot2::geom_hline(yintercept = xs[2:5]) +
+  #ggplot2::geom_line() +
+  ggplot2::facet_grid(~Var) +
+  ggplot2::ylab("Scaled condition") +
+  #ggplot2::ggtitle(paste(unique(mafmcsurvEPUcond$Var), "fall body condition")) +
+  ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
+
+maxyr <- max(mafmcsurvEPUcond$Time)
+tenyr <- maxyr-10
+
+meancond <- mafmcsurvEPUcond |>
+  dplyr::filter(Time>tenyr) |>
+  dplyr::group_by(Var) |>
+  dplyr::summarise(meanraw = mean(Value),
+                   meanscale = mean(scaleCond))
+
+condquants
+
+meancond
+
+```
+
+
 **Risk criteria:**
 
 Good body condition likely represents low risk of prey limitation, and body condition being uncorrelated with the major prey trend also likely represents low risk of prey limitation. Conversely, poor condition indicates elevated risk of prey limitation, and higher risk if poor condition coincides with decreasing trends in major prey. If declining body condition and declining major prey are correlated that may be highest risk. Correlation does not imply causation, but the predator condition and major prey index fluctuating together should warrant deeper investigation.
 
-The criteria evaluate condition status and major prey trends over the most recent 10 years, and using the full time series with a decay factor to emphasize the most recent 10 years, and present to Committee/Council as alternatives in December 2024. 
+The criteria evaluate condition status and major prey trends over the most recent 10 years, and using the full time series with a decay factor to emphasize the most recent 10 years. Both alternatives are presented in December 2024. 
 
 
   -----------------------------------------------------------------------
@@ -586,10 +627,10 @@ The criteria evaluate condition status and major prey trends over the most recen
   --------------- -------------------------------------------------------
   Low             Fish condition good, no correlation with major prey trends
 
-  Low-Moderate    Fish condition moderate, aggregate prey for this species 
+  Low-Moderate    Fish condition above average or neutral, aggregate prey for this species 
                   has stable or increasing trend
 
-  Moderate-High   Fish condition poor, aggregate prey for this species 
+  Moderate-High   Fish condition below average or neutral, aggregate prey for this species 
                   has significant decreasing trend
 
   High            Fish condition poor, species highly dependent on prey with 
@@ -599,12 +640,11 @@ The criteria evaluate condition status and major prey trends over the most recen
 
 **Risk Assessment**
 
-We demonstrate applying the criteria to three Council managed species to date with preliminary data: Atlantic mackerel, black sea bass, and bluefish. Other species will be added as diet compositions are analyzed and prey indices are developed. We use the summaries from the [NEFSC food habits database](https://fwdp.shinyapps.io/tm2020/) and forage fish, benthic invertebrate, and zooplankton indicators submitted to the 2025 State of the Ecosystem report in these examples. 
+We demonstrate applying the criteria to three Council managed species to date with preliminary data for the Mid Atlantic Bight: Atlantic mackerel, black sea bass, and bluefish. Other species will be added as diet compositions are analyzed and prey indices are developed. We use the summaries from the [NEFSC food habits database](https://fwdp.shinyapps.io/tm2020/) and forage fish, benthic invertebrate, and zooplankton indicators submitted to the 2025 State of the Ecosystem report in these examples. 
 
+Fish condition calculated as the mean over the past decade (2014-2023) results in Atlantic mackerel and bluefish having above average condition and black sea bass having poor condition. Preliminary prey indices for each species show a 10 year declining trend in small copepods and long term declining trends for both small copepods and forage fish, but no 10 year or long term trends for benthic macroinvertebrates. Condition and prey index trends are uncorrelated for Atlantic mackerel and bluefish. The black sea bass condition time series and the benthic macroinvertebrate time series are correlated, but this prey group represents ~25% of black sea bass diet.
 
-
-
-
+Therefore, bluefish ranks low-moderate risk for prey availability with above average condition and no 10 year trend in prey. Black sea bass would rank high risk for prey availability based on poor condition and correlation with one major prey group (<50% of diet).  Atlantic mackerel would also rank low-moderate risk based on above average condition, but has a declining 10 year trend in prey. 
 
 ### Food Web (2) - Predation Pressure
 
@@ -2184,7 +2224,7 @@ risk.species<-data.frame(
   Bstatus = c("l", "l", "lm", "l", "l", "h", "lm", "lm", "lm", "lm", "lm", "mh", "lm", "l", "lm", "na", "na"),
   #FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
   #FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
-  PreyA = c("tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd"),
+  PreyA = c("tbd", "tbd", "tbd", "tbd", "h", "lm", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "lm", "tbd", "tbd", "tbd", "tbd"),
   PredP = c("tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd", "tbd"),
   FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
   Climate = c("h", "mh", "lm", "lm", "mh", "lm", "na", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),

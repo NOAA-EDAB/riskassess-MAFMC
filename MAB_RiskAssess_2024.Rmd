@@ -5,16 +5,16 @@ fontsize: 10pt
 geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
 link-citations: yes
 output:
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    code_fold: hide
   bookdown::pdf_document2:
     includes: 
        in_header: latex/header.tex
     keep_tex: true
   bookdown::word_document2:
     toc: true
-  bookdown::html_document2: 
-    toc: true
-    toc_float: true
-    code_fold: hide
 subparagraph: yes
 urlcolor: blue
 ---
@@ -1692,7 +1692,7 @@ At present, the EOP recommends that criteria are based only on the existing dive
 
 **Risk Assessment**
 
-There is a significant long term decrease in recreational fleet effort diversity, indicating moderate-high risk.
+There is a significant long term and recent decrease in recreational fleet effort diversity, indicating high risk.
 
 ## Fishing Community Vulnerability
 
@@ -1719,20 +1719,16 @@ The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
 of communities to events such as regulatory changes to fisheries, wind
 farms, and other ocean-based businesses, as well as to natural hazards,
 disasters, and climate change. The CSVIs currently serve as indicators
-of environmental justice (poverty, population composition, and personal disruptuon), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing dependence (with dependence being a
-function of both reliance and engagement). 
+of environmental justice (poverty, population composition, and personal disruptuon), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing dependence (with dependence defined as medium high or high reliance or engagement). High vulnerability within each category was defined as a medium-high or high score on at least one of the indicators within each category.
 
 In past assessments we used static indicators of sea level rise risk, species
 vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. In the current assessment we have time series indicators of community climate vulnerability.
 
-To estimate "high" vulnerability across all current indicators (which
+To estimate "high" vulnerability across current indicators (which
 are ranked on different scales), we tallied rankings  of
-MedHigh or High for social vulnerability and gentrification pressure,
-along with rankings of High risk from sea level rise, High/Very High
-species vulnerability, and rankings of Low catch composition diversity.
-We considered a majority (3 or more out 5) to represent high risk to a
-community overall because with only 5 indicators, this means that a
-majority (60-100%) of the individual indicators were high risk.
+MedHigh or High for social and economic vulnerability and gentrification pressure.
+We considered a majority (2 or more out 3) to represent high risk to a
+community overall.
 
 ```{r commtab}
 commsocvul <- read.csv("CSVI-2022/fishdata_2022_CSVI - Robert Murphy - NOAA Federal.csv")
@@ -1798,8 +1794,75 @@ recranksumm2 <- commsocvulMID |>
 
 # now use high or med-high in either Eng or Rel to define fishery dependent communities
 
+comdep <- comranksumm2 |> 
+  dplyr::filter(ComEng_ct %in% c("high", "med high") | ComRel_ct %in% c("high", "med high"))
+
+ncomdep <- sum(comdep$n)
+EJcom <- comdep |>
+  dplyr::filter(EJrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+Econcom <- comdep |>
+  dplyr::filter(Econrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+Gentcom <- comdep |>
+  dplyr::filter(Gentrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+twocom <- comdep |>
+  dplyr::filter(Econrank > 2 & Gentrank > 2 |
+                EJrank > 2 & Gentrank > 2 |
+                EJrank > 2 & Econrank > 2 ) |>
+  dplyr::summarise(high=sum(n))
+  
+threecom <- comdep |>
+  dplyr::filter(Econrank > 2 & Gentrank > 2 & EJrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+recdep <- recranksumm2 |> 
+  dplyr::filter(RecEng_ct %in% c("high", "med high") | RecRel_ct %in% c("high", "med high"))
+
+nrecdep <- sum(recdep$n)
+EJrec <- recdep |>
+  dplyr::filter(EJrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+Econrec <- recdep |>
+  dplyr::filter(Econrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+Gentrec <- recdep |>
+  dplyr::filter(Gentrank > 2) |>
+  dplyr::summarise(high=sum(n))
+
+tworec <- recdep |>
+  dplyr::filter(Econrank > 2 & Gentrank > 2 |
+                EJrank > 2 & Gentrank > 2 |
+                EJrank > 2 & Econrank > 2 ) |>
+  dplyr::summarise(high=sum(n))
+  
+threerec <- recdep |>
+  dplyr::filter(Econrank > 2 & Gentrank > 2 & EJrank > 2) |>
+  dplyr::summarise(high=sum(n))
 
 
+socrisk <- data.frame(Community = c("Commercial Fishing Dependent", "Recreational Fishing Dependent"),
+                      Number = c(ncomdep, nrecdep),
+                      EJvul = round(c(sum(EJcom$high)/ncomdep*100, sum(EJrec$high)/nrecdep*100), 1),
+                      Econvul = round(c(sum(Econcom$high)/ncomdep*100, sum(Econrec$high)/nrecdep*100), 1),
+                      Gentvul = round(c(sum(Gentcom$high)/ncomdep*100, sum(Gentrec$high)/nrecdep*100), 1),
+                      Twovul = round(c(sum(twocom$high)/ncomdep*100, sum(tworec$high)/nrecdep*100), 1),
+                      Threevul = round(c(sum(threecom$high)/ncomdep*100, sum(threerec$high)/nrecdep*100), 1))
+
+flextable::flextable(socrisk) |>
+  flextable::set_header_labels(EJvul = "High EJ vulnerability (%)",
+                               Econvul = "High Economic vulnerability (%)",
+                               Gentvul = "High Gentrification vulnerability (%)",
+                               Twovul = "Two or more high vulnerabilities (%)",
+                               Threevul = "All three vulnerabilities high (%)") |>
+  flextable::set_caption("Mid Atlantic community type, number of communities of each type, and percent of those communities with high scores for at least one indicator in each of three social vulnerability categories, 2022. EJ = Environmental Justice") |>
+  flextable::set_table_properties(width = 1)
 ```
 
 
@@ -1875,22 +1938,22 @@ ggplot2::ggplot() + #, group=PORT_NAME
   --------------- -------------------------------------------------------
   Low             Few (\<10%) vulnerable fishery dependent communities
 
-  Low-Moderate    10-25% of fishery dependent communities with \>3 high
+  Low-Moderate    10-25% of fishery dependent communities with 2 or more high
                   vulnerability ratings
 
-  Moderate-High   25-50% of fishery dependent communities with \>3 high
+  Moderate-High   25-50% of fishery dependent communities with 2 or more high
                   vulnerability ratings
 
   High            Majority (\>50%) of fishery dependent communities with
-                  \>3 high vulnerability ratings
+                  2 or more high vulnerability ratings
   -----------------------------------------------------------------------
 
 
 **Risk Assessment**
 
-In past risk assessments based on 2016 data, four of the top communities (20%) had three or more of these high risk rankings, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
+In past risk assessments based on 2016 data, four of the top communities (20%) had three or more high risk rankings out of five indicators, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
 
-The current risk assessment uses 2022 data. 
+The current risk assessment uses 2022 data, modified criteria for fewer indicator categories and a different set of social indicators. Over 54% of commercial fishing dependent communities and 41% of recreational fishing dependent communities had two or more high social vulnerability ratings. This would rank communities moderate-high to high for social vulnerability, depending on sector. In addition, there is evidence that a majority of Mid-Atlantic communities have high to very high climate vulnerability. Therefore, social vulnerability risk is ranked high. 
 
 
 ## Food Production Elements
@@ -1915,7 +1978,7 @@ Commercial seafood landings from Council managed species (in red, Fig. \ref{fig:
 and total landings (in black) which include bait and industrial uses managed by all entities
 were used to assess fishing production. 
 
-```{r, total-landings, fig.width=6, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
+```{r total-landings, fig.width=6, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
 #code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
 ecodata::plot_comdat(report = "MidAtlantic", varName = "landings", n=10) #+
   #ggplot2::ylab("")
@@ -1924,10 +1987,7 @@ ecodata::plot_comdat(report = "MidAtlantic", varName = "landings", n=10) #+
 
 **Risk criteria:**
 
-New criteria still need to be developed to account for both seafood and
-total commercial landings. Criteria used previously are below.
-
-```{r riskcfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r riskcfood2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
@@ -1966,7 +2026,7 @@ The Ecosystem and Ocean Planning Committee and Advisory Panel also
 supported the potential development of new indicators that would
 evaluate the subsistence component of this risk element.
 
-```{r, rec-landings, fig.cap ="Total recreational seafood harvest (millions of pounds, black, significant decrease, purple) in the Mid-Atlantic region."}
+```{r rec-landings, fig.cap ="Total recreational seafood harvest (millions of pounds, black, significant decrease, purple) in the Mid-Atlantic region."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-landings.R")
 
 ecodata::plot_recdat(report = "MidAtlantic", varName ="landings", n=10)
@@ -1988,7 +2048,7 @@ ecodata::plot_recdat(report = "MidAtlantic", varName ="landings", n=10)
 
 **Risk Assessment**
 
-There is a significant recent decrease as well as a significant long term decrease in recreational landings, representing a high risk to food production.
+There is a significant long term decrease in recreational landings, representing a moderate-high risk to food production.
 
 ## Management Elements
 
@@ -2462,10 +2522,10 @@ risk.eco<-data.frame(
   #CommJobs = c("mh"),
   #RecJobs = c("l"),
   ComDiv = c("l"),
-  RecDiv = c("mh"),
-  Social = c("lm"),
+  RecDiv = c("h"),
+  Social = c("h"),
   ComFood = c("mh"),
-  RecFood = c("h")
+  RecFood = c("mh")
 )
 
 #convert to longer text for consistency and display in html table

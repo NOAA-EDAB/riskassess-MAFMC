@@ -68,9 +68,9 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Recreational fleet diversity      | Moderate-High | Significant long term downward trend in diversity measure
  Recreational fleet diversity      | High | Significant recent downward trend in diversity measure 
  Fishing community vulnerability      | Low  | Few (<10%) vulnerable fishery dependent communities 
- Fishing community vulnerability      | Low-Moderate | 10-25% of fishery dependent communities with >3 high vulnerability ratings 
- Fishing community vulnerability      | Moderate-High | 25-50% of fishery dependent communities with >3 high vulnerability ratings 
- Fishing community vulnerability      | High | Majority (>50%) of fishery dependent communities with >3 high vulnerability ratings 
+ Fishing community vulnerability      | Low-Moderate | 10-25% of fishery dependent communities with 2 or more high vulnerability ratings 
+ Fishing community vulnerability      | Moderate-High | 25-50% of fishery dependent communities with 2 or more high vulnerability ratings 
+ Fishing community vulnerability      | High | Majority (>50%) of fishery dependent communities with 2 or more high vulnerability ratings 
  Commercial fishing production     | Low  | No trend in landings 
  Commercial fishing production    | Low-Moderate | Increasing or high variability in landings 
  Commercial fishing production     | Moderate-High | Significant long-term decrease in one metric of landings 

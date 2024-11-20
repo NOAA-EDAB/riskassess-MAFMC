@@ -5,14 +5,14 @@ fontsize: 10pt
 geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
 link-citations: yes
 output:
-  bookdown::html_document2: 
-    toc: true
-    toc_float: true
-    code_fold: hide
   bookdown::pdf_document2:
     includes: 
        in_header: latex/header.tex
     keep_tex: true
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    code_fold: hide
   bookdown::word_document2:
     toc: true
 subparagraph: yes
@@ -619,7 +619,7 @@ meancond
 
 Good body condition likely represents low risk of prey limitation, and body condition being uncorrelated with the major prey trend also likely represents low risk of prey limitation. Conversely, poor condition indicates elevated risk of prey limitation, and higher risk if poor condition coincides with decreasing trends in major prey. If declining body condition and declining major prey are correlated that may be highest risk. Correlation does not imply causation, but the predator condition and major prey index fluctuating together should warrant deeper investigation.
 
-The criteria evaluate condition status and major prey trends over the most recent 10 years, and using the full time series with a decay factor to emphasize the most recent 10 years. Both alternatives are presented in December 2024. 
+The criteria evaluate condition status and major prey trends over the most recent 10 years. The EOP and AP recommended evaluating an alternative calculation using the full time series with a decay factor to emphasize the most recent 10 years. This second alternative will be presented in April 2025 along with the approach presented here. 
 
 
   -----------------------------------------------------------------------
@@ -1462,7 +1462,7 @@ states in two categories: number of companies (Quarterly Census of
 Employment and Wages. Obtained September 27, 2017. US Department of
 Labor, Bureau of Labor Statistics. <https://www.bls.gov/cew/home.htm>)
 and number of non-employer entities Non-employer Statistics." Obtained
-September 28, 2017. U.S. Census Bureau.
+November 19, 2024. U.S. Census Bureau.
 <https://www.census.gov/programs-surveys/nonemployer-statistics.html>),
 which we consider separately. Non-employer entities are businesses that
 have no paid employees (i.e. entrepreneurs, or the owner is the
@@ -1547,10 +1547,10 @@ shoreside <- shoreside |>
 
 **Risk Assessment**
 
-The indicator shows a significant long-term decrease, which represents
-moderate-high risk to fishery resilience. The number of non-employer
+The indicator shows a significant long-term decrease, and the number of non-employer
 entities, including seafood preparation and packaging and seafood
-markets, shows a long-term increase. Data from other shoreside fishery
+markets, shows a long-term increase. Taken together, these trends represent a low-moderate risk to commercial fishery resilience via shoreside support (no significant short term trends were identified). 
+Data from other shoreside fishery
 supporting businesses, such as gear manufacturers and welding companies,
 are not included here due to aggregation of the statistics across
 non-fishing industries (e.g. net manufacturers combined with all other
@@ -1731,13 +1731,20 @@ We considered a majority (2 or more out 3) to represent high risk to a
 community overall.
 
 ```{r commtab}
-commsocvul <- read.csv("CSVI-2022/fishdata_2022_CSVI - Robert Murphy - NOAA Federal.csv")
+commsocvul <- read.csv("CSVI-2022/fishdata_2022_CSVI_final.csv")
 
 # logic: category gets the max indicator rank, I think this is how EJ works
 
 commsocvulMID <- commsocvul |>
   dplyr::filter(REGION=="Northeast",
                 STATEABBR %in% c("DE", "MD", "NJ", "NY", "NC", "PA", "VA")) |>
+  dplyr::mutate(across(27:34, ~ case_when(   #stringr::str_detect("_rank")
+                  . == "low" ~ "1",
+                  . == "med" ~ "2",
+                  . == "med high" ~ "3",
+                  . == "high" ~ "4",
+                  TRUE ~ NA_character_
+                ))) |>
   dplyr::rowwise() |>
   dplyr::mutate(EJrank = max(as.numeric(personal_disruption_rank), 
                              as.numeric(pop_composition_rank), 
@@ -1866,7 +1873,7 @@ flextable::flextable(socrisk) |>
 ```
 
 
-Newly available time series indicators can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, and stock status, with overall rankings of sensitivity and vulnerability (Figs. \ref{fig.commvulmap}, \ref{fig.commvulex}). Based on these indicators, a majority of Mid-Atlantic communities face high or very high climate-related vulnerability. These indicators are not currently included in the risk assessment criteria.
+Newly available time series indicators can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, and stock status, with overall rankings of sensitivity and vulnerability (Figs. \ref{fig:commvulmap}, \ref{fig:commvulex}). Based on these indicators, a majority of Mid-Atlantic communities face high or very high climate-related vulnerability. These indicators are not currently included in the risk assessment criteria.
 
 
 ```{r commvulmap, out.width='60%', fig.cap="Current 5 year average climate vulnerability for Mid-Atlantic community revenue."}
@@ -1953,7 +1960,9 @@ ggplot2::ggplot() + #, group=PORT_NAME
 
 In past risk assessments based on 2016 data, four of the top communities (20%) had three or more high risk rankings out of five indicators, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
 
-The current risk assessment uses 2022 data, modified criteria for fewer indicator categories and a different set of social indicators. Over 54% of commercial fishing dependent communities and 41% of recreational fishing dependent communities had two or more high social vulnerability ratings. This would rank communities moderate-high to high for social vulnerability, depending on sector. In addition, there is evidence that a majority of Mid-Atlantic communities have high to very high climate vulnerability. Therefore, social vulnerability risk is ranked high. 
+The current risk assessment uses 2022 data, modified criteria for fewer indicator categories and a different set of social indicators. Over 48% of commercial fishing dependent communities and 34% of recreational fishing dependent communities had two or more high social vulnerability ratings. This would rank communities moderate-high to high for social vulnerability for either sector. Therefore, social vulnerability risk is ranked moderate-high. 
+
+In addition, there is evidence that a majority of Mid-Atlantic communities (including the subset identified as fishery dependent) have high to very high revenue climate vulnerability. This information can be specifically included in future assessments with additional criteria. However, it reinforces at least a moderate-high risk ranking for social vulnerability. 
 
 
 ## Food Production Elements
@@ -2001,7 +2010,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 **Risk Assessment**
 
-There is a significant long term decrease in both total commercial landings and U.S. seafood landings in the Mid-Atlantic, indicating moderate-high risk. Only one metric, US seafood landings, has a significant recent decrease. 
+There is a significant long term decrease in both total commercial landings and U.S. seafood landings in the Mid-Atlantic, indicating moderate-high risk. 
 
 ### Recreational/Subsistence Food Production
 
@@ -2203,11 +2212,11 @@ WEA and stock/habitat distribution but the trend is neither increasing or decrea
 
 **Risk Assessment**
 
-Using the proposed risk criteria, the example for summer flounder would be assigned low-moderate risk. Summer flounder distribution overlaps with the WEA’s but the stock distribution
-overlap within the WEA’s has declined (unweighted overlap) and/or is similar (weighted
-overlap) during the two time periods. Since the stock/habitat distribution indicator is developed
-at the stock level, the same risk level would be assigned the same for both the commercial and
-recreational summer flounder sectors.
+Using the proposed risk criteria, summer flounder, scup, black sea bass, Atlatic mackerel, butterfish, longfin squid, bluefish, and spiny dogfish are assigned low-moderate risk. Summer flounder had declining overlap during 14-18 and 19-23 time periods and similar wieghted overlap between two time periods. Scup had declining overlap during 14-18 and 19-23 time periods and declining wieghted overlap between two time periods. Black sea bass had slightly declining overlap during 14-18 and 19-23 time periods and similarly small declines in wieghted overlap between two time periods. Atlantic mackerel had similar spatial overlap during 14-18 and 19-23 time periods and declining wieghted spatial overlap between two time periods. Butterfish had decreasing spatial overlaop during the 14-18 and 19-23 time period and stable/similar weighted overlap during two time periods. Longfin squid had declining spatial overlap during 14-18 and 19-23 time periods and slight increases in weighted spatial overlap between two time periods. Bluefish had moderate decreases in spatial and weighted spatial overlap between 14-18 and 19-23 time periods. Spiny dogfish had slight increases in spatial and weighted spatial overlap between 14-18 and 19-23 time periods.  
+
+Shortfin squid, golden tilefish, blueline tilefish, and chub mackerel are assigned low risk. Only 2 Illex squid and 1 chub mackerel were caught in WEAs during two time periods considered (14-18 and 19-23). No golden or blueline tilefish were caught in WEA during two time periods considered (14-18 and 19-23).  This risk factor is not relevant for deepsea corals. 
+
+Since the stock/habitat distribution indicator is developed at the stock level, the same risk level is assigned the same for both the commercial and recreational sectors.
 
 
 ### Offshore Wind -- Fishery Science and Access (new)
@@ -2272,7 +2281,7 @@ information (work is still under review).
 
 **Risk Assessment**
 
-To be developed later in the year in collaboration with the EOP Committee and AP once indicators and risk criteria are developed.
+A subset of species have been assessed, with more to be added as the data become available. Commercial summer flounder, scup, Atlantic mackerel, butterfish, longfin squid, bluefish, and chub mackerel have low-moderate risk. Commercial black sea bass has moderate-high risk.  
 
 ### Other Ocean Activities
 
@@ -2518,12 +2527,12 @@ risk.eco<-data.frame(
   CommVal = c("mh"),
   RecVal = c("lm"),
   FishRes1 = c("h"),
-  FishRes4 = c("mh"),
+  FishRes4 = c("lm"),
   #CommJobs = c("mh"),
   #RecJobs = c("l"),
   ComDiv = c("l"),
   RecDiv = c("h"),
-  Social = c("h"),
+  Social = c("mh"),
   ComFood = c("mh"),
   RecFood = c("mh")
 )
@@ -2553,11 +2562,11 @@ risk.sppsector<-data.frame(
   FControl =  c(1,1,2,2,4,1,4,2,2,1,1,1,2,9,1,1,2,2,1,1,1,1,1,9),
   Interact = c(1,1,1,2,1,2,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,2,1,9),
   #OceanUse =    c(2,2,2,2,2,3,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,2,3,3),
-  OSW1 =    c(6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6),
-  OSW2 =    c(6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6),
-  OtherUse =    c(6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6),
+  OSW1 =    c(6,6,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,2,2,2,2,1,6,9),
+  OSW2 =    c(6,6,6,2,6,2,6,3,6,2,2,2,6,6,6,6,6,6,2,6,6,2,6,6),
+  OtherUse =    c(6,6,2,2,6,6,6,6,6,6,2,6,2,6,6,6,6,2,2,6,6,6,6,9),
   RegComplex =  c(1,1,4,2,4,2,4,2,2,4,3,3,3,1,1,2,1,3,2,1,4,1,1,9),
-  Discards =    c(3,3,3,3,3,3,3,4,2,2,3,3,1,1,1,1,1,2,2,2,2,1,1,9),
+  Discards =    c(3,3,3,3,3,3,3,3,2,2,3,3,1,1,1,1,1,2,2,2,2,1,1,9),
   Allocation =  c(1,1,4,1,4,1,4,1,1,1,1,1,1,1,1,1,1,4,1,1,1,1,1,9) 
 )
 

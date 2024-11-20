@@ -1,0 +1,670 @@
+#packages
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(gridExtra)
+
+#from Changhua's data, I formated the CSV to get ready for plots
+  #this included deleting unneccessary columns
+  #changing numeric factor scores to categories where 1=low,4=high
+
+setwd("Z:/Social Indicator Data")
+dat<- read.csv("fishdata_2022_CSVI_final.csv")
+
+
+#### DATA PREP ####
+
+#rename top communities
+
+
+dat$GEO_NAME <- replace(dat$GEO_NAME,
+        dat$GEO_NAME=="Port Clyde-Tenants Harbor/Saint George/Spruce Head, ME",
+        "Port Clyde-Tenants Harbor, ME")
+
+
+dat$GEO_NAME <- replace(dat$GEO_NAME,
+                        dat$GEO_NAME=="Sandwich/East Sandwich/Forestdale, MA",
+                        "Sandwich, MA")
+
+
+dat$GEO_NAME <- replace(dat$GEO_NAME,
+                        dat$GEO_NAME=="Reedville/District 5 (Northumberland County), VA",
+                        "Reedville, VA*")
+
+
+
+##reorder ranks
+dat$ComEng_ct <- 
+  factor(dat$ComEng_ct, levels=c("high", "med high", "med", "low"))
+dat$ComRel_ct <- 
+  factor(dat$ComRel_ct, levels=c("high", "med high", "med", "low"))
+dat$RecEng_ct <- 
+  factor(dat$RecEng_ct, levels=c("high", "med high", "med", "low"))
+dat$RecRel_ct <- 
+  factor(dat$RecRel_ct, levels=c("high", "med high", "med", "low"))
+
+
+#make data numeric
+dat$ComEng <- as.numeric(dat$ComEng)
+dat$ComRel <- as.numeric(dat$ComRel)
+dat$RecEng <- as.numeric(dat$RecEng)
+dat$RecRel <- as.numeric(dat$RecRel)
+
+
+#remove NA
+dat_com_e<-dat[!is.na(dat$ComEng),]
+dat_com_r<-dat[!is.na(dat$ComRel),]
+dat_rec_e<-dat[!is.na(dat$RecEng),]
+dat_rec_r<-dat[!is.na(dat$RecRel),]
+
+
+
+
+
+#remove low scores
+dat_com_e_nolow<-dat_com_e[!(dat_com_e$ComEng_ct=='low'),]
+dat_com_r_nolow<-dat_com_r[!(dat_com_r$ComRel_ct=='low'),]
+dat_rec_e_nolow<-dat_rec_e[!(dat_rec_e$RecEng_ct=='low'),]
+dat_rec_r_nolow<-dat_rec_r[!(dat_rec_r$RecRel_ct=='low'),]
+
+
+
+
+
+
+#subset Mid Atlantic
+
+dat_com_e_MA <- dat_com_e[(dat_com_e$STATEABBR=='NY' | 
+                             dat_com_e$STATEABBR=='PA'| 
+                             dat_com_e$STATEABBR=='NJ'| 
+                             dat_com_e$STATEABBR=='DE'| 
+                             dat_com_e$STATEABBR=='MD'| 
+                             dat_com_e$STATEABBR=='VA'| 
+                             dat_com_e$STATEABBR=='NC'), ]
+
+dat_com_e_nolow_MA <- dat_com_e_nolow[(dat_com_e_nolow$STATEABBR=='NY' | 
+                                         dat_com_e_nolow$STATEABBR=='PA'| 
+                                         dat_com_e_nolow$STATEABBR=='NJ'| 
+                                         dat_com_e_nolow$STATEABBR=='DE'| 
+                                         dat_com_e_nolow$STATEABBR=='MD'| 
+                                         dat_com_e_nolow$STATEABBR=='VA'| 
+                                         dat_com_e_nolow$STATEABBR=='NC'),]
+
+dat_com_r_MA <- dat_com_r[(dat_com_r$STATEABBR=='NY' | 
+                             dat_com_r$STATEABBR=='PA'| 
+                             dat_com_r$STATEABBR=='NJ'| 
+                             dat_com_r$STATEABBR=='DE'| 
+                             dat_com_r$STATEABBR=='MD'| 
+                             dat_com_r$STATEABBR=='VA'| 
+                             dat_com_r$STATEABBR=='NC'),]
+
+dat_com_r_nolow_MA <- dat_com_r_nolow[(dat_com_r_nolow$STATEABBR=='NY' | 
+                                         dat_com_r_nolow$STATEABBR=='PA'| 
+                                         dat_com_r_nolow$STATEABBR=='NJ'| 
+                                         dat_com_r_nolow$STATEABBR=='DE'| 
+                                         dat_com_r_nolow$STATEABBR=='MD'| 
+                                         dat_com_r_nolow$STATEABBR=='VA'| 
+                                         dat_com_r_nolow$STATEABBR=='NC'),]
+
+
+dat_rec_e_MA <- dat_rec_e[(dat_rec_e$STATEABBR=='NY' | 
+                             dat_rec_e$STATEABBR=='PA'| 
+                             dat_rec_e$STATEABBR=='NJ'| 
+                             dat_rec_e$STATEABBR=='DE'| 
+                             dat_rec_e$STATEABBR=='MD'| 
+                             dat_rec_e$STATEABBR=='VA'| 
+                             dat_rec_e$STATEABBR=='NC'),]
+
+dat_rec_e_nolow_MA <- dat_rec_e_nolow[(dat_rec_e_nolow$STATEABBR=='NY' | 
+                                         dat_rec_e_nolow$STATEABBR=='PA'| 
+                                         dat_rec_e_nolow$STATEABBR=='NJ'| 
+                                         dat_rec_e_nolow$STATEABBR=='DE'| 
+                                         dat_rec_e_nolow$STATEABBR=='MD'| 
+                                         dat_rec_e_nolow$STATEABBR=='VA'| 
+                                         dat_rec_e_nolow$STATEABBR=='NC'),]
+
+dat_rec_r_MA <- dat_rec_r[(dat_rec_r$STATEABBR=='NY' | 
+                             dat_rec_r$STATEABBR=='PA'| 
+                             dat_rec_r$STATEABBR=='NJ'| 
+                             dat_rec_r$STATEABBR=='DE'| 
+                             dat_rec_r$STATEABBR=='MD'| 
+                             dat_rec_r$STATEABBR=='VA'| 
+                             dat_rec_r$STATEABBR=='NC'),]
+
+dat_rec_r_nolow_MA <- dat_rec_r_nolow[(dat_rec_r_nolow$STATEABBR=='NY' | 
+                                         dat_rec_r_nolow$STATEABBR=='PA'| 
+                                         dat_rec_r_nolow$STATEABBR=='NJ'| 
+                                         dat_rec_r_nolow$STATEABBR=='DE'| 
+                                         dat_rec_r_nolow$STATEABBR=='MD'| 
+                                         dat_rec_r_nolow$STATEABBR=='VA'| 
+                                         dat_rec_r_nolow$STATEABBR=='NC'),]
+
+
+
+
+#subset New England
+dat_com_e_NE <- dat_com_e[(dat_com_e$STATEABBR=='ME' | 
+                             dat_com_e$STATEABBR=='MA'| 
+                             dat_com_e$STATEABBR=='RI'| 
+                             dat_com_e$STATEABBR=='CT'| 
+                             dat_com_e$STATEABBR=='NH'), ]
+
+dat_com_e_nolow_NE <- dat_com_e_nolow[(dat_com_e_nolow$STATEABBR=='ME' | 
+                                         dat_com_e_nolow$STATEABBR=='MA'| 
+                                         dat_com_e_nolow$STATEABBR=='RI'| 
+                                         dat_com_e_nolow$STATEABBR=='CT'| 
+                                         dat_com_e_nolow$STATEABBR=='NH'), ]
+
+dat_com_r_NE <- dat_com_r[(dat_com_r$STATEABBR=='ME' | 
+                             dat_com_r$STATEABBR=='MA'| 
+                             dat_com_r$STATEABBR=='RI'| 
+                             dat_com_r$STATEABBR=='CT'| 
+                             dat_com_r$STATEABBR=='NH'), ]
+
+dat_com_r_nolow_NE <- dat_com_r_nolow[(dat_com_r_nolow$STATEABBR=='ME' | 
+                                         dat_com_r_nolow$STATEABBR=='MA'| 
+                                         dat_com_r_nolow$STATEABBR=='RI'| 
+                                         dat_com_r_nolow$STATEABBR=='CT'| 
+                                         dat_com_r_nolow$STATEABBR=='NH'), ]
+
+
+dat_rec_e_NE <- dat_rec_e[(dat_rec_e$STATEABBR=='ME' | 
+                             dat_rec_e$STATEABBR=='MA'| 
+                             dat_rec_e$STATEABBR=='RI'| 
+                             dat_rec_e$STATEABBR=='CT'| 
+                             dat_rec_e$STATEABBR=='NH'), ]
+
+dat_rec_e_nolow_NE <- dat_rec_e_nolow[(dat_rec_e_nolow$STATEABBR=='ME' | 
+                                         dat_rec_e_nolow$STATEABBR=='MA'| 
+                                         dat_rec_e_nolow$STATEABBR=='RI'| 
+                                         dat_rec_e_nolow$STATEABBR=='CT'| 
+                                         dat_rec_e_nolow$STATEABBR=='NH'), ]
+
+dat_rec_r_NE <- dat_rec_r[(dat_rec_r$STATEABBR=='ME' | 
+                             dat_rec_r$STATEABBR=='MA'| 
+                             dat_rec_r$STATEABBR=='RI'| 
+                             dat_rec_r$STATEABBR=='CT'| 
+                             dat_rec_r$STATEABBR=='NH'), ]
+
+dat_rec_r_nolow_NE <- dat_rec_r_nolow[(dat_rec_r_nolow$STATEABBR=='ME' | 
+                                         dat_rec_r_nolow$STATEABBR=='MA'| 
+                                         dat_rec_r_nolow$STATEABBR=='RI'| 
+                                         dat_rec_r_nolow$STATEABBR=='CT'| 
+                                         dat_rec_r_nolow$STATEABBR=='NH'), ]
+
+
+
+####New England Commercial Engagement####
+
+NE_com_a_plot <- ggplot(dat_com_e_nolow_NE, aes(x=1, y=ComEng)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed=1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=ComEng_ct))+
+  ylim(-2,40)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Commercial Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(ComEng>3.1,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.8, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("a)")
+
+
+
+####New England Relative Commercial Engagement####
+
+
+NE_com_b_plot <- ggplot(dat_com_r_nolow_NE, aes(x=1, y=ComRel)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed = 2), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=ComRel_ct))+
+  ylim(-0.5,32)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1",
+                                "low"="gray")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Relative Commercial Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(ComRel>3.8,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.8, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 2),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("b)")
+
+
+
+####New England Commercial Engagement by Relative Engagement Plot####
+
+NE_com_c_plot <-ggplot(dat_com_e_NE, aes(x=ComEng, y=ComRel)) + 
+  geom_point(shape=1, 
+             size=1.4, stroke=0.9, alpha=0.6, 
+             aes(color=ComEng_ct))+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1",
+                                "low"="gray")) +
+  theme_bw()+
+  ylim(-5,32)+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())+
+  ylab(expression(paste("Relative Commercial Engagement Index", italic(" (factor score)"))))+
+  xlab(expression(paste("Commercial Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Engagement Score Rank"))+
+  geom_label_repel(aes(label = ifelse(ComEng>3.1,as.character(GEO_NAME),ifelse(ComRel>3.8,as.character(GEO_NAME),''))),
+                   size=2,
+                   box.padding   = 0.4, 
+                   point.padding = 0,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("c)")
+
+
+
+#### NE FIG 1 ####
+#put them together
+tiff("NE_fig1.tiff", units="in", width=7, height=7, res=300)
+grid.arrange(grid.arrange(NE_com_a_plot, NE_com_b_plot, ncol = 2), NE_com_c_plot)
+dev.off()
+
+
+
+####New England Recreational Engagement####
+
+NE_rec_a_plot <- ggplot(dat_rec_e_nolow_NE, aes(x=1, y=RecEng)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed=1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=RecEng_ct))+
+  ylim(-0.5,6)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Recreational Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(RecEng>2.4,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.8, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("a)")
+
+
+
+
+####New England Relative Recreational Engagement####
+
+
+NE_rec_b_plot <-ggplot(dat_rec_r_nolow_NE, aes(x=1, y=RecRel)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed=1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=RecRel_ct))+
+  ylim(-0.5,3.5)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Relative Recreational Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(RecRel>1,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.8, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("b)")
+
+
+
+####New England Recreational Engagement by Relative Engagement Plot####
+
+NE_rec_c_plot <-ggplot(dat_rec_e_NE, aes(x=RecEng, y=RecRel)) + 
+  geom_point(shape=1, 
+             size=1.4, stroke=0.9, alpha=0.6, 
+             aes(color=RecEng_ct))+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1",
+                                "low"="gray")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())+
+  ylab(expression(paste("Relative Recreational Engagement Index", italic(" (factor score)"))))+
+  xlab(expression(paste("Recreational Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Engagement Score Rank"))+
+  geom_label_repel(aes(label = ifelse(RecEng>2.4,as.character(GEO_NAME),ifelse(RecRel>1,as.character(GEO_NAME),''))),
+                   size=2,
+                   box.padding   = 0.35, 
+                   point.padding = 0.1,
+                   segment.color = 'grey50',
+                   direction = "both",
+                   force_pull=1,
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1),
+                   point.size = NA)+
+  ggtitle("c)")
+
+
+#### NE FIG 2 ####
+#put them together
+tiff("NE_fig2.tiff", units="in", width=7, height=7, res=300)
+grid.arrange(grid.arrange(NE_rec_a_plot, NE_rec_b_plot, ncol = 2), NE_rec_c_plot)
+dev.off()
+
+
+
+####Mid-Atlantic Commercial Engagement####
+
+
+MA_com_a_plot <- ggplot(dat_com_e_nolow_MA, aes(x=1, y=ComEng)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed=1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=ComEng_ct))+
+  ylim(-0.5,10)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Commercial Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(ComEng>2,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.6, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1),
+                   point.size = 1.9)+
+  ggtitle("a)")
+
+
+
+
+####Mid-Atlantic Relative Commercial Engagement####
+
+
+MA_com_b_plot <-ggplot(dat_com_r_nolow_MA, aes(x=1, y=ComRel)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed = 1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=ComRel_ct))+
+  ylim(-0.5,19)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1",
+                                "low"="gray")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Relative Commercial Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(ComRel>1.06,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.5, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1),
+                   point.size = 1.9)+
+  ggtitle("b)")
+
+
+
+
+####Mid-Atlantic Commercial Engagement by Relative Engagement Plot####
+
+
+MA_com_c_plot <-ggplot(dat_com_e_MA, aes(x=ComEng, y=ComRel)) + 
+  geom_point(shape=1, 
+             size=1.4, stroke=0.9, alpha=0.6, 
+             aes(color=ComEng_ct))+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1",
+                                "low"="gray")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())+
+  ylab(expression(paste("Relative Commercial Engagement Index", italic(" (factor score)"))))+
+  xlab(expression(paste("Commercial Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Engagement Score Rank"))+
+  geom_label_repel(aes(label = ifelse(ComEng>2,as.character(GEO_NAME),ifelse(ComRel>1.06,as.character(GEO_NAME),''))),
+                   size=2,
+                   box.padding   = 0.3, 
+                   point.padding = 0.1,
+                   segment.color = 'grey50',
+                   direction = "both",
+                   force_pull=0.5,
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1),
+                   point.size=0.1)+
+  ggtitle("c)")
+
+
+
+#### MA FIG 1 ####
+#put them together
+tiff("MA_fig1.tiff", units="in", width=7, height=7, res=300)
+grid.arrange(grid.arrange(MA_com_a_plot, MA_com_b_plot, ncol = 2), MA_com_c_plot)
+dev.off()
+
+
+
+####Mid-Atlantic Recreational Engagement####
+
+
+MA_rec_a_plot <- ggplot(dat_rec_e_nolow_MA, aes(x=1, y=RecEng)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed=1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=RecEng_ct))+
+  ylim(-0.5,16)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Recreational Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(RecEng>7,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.8, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   max.overlaps=Inf,
+                   min.segment.length = 0.01,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("a)")
+
+
+
+
+####Mid-Atlantic Relative Recreational Engagement####
+
+
+
+MA_rec_b_plot <- ggplot(dat_rec_r_nolow_MA, aes(x=1, y=RecRel)) + 
+  geom_violin(fill="skyblue3", alpha=0.4)+
+  geom_jitter(shape=1, position=position_jitter(0.2, seed=1), 
+              size=1.4, stroke=0.9, alpha=0.6, 
+              aes(color=RecRel_ct))+
+  ylim(-1,25)+
+  coord_flip()+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position="none")+
+  xlab("")+
+  ylab(expression(paste("Relative Recreational Engagement Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Score Rank"))+
+  geom_label_repel(aes(label = ifelse(RecRel>7,as.character(GEO_NAME),'')),
+                   size=2,
+                   box.padding   = 0.8, 
+                   point.padding = 0.3,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("b)")
+
+
+
+####Mid-Atlantic Recreational Engagement by Relative Engagement Plot####
+
+
+MA_rec_c_plot <- ggplot(dat_com_e_MA, aes(x=RecEng, y=RecRel)) + 
+  geom_point(shape=1, position=position_jitter(0.2, seed=1), 
+             size=1.4, stroke=0.9, alpha=0.6, 
+             aes(color=ComEng_ct))+
+  scale_color_manual(values = c("high" = "firebrick4",
+                                "med high"="darkorange1",
+                                "med"="goldenrod1",
+                                "low"="gray")) +
+  theme_bw()+
+  theme(text = element_text(size=9),
+        plot.title = element_text(size=9, vjust=-7.5, hjust=0.01),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())+
+  ylab(expression(paste("Relative Recreational Engagement Index", italic(" (factor score)"))))+
+  xlab(expression(paste("Commercial Recreational Index", italic(" (factor score)"))))+
+  guides(color=guide_legend(title="Engagement Score Rank"))+
+  geom_label_repel(aes(label = ifelse(RecEng>7,as.character(GEO_NAME),ifelse(RecRel>7,as.character(GEO_NAME),''))),
+                   size=2,
+                   box.padding   = 0.35, 
+                   point.padding = 0.1,
+                   segment.color = 'grey50',
+                   min.segment.length = 0.01,
+                   max.overlaps=Inf,
+                   position = position_jitter(0.2, seed = 1),
+                   label.size = NA,
+                   fill = alpha(c("white"),0.1))+
+  ggtitle("c)")
+
+
+#### MA FIG 4 ####
+#put them together
+tiff("MA_fig2.tiff", units="in", width=7, height=7, res=300)
+grid.arrange(grid.arrange(MA_rec_a_plot, MA_rec_b_plot, ncol = 2), MA_rec_c_plot)
+dev.off()
+
+

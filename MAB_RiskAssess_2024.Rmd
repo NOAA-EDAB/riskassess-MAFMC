@@ -1713,7 +1713,7 @@ The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
 of communities to events such as regulatory changes to fisheries, wind
 farms, and other ocean-based businesses, as well as to natural hazards,
 disasters, and climate change. The CSVIs currently serve as indicators
-of environmental justice (poverty, population composition, and personal disruption), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing engagement and per capita engagement. Fishing communities were defined as those with medium high or high engagement or per capita engagement. High vulnerability within each category was defined as a medium high or high score on at least one of the indicators within each category.
+of environmental justice (poverty, population composition, and personal disruption), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing engagement and relative engagement. Fishing communities were defined as those with medium high or high engagement or relative engagement. High vulnerability within each category was defined as a medium high or high score on at least one of the indicators within each category.
 
 In past assessments we used static indicators of sea level rise risk, species
 vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. In the current assessment we have time series indicators of community climate change risk.
@@ -2180,7 +2180,7 @@ weighted by a factor of 1.0 with the assumption those WEAs would have the greate
 
 \textcolor{red}{The Committee and AP recommended testing different weighting options for the three WEA development phases, particularly the planning phase. This analysis requires additional time and will be considered for the 2025 risk assessment.} 
 
-```{r oswdevstage, fig.cap="Offshore wind energy area development stages (no activity, planning, construction, operational) during different time periods from 2014-2023. The development stages were used as weighting factors assigned to each wind energy area to determine the potential effect on fisheries and habitat distribution (No stage - no effect; Planning stage - some effect; Construction stage - greater effect; Operational - most effect)."}
+```{r oswdevstage, out.width='100%', fig.cap="Offshore wind energy area development stages (no activity, planning, construction, operational) during different time periods from 2014-2023. The development stages were used as weighting factors assigned to each wind energy area to determine the potential effect on fisheries and habitat distribution (No stage - no effect; Planning stage - some effect; Construction stage - greater effect; Operational - most effect)."}
 
 knitr::include_graphics("images/WEA phases_OSW 1 figure.png")
 ```
@@ -2315,9 +2315,9 @@ layers/shape files available for designated shipping lanes, the boundary of the 
 National Marine Sanctuary, the boundary of the Northeast Canyons and Seamounts Marine
 National Monument, and the boundary of the Frank R. Lautenberg Deep-Sea Coral Protection
 Areas were used to determine the potential non-fishing activity areas that might restrict or
-displace fishing activities (Fig.ref{fig:overlap}).
+displace fishing activities (Fig. \ref{fig:overlap}).
 
-```{r overlap, fig.cap="Spatial overlap of estimated butterfish habitat and non-fishing activities along the northeast Atlantic. Butterfish habitat is estimated by the NRHA habitat distribution model and non-fishing activities include shipping channels, the Frank R. Lautenberg Deep Sea Coral Protection Area, the Stellwagen Bank National Marine Sanctuary, and the Northeast Canyons and Seamounts Marine National Monument."}
+```{r overlap, out.width='100%', fig.cap="Spatial overlap of estimated butterfish habitat and non-fishing activities along the northeast Atlantic. Butterfish habitat is estimated by the NRHA habitat distribution model and non-fishing activities include shipping channels, the Frank R. Lautenberg Deep Sea Coral Protection Area, the Stellwagen Bank National Marine Sanctuary, and the Northeast Canyons and Seamounts Marine National Monument."}
 
 knitr::include_graphics("images/ocean_use_butterfish.png")
 

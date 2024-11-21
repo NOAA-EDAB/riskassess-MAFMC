@@ -5,14 +5,14 @@ fontsize: 10pt
 geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
 link-citations: yes
 output:
-  bookdown::html_document2: 
-    toc: true
-    toc_float: true
-    code_fold: hide
   bookdown::pdf_document2:
     includes: 
        in_header: latex/header.tex
     keep_tex: true
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
+    code_fold: hide
   bookdown::word_document2:
     toc: true
 subparagraph: yes
@@ -51,13 +51,13 @@ library(patchwork)
 
 *Risk Element Information and Recommendations for Council Consideration*
 
-The Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management^[http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf], and revised the document in February 2019^[http://www.mafmc.org/s/EAFM-Doc-Revised-2019-02-08.pdf]. The Council’s stated goal for EAFM is “to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function.” Ecologically sustainable utilization is further defined as “utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem.” Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@gaichas_implementing_2018]. The Council completed its first risk assessment in 2017 and the risk elements included in the assessment spanned biological, ecological, social and economic issues and risk criteria for the assessment were based on a range of indicators and expert knowledge [@gaichas_implementing_2018].
+The Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management^[http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf], and revised the document in February 2019^[http://www.mafmc.org/s/EAFM-Doc-Revised-2019-02-08.pdf]. The Council’s stated goal for EAFM is “to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function.” Ecologically sustainable utilization is further defined as “utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem.” Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@gaichas_implementing_2018]. The Council completed its first risk assessment in 2017 and the risk elements included in the assessment spanned biological, ecological, social and economic issues and risk criteria for the assessment were based on a range of indicators and expert knowledge [@gaichas_implementing_2018]. 
 
-The risk assessment is updated annually and was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account.
+The risk assessment is updated annually and was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. 
 
 Given the length of time since its initial development, the availability of new information and analyses, and ever-changing risks facing Council-managed fisheries, the Council conducted a comprehensive review of the EAFM risk assessment in 2023. The goal of the review was to produce an updated risk assessment that incorporates the latest scientific information, reflects the Council’s current priorities, and can be adaptive and responsive to new and changing conditions that can support a variety of Council management needs. At the conclusion of the review, the Council identified 28 risk elements to be included in the updated assessment – 24 existing elements and 4 new elements. In addition, the Council supported new and/or revised indicators for 16 of the existing risk elements. 
 
-This draft document revises the Mid-Atlantic Council’s EAFM risk assessment and includes the changes approved by the Council as part of its comprehensive review and updates the assessment with the most recent data available, indicators from the 2024 State of the Ecosystem report, and with new analyses conducted by Council and Center staff for relevant risk elements. This report does not include rankings for 3 existing elements and the 4 new elements approved by the Council. Additional time is needed to develop the indicators and risk ranking criteria for these elements. Once developed, this information will be shared with the Council’s Ecosystem and Ocean Planning Committee and Advisory Panel for review and feedback. A final EAFM risk assessment report with information on all 28 risk elements will then be presented to the Council later this year for approval.  
+A draft document was presented to the Council in April 2024 and included the changes approved by the Council as part of its comprehensive review and incorporated the latest data, scientific information, and new analyses. However, the draft document included indicators and risk ranking criteria for 12 risk elements that were either considered draft or required additional development and analysis to finalize. Staff worked with the Council’s Ecosystem and Ocean Planning (EOP) Committee and Advisory Panel in 2024 to get additional input and direction on these draft risk elements. This report includes information on all 28 risk elements and reflects, where feasible, the feedback provided by the EOP. Some of the recommendations provided by the Committee and AP require additional development and are not available for all species and/or risk elements and are not included in this report (noted in \textcolor{red}{red}). It is anticipated that the 2025 risk assessment report (ready in April 2025) will address these recommendations and incorporate the latest information, including the 2025 State of the Ecosystem report.
 
 *Components of the EAFM risk assessment*
 
@@ -619,7 +619,7 @@ meancond
 
 Good body condition likely represents low risk of prey limitation, and body condition being uncorrelated with the major prey trend also likely represents low risk of prey limitation. Conversely, poor condition indicates elevated risk of prey limitation, and higher risk if poor condition coincides with decreasing trends in major prey. If declining body condition and declining major prey are correlated that may be highest risk. Correlation does not imply causation, but the predator condition and major prey index fluctuating together should warrant deeper investigation.
 
-The criteria evaluate condition status and major prey trends over the most recent 10 years. The EOP and AP recommended evaluating an alternative calculation using the full time series with a decay factor to emphasize the most recent 10 years. This second alternative will be presented in April 2025 along with the approach presented here. 
+The criteria evaluate condition status and major prey trends over the most recent 10 years. \textcolor{red}{The EOP and AP recommended evaluating an alternative calculation using the full time series with a decay factor to emphasize the most recent 10 years. This second alternative will be presented in April 2025 along with the approach presented here.} 
 
 
   -----------------------------------------------------------------------
@@ -640,7 +640,7 @@ The criteria evaluate condition status and major prey trends over the most recen
 
 **Risk Assessment**
 
-We demonstrate applying the criteria to three Council managed species to date with preliminary data for the Mid Atlantic Bight: Atlantic mackerel, black sea bass, and bluefish. Other species will be added as diet compositions are analyzed and prey indices are developed. We use the summaries from the [NEFSC food habits database](https://fwdp.shinyapps.io/tm2020/) and forage fish, benthic invertebrate, and zooplankton indicators submitted to the 2025 State of the Ecosystem report in these examples. 
+We demonstrate applying the criteria to three Council managed species to date with preliminary data for the Mid Atlantic Bight: Atlantic mackerel, black sea bass, and bluefish. \textcolor{red}{Other species will be added as diet compositions are analyzed and prey indices are developed.} We use the summaries from the [NEFSC food habits database](https://fwdp.shinyapps.io/tm2020/) and forage fish, benthic invertebrate, and zooplankton indicators submitted to the 2025 State of the Ecosystem report in these examples. 
 
 Fish condition calculated as the mean over the past decade (2014-2023) results in Atlantic mackerel and bluefish having above average condition and black sea bass having poor condition. Preliminary prey indices for each species show a 10 year declining trend in small copepods and long term declining trends for both small copepods and forage fish, but no 10 year or long term trends for benthic macroinvertebrates. Condition and prey index trends are uncorrelated for Atlantic mackerel and bluefish. The black sea bass condition time series and the benthic macroinvertebrate time series are correlated, but this prey group represents ~25% of black sea bass diet.
 
@@ -768,7 +768,7 @@ Available fish consumption indicators show a recent increasing trend for Atlanti
 
 Atlantic mackerel and butterfish have at least 30% of overall mortality attributed to fish predation in preliminary food web models. The EOP and AP did not decide on a threshold for moderate or high proportions of overall mortality. We currently assume that this level of mortality from fish predators is moderate, therefore both are assigned moderate-high predation risk. 
 
-Indicators for the remaining species will be developed further for the 2025 Risk Assessment.
+\textcolor{red}{Indicators for the remaining species will be developed further for the 2025 Risk Assessment.}
 
 
 ### Food Web (3) - Protected Species Prey
@@ -809,7 +809,7 @@ species is defined here as individually comprising \>30% of the
 predator's diet by weight. Critical prey warranting a high risk ranking
 would be a majority (\>50%) of diet for an individual protected species.
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -1058,7 +1058,7 @@ was a very high climate vulnerability ranking.
 
 Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{fig:NEVAvul}). 
 
-As noted in the SOE, ocean quahog have highest climate vulnerability among Mid-Atlantic managed species. Surfclams, black sea bass, and both species of tilefish ranked moderate-high risk. Summer flounder, scup, and Atlantic mackerel ranked moderate-high risk. The remaining species ranked low risk. Chub mackerel, unmanaged forage, and deepsea corals were not ranked in the CVA.
+As noted in the SOE, ocean quahog have highest climate vulnerability among Mid-Atlantic managed species. Surfclams, black sea bass, and both species of tilefish ranked moderate-high risk. Summer flounder, scup, and Atlantic mackerel ranked moderate-high risk. The remaining species ranked low risk. Chub mackerel, unmanaged forage, and deep sea corals were not ranked in the CVA.
 
 
 ### Distribution Shifts
@@ -1110,7 +1110,7 @@ Along shelf distances range from 0 to 1360 km, which relates to
 positions along the axis from the origin in the southwest to the
 northeast. All species combined show a shift to the northeast and into
 deeper water (Fig. \ref{fig:species-dist}). Individual Council managed species distribution
-centeroids, aside from squids, also showed this trend to the northeast
+centroids, aside from squids, also showed this trend to the northeast
 along the shelf in previous analysis.
 
 ```{r species-dist, fig.cap = "Aggregate species distribution metrics for species in the Northeast Large Marine Ecosystem: along shelf distance with increasing trend (orange), and depth with decreasing trend indicating deeper water (purple).", fig.width = 8, fig.asp=0.3}
@@ -1246,7 +1246,7 @@ temperature within the feature.
 
 An integrated habitat model could be updated to evaluate trends in available or favorable habitat for each Council managed species. Random forest habitat models have been developed for many Council managed species to estimate spring and fall habitat use based on the NEFSC bottom trawl survey. The variables included in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. 
 
-The EOP prefers to use species specific habitat indicators from ESPs to start. 
+\textcolor{red}{The EOP prefers to use species specific habitat indicators from ESPs to start.} 
 
 **Risk criteria:**
 
@@ -1268,7 +1268,7 @@ Criteria for using multiple habitat indicators
 
 **Risk Assessment**
 
-To be developed for each species as ESPs come online.
+\textcolor{red}{To be developed for each species as ESPs come online.}
 
 ## Economic Elements
 
@@ -1654,26 +1654,20 @@ ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity", n=10)
 ```
 
 The Ecosystem and Ocean Planning Committee and AP also recommended a
-harvest:catch ratio by mode indicator be examined, but not included in the risk criteria. 
+harvest:catch ratio by mode indicator be examined (Fig. \ref{fig:discratio}), but not included in the risk criteria. 
 The intent of this indicator would be to evaluate if recreational fishing behavior/preferences are
 changing (i.e., harvest versus catch and release) within the different
 recreational modes/sectors. 
 
-The EOP Committee and AP also recommended a harvest:catch ratio by mode indicator. The
-intent of this indicator would be to evaluate if recreational fishing behavior/preferences are
-changing (i.e., harvest versus catch and release) within the different recreational modes/sectors.
-There has been a substantial increase in discards as a proportion of catch across all modes (Fig. \ref{fig:discratio}). However, it is unclear from these indicators what is driving this result (e.g. changes in
-preferences vs. regulatory discards), or exactly how this would be combined with the effort
-diversity indicator to develop a composite measure of risk.
 
-```{r discratio}
+```{r discratio, fig.cap="Discards as a proportion of catch by recreational mode."}
 knitr::include_graphics("shoresideetc/Discard_ratio.png")
 
 # see also Geret's code here::here("shoresideetc/Discard_ratio_code_2024.R") and associateddatasets in the same folder to remake this figure
 ```
 
 
-At present, the EOP recommends that criteria are based only on the existing diversity indicator.
+\textcolor{red}{At present, the EOP recommends that criteria are based only on the existing diversity indicator.}
 
 **Risk criteria:**
 
@@ -1719,7 +1713,7 @@ The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
 of communities to events such as regulatory changes to fisheries, wind
 farms, and other ocean-based businesses, as well as to natural hazards,
 disasters, and climate change. The CSVIs currently serve as indicators
-of environmental justice (poverty, population composition, and personal disruption), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing engagement and per capita engagement. Fishing communities were defined as those with medium high or high engagement or per capita engagement. High vulnerability within each category was defined as a medium-high or high score on at least one of the indicators within each category.
+of environmental justice (poverty, population composition, and personal disruption), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing engagement and per capita engagement. Fishing communities were defined as those with medium high or high engagement or per capita engagement. High vulnerability within each category was defined as a medium high or high score on at least one of the indicators within each category.
 
 In past assessments we used static indicators of sea level rise risk, species
 vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. In the current assessment we have time series indicators of community climate change risk.
@@ -1958,11 +1952,11 @@ ggplot2::ggplot() + #, group=PORT_NAME
 
 **Risk Assessment**
 
-In past risk assessments based on 2016 data, four of the top communities (20%) had three or more high risk rankings out of five indicators, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
+In past risk assessments based on 2016 data, four of the top communities (20%) had three or more high risk rankings out of five indicators, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. 
 
 The current risk assessment uses 2022 data, modified criteria for fewer indicator categories and a different set of social indicators. Over 48% of commercial fishing dependent communities and 34% of recreational fishing dependent communities had two or more high social vulnerability ratings. This would rank communities moderate-high for social vulnerability for either sector. Therefore, social vulnerability risk is ranked moderate-high. 
 
-In addition, there is evidence that a majority of Mid-Atlantic communities have high to very high revenue climate vulnerability. This information can be specifically included in future assessments with additional criteria. However, it reinforces at least a moderate-high risk ranking for social vulnerability. 
+In addition, there is evidence that a majority of Mid-Atlantic communities have high to very high revenue climate vulnerability. \textcolor{red}{This information can be specifically included in future assessments with additional criteria.} However, it reinforces at least a moderate-high risk ranking for social vulnerability. 
 
 
 ## Food Production Elements
@@ -1974,7 +1968,7 @@ In addition, there is evidence that a majority of Mid-Atlantic communities have 
 This element is applied at the ecosystem level, and describes the risk
 of not optimizing domestic commercial fishing production from
 Council-managed species and total commercial fishing production in the
-Mid-Atlantic. Commercial seafood landings , as well as total landings
+Mid-Atlantic. Commercial seafood landings, as well as total landings
 which include bait, are used to assess fishing production.
 
 **Definition:**
@@ -2168,15 +2162,14 @@ ecosystem structure and function.
 
 In order to determine the changes in species stock and/or habitat distribution and the overlap with
 wind energy areas (WEAs), the spatial distribution of species-specific catches for Mid-Atlantic
-managed fisheries from the NEFSC bottom trawl survey from two different time periods were
-used (2014-2018 and 2019-2023). These time periods were selected based on feedback by the
-Committee and AP in July that recommended using shorter time blocks and the most recent data
+managed fisheries from the NEFSC bottom trawl survey from two different time periods (2014-2018 and 2019-2023) were
+used. These time periods were selected based on feedback by the
+Committee and AP that recommended using shorter time blocks and the most recent data
 available. GIS mapping layers/shape files for all active (as of October 2024) commercial and
 research offshore wind energy leases along the Atlantic coast were used to determine the spatial
 coverage of each WEA lease. Spatial overlap was then estimated by determining the proportion
-of positive catches for each species inside each WEA during the two time blocks. Also, as
-recommended by the Committee and AP in July, a weighted spatial overlap was calculated based
-on the current development stage of each WEA - planning, construction, or operational. WEAs
+of positive catches for each species inside each WEA during the two time blocks. A weighted spatial overlap was also calculated based
+on the current development stage of each WEA - planning, construction, or operational (Fig. \ref{fig:oswdevstage}). WEAs
 that are currently in a planning phase (e.g., proposed, obtaining permits) were weighted by a
 factor of 0.1 with the assumption those WEAs would have the least/limited effect on
 species/habitat distribution. WEAs in the construction phase were weighted by a factor of 0.5
@@ -2185,8 +2178,13 @@ species/habitat distribution within the WEA. Finally, those WEAs in the operatio
 weighted by a factor of 1.0 with the assumption those WEAs would have the greatest effect
 (positive or negative) on the species/habitat distribution within the WEA.
 
-The total spatial overlap across all WEA’s and a total weighted spatial overlap for the 2014-2018
-and 2019-2023 time blocks for summer flounder are provided below.
+\textcolor{red}{The Committee and AP recommended testing different weighting options for the three WEA development phases, particularly the planning phase. This analysis requires additional time and will be considered for the 2025 risk assessment.} 
+
+```{r oswdevstage, fig.cap="Offshore wind energy area development stages (no activity, planning, construction, operational) during different time periods from 2014-2023. The development stages were used as weighting factors assigned to each wind energy area to determine the potential effect on fisheries and habitat distribution (No stage - no effect; Planning stage - some effect; Construction stage - greater effect; Operational - most effect)."}
+
+knitr::include_graphics("images/WEA phases_OSW 1 figure.png")
+```
+
 
 
 **Risk criteria:**
@@ -2203,20 +2201,15 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-The proposed risk criteria are similar to those presented to the Committee and AP back in July
-except under the high-risk definition the term “significant increases” was replaced with “large
-increases”. This change was recommended by the Committee and AP since “significant” has a
-statistical meaning and is not being applied here. In addition, the low-moderate definition now
-includes “decreasing or similar” overlap to account for situations where there is overlap with a
-WEA and stock/habitat distribution but the trend is neither increasing or decreasing. 
+Since the stock/habitat distribution indicator is developed at the stock level, the same risk level is assigned to both the commercial and recreational sectors.
 
 **Risk Assessment**
 
-Using the proposed risk criteria, summer flounder, scup, black sea bass, Atlatic mackerel, butterfish, longfin squid, bluefish, and spiny dogfish are assigned low-moderate risk. Summer flounder had declining overlap during 14-18 and 19-23 time periods and similar wieghted overlap between two time periods. Scup had declining overlap during 14-18 and 19-23 time periods and declining wieghted overlap between two time periods. Black sea bass had slightly declining overlap during 14-18 and 19-23 time periods and similarly small declines in wieghted overlap between two time periods. Atlantic mackerel had similar spatial overlap during 14-18 and 19-23 time periods and declining wieghted spatial overlap between two time periods. Butterfish had decreasing spatial overlaop during the 14-18 and 19-23 time period and stable/similar weighted overlap during two time periods. Longfin squid had declining spatial overlap during 14-18 and 19-23 time periods and slight increases in weighted spatial overlap between two time periods. Bluefish had moderate decreases in spatial and weighted spatial overlap between 14-18 and 19-23 time periods. Spiny dogfish had slight increases in spatial and weighted spatial overlap between 14-18 and 19-23 time periods.  
+Using the risk criteria, summer flounder, scup, black sea bass, Atlantic mackerel, butterfish, longfin squid, bluefish, and spiny dogfish are assigned low-moderate risk. Summer flounder had declining overlap during 14-18 and 19-23 time periods and similar weighted overlap between two time periods. Scup had declining overlap during 14-18 and 19-23 time periods and declining weighted overlap between two time periods. Black sea bass had slightly declining overlap during 14-18 and 19-23 time periods and similarly small declines in weighted overlap between two time periods. Atlantic mackerel had similar spatial overlap during 14-18 and 19-23 time periods and declining weighted spatial overlap between two time periods. Butterfish had decreasing spatial overlap during the 14-18 and 19-23 time period and stable/similar weighted overlap during two time periods. Longfin squid had declining spatial overlap during 14-18 and 19-23 time periods and slight increases in weighted spatial overlap between two time periods. Bluefish had moderate decreases in spatial and weighted spatial overlap between 14-18 and 19-23 time periods. Spiny dogfish had slight increases in spatial and weighted spatial overlap between 14-18 and 19-23 time periods.  
 
-Shortfin squid, golden tilefish, blueline tilefish, and chub mackerel are assigned low risk. Only 2 Illex squid and 1 chub mackerel were caught in WEAs during two time periods considered (14-18 and 19-23). No golden or blueline tilefish were caught in WEA during two time periods considered (14-18 and 19-23).  This risk factor is not relevant for deepsea corals. 
+Shortfin squid, golden tilefish, blueline tilefish, and chub mackerel are assigned low risk. Only 2 Illex squid and 1 chub mackerel were caught in WEAs during two time periods considered (14-18 and 19-23). No golden or blueline tilefish were caught in WEA during two time periods considered (14-18 and 19-23). This low risk ranking might be artificially low because the NEFSC trawl survey does not sample these species particularly well. In the future, a model-based approach using the Northeast Regional Habitat Assessment (NRHA) habitat distribution model will be used to calculate spatial overlap and should be more comprehensive indicator, particularly for these species.
 
-Since the stock/habitat distribution indicator is developed at the stock level, the same risk level is assigned the same for both the commercial and recreational sectors.
+The risk criteria were not applied to surf clam, ocean quahog, or unmanaged forage given the use of NEFSC trawl survey information which is not used for these species. This risk factor is not relevant for deep sea corals.
 
 
 ### Offshore Wind -- Fishery Science and Access (new)
@@ -2243,15 +2236,9 @@ scientific uncertainty.
 
 **Indicators:**
 
-What: Amount of revenue within and relevant survey overlap with WEAs
-Who: Species specific revenue estimates from NMFS; NEFSC bottom trawl strata and catch by species
-How: Proportion of revenue in WEA relative to total fishery revenue; proportion of NEFSC trawl survey strata by species within WEA
+A combination of two indicators are used to assess the risk of offshore wind development of fishery science and access. One indicator was developed to evaluate the potential impacts of offshore wind to the science information that supports Mid-Atlantic stock assessments. Catch by species and strata from the NEFSC bottom trawl survey was used in the development of the indicator. Strata in which a species was never caught were removed and the total survey area was calculated using those strata in which the species was caught at any time during. The spatial foodprint of each wind energy areas (WEAs), as of October 2024, was used to estimate the spatial overlap associated with each survey strata in which a species was caught. Similar to the approach taken with the Offshore Wind (1) – Biological/Ecosystem risk element, a weighed spatial overlap was estimated based on the current development stage of each WEA – planning, construction, or operational.
 
-Indicators for the Mid-Atlantic State of the Ecosystem and socioeconomic
-impacts web site. Fishery revenue (Fig. \ref{fig:wea-spp-rev}) and party charter activity from within
-lease areas by species, fleet, or community, community
-vulnerability/engagement/EEJ, spatial overlap of lease areas and federal
-fisheries surveys.
+The second indicator was developed to evaluate the potential loss of fishing access within the WEAs. Commercial landings and revenue data within the WEAs are estimated for each species by the NEFSC and GARFO (https://www.greateratlantic.fisheries.noaa.gov/ro/fso/reports/WIND/ALL_WEA_BY_AREA_DATA.html). This information has been included in recent Mid-Atlantic and New England State of the Ecosystem reports (Fig. \ref{fig:wea-spp-rev}). The most recent five years (2019-2023) were used to estimate the average proportion of revenue within the WEA relative to the total fishery revenue by species. 
 
 ```{r wea-spp-rev, fig.cap="Fishery revenue in wind energy lease areas in the Mid-Atlantic.",  fig.width=5, fig.asp=.4}
 #code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-spp-rev.R"),
@@ -2262,26 +2249,36 @@ ecodata::plot_wind_revenue(report = "MidAtlantic", varName = "value", plottype =
 
 
 FishRules and FishBrain apps for recreational fishing spatial overlap
-information (work is still under review).
+information may provide information for recreational fishery overlap indicator in the future (work is still under review).
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
   Low             No revenue in WEA; no survey overlap with WEAs
 
-  Low-Moderate    Low revenue in WEA (</=5%); low survey overlap with WEAs (</=10%)
+  Low-Moderate    Low revenue in WEA; low survey overlap with WEAs
 
-  Moderate-High   Moderate revenue in WEAs (6-19%); moderate survey overlap with WEAs (11-30%)
+  Moderate-High   Moderate revenue in WEAs; moderate survey overlap with WEAs
 
-  High            Significant revenue in WEAs (>20%); significant survey overlap with WEA (>30%)
+  High            Significant revenue in WEAs; significant survey overlap with WEA
 
   -----------------------------------------------------------------------
+  
+Low revenue within a WEA was defined as </=5% and low survey overlap was defined as </= 10%.  Moderate revenue was defined as 6-20% and moderate survey overlap was defined as 11-30%. Significant revenue was defined as >20% and significant survey overlap was defined as >30%. \textcolor{red}{The EOP Committee and AP did not specify a preference for applying the standard survey spatial overlap or the weighted spatial overlap. Depending on preference and how used, the survey overlap thresholds associated with each risk level may need to be modified.}
+
+As mentioned in the Indicator section above, we currently do not have an indicator to evaluate recreational fishing access within the WEAs; therefore, a risk assessment ranking was not developed for the recreational sector. 
+  
 
 **Risk Assessment**
 
-A subset of species have been assessed, with more to be added as the data become available. Commercial summer flounder, scup, Atlantic mackerel, butterfish, longfin squid, bluefish, and chub mackerel have low-moderate risk. Commercial black sea bass has moderate-high risk.  
+Using the two indicators and risk criteria defined above, commercial summer flounder, scup, Atlantic mackerel, butterfish, longfin squid, bluefish, spiny dogfish, and chub mackerel have low-moderate risk. For summer flounder, the average (2019-2023) commercial revenue from WEAs was 4.2% and the spatial overlap with the survey by WEA phase was 5.88%. For scup, the average commercial revenue from WEAs was 5.7% and the spatial overlap with the survey by WEA phase was 5.58%. Atlantic mackerel had an average commercial revenue from the WEAs of 2.1% and spatial overlap with survey by WEA phase of 3.97%. Butterfish had an average commercial revenue from WEAs of 3.7% and spatial overlap with survey by WEA phase of 3.9%. For longfin squid, the average commercial revenue from WEAs was 4.2% (note: there was an increasing trend and was almost 6% in 2023) and the spatial overlap with survey by WEA phase was 3.9%. A similar trend was observed chub mackerel where the average commercial revenue from WEAs was 2.9% but had an increasing trend and was over 7% in 2023. The spatial overlap with the chub mackerel survey strata by WEA phase was the highest observed at 7.01%. Bluefish had an average commercial revenue from WEAs of 2.7% and spatial overlap with survey by WEA phase of 5.58%. Finally, spiny dogfish had an average commercial revenue from the WEAs of 0.5%, the smallest of all calculated, and a spatial overlap with the survey by WEA phase of 3.91%.
+
+Commercial black sea bass was the only moderate-high risk ranking. The average commercial revenue from WEAs was 6.1%, in the moderate range, and spatial overlap with survey by WEA phase was 5.27%. 
+
+A risk assessment ranking was not conducted for those species in which the NEFSC bottom trawl survey does not sample well – surfclam, ocean quahog, blueline tilefish, and golden tilefish. 
+
 
 ### Other Ocean Activities
 
@@ -2318,11 +2315,19 @@ layers/shape files available for designated shipping lanes, the boundary of the 
 National Marine Sanctuary, the boundary of the Northeast Canyons and Seamounts Marine
 National Monument, and the boundary of the Frank R. Lautenberg Deep-Sea Coral Protection
 Areas were used to determine the potential non-fishing activity areas that might restrict or
-displace fishing activities (Figure 8).
+displace fishing activities (Fig.ref{fig:overlap}).
+
+```{r overlap, fig.cap="Spatial overlap of estimated butterfish habitat and non-fishing activities along the northeast Atlantic. Butterfish habitat is estimated by the NRHA habitat distribution model and non-fishing activities include shipping channels, the Frank R. Lautenberg Deep Sea Coral Protection Area, the Stellwagen Bank National Marine Sanctuary, and the Northeast Canyons and Seamounts Marine National Monument."}
+
+knitr::include_graphics("images/ocean_use_butterfish.png")
+
+```
+
 
 The spatial overlap was then calculated by taking the total area of the non-fishing activities and
-amount of estimated habitat within the non-fishing areas. An example “Other Ocean Activities”
-spatial overlap map and calculations for summer flounder are provided here.
+amount of estimated habitat within the non-fishing areas.
+
+\textcolor{red}{The EOP Committee and AP recommended including military activities and using AIS data to expanded shipping lane information as part of the spatial overlap calculations. These additional non-fishing activities will be included in the 2025 risk assessment report.}
 
 **Risk criteria:**
 
@@ -2341,23 +2346,14 @@ spatial overlap map and calculations for summer flounder are provided here.
   High            High overlap with fisheries; serious disruptions to fishery prosecution
   -----------------------------------------------------------------------
 
-With a quantitative evaluation available for this indicator, there is the potential to use a
-range/binned approach to specify risk level (e.g., 0-10% overlap, low risk; 11-25% overlap, lowmoderate risk; 26-50% overlap, moderate-high risk; >50% overlap, high risk), but the bins
-associated with the risk level would likely be arbitrary. Similarly, without some specificity to the
-risk criteria definition, defining what constitutes “low-moderate”, “moderate”, and “high” risk
-would also be arbitrary. 
+With a quantitative evaluation available for this indicator, there is the potential to use a range/binned approach to specify risk level (e.g., 0-10% overlap, low risk; 11-25% overlap, low-moderate risk; 26-50% overlap, moderate-high risk; >50% overlap, high risk), but the bins associated with the risk level would likely be arbitrary. \textcolor{red}{For now, the EOP Committee and AP recommended applying a qualitative assessment to the risk criteria.} 
 
 **Risk Assessment**
 
-Using the potential risk criteria definitions and/or the example binned levels, the example for
-summer flounder would be assigned low risk. While summer flounder habitat does have
-moderate overlap with shipping lanes, there is minimal, near zero overlap with the currently
-included monuments, sanctuaries, or protected areas. Since the habitat distribution indicator is
-developed at the stock level, the same risk level would be assigned the same for both the
-commercial and recreational summer flounder sectors.
+Summer flounder, butterfish, Illex squid, and bluefish were all ranked as low-moderate risk. The spatial overlap of habitat distribution and the four non-fishing activities ranged from 0%-25% with shipping lanes comprising the highest spatial overlap across all four stocks. The highest average overlap across all four non-fishing activities was 6.6% for bluefish.
 
-The risk assessment can be completed for the other stocks which have the NRHA habitat distribution model results
-available (bluefish, butterfish, Illex squid). 
+The spatial overlap indicator and risk criteria can only be applied to those stocks which have the NRHA habitat distribution model results available (summer flounder, bluefish, butterfish, and Illex squid). The model is currently being developed for all Mid-Atlantic stocks and, once available, the risk criteria can be applied to the remaining species.
+
 
 ### Regulatory Complexity and Stability 
 
@@ -2373,7 +2369,7 @@ Risk of not achieving OY due to frequency of regulatory modifications and regula
 
 For this element, a combination of qualitative and quantitative indicators were used. Council staff used a qualitative evaluation of the relative complexity of the regulations contained within an FMP and a quantitative approach that considered the frequency of any regulatory change over the last 5 years by fishery and sector. In addition, for the recreational sector, the number of states in management unit with different regulations was also used. 
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
@@ -2405,7 +2401,7 @@ Risk of not minimizing regulatory discards, bycatch mortality, and incidental ca
 
 NMFS provides estimates of discards by species based, in large part, on at-sea observations collected in the Northeast Fisheries Observer Program (NEFOP), for stock assessment purposes and quota monitoring. The observer program provides information on the reason for discarding during a commercial trip. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards and incidental catch were evaluated for each species and fishery with a focus on identifying discards caused by regulations for each fishery sector. All of this information was used to estimate total dead discards by fishing sector. The proportion of dead discards to overall catch (dead discards + harvest) of the target species by sector was calculated as one indicator. The discard mortality rate for the dominant gear type used in the stock assessment were used as another indicator. The relative proportion of non-target species to the total catch was also considered when evaluating the criteria. 
 
-**Potential risk criteria:**
+**Risk criteria:**
 
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*

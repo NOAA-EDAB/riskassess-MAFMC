@@ -92,9 +92,9 @@ Risk Element|Risk Ranking|Risk Ranking Criteria
  Offshore wind (Bio/Ecosystem)   | Moderate-High | Moderate increases in stock or habitat distribution overlap within WEAs 
  Offshore wind (Bio/Ecosystem)   | High | Large increases in stock or habitat distribution overlap within WEAs
  Offshore wind (Science/Access)   | Low  | No revenue in WEA; no survey overlap with WEAs 
- Offshore wind (Science/Access)   | Low-Moderate | Low revenue in WEA (</=5%); low survey overlap with WEAs (</=10%) 
- Offshore wind (Science/Access)   | Moderate-High | Moderate revenue in WEAs (6-19%); moderate survey overlap with WEAs (11-30%) 
- Offshore wind (Science/Access)   | High | Significant revenue in WEAs (>20%); significant survey overlap with WEA (>30%) 
+ Offshore wind (Science/Access)   | Low-Moderate | Low revenue in WEA; low survey overlap with WEAs 
+ Offshore wind (Science/Access)   | Moderate-High | Moderate revenue in WEAs; moderate survey overlap with WEAs 
+ Offshore wind (Science/Access)   | High | Significant revenue in WEAs; significant survey overlap with WEA 
  Other ocean activities   | Low  | No or low spatial overlap with fisheries; no or very limited impact on fishery prosecution  
  Other ocean activities   | Low-Moderate | Low to moderate overlap with fisheries; some impact on fishery prosecution  
  Other ocean activities   | Moderate-High | Moderate to high overlap with fisheries; large disruptions to fishery prosecution  

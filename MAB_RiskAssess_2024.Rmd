@@ -5,14 +5,14 @@ fontsize: 10pt
 geometry: left=2cm, right=2cm, top=2cm, bottom=3cm, footskip = .5cm
 link-citations: yes
 output:
-  bookdown::pdf_document2:
-    includes: 
-       in_header: latex/header.tex
-    keep_tex: true
   bookdown::html_document2: 
     toc: true
     toc_float: true
     code_fold: hide
+  bookdown::pdf_document2:
+    includes: 
+       in_header: latex/header.tex
+    keep_tex: true
   bookdown::word_document2:
     toc: true
 subparagraph: yes
@@ -1698,7 +1698,7 @@ There is a significant long term and recent decrease in recreational fleet effor
 
 **Description:**
 
-This element ranks the vulnerability of communities to events such as
+This element ranks the potential vulnerability of communities to events such as
 regulatory changes to fisheries, wind farms, and other ocean-based
 businesses, as well as to natural hazards, disasters, and climate
 change. Vulnerability metrics can help assess the relative impact of
@@ -1715,19 +1715,19 @@ engagement).
 **Indicators:**
 
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs;
-@jepson_development_2013) are statistical measures of the vulnerability
+@jepson_development_2013) are statistical measures of the potential vulnerability
 of communities to events such as regulatory changes to fisheries, wind
 farms, and other ocean-based businesses, as well as to natural hazards,
 disasters, and climate change. The CSVIs currently serve as indicators
-of environmental justice (poverty, population composition, and personal disruptuon), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing dependence (with dependence defined as medium high or high reliance or engagement). High vulnerability within each category was defined as a medium-high or high score on at least one of the indicators within each category.
+of environmental justice (poverty, population composition, and personal disruption), gentrification pressure (housing disruption, retiree migration, and urban sprawl), and economic (labor force structure and housing characteristics) vulnerability, along with commercial and recreational fishing engagement and per capita engagement. Fishing communities were defined as those with medium high or high engagement or per capita engagement. High vulnerability within each category was defined as a medium-high or high score on at least one of the indicators within each category.
 
 In past assessments we used static indicators of sea level rise risk, species
-vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. In the current assessment we have time series indicators of community climate vulnerability.
+vulnerability to climate change, and catch composition diversity [@colburn_indicators_2016; @jepson_development_2013, @hare_vulnerability_2016]. In the current assessment we have time series indicators of community climate change risk.
 
 To estimate "high" vulnerability across current indicators (which
 are ranked on different scales), we tallied rankings  of
 MedHigh or High for social and economic vulnerability and gentrification pressure.
-We considered a majority (2 or more out 3) to represent high risk to a
+We considered a majority (2 or more out of 3) to represent high risk to a
 community overall.
 
 ```{r commtab}
@@ -1854,7 +1854,7 @@ threerec <- recdep |>
   dplyr::summarise(high=sum(n))
 
 
-socrisk <- data.frame(Community = c("Commercial Fishing Dependent", "Recreational Fishing Dependent"),
+socrisk <- data.frame(Community = c("Commercial Fishing", "Recreational Fishing"),
                       Number = c(ncomdep, nrecdep),
                       EJvul = round(c(sum(EJcom$high)/ncomdep*100, sum(EJrec$high)/nrecdep*100), 1),
                       Econvul = round(c(sum(Econcom$high)/ncomdep*100, sum(Econrec$high)/nrecdep*100), 1),
@@ -1876,7 +1876,7 @@ flextable::flextable(socrisk) |>
 Newly available time series indicators can be added to evaluate change in climate-related risk to community commercial fishery revenue over time from temperature, ocean acidification, and stock status, with overall rankings of sensitivity and vulnerability (Figs. \ref{fig:commvulmap}, \ref{fig:commvulex}). Based on these indicators, a majority of Mid-Atlantic communities face high or very high climate-related vulnerability. These indicators are not currently included in the risk assessment criteria.
 
 
-```{r commvulmap, out.width='60%', fig.cap="Current 5 year average climate vulnerability for Mid-Atlantic community revenue."}
+```{r commvulmap, out.width='60%', fig.cap="Current (2018-2022) 5 year average climate vulnerability for Mid-Atlantic community revenue."}
 knitr::include_graphics("CCCVI-NE/NE_Total_Vulnerability_092624 - Tarsila Seara - NOAA Federal.jpg")
 ```
 
@@ -1960,9 +1960,9 @@ ggplot2::ggplot() + #, group=PORT_NAME
 
 In past risk assessments based on 2016 data, four of the top communities (20%) had three or more high risk rankings out of five indicators, so we ranked overall social-cultural risk as low-moderate for these Mid-Atlantic communities. However, newer analyses evaluating EJ vulnerability could be incorporated into this analysis.
 
-The current risk assessment uses 2022 data, modified criteria for fewer indicator categories and a different set of social indicators. Over 48% of commercial fishing dependent communities and 34% of recreational fishing dependent communities had two or more high social vulnerability ratings. This would rank communities moderate-high to high for social vulnerability for either sector. Therefore, social vulnerability risk is ranked moderate-high. 
+The current risk assessment uses 2022 data, modified criteria for fewer indicator categories and a different set of social indicators. Over 48% of commercial fishing dependent communities and 34% of recreational fishing dependent communities had two or more high social vulnerability ratings. This would rank communities moderate-high for social vulnerability for either sector. Therefore, social vulnerability risk is ranked moderate-high. 
 
-In addition, there is evidence that a majority of Mid-Atlantic communities (including the subset identified as fishery dependent) have high to very high revenue climate vulnerability. This information can be specifically included in future assessments with additional criteria. However, it reinforces at least a moderate-high risk ranking for social vulnerability. 
+In addition, there is evidence that a majority of Mid-Atlantic communities have high to very high revenue climate vulnerability. This information can be specifically included in future assessments with additional criteria. However, it reinforces at least a moderate-high risk ranking for social vulnerability. 
 
 
 ## Food Production Elements

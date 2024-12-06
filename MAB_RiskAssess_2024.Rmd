@@ -1966,7 +1966,7 @@ In addition, there is evidence that a majority of Mid-Atlantic communities have 
 **Description:**
 
 This element is applied at the ecosystem level, and describes the risk
-of not optimizing domestic commercial fishing production from
+of not optimizing domestic seafood production from
 Council-managed species and total commercial fishing production in the
 Mid-Atlantic. Commercial seafood landings, as well as total landings
 which include bait, are used to assess fishing production.
@@ -1983,8 +1983,149 @@ were used to assess fishing production.
 
 ```{r total-landings, fig.width=6, fig.asp=.8, fig.cap = "Total commercial landings (black), total U.S. seafood landings (blue), and Mid-Atlantic managed U.S. seafood landings (red), with significant declines (purple) in total and U.S. seafood landings."}
 #code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-total-landings.R")
-ecodata::plot_comdat(report = "MidAtlantic", varName = "landings", n=10) #+
+#ecodata::plot_comdat(report = "MidAtlantic", varName = "landings", n=10) #+
   #ggplot2::ylab("")
+
+# get rid of blue line
+setup <- ecodata::plot_setup(shadedRegion = NULL,
+                               report="MidAtlantic")
+
+  # which report? this may be bypassed for some figures
+#  if (report == "MidAtlantic") {
+    filterEPUs <- c("MAB")
+#  } else {
+#    filterEPUs <- c("GB", "GOM")
+#  }
+
+  # optional code to wrangle ecodata object prior to plotting
+  # e.g., calculate mean, max or other needed values to join below
+  #
+  series.col2 <- c("indianred",  "black") #, "steelblue4") # total landings
+
+
+  #if(varName == "landings") {
+    managed_landings <- ecodata::comdat  |>
+      dplyr::filter(Var %in% c("Planktivore MAFMC managed species - Seafood Landings",
+                               "Piscivore MAFMC managed species - Seafood Landings",
+                               "Benthivore MAFMC managed species - Seafood Landings",
+                               "Apex Predator MAFMC managed species - Seafood Landings",
+                               "Benthos MAFMC managed species - Seafood Landings",
+                               "Planktivore NEFMC managed species - Seafood Landings",
+                               "Piscivore NEFMC managed species - Seafood Landings",
+                               "Benthivore NEFMC managed species - Seafood Landings",
+                               "Apex Predator NEFMC managed species - Seafood Landings",
+                               "Benthos NEFMC managed species - Seafood Landings",
+                               "Planktivore JOINT managed species - Seafood Landings",
+                               "Piscivore JOINT managed species - Seafood Landings",
+                               "Benthivore JOINT managed species - Seafood Landings",
+                               "Apex Predator JOINT managed species - Seafood Landings",
+                               "Benthos JOINT managed species - Seafood Landings"),
+                    Time >= 1982) |>
+      dplyr::filter(stringr::str_detect(Var, paste0("JOINT|", setup$council_abbr)))
+
+
+    US_landings <- ecodata::comdat  |>
+      dplyr::filter(Var == "Seafood Landings", # There may be US landings that aren't seafood
+                    Time >= 1982)
+
+    # Dec 2023:
+    # Total is not total for 2019 on due to missing NAFO data
+    # NAFO total dataset under construction will need to be added
+    # NAFO_landings <- ecodata::NAFO |>
+    #   dplyr::filter(Time >= NAFOyear)
+
+    total_landings <- ecodata::comdat  |>
+      dplyr::filter(Var %in% c("Planktivore Landings",
+                               "Piscivore Landings",
+                               "Benthivore Landings",
+                               "Apex Predator Landings",
+                               "Benthos Landings",
+                               "Other Landings"),
+                    Time >= 1982) |>
+      dplyr::mutate(grouping = c("Total")) |>
+      tidyr::separate(Var, into = c("feeding.guild"), sep = " ") #|>
+      #dplyr::bind_rows(NAFO_landings) |>
+      #dplyr::group_by(EPU,Time, feeding.guild) |>
+      #dplyr::summarise(Value = sum(Value))
+
+    managed_landings_guild <- managed_landings |>
+      tidyr::separate(Var, into = c("feeding.guild"), sep = " ") |>
+      dplyr::group_by(feeding.guild, EPU, Time) |>
+      dplyr::summarise(Value = sum(Value)) |>
+      dplyr::mutate(grouping = c("Council Seafood"),
+                    Units = c("metric tons")) |>
+      dplyr::ungroup()
+
+    # guild plot input
+    guilddat <- rbind(managed_landings_guild, total_landings) |>
+      dplyr::filter(!stringr::str_detect(feeding.guild, "Apex|Other")) |>
+      #tidyr::separate(Var, into = c("feeding.guild", "a", "grouping"), sep = " ") |>
+      dplyr::mutate(#feeding.guild = stringr::str_extract(Var,c(feeding.guilds)),
+        #grouping = recode(grouping, "Landings" = "total"),
+        Var = paste(feeding.guild, grouping)) |>
+      dplyr::mutate(feeding.guild = factor(feeding.guild, levels = setup$feeding.guilds)) |>
+      dplyr::group_by(Var, EPU) |>
+      dplyr::mutate(hline = mean(Value)) |>
+      dplyr::filter(EPU %in% filterEPUs)
+
+    total_landings_agg <- total_landings |>
+      dplyr::group_by(EPU,Time) |>
+      dplyr::summarise(Value = sum(Value)/1000) |>
+      dplyr::mutate(Var = "Total",hline = mean(Value))
+
+    us_total_landings_agg <- US_landings |>
+      dplyr::group_by(EPU,Time) |>
+      dplyr::summarise(Value = sum(Value)/1000) |>
+      dplyr::mutate(Var = "US Seafood",hline = mean(Value))
+
+    managed_landings_agg <- managed_landings |>
+      dplyr::group_by(EPU,Time) |>
+      dplyr::summarise(Value = sum(Value)/1000) |>
+      dplyr::mutate(Var = "Council Seafood",hline = mean(Value))
+
+    landings_agg <- rbind(total_landings_agg, managed_landings_agg) #, us_total_landings_agg)# |>
+    #  dplyr::mutate(Value = Value/1000)
+    # total plot input
+    totdat<- landings_agg |>
+      dplyr::filter(EPU %in% filterEPUs)
+
+    ylabdat <- expression("Landings (10"^3*" metric tons)")
+    
+       p <- totdat |>
+      ggplot2::ggplot()+
+
+      #Highlight last ten years
+      ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
+                        xmin = setup$x.shade.min , xmax = setup$x.shade.max,
+                        ymin = -Inf, ymax = Inf) +
+      ecodata::geom_gls(ggplot2::aes(x = Time, y = Value,
+                                     group = Var),
+                        alpha = setup$trend.alpha, size = setup$trend.size) +
+      ecodata::geom_lm(n=n, ggplot2::aes(x = Time, y = Value,
+                                        group = Var),
+                       alpha = setup$trend.alpha, size = setup$trend.size) +
+      #ecodata::geom_lm(aes(x = Time, y = Value))+
+      ggplot2::geom_line(ggplot2::aes(x = Time, y = Value, color = Var), linewidth = setup$lwd) +
+      ggplot2::geom_point(ggplot2::aes(x = Time, y = Value, color = Var), size = setup$pcex) +
+      ggplot2::scale_x_continuous(breaks = seq(1980, 2020, by = 5), expand = c(0.01, 0.01)) +
+      ggplot2::scale_color_manual(values = series.col2, aesthetics = "color")+
+      ggplot2::facet_wrap(~EPU, scales = "free")+
+      #ggplot2::guides(color = "none") +
+      ggplot2::ylab(ylabdat) +
+      ggplot2::xlab(ggplot2::element_blank())+
+      ggplot2::theme(legend.position = "bottom",
+                     legend.title = ggplot2::element_blank())+
+      ggplot2::geom_hline(ggplot2::aes(yintercept = hline,
+                                       color = Var),
+                          linewidth = setup$hline.size,
+                          alpha = setup$hline.alpha,
+                          linetype = setup$hline.lty) +
+      ecodata::theme_ts() +
+      ggplot2::ggtitle(setup$region)+
+      ecodata::theme_title() +
+      ecodata::theme_facet()
+p
+
 ```
 
 

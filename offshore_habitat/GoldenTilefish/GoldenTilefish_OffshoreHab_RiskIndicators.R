@@ -18,52 +18,58 @@ ecodata::plot_cold_pool()
 ## Mean bottom temperature  ----------------------------------------------
 
 ### load in data --------------------------------------------------------
-data <- readxl::read_excel(here::here('offshore_habitat/Data/MAB_GoM_WGB_regAvg_TSanom_BSB_2025.xlsx'), sheet = 5)
-# salinity is reading as a character for some reason. Fix that
-data$S <- as.numeric(data$S)
-
-### calculate annual mean temperature ----------------------------------
-bottom.temp <- data |> 
-  dplyr::mutate(date = lubridate::date_decimal(Year, tz = "America/New_York"))|> 
-  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
-  dplyr::group_by(year) |>
-  dplyr::mutate(annual.mean.temperature = mean(T, na.rm = TRUE)) |>
-  dplyr:: ungroup()
+data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/bt_ts_gtf_1970_2023.csv")
+data <- read.csv(text = data.text)
 
 ### plot annual mean temperature ----------------------------------------
-# with horizontal lines at 9 and 14 degrees C
-# which has been proposed as the thermal tolerance range for Golden Tilefish
-# (Grimes and Turner, 1999; Nesslage et al., 2021; Steimle et al., 1999)
-bottom.temp |> 
-  ggplot2::ggplot(ggplot2::aes(year, annual.mean.temperature)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::geom_hline(yintercept = 9, linetype = "dashed") +
-  ggplot2::geom_hline(yintercept = 14, linetype = "dashed") +
+# plot weighted_mean_bt by month and year
+# shading for +/- 2 * sd_bt
+data |> 
+  dplyr::group_by(year) |> 
+  dplyr::mutate(annual_weighted_mean_bt = mean(weighted_mean_bt, na.rm = TRUE)) |>
+  dplyr::mutate(annual_sd_bt = sd(weighted_mean_bt, na.rm = TRUE)) |>
+  dplyr::mutate(conf.low = annual_weighted_mean_bt - (2*annual_sd_bt)) |> 
+  dplyr::mutate(conf.high = annual_weighted_mean_bt + (2*annual_sd_bt)) |>
+  dplyr:: ungroup() |> 
+  ggplot2::ggplot(ggplot2::aes(year, annual_weighted_mean_bt, ymin = conf.low, ymax = conf.high)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_ribbon(alpha = 0.2) +
   ggplot2::labs(title = "Mean bottom temperature by year",
        x = "Year",
        y = expression("Mean bottom temperature ("*degree*"C)")) +
+  ggplot2::geom_hline(yintercept = 14, linetype = "dashed") +
+  ggplot2::geom_hline(yintercept = 9, linetype = "dashed") +
   ecodata::theme_ts()+
   ecodata::theme_title()
 
 ## Mean bottom salinity  ------------------------------------------------
 
 ### calculate annual mean salinity ---------------------------------------
-bottom.sal <- data |> 
-  dplyr::mutate(date = lubridate::date_decimal(Year, tz = "America/New_York"))|> 
-  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
-  dplyr::group_by(year) |>
-  dplyr::mutate(annual.mean.salinity = mean(S, na.rm = TRUE)) |>
-  dplyr:: ungroup()
+data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/sal_78m_monthly_ts_gtf.csv")
+data <- read.csv(text = data.text)
+
+# year reading as a character for some reason
+data$year <- as.numeric(data$year)
+# year and month are NA after December 2019
+data <- data |> 
+          dplyr::filter(!is.na(year))
 
 ## plot annual mean salinity ---------------------------------------
-bottom.sal |> 
-  ggplot2::ggplot(ggplot2::aes(year, annual.mean.salinity)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
+data |> 
+  dplyr::group_by(year) |> 
+  dplyr::mutate(annual_weighted_mean_sal = mean(weighted_mean_sal_78m, na.rm = TRUE)) |>
+  dplyr::mutate(annual_sd_sal = sd(weighted_mean_sal_78m, na.rm = TRUE)) |>
+  dplyr::mutate(conf.low = annual_weighted_mean_sal - (2*annual_sd_sal)) |> 
+  dplyr::mutate(conf.high = annual_weighted_mean_sal + (2*annual_sd_sal)) |>
+  dplyr:: ungroup() |> 
+  ggplot2::ggplot(ggplot2::aes(year, annual_weighted_mean_sal, ymin = conf.low, ymax = conf.high)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_ribbon(alpha = 0.2) +
   ggplot2::labs(title = "Mean bottom salinity by year",
-       x = "Year",
-       y = expression("Mean bottom salinity (PSU)")) +
+                x = "Year",
+                y = expression("Mean bottom salinity (psu)")) +
+  ggplot2::geom_hline(yintercept = 33, linetype = "dashed") +
+  ggplot2::geom_hline(yintercept = 36, linetype = "dashed") +
   ecodata::theme_ts()+
   ecodata::theme_title()
 

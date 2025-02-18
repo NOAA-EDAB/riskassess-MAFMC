@@ -92,14 +92,32 @@ data_mix |>
   ecodata::theme_ts()+
   ecodata::theme_title()
 
+# create average value for years with more than one winter volume
+data_mix |> 
+  dplyr::mutate(date = lubridate::date_decimal(data_mix$Year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
+  dplyr::filter(month %in% winter) |> 
+  dplyr::group_by(year) |>
+  dplyr::summarise(mean.winter.shelfwater.volume = mean(shelfwater.volume, na.rm = TRUE)) |>
+  dplyr::ungroup() |> 
+  ggplot2::ggplot(ggplot2::aes(year,mean.winter.shelfwater.volume)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::labs(title = "Mean winter shelf water volume by year",
+       x = "Year",
+       y = expression("Mean winter shelf water volume (km³)")) +
+  ggplot2::geom_hline(yintercept = 4000, linetype = "dashed") +
+  ecodata::theme_ts()+
+  ecodata::theme_title()
+
 # Plot shelf water anomaly by year
 data_mix |> 
-  mutate(date = date_decimal(data_mix$Year, tz = "America/New_York"))|> 
-  mutate(year = year(date), month = month(date), day = day(date)) |> 
-  filter(month %in% winter) |> 
-  ggplot(aes(Year,shelfwater.volume.anom)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Winter Shelf Water Volume Anomaly by Year",
+  dplyr::mutate(date = lubridate::date_decimal(data_mix$Year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
+  dplyr::filter(month %in% winter) |> 
+  ggplot2::ggplot(ggplot2::aes(Year,shelfwater.volume.anom)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::labs(title = "Winter Shelf Water Volume Anomaly by Year",
        x = "Year",
        y = "Shelf Water Volume Anomaly")

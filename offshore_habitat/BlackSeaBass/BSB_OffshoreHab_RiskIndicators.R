@@ -5,19 +5,11 @@
 ## Author: M.T.Grezlik                                    
 ## Date: 01/30/2025                                       
 
-# Load libraries -----------------------------------------
-library(tidyverse)
-library(readr)
-library(readxl)
-library(here)
-library(broom)
-library(lubridate)
-
 # Load data ------------------------------------------------
 # data_survive <- read_csv(here('offshore_habitat/Data/TSanom_MAB.csv'))
-data_survive <- read_excel(here('offshore_habitat/Data/MAB_GoM_WGB_regAvg_TSanom_BSB_2025.xlsx'), sheet = 5)
+data_survive <- readxl::read_excel(here::here('offshore_habitat/Data/MAB_GoM_WGB_regAvg_TSanom_BSB_2025.xlsx'), sheet = 5)
 # data_mix <- read_csv(here('offshore_habitat/Data/SHW_MAB.csv'))
-data_mix <- read_excel(here('offshore_habitat/Data/ShelfWaterVolume_BSB_update_2025.xlsx'), sheet = 3)
+data_mix <- readxl::read_excel(here::here('offshore_habitat/Data/ShelfWaterVolume_BSB_update_2025.xlsx'), sheet = 3)
 
 ## rename columns ------------------------------------------
 mix_names <- c(year.day = 'Year Day', shelfwater.temp = 'ShW T',
@@ -25,7 +17,7 @@ mix_names <- c(year.day = 'Year Day', shelfwater.temp = 'ShW T',
                    shelfwater.salinity.anom = 'ShW S anom', shelfwater.volume = 'ShW Vol',
                    shelfwater.volume.anom = 'ShW Vol anom')
 
-data_mix <- rename(data_mix, all_of(mix_names))
+data_mix <- dplyr::rename(data_mix, all_of(mix_names))
 
 
 
@@ -40,19 +32,19 @@ data_mix <- rename(data_mix, all_of(mix_names))
 winter <- c(2,3)
 
 data_survive |> 
-  mutate(date = date_decimal(data_survive$Year, tz = "America/New_York"))|> 
-  mutate(year = year(date), month = month(date), day = day(date)) |> 
-  filter(month %in% winter) |> 
-  group_by(year) |>
-  summarise(mean.winter.bottom.temp = mean(T, na.rm = TRUE)) |>
-  ungroup() |> 
-  ggplot(aes(year,mean.winter.bottom.temp)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Mean winter bottom temperature by year",
+  dplyr::mutate(date = lubridate::date_decimal(data_survive$Year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
+  dplyr::filter(month %in% winter) |> 
+  dplyr::group_by(year) |>
+  dplyr::summarise(mean.winter.bottom.temp = mean(T, na.rm = TRUE)) |>
+  dplyr::ungroup() |> 
+  ggplot2::ggplot(ggplot2::aes(year,mean.winter.bottom.temp)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::labs(title = "Mean winter bottom temperature by year",
        x = "Year",
        y = expression("Mean winter bottom temperature ("*degree*"C)")) +
-  geom_hline(yintercept = 6, linetype = "dashed") +
+  ggplot2::geom_hline(yintercept = 6, linetype = "dashed") +
   ecodata::theme_ts()+
   ecodata::theme_title()
 
@@ -62,16 +54,16 @@ data_survive |>
 # as the standard error of the mean of each year
 
 data_survive |> 
-  mutate(date = date_decimal(data_survive$Year, tz = "America/New_York"))|> 
-  mutate(year = year(date), month = month(date), day = day(date)) |> 
-  filter(month %in% winter) |> 
-  group_by(year) |>
-  mutate(mean.winter.bottom.temp = mean(T, na.rm = TRUE)) |>
-  mutate(st.var.mean.winter.bottom.temp = sd(T, na.rm = TRUE)) |>
-  ungroup() |>
-  ggplot(aes(year,st.var.mean.winter.bottom.temp)) +
-  geom_point() +
-  labs(title = "Spatio-temporal variation in mean winter bottom temperature by year",
+  dplyr::mutate(date = lubridate::date_decimal(data_survive$Year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
+  dplyr::filter(month %in% winter) |> 
+  dplyr::group_by(year) |>
+  dplyr::mutate(mean.winter.bottom.temp = mean(T, na.rm = TRUE)) |>
+  dplyr::mutate(st.var.mean.winter.bottom.temp = plotrix::std.error(T, na.rm = TRUE)) |>
+  dplyr::ungroup() |>
+  ggplot2::ggplot(ggplot2::aes(year,st.var.mean.winter.bottom.temp)) +
+  ggplot2::geom_point() +
+  ggplot2::labs(title = "Spatio-temporal variation in mean winter bottom temperature by year",
        x = "Year",
        y = expression("Standard error of mean winter bottom temperature ("*degree*"C)")) +
   ecodata::theme_ts()+
@@ -88,15 +80,15 @@ data_survive |>
 winter <- c(2,3)
 
 data_mix |> 
-  mutate(date = date_decimal(data_mix$Year, tz = "America/New_York"))|> 
-  mutate(year = year(date), month = month(date), day = day(date)) |> 
-  filter(month %in% winter) |> 
-  ggplot(aes(Year,shelfwater.volume)) +
+  dplyr::mutate(date = lubridate::date_decimal(data_mix$Year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
+  dplyr::filter(month %in% winter) |> 
+  ggplot2::ggplot(ggplot2::aes(Year,shelfwater.volume)) +
   ggplot2::geom_point()+
   ggplot2::geom_line()+
   ggplot2::ggtitle("Winter shelf water volume by year")+
   ggplot2::ylab(expression("Shelf water volume (km³)"))+
-  geom_hline(yintercept = 4000, linetype = "dashed") +
+  ggplot2::geom_hline(yintercept = 4000, linetype = "dashed") +
   ecodata::theme_ts()+
   ecodata::theme_title()
 

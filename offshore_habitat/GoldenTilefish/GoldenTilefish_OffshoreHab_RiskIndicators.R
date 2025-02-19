@@ -92,15 +92,45 @@ sw.data |>
   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.v)) +
   ggplot2::geom_point() +
   ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Shelf water volume by year",
+  ggplot2::labs(title = "Long-term shelf water volume",
        x = "Year",
        y = expression("Shelf Water Volume (km"^3*")")) +
+  ecodata::theme_ts()+
+  ecodata::theme_title()
+
+sw.data |>
+  dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(mean_shw_v = mean(shw.v, na.rm = TRUE)) |>
+  dplyr::ungroup() |>
+  ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_v)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::labs(title = "Shelf water volume by year",
+                x = "Year",
+                y = expression("Shelf Water Volume (km"^3*")")) +
   ecodata::theme_ts()+
   ecodata::theme_title()
 
 ### plot shelf water temp by year ---------------------------------
 sw.data |>
   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.t)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::labs(title = "Long-term shelf water temperature",
+                x = "Year",
+                y = expression("Shelf Water Temperature ("*degree*"C)")) +
+  ecodata::theme_ts()+
+  ecodata::theme_title()
+
+sw.data |>
+  dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(mean_shw_t = mean(shw.t, na.rm = TRUE)) |>
+  dplyr::ungroup() |>
+  ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_t)) +
   ggplot2::geom_point() +
   ggplot2::geom_smooth(method = "lm") +
   ggplot2::labs(title = "Shelf water temperature by year",
@@ -114,9 +144,24 @@ sw.data |>
   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.s)) +
   ggplot2::geom_point() +
   ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Shelf water salinity by year",
+  ggplot2::labs(title = "Long-term shelf water salinity",
        x = "Year",
        y = expression("Shelf Water Salinity (PSU)")) +
+  ecodata::theme_ts()+
+  ecodata::theme_title()
+
+sw.data |>
+  dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
+  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(mean_shw_s = mean(shw.s, na.rm = TRUE)) |>
+  dplyr::ungroup() |>
+  ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_s)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::labs(title = "Shelf water salinity by year",
+                x = "Year",
+                y = expression("Shelf Water Salinity (PSU)")) +
   ecodata::theme_ts()+
   ecodata::theme_title()
 

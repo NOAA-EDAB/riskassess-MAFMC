@@ -23,31 +23,46 @@ data_mix <- dplyr::rename(data_mix, all_of(mix_names))
 
 
 # Indicator: Overwinter survival --------------------------------
-# Spatio-temporal variation in winter mean bottom temperature
+# Mean bottom temperature
 
 # The ESP used mean winter (February and March) bottom temperatures calculated
 # using the du Pontavice et al. (2023) method to average bottom temp estimates
 # from different data sources.
 
+# setup data
 winter <- c(2,3)
 
-data_survive |> 
+winter_bottom_temp <- data_survive |> 
   dplyr::mutate(date = lubridate::date_decimal(data_survive$Year, tz = "America/New_York"))|> 
-  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
+  dplyr::mutate(Time = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |> 
   dplyr::filter(month %in% winter) |> 
-  dplyr::group_by(year) |>
-  dplyr::summarise(mean.winter.bottom.temp = mean(T, na.rm = TRUE)) |>
+  dplyr::group_by(Time) |>
+  dplyr::summarise(Value = mean(T, na.rm = TRUE)) |>
   dplyr::ungroup() |> 
-  ggplot2::ggplot(ggplot2::aes(year,mean.winter.bottom.temp)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Mean winter bottom temperature by year",
-       x = "Year",
-       y = expression("Mean winter bottom temperature ("*degree*"C)")) +
-  ggplot2::geom_hline(yintercept = 6, linetype = "dashed") +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+  dplyr::mutate(Var = 'Mean winter bottom temperature') |> 
+  dplyr::mutate(EPU = 'MAB') |> 
+  dplyr::mutate(Units = 'degreesC')
 
+# save to data as .rda
+save(winter_bottom_temp, file = here::here('offshore_habitat/Data/winter_bottom_temp.rda'))
+
+# plot
+plot_winter_bottom_temp()
+
+  # ggplot2::ggplot(ggplot2::aes(year,mean.winter.bottom.temp)) +
+  # ggplot2::geom_point() +
+  # ggplot2::geom_line() +
+  # ggplot2::geom_smooth(method = "lm") +
+  # ggplot2::labs(title = "Mean winter bottom temperature by year",
+  #      x = "Year",
+  #      y = expression("Mean winter bottom temperature ("*degree*"C)")) +
+  # ggplot2::geom_hline(yintercept = 6, linetype = "dashed") +
+  # ecodata::theme_ts()+
+  # ecodata::theme_title()
+
+# Could also use SOE plot, but this is annual average bottom temp
+# not winter bottom temp as was presented to the WG
+ecodata::plot_bottom_temp()
 
 
 # Spatio-temporal variation in mean winter bottom temp is then calculated

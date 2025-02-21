@@ -17,9 +17,31 @@ ecodata::plot_cold_pool()
 
 ## Mean bottom temperature  ----------------------------------------------
 
-### load in data --------------------------------------------------------
+### setup data --------------------------------------------------------
 data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/bt_ts_gtf_1970_2023.csv")
 data <- read.csv(text = data.text)
+
+gtf_bottom_temp <- data |> 
+  dplyr::group_by(year) |> 
+  dplyr::mutate(annual_weighted_mean_bt = mean(weighted_mean_bt, na.rm = TRUE)) |>
+  dplyr::mutate(annual_sd_bt = sd(weighted_mean_bt, na.rm = TRUE)) |>
+  dplyr::mutate(conf.low = annual_weighted_mean_bt - (2*annual_sd_bt)) |> 
+  dplyr::mutate(conf.high = annual_weighted_mean_bt + (2*annual_sd_bt)) |>
+  dplyr:: ungroup() |> 
+  dplyr:: select(year, annual_weighted_mean_bt, conf.low, conf.high) |> 
+  dplyr:: distinct() |> 
+  tidyr::pivot_longer(cols = 2:4, names_to = 'Var', values_to = 'Value') |> 
+  dplyr:: rename(Time = year) |> 
+  dplyr:: mutate(EPU = 'MAB')
+
+### save data as .rda ------------------------------------------------
+save(gtf_bottom_temp, file = here::here('offshore_habitat/data/gtf_bottom_temp.rda'))
+
+### plot using function ---------------------------------------
+
+source(here::here('offshore_habitat/R/plot_gtf_bottom_temp.R'))
+plot_gtf_bottom_temp()
+
 
 ### plot annual mean temperature ----------------------------------------
 # plot weighted_mean_bt by month and year
@@ -30,7 +52,7 @@ data |>
   dplyr::mutate(annual_sd_bt = sd(weighted_mean_bt, na.rm = TRUE)) |>
   dplyr::mutate(conf.low = annual_weighted_mean_bt - (2*annual_sd_bt)) |> 
   dplyr::mutate(conf.high = annual_weighted_mean_bt + (2*annual_sd_bt)) |>
-  dplyr:: ungroup() |> 
+  dplyr:: ungroup() |>  
   ggplot2::ggplot(ggplot2::aes(year, annual_weighted_mean_bt, ymin = conf.low, ymax = conf.high)) +
   ggplot2::geom_line() +
   ggplot2::geom_ribbon(alpha = 0.2) +

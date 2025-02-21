@@ -1,4 +1,4 @@
-#' plot mean winter shelf water volume
+#' plot mean shelf water salinity
 #'
 #'
 #' @param shadedRegion Numeric vector. Years denoting the shaded region of the plot (most recent 10)
@@ -9,8 +9,8 @@
 #'
 #' @export
 
-plot_winter_shw_vol <- function(shadedRegion=NULL,
-                                    report = "MidAtlantic") {
+plot_shw_sal <- function(shadedRegion=NULL,
+                          report = "MidAtlantic") {
   
   setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
                                report=report)
@@ -20,10 +20,11 @@ plot_winter_shw_vol <- function(shadedRegion=NULL,
     filterEPUs <- c("GB", "GOM")
   }
   
-  load(file = here::here('offshore_habitat/data/winter_shw_vol.rda'))
+  load(file = here::here('offshore_habitat/data/shw_vol_temp_sal.rda'))
   
   
-  p <- winter_shw_vol |>
+  p <- shw_vol_temp_sal |>
+    dplyr::filter(Var == 'shw.s') |>
     ggplot2::ggplot(ggplot2::aes(x = Time, y = Value)) +
     ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
                       xmin = setup$x.shade.min , xmax = setup$x.shade.max,
@@ -31,10 +32,9 @@ plot_winter_shw_vol <- function(shadedRegion=NULL,
     ggplot2::geom_line() +
     ggplot2::geom_point()  +
     ggplot2::facet_wrap(~EPU) +
-    ggplot2::geom_hline(yintercept=4000,linetype=setup$hline.lty)+
-    ggplot2::ylab("Shelf water volume (km3)") +
+    ggplot2::ylab("Salinity (psu)") +
     ggplot2::xlab(ggplot2::element_blank())+
-    ggplot2::ggtitle(paste(report,": mean winter shelf water volume")) +
+    ggplot2::ggtitle(paste(report,": mean shelf water salinity")) +
     ecodata::geom_gls() +
     ecodata::theme_ts()+
     ecodata::theme_facet()+

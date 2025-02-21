@@ -17,25 +17,25 @@ ecodata::plot_cold_pool()
 
 ## Mean bottom temperature  ----------------------------------------------
 
-### setup data --------------------------------------------------------
-data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/bt_ts_gtf_1970_2023.csv")
-data <- read.csv(text = data.text)
-
-gtf_bottom_temp <- data |> 
-  dplyr::group_by(year) |> 
-  dplyr::mutate(annual_weighted_mean_bt = mean(weighted_mean_bt, na.rm = TRUE)) |>
-  dplyr::mutate(annual_sd_bt = sd(weighted_mean_bt, na.rm = TRUE)) |>
-  dplyr::mutate(conf.low = annual_weighted_mean_bt - (2*annual_sd_bt)) |> 
-  dplyr::mutate(conf.high = annual_weighted_mean_bt + (2*annual_sd_bt)) |>
-  dplyr:: ungroup() |> 
-  dplyr:: select(year, annual_weighted_mean_bt, conf.low, conf.high) |> 
-  dplyr:: distinct() |> 
-  tidyr::pivot_longer(cols = 2:4, names_to = 'Var', values_to = 'Value') |> 
-  dplyr:: rename(Time = year) |> 
-  dplyr:: mutate(EPU = 'MAB')
-
-### save data as .rda ------------------------------------------------
-save(gtf_bottom_temp, file = here::here('offshore_habitat/data/gtf_bottom_temp.rda'))
+# ### setup data --------------------------------------------------------
+# data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/bt_ts_gtf_1970_2023.csv")
+# data <- read.csv(text = data.text)
+# 
+# gtf_bottom_temp <- data |> 
+#   dplyr::group_by(year) |> 
+#   dplyr::mutate(annual_weighted_mean_bt = mean(weighted_mean_bt, na.rm = TRUE)) |>
+#   dplyr::mutate(annual_sd_bt = sd(weighted_mean_bt, na.rm = TRUE)) |>
+#   dplyr::mutate(conf.low = annual_weighted_mean_bt - (2*annual_sd_bt)) |> 
+#   dplyr::mutate(conf.high = annual_weighted_mean_bt + (2*annual_sd_bt)) |>
+#   dplyr:: ungroup() |> 
+#   dplyr:: select(year, annual_weighted_mean_bt, conf.low, conf.high) |> 
+#   dplyr:: distinct() |> 
+#   tidyr::pivot_longer(cols = 2:4, names_to = 'Var', values_to = 'Value') |> 
+#   dplyr:: rename(Time = year) |> 
+#   dplyr:: mutate(EPU = 'MAB')
+# 
+# ### save data as .rda ------------------------------------------------
+# save(gtf_bottom_temp, file = here::here('offshore_habitat/data/gtf_bottom_temp.rda'))
 
 ### plot using function ---------------------------------------
 
@@ -45,68 +45,57 @@ plot_gtf_bottom_temp()
 
 ## Mean bottom salinity  ------------------------------------------------
 
-### setup data --------------------------------------------------------
-data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/sal_78m_monthly_ts_gtf.csv")
-data <- read.csv(text = data.text)
-
-# Past 2019, there are 366 observations in the data set
-# I am assuming this is the data for 2020 (which was a leap year)
-# Double check this assumption <- dplyr::filter(data, is.na(month))
-missing.data <- data |>
-  dplyr::filter(is.na(month)) |>
-  dplyr::mutate(year = stringr::str_replace(year,"dd_sal_78_2020_2022_", "")) |>
-  dplyr::mutate(julian.day = as.numeric(year)) |>
-  dplyr::mutate(year = "2020") |>
-  dplyr::mutate(date = as.Date(paste(year, julian.day, sep = "-"), format = "%Y-%j")) |>
-  dplyr::mutate(month = as.integer(format(date, "%m"))) |>
-  dplyr::select(-julian.day, -date) |>
-  dplyr::group_by(year,month) |>
-  dplyr::summarise(dplyr::across(everything(), mean, na.rm = TRUE)) |> 
-  dplyr::ungroup()
-
-# remove 2020 data from full data set
-data <- data |>
-  dplyr::filter(!is.na(month))
-
-# bind rows of data and missing.data
-data <- rbind(data, missing.data)
-
-
-## plot annual mean salinity ---------------------------------------
-
-gtf_bottom_sal <- data |> 
-  dplyr::group_by(year) |> 
-  dplyr::mutate(annual_weighted_mean_sal = mean(weighted_mean_sal_78m, na.rm = TRUE)) |>
-  dplyr::mutate(annual_sd_sal = sd(weighted_mean_sal_78m, na.rm = TRUE)) |>
-  dplyr::mutate(conf.low = annual_weighted_mean_sal - (2*annual_sd_sal)) |> 
-  dplyr::mutate(conf.high = annual_weighted_mean_sal + (2*annual_sd_sal)) |>
-  dplyr:: ungroup() |> 
-  dplyr:: select(year, annual_weighted_mean_sal, conf.low, conf.high) |> 
-  dplyr:: distinct() |> 
-  tidyr::pivot_longer(cols = 2:4, names_to = 'Var', values_to = 'Value') |> 
-  dplyr:: rename(Time = year) |> 
-  dplyr:: mutate(Time = as.integer(Time)) |> 
-  dplyr:: mutate(EPU = 'MAB')
-  
-  
-### save data as .rda ------------------------------------------------
-save(gtf_bottom_sal, file = here::here('offshore_habitat/data/gtf_bottom_sal.rda'))
+# ### setup data --------------------------------------------------------
+# data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/sal_78m_monthly_ts_gtf.csv")
+# data <- read.csv(text = data.text)
+# 
+# # Past 2019, there are 366 observations in the data set
+# # I am assuming this is the data for 2020 (which was a leap year)
+# # Double check this assumption <- dplyr::filter(data, is.na(month))
+# missing.data <- data |>
+#   dplyr::filter(is.na(month)) |>
+#   dplyr::mutate(year = stringr::str_replace(year,"dd_sal_78_2020_2022_", "")) |>
+#   dplyr::mutate(julian.day = as.numeric(year)) |>
+#   dplyr::mutate(year = "2020") |>
+#   dplyr::mutate(date = as.Date(paste(year, julian.day, sep = "-"), format = "%Y-%j")) |>
+#   dplyr::mutate(month = as.integer(format(date, "%m"))) |>
+#   dplyr::select(-julian.day, -date) |>
+#   dplyr::group_by(year,month) |>
+#   dplyr::summarise(dplyr::across(everything(), mean, na.rm = TRUE)) |> 
+#   dplyr::ungroup()
+# 
+# # remove 2020 data from full data set
+# data <- data |>
+#   dplyr::filter(!is.na(month))
+# 
+# # bind rows of data and missing.data
+# data <- rbind(data, missing.data)
+# 
+# 
+# ## plot annual mean salinity
+# 
+# gtf_bottom_sal <- data |> 
+#   dplyr::group_by(year) |> 
+#   dplyr::mutate(annual_weighted_mean_sal = mean(weighted_mean_sal_78m, na.rm = TRUE)) |>
+#   dplyr::mutate(annual_sd_sal = sd(weighted_mean_sal_78m, na.rm = TRUE)) |>
+#   dplyr::mutate(conf.low = annual_weighted_mean_sal - (2*annual_sd_sal)) |> 
+#   dplyr::mutate(conf.high = annual_weighted_mean_sal + (2*annual_sd_sal)) |>
+#   dplyr:: ungroup() |> 
+#   dplyr:: select(year, annual_weighted_mean_sal, conf.low, conf.high) |> 
+#   dplyr:: distinct() |> 
+#   tidyr::pivot_longer(cols = 2:4, names_to = 'Var', values_to = 'Value') |> 
+#   dplyr:: rename(Time = year) |> 
+#   dplyr:: mutate(Time = as.integer(Time)) |> 
+#   dplyr:: mutate(EPU = 'MAB')
+#   
+#   
+# ### save data as .rda ------------------------------------------------
+# save(gtf_bottom_sal, file = here::here('offshore_habitat/data/gtf_bottom_sal.rda'))
   
 ### plot using function ---------------------------------------
 source(here::here('offshore_habitat/R/plot_gtf_bottom_sal.R'))
 plot_gtf_bottom_sal()
 
-
-  ggplot2::ggplot(ggplot2::aes(year, annual_weighted_mean_sal, ymin = conf.low, ymax = conf.high)) +
-  ggplot2::geom_line() +
-  ggplot2::geom_ribbon(alpha = 0.2) +
-  ggplot2::labs(title = "Mean bottom salinity by year",
-                x = "Year",
-                y = expression("Mean bottom salinity (psu)")) +
-  ggplot2::geom_hline(yintercept = 33, linetype = "dashed") +
-  ggplot2::geom_hline(yintercept = 36, linetype = "dashed") +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
 
 # Physical oceanography indicators ---------------------------------------
 
@@ -115,14 +104,37 @@ ecodata::plot_long_term_sst()
 
 ## Shelf water volume, temp, salinity  -----------------------------------------
 
-### load data --------------------------------------------------------
-sw.data <- readxl::read_excel(here::here("offshore_habitat/Data/ShelfWaterVolume_BSB_update_2025.xlsx"))
+### Shelf water volume -------------------------------------------------
+# #### setup data --------------------------------------------------------
+# sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
+# 
+# # rename columns
+# sw.names <- c('year.day','shw.t','shw.t.anom','shw.s','shw.s.anom','shw.v','shw.v.anom','year')
+# colnames(sw.data) <- sw.names
+# 
+# # deal with date, average by year, and format
+# shw_vol_temp_sal <- sw.data |>
+#   dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
+#   dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
+#   dplyr::select(year,shw.t, shw.t.anom, shw.s, shw.s.anom, shw.v, shw.v.anom) |> 
+#   dplyr::group_by(year) |>
+#   dplyr::summarise(dplyr::across(everything(), mean, na.rm = TRUE)) |> 
+#   dplyr::ungroup() |> 
+#   tidyr::pivot_longer(cols = 2:7, names_to = 'Var', values_to = 'Value') |> 
+#   dplyr::rename(Time = year) |> 
+#   dplyr::mutate(EPU = 'MAB')
+# 
+# #### save data as .rda ------------------------------------------------
+# save(shw_vol_temp_sal, file = here::here('offshore_habitat/data/shw_vol_temp_sal.rda'))
 
-### rename columns -------------------------------------------------
-sw.names <- c('year.day','shw.t','shw.t.anom','shw.s','shw.s.anom','shw.v','shw.v.anom','year')
-colnames(sw.data) <- sw.names
+#### plot using function ---------------------------------------
+source(here::here('offshore_habitat/R/plot_shw_vol.R'))
+plot_shw_vol()
 
-### plot shelf water volume by year ---------------------------------
+#### alternative plots -------------------------------------------------
+
+# Long-term shelf water volume
+sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
 sw.data |>
   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.v)) +
   ggplot2::geom_point() +
@@ -148,7 +160,18 @@ sw.data |>
   ecodata::theme_ts()+
   ecodata::theme_title()
 
-### plot shelf water temp by year ---------------------------------
+### Shelf water temp -----------------------------------------------
+#### plot using function ---------------------------------
+
+source(here::here('offshore_habitat/R/plot_shw_temp.R'))
+plot_shw_temp()
+
+
+#### alternative plots -------------------------------------------------
+
+# Long-term shelf water temperature
+sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
+
 sw.data |>
   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.t)) +
   ggplot2::geom_point() +
@@ -159,22 +182,18 @@ sw.data |>
   ecodata::theme_ts()+
   ecodata::theme_title()
 
-sw.data |>
-  dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
-  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
-  dplyr::group_by(year) |>
-  dplyr::summarise(mean_shw_t = mean(shw.t, na.rm = TRUE)) |>
-  dplyr::ungroup() |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_t)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Shelf water temperature by year",
-       x = "Year",
-       y = expression("Shelf Water Temperature ("*degree*"C)")) +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
 
-### plot shelf water salinity by year ---------------------------------
+### Shelf water salinity -------------------------------------------
+#### plot using function ---------------------------------
+
+source(here::here('offshore_habitat/R/plot_shw_sal.R'))
+plot_shw_sal()
+
+
+
+#### alternative plots -------------------------------------------------
+sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
+
 sw.data |>
   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.s)) +
   ggplot2::geom_point() +
@@ -185,20 +204,6 @@ sw.data |>
   ecodata::theme_ts()+
   ecodata::theme_title()
 
-sw.data |>
-  dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
-  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
-  dplyr::group_by(year) |>
-  dplyr::summarise(mean_shw_s = mean(shw.s, na.rm = TRUE)) |>
-  dplyr::ungroup() |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_s)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Shelf water salinity by year",
-                x = "Year",
-                y = expression("Shelf Water Salinity (PSU)")) +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
 
 ## Gulf stream index  ----------------------------------------------------
 ecodata::plot_gsi()

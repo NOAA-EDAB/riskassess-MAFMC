@@ -47,6 +47,8 @@ plot_gtf_bottom_temp <- function(shadedRegion = NULL,
                       ymin = -Inf, ymax = Inf) +
     ggplot2::geom_line(ggplot2::aes(x = Time, y = Value))+
     ggplot2::geom_point(ggplot2::aes(x = Time, y = Value))+
+    ggplot2::geom_hline(yintercept=14,linetype=setup$hline.lty)+
+    ggplot2::geom_hline(yintercept=9,linetype=setup$hline.lty)+
     ggplot2::geom_ribbon(data = ribbon, ggplot2::aes(ymin = conf.low , ymax = conf.high , x = Time), alpha = 0.2)+
     ggplot2::ggtitle("Annual average bottom temperature")+
     ggplot2::ylab("Temperature (C)")+

@@ -43,47 +43,60 @@ source(here::here('offshore_habitat/R/plot_gtf_bottom_temp.R'))
 plot_gtf_bottom_temp()
 
 
-### plot annual mean temperature ----------------------------------------
-# plot weighted_mean_bt by month and year
-# shading for +/- 2 * sd_bt
-data |> 
-  dplyr::group_by(year) |> 
-  dplyr::mutate(annual_weighted_mean_bt = mean(weighted_mean_bt, na.rm = TRUE)) |>
-  dplyr::mutate(annual_sd_bt = sd(weighted_mean_bt, na.rm = TRUE)) |>
-  dplyr::mutate(conf.low = annual_weighted_mean_bt - (2*annual_sd_bt)) |> 
-  dplyr::mutate(conf.high = annual_weighted_mean_bt + (2*annual_sd_bt)) |>
-  dplyr:: ungroup() |>  
-  ggplot2::ggplot(ggplot2::aes(year, annual_weighted_mean_bt, ymin = conf.low, ymax = conf.high)) +
-  ggplot2::geom_line() +
-  ggplot2::geom_ribbon(alpha = 0.2) +
-  ggplot2::labs(title = "Mean bottom temperature by year",
-       x = "Year",
-       y = expression("Mean bottom temperature ("*degree*"C)")) +
-  ggplot2::geom_hline(yintercept = 14, linetype = "dashed") +
-  ggplot2::geom_hline(yintercept = 9, linetype = "dashed") +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
-
 ## Mean bottom salinity  ------------------------------------------------
 
-### calculate annual mean salinity ---------------------------------------
+### setup data --------------------------------------------------------
 data.text <- RCurl::getURL("https://raw.githubusercontent.com/SSalois1/tilefish_indicators/refs/heads/main/Env%20Data/sal_78m_monthly_ts_gtf.csv")
 data <- read.csv(text = data.text)
 
-# year reading as a character for some reason
-data$year <- as.numeric(data$year)
-# year and month are NA after December 2019
-data <- data |> 
-          dplyr::filter(!is.na(year))
+# Past 2019, there are 366 observations in the data set
+# I am assuming this is the data for 2020 (which was a leap year)
+# Double check this assumption <- dplyr::filter(data, is.na(month))
+missing.data <- data |>
+  dplyr::filter(is.na(month)) |>
+  dplyr::mutate(year = stringr::str_replace(year,"dd_sal_78_2020_2022_", "")) |>
+  dplyr::mutate(julian.day = as.numeric(year)) |>
+  dplyr::mutate(year = "2020") |>
+  dplyr::mutate(date = as.Date(paste(year, julian.day, sep = "-"), format = "%Y-%j")) |>
+  dplyr::mutate(month = as.integer(format(date, "%m"))) |>
+  dplyr::select(-julian.day, -date) |>
+  dplyr::group_by(year,month) |>
+  dplyr::summarise(dplyr::across(everything(), mean, na.rm = TRUE)) |> 
+  dplyr::ungroup()
+
+# remove 2020 data from full data set
+data <- data |>
+  dplyr::filter(!is.na(month))
+
+# bind rows of data and missing.data
+data <- rbind(data, missing.data)
+
 
 ## plot annual mean salinity ---------------------------------------
-data |> 
+
+gtf_bottom_sal <- data |> 
   dplyr::group_by(year) |> 
   dplyr::mutate(annual_weighted_mean_sal = mean(weighted_mean_sal_78m, na.rm = TRUE)) |>
   dplyr::mutate(annual_sd_sal = sd(weighted_mean_sal_78m, na.rm = TRUE)) |>
   dplyr::mutate(conf.low = annual_weighted_mean_sal - (2*annual_sd_sal)) |> 
   dplyr::mutate(conf.high = annual_weighted_mean_sal + (2*annual_sd_sal)) |>
   dplyr:: ungroup() |> 
+  dplyr:: select(year, annual_weighted_mean_sal, conf.low, conf.high) |> 
+  dplyr:: distinct() |> 
+  tidyr::pivot_longer(cols = 2:4, names_to = 'Var', values_to = 'Value') |> 
+  dplyr:: rename(Time = year) |> 
+  dplyr:: mutate(Time = as.integer(Time)) |> 
+  dplyr:: mutate(EPU = 'MAB')
+  
+  
+### save data as .rda ------------------------------------------------
+save(gtf_bottom_sal, file = here::here('offshore_habitat/data/gtf_bottom_sal.rda'))
+  
+### plot using function ---------------------------------------
+source(here::here('offshore_habitat/R/plot_gtf_bottom_sal.R'))
+plot_gtf_bottom_sal()
+
+
   ggplot2::ggplot(ggplot2::aes(year, annual_weighted_mean_sal, ymin = conf.low, ymax = conf.high)) +
   ggplot2::geom_line() +
   ggplot2::geom_ribbon(alpha = 0.2) +

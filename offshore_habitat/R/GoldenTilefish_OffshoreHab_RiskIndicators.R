@@ -133,32 +133,32 @@ plot_shw_vol()
 
 #### alternative plots -------------------------------------------------
 
-# Long-term shelf water volume
-sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
-sw.data |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = shw.v)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Long-term shelf water volume",
-       x = "Year",
-       y = expression("Shelf Water Volume (km"^3*")")) +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
-
-sw.data |>
-  dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
-  dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
-  dplyr::group_by(year) |>
-  dplyr::summarise(mean_shw_v = mean(shw.v, na.rm = TRUE)) |>
-  dplyr::ungroup() |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_v)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Shelf water volume by year",
-                x = "Year",
-                y = expression("Shelf Water Volume (km"^3*")")) +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+# # Long-term shelf water volume
+# sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
+# sw.data |>
+#   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.v)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_smooth(method = "lm") +
+#   ggplot2::labs(title = "Long-term shelf water volume",
+#        x = "Year",
+#        y = expression("Shelf Water Volume (km"^3*")")) +
+#   ecodata::theme_ts()+
+#   ecodata::theme_title()
+# 
+# sw.data |>
+#   dplyr::mutate(date = lubridate::date_decimal(sw.data$year, tz = "America/New_York"))|> 
+#   dplyr::mutate(year = lubridate::year(date), month = lubridate::month(date), day = lubridate::day(date)) |>
+#   dplyr::group_by(year) |>
+#   dplyr::summarise(mean_shw_v = mean(shw.v, na.rm = TRUE)) |>
+#   dplyr::ungroup() |>
+#   ggplot2::ggplot(ggplot2::aes(x = year, y = mean_shw_v)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_smooth(method = "lm") +
+#   ggplot2::labs(title = "Shelf water volume by year",
+#                 x = "Year",
+#                 y = expression("Shelf Water Volume (km"^3*")")) +
+#   ecodata::theme_ts()+
+#   ecodata::theme_title()
 
 ### Shelf water temp -----------------------------------------------
 #### plot using function ---------------------------------
@@ -169,18 +169,18 @@ plot_shw_temp()
 
 #### alternative plots -------------------------------------------------
 
-# Long-term shelf water temperature
-sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
-
-sw.data |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = shw.t)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Long-term shelf water temperature",
-                x = "Year",
-                y = expression("Shelf Water Temperature ("*degree*"C)")) +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+# # Long-term shelf water temperature
+# sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
+# 
+# sw.data |>
+#   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.t)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_smooth(method = "lm") +
+#   ggplot2::labs(title = "Long-term shelf water temperature",
+#                 x = "Year",
+#                 y = expression("Shelf Water Temperature ("*degree*"C)")) +
+#   ecodata::theme_ts()+
+#   ecodata::theme_title()
 
 
 ### Shelf water salinity -------------------------------------------
@@ -191,18 +191,18 @@ plot_shw_sal()
 
 
 
-#### alternative plots -------------------------------------------------
-sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
-
-sw.data |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = shw.s)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm") +
-  ggplot2::labs(title = "Long-term shelf water salinity",
-       x = "Year",
-       y = expression("Shelf Water Salinity (PSU)")) +
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+# #### alternative plots -------------------------------------------------
+# sw.data <- readxl::read_excel(here::here("offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx"))
+# 
+# sw.data |>
+#   ggplot2::ggplot(ggplot2::aes(x = year, y = shw.s)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_smooth(method = "lm") +
+#   ggplot2::labs(title = "Long-term shelf water salinity",
+#        x = "Year",
+#        y = expression("Shelf Water Salinity (PSU)")) +
+#   ecodata::theme_ts()+
+#   ecodata::theme_title()
 
 
 ## Gulf stream index  ----------------------------------------------------

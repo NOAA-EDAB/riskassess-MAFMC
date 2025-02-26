@@ -1,4 +1,4 @@
-#' plot Golden Tilefish mean bottom temperature
+#' plot Golden Tilefish annual average mean bottom temperature
 #'
 #'Time series of annual mean bottom temperature in GTF stat areas
 #'
@@ -11,8 +11,8 @@
 #' @export
 #'
 
-plot_gtf_bottom_temp <- function(shadedRegion = NULL,
-                                report="MidAtlantic") {
+plot_annual_avg_gtf_bottom_temp <- function(shadedRegion = NULL,
+                                 report="MidAtlantic") {
   
   # generate plot setup list (same for all plot functions)
   setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
@@ -28,9 +28,9 @@ plot_gtf_bottom_temp <- function(shadedRegion = NULL,
   # optional code to wrangle ecodata object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   
-  load(file = here::here('offshore_habitat/data/gtf_bottom_temp.rda'))
+  load(file = here::here('offshore_habitat/data/annual_avg_gtf_bottom_temp.rda'))
   
-  ribbon<- gtf_bottom_temp |>
+  ribbon<- annual_avg_gtf_bottom_temp |>
     tidyr::pivot_wider(names_from = Var, values_from = Value)
   
   # code for generating plot object p
@@ -38,8 +38,8 @@ plot_gtf_bottom_temp <- function(shadedRegion = NULL,
   # e.g. fill = setup$shade.fill, alpha = setup$shade.alpha,
   # xmin = setup$x.shade.min , xmax = setup$x.shade.max
   #
-  p <- gtf_bottom_temp |>
-    dplyr::filter(Var == 'weighted_mean_bt') |>
+  p <- annual_avg_gtf_bottom_temp |>
+    dplyr::filter(Var == 'annual_weighted_mean_bt') |>
     ggplot2::ggplot() +
     #Highlight last ten years
     ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
@@ -50,9 +50,10 @@ plot_gtf_bottom_temp <- function(shadedRegion = NULL,
     ggplot2::geom_hline(yintercept=14,linetype=setup$hline.lty)+
     ggplot2::geom_hline(yintercept=9,linetype=setup$hline.lty)+
     ggplot2::geom_ribbon(data = ribbon, ggplot2::aes(ymin = conf.low , ymax = conf.high , x = Time), alpha = 0.2)+
-    ggplot2::ggtitle("Weighted mean bottom temperature")+
-    ggplot2::ylab("Degree C")+
+    ggplot2::ggtitle("Annual average bottom temperature")+
+    ggplot2::ylab("Temperature (C)")+
     ggplot2::xlab(ggplot2::element_blank())+
+    ecodata::geom_gls(ggplot2::aes(x = Time, y = Value)) +
     ecodata::theme_ts()+
     ecodata::theme_facet()+
     ecodata::theme_title()

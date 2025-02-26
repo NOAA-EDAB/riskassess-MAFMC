@@ -31,7 +31,6 @@ plot_shw_vol <- function(shadedRegion=NULL,
                       ymin = -Inf, ymax = Inf) +
     ggplot2::geom_line() +
     ggplot2::geom_point()  +
-    ggplot2::facet_wrap(~EPU) +
     ggplot2::ylab("Shelf water volume (km3)") +
     ggplot2::xlab(ggplot2::element_blank())+
     ggplot2::ggtitle(paste(report,": mean shelf water volume")) +

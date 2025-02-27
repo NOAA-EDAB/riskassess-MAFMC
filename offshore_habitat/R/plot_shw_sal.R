@@ -22,6 +22,21 @@ plot_shw_sal <- function(shadedRegion=NULL,
   
   load(file = here::here('offshore_habitat/data/shw_vol_temp_sal.rda'))
   
+  # calculate mean and sd for reference lines on plots
+  # not using sd for now but calculating in case we want to add later
+  var.means <- shw_vol_temp_sal |>
+    dplyr::group_by(Var) |>
+    dplyr::mutate(mean = mean(Value, na.rm = TRUE)) |>
+    dplyr::mutate(sd = sd(Value, na.rm = TRUE)) |>
+    dplyr::mutate(upper = mean + sd) |>
+    dplyr::mutate(lower = mean - sd) |>
+    dplyr::ungroup() |> 
+    dplyr::select(Var, mean, upper, lower) |>
+    dplyr::distinct()
+  
+  shw_sal_mean <-  var.means |>
+    dplyr::filter(Var == 'shw.s') |>
+    dplyr::pull(mean)
   
   p <- shw_vol_temp_sal |>
     dplyr::filter(Var == 'shw.s') |>
@@ -31,6 +46,7 @@ plot_shw_sal <- function(shadedRegion=NULL,
                       ymin = -Inf, ymax = Inf) +
     ggplot2::geom_line() +
     ggplot2::geom_point()  +
+    ggplot2::geom_hline(yintercept=shw_sal_mean,linetype=setup$hline.lty)+
     ggplot2::facet_wrap(~EPU) +
     ggplot2::ylab("Salinity (psu)") +
     ggplot2::xlab(ggplot2::element_blank())+

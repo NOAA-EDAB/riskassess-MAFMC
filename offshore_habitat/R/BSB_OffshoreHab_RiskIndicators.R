@@ -12,7 +12,7 @@
 # using the du Pontavice et al. (2023) method to average bottom temp estimates
 # from different data sources.
 
-# ### setup data ------------------------------------------------------
+### setup data ------------------------------------------------------
 # data_survive <- readxl::read_excel(here::here('offshore_habitat/data-raw/MAB_GoM_WGB_regAvg_TSanom_BSB_2025.xlsx'), sheet = 5)
 # 
 # winter <- c(2,3)
@@ -28,7 +28,7 @@
 #   dplyr::mutate(EPU = 'MAB') |>
 #   dplyr::mutate(Units = 'degreesC')
 # 
-# ### save data as .rda -------------------------------------------
+### save data as .rda -------------------------------------------
 # save(winter_bottom_temp, file = here::here('offshore_habitat/data/winter_bottom_temp.rda'))
 
 ### plot using function -------------------------------------------
@@ -73,7 +73,7 @@ data_survive |>
 ## Shelf water volume ----------------------------------
 # High winter shelf water volume (>4000 km3) (Miller et al., 2016)
 
-# ### setup data ------------------------------------------------------
+### setup data ------------------------------------------------------
 # data_mix <- readxl::read_excel(here::here('offshore_habitat/data-raw/ShelfWaterVolume_BSB_update_2025.xlsx'), sheet = 3)
 # 
 # # rename columns
@@ -100,7 +100,7 @@ data_survive |>
 #   dplyr::mutate(EPU = 'MAB') |>
 #   dplyr::mutate(Units = 'km3')
 #   
-# ### save data as .rda -------------------------------------------
+### save data as .rda -------------------------------------------
 # save(winter_shw_vol, file = here::here('offshore_habitat/data/winter_shw_vol.rda'))
 
 

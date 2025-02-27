@@ -14,7 +14,7 @@
 
 ## Center of Gravity -------------------------------------------
 
-# ### setup data --------------------------------------------------------
+### setup data --------------------------------------------------------
 # load(here::here('offshore_habitat/data-raw/center_of_gravity.rda'))
 # 
 # center_of_gravity <- center_of_gravity |>
@@ -25,7 +25,7 @@
 #   dplyr::rename(Var = INDICATOR_NAME) |> 
 #   dplyr::select(Time, Value, Var, EPU, Units)
 # 
-# ### save data as .rda file -------------------------------------------
+### save data as .rda file -------------------------------------------
 # save(center_of_gravity, file = here::here('offshore_habitat/data/bf_cog.rda'))
 
 

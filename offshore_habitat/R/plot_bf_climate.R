@@ -90,7 +90,7 @@ p1 <-  first_18_day |>
   ggplot2::geom_hline(yintercept=first.mean,linetype=setup$hline.lty)+
   ggplot2::ylab("Day of Year") +
   ggplot2::xlab(ggplot2::element_blank())+
-  ggplot2::ggtitle("First day of the year when the mean temperature of the central Atlantic region is warmer than 18C") +
+  ggplot2::ggtitle("First day of the year central Atlantic mean temperature > 18C") +
   ecodata::geom_gls() +
   ecodata::theme_ts()+
   ecodata::theme_facet()+
@@ -106,7 +106,7 @@ p2 <-  last_18_day |>
   ggplot2::geom_hline(yintercept=last.mean,linetype=setup$hline.lty)+
   ggplot2::ylab("Day of Year") +
   ggplot2::xlab(ggplot2::element_blank())+
-  ggplot2::ggtitle("Last day of the year when the mean temperature of the central Atlantic region is warmer than 18C") +
+  ggplot2::ggtitle("Last day of the year central Atlantic region mean temperature > 18C") +
   ecodata::geom_gls() +
   ecodata::theme_ts()+
   ecodata::theme_facet()+
@@ -122,7 +122,7 @@ p3 <-  n_18_day |>
   ggplot2::geom_hline(yintercept=n.mean,linetype=setup$hline.lty)+
   ggplot2::ylab("Number of days") +
   ggplot2::xlab("Year")+
-  ggplot2::ggtitle("Number of days when the mean temperature of the central Atlantic region is warmer than 18C") +
+  ggplot2::ggtitle("Number of days the central Atlantic region mean temperature > 18C") +
   ecodata::geom_gls() +
   ecodata::theme_ts()+
   ecodata::theme_facet()+

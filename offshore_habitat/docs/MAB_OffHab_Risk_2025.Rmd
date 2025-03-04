@@ -38,12 +38,7 @@ knitr::opts_chunk$set(echo = FALSE,
 
 This element is applied at the species level.
 
-Offshore habitat, defined here as all habitat outside of the estuary
-and beyond the immediate coastal/nearshore areas, supports all life
-stages of many Council managed species, and is changing in quality and
-quantity due to multiple stressors from climate to other ocean uses such
-as offshore wind development. This element evaluates risk of achieving
-OY due to changes in offshore habitat quality and quantity.
+Offshore habitat, defined here as all habitat outside of the estuary and beyond the immediate coastal/nearshore areas, supports all life stages of many Council managed species, and is changing in quality and quantity due to multiple stressors from climate to other ocean uses. This element evaluates risk of achieving OY due to changes in offshore habitat quality and quantity.
 
 **Definition:**
 
@@ -60,7 +55,7 @@ source(here::here('offshore_habitat/R/plot_bf_cog.R'))
 plot_bf_cog()
 ```
 
-Climate indicators use identified thermal tolerance of Bluefish spawning activity to assess changes in the spatiotemporal availability of suitable spawning habitat. Upper and lower thermal thresholds for spawning have been identified as 25.6 and 18 C respectively [@norcross_development_1974]. Additional climate indicators were developed to assess the impact of wind on early life history. Along shore and cross-shore winds may help transport larvae and juveniles inshore impacting recruitment[@norcross_development_1974]. Climate indicators are generated from OISST satellite data from the Physical Sciences Laboratory. These indicators evaluate: the first and last day of the year when the mean temperature of the Central Atlantic Bluefish region is above 18 C, the number of days when >75% of the region is above 18 C, the mean proportion of the region below 18 C, between 18-25.6 C, and above 25.6 C in July, and the mean cross-shore and along shore wind speeds in the region in April and May.
+Climate indicators use identified thermal tolerance of Bluefish spawning activity to assess changes in the spatiotemporal availability of suitable spawning habitat. Upper and lower thermal thresholds for spawning have been identified as 25.6 and 18 C respectively [@norcross_development_1974]. Additional climate indicators were developed to assess the impact of wind on early life history. Along shore and cross-shore winds may help transport larvae and juveniles inshore impacting recruitment[@norcross_development_1974]. Temperature-related cliamte indicators are generated from OISST satellite data from the Physical Sciences Laboratory. Wind-related climate indicators were generated from monthly mean wind speed data downloaded from the Physical Sciences Laboratory. Climate indicators evaluate: the first and last day of the year when the mean temperature of the Central Atlantic Bluefish region is above 18 C, the number of days when >75% of the region is above 18 C, the mean proportion of the region below 18 C, between 18-25.6 C, and above 25.6 C in July, and the mean cross-shore and along shore wind speeds in the region in April and May.
 
 ```{r bf18, fig.cap="First, last, and number of days when the mean temperature of the central Atlantic region is warmer than 18 C. Dashed lines depict the time series mean. Trend lines depict statistically significant trends.", echo=FALSE}
 source(here::here('offshore_habitat/R/plot_bf_climate.R'))
@@ -77,7 +72,7 @@ plot_bf_wind_indicators()
 ```
 
 
-Large predators, including Mako sharks, are known to prey on Bluefish and impact natural mortality [@shepherd_essential_2006] [@wood_recalculated_2009]. Bluefish with poor condition may be more susceptible to predation and disease, resulting in higher natural mortality. Natural mortality indicators assessed Mako shark B/Bmsy from the International Commission for the Conservation of Atlantic Tunas (ICCAT) stock assessment and the relative condition of three size classes of Bluefish aggregated from multiple state and federal surveys [@truesdell_wp_2022].
+Natural mortality indicators consider changes in offshore habitat which may impact this management parameter and therefore OY. Large predators, including Mako sharks, are known to prey on Bluefish and impact natural mortality [@shepherd_essential_2006] [@wood_recalculated_2009]. Additionally, Bluefish with poor condition may be more susceptible to predation and disease, resulting in higher natural mortality. Natural mortality indicators assessed Mako shark B/Bmsy from the International Commission for the Conservation of Atlantic Tunas (ICCAT) stock assessment and the relative condition of three size classes of Bluefish aggregated from multiple state and federal surveys [@truesdell_wp_2022].
 
 ```{r mako, fig.cap="Mako shark B/Bmsy. Dashed line depicts time series mean. Trend line depicts statistically significant trend", echo=FALSE}
 source(here::here('offshore_habitat/R/plot_bf_mako.R'))
@@ -92,17 +87,17 @@ plot_bf_condition()
 
 **Black sea bass Indicators:**
 
-Indicators were developed for the Black Sea Bass ESP [@tabandera_working_2024]. Some of the developed indicators pertain to Offshore Habitat.
+Indicators were developed for the Black Sea Bass ESP [@tabandera_working_2024]. The developed indicators pertain to Offshore Habitat by evaluating overwinter survival of early life stages and mixing between sub regions.
 
-Black sea bass (BSB) have an incipient lethal temperature threshold at 6°C, below which feeding ceases and temperature-induced death is the primary cause of mortality [@younes_overwintering_2020]. A mean winter (February and March) bottom temperature indicator was developed using observed ocean temperature data from the Hydrographic Database maintained by the NEFSC Oceans and Climate Branch. These are composed of CTD measurements concurrent with bottom trawl surveys and other deployed instruments. Quality assurance and control are performed on these sources to produce area weighted regional mean values [@fratantoni_description_2013]. Mean values were computed for each survey and a reference annual cycle (fit to observations from 1981-2010) was removed to produce anomalies. The values in the dataset are anomalies plus expected mean value for each location and time of year based on this reference period. To assess winter conditions, February and March data were averaged on the regional scale. January was excluded due to low in-situ data coverage. Mean winter bottom temperature was explored as an indicator of overwinter survival.
+Mean winter bottom temperature was explored as an indicator of overwinter survival. Recruitment of Black sea bass (BSB) has been shown to be higher than average in warm years and below average in cold years [@tabandera_working_2024]. Additionally, BSB have a preferred temperature of >8 C [@miller_offshore_2016]. A mean winter (February and March) bottom temperature indicator was developed using observed ocean temperature data from the Hydrographic Database maintained by the NEFSC Oceans and Climate Branch. These data are composed of CTD measurements concurrent with bottom trawl surveys and other deployed instruments. Quality assurance and control were performed on these sources to produce area weighted regional mean values [@fratantoni_description_2013]. Mean values were computed for each survey and a reference annual cycle (fit to observations from 1981-2010) was removed to produce anomalies. The values in the dataset are anomalies plus expected mean value for each location and time of year based on this reference period. To assess winter conditions, February and March data were averaged on the regional scale. January was excluded due to low in-situ data coverage.
 
-```{r bsbwbt, fig.cap="Mean winter (February and March) bottom temperature. Dashed line depicts lower thermal tolerance. Trend line depicts statistically significant trend.", echo=FALSE}
+```{r bsbwbt, fig.cap="Mean winter (February and March) bottom temperature. Dashed line depicts thermal preference of >8 C. Trend line depicts statistically significant trend.", echo=FALSE}
 source(here::here('offshore_habitat/R/plot_winter_bottom_temp.R'))
 plot_winter_bottom_temp()
 ```
 
 
-High shelf water volume was explored as an indicator of overwinter mixing between the northern and southern subregions. The indicator was developed to evaluate the hypothesis that cold winters cause habitat contraction which results in more northern BSB migrating south and being misattributed to the southern region via removals or spring trawl captures. Southern MAB BSB appear to occupy a smaller portion of the available habitat in years with higher shelf water volume [@tabandera_working_2024]. It has been suggested that future efforts to reallocate removals and abundance indices between the northern and southern stock subunits focus on years with high potential stock mixing. A high winter (February and March) shelf water volume indicator was developed using data from the Hydrographic Database maintained by the NEFSC Oceans and Climate Branch. Shelf water is defined as all water having salinity <34 psu (the isohaline typically associated with the shelf-slope front in this region). The methods to compute this time series have been previously published [@fratantoni_description_2013]. 
+High shelf water volume was explored as an indicator of overwinter mixing between the northern and southern sub regions. Overwinter mixing could lead to misallocation of removals and abundance indices between the northern and southern stock subunits leading to retrospective patterns present in previous assessments, particularly for the northern subunit. A threshold of 4000 km^3^ has been proposed, above which there is greater likelihood of mixing between sub regions [@miller_offshore_2016]. Southern MAB BSB have been shown to occupy a smaller portion of the available habitat in years with higher shelf water volume [@tabandera_working_2024]. No correlation was found between shelf water volume and the center of gravity for northern MAB [@tabandera_working_2024]. Still, it was suggested that future efforts to reallocate removals and abundance indices between the northern and southern stock subunits focus on years with high potential stock mixing. Furthermore, a negative impact on BSB catch has been identified when shelf water exceeded the proposed threshold [@miller_offshore_2016]. A high winter (February and March) shelf water volume indicator was developed using data from the Hydrographic Database maintained by the NEFSC Oceans and Climate Branch. Shelf water is defined as all water having salinity <34 PSU (the isohaline typically associated with the shelf-slope front in this region). The methods to compute this time series have been previously published [@fratantoni_description_2013]. 
 
 ```{r bsbwsvol, fig.cap="Annual mean winter (February and March) shelf water volume. Dashed line depicts the proposed threshold above which overwinter mixing is more likely.", echo=FALSE}
 source(here::here('offshore_habitat/R/plot_winter_shw_vol.R'))
@@ -114,21 +109,21 @@ plot_winter_shw_vol()
 
 Numerous indicators were developed for the Golden Tilefish ESP [@salois_golden_2024]. Some of those indicators are also relevant to offshore habitat. The indicators pertain to habitat condition and physical oceanography.
 
-Habitat condition indicators assessed the cold pool index, cold pool spatial extent index, cold pool persistence index, and the mean bottom temperature and salinity of the spatial extent in which Golden tilefish have been captured by the NMFS bottom trawl survey. The lower bound of temperature preference for eggs, larvae, and juveniles is between 8-13 °C. If the cold pool has a larger extent or persists for a longer time, environmental conditions are not optimal for early life history stages and recruitment success. The cold pool index indicators are generated from bias-corrected ROMS-NWA and GLORYS data. Optimal bottom temperature for golden tilefish is between 9-14 °C [@grimes_complex_1999]. Temperatures outside this range may impact spawning location/success and recruitment success. Optimal bottom salinity for juvenile and adult golden tilefish is 33-36 psu [@steimle_essential_1999]. Salinities outside this range may affect spawning and recruitment success. Bottom temperature and salinity indicators were generated using data from GLORYS12 [@eu_copernicus_marine_service_information_global_2023], a global eddy-resolving physical ocean and sea ice model (1993-2023) with high resolution (1/12°). 
+Habitat condition indicators assessed the cold pool index, cold pool spatial extent index, cold pool persistence index, and the mean bottom temperature and salinity of the spatial extent in which Golden tilefish have been captured by the NMFS bottom trawl survey. Optimal bottom temperature for golden tilefish is between 9-14 °C [@grimes_tilefish_1986]. Temperatures outside this range may impact spawning location/success and recruitment success. Optimal bottom salinity for juvenile and adult golden tilefish is 33-36 PSU [@steimle_essential_1999]. Salinities outside this range may affect spawning and recruitment success. If the cold pool has a larger extent or persists for a longer time, environmental conditions are not optimal for early life history stages and recruitment success. The cold pool index indicators are generated from bias-corrected ROMS-NWA and GLORYS data. Bottom temperature and salinity indicators were generated using data from GLORYS12 [@eu_copernicus_marine_service_information_global_2023], a global eddy-resolving physical ocean and sea ice model (1993-2023) with high resolution (1/12°).
 
 ```{r gtfcp, fig.cap="Cold pool index, cold pool persistence index, and cold pool spatial extent index based on bias-corrected ROMS-NWA (open circles) and GLORYS (closed circles)", echo=FALSE, results = 'hide'}
 ecodata::plot_cold_pool()
 ```
 
 
-```{r gtfbt, fig.cap="Monthly weighted mean bottom temperature (at 78 m depth) of NMFS bottom trawl stat areas in which Golden tilefish has been captured.Dashed lines depict the upper and lower thermal tolerance of the species. Confidence interval shading represents +/- 2 standard deviations around the weighted mean", echo=FALSE}
-source(here::here('offshore_habitat/R/plot_gtf_bottom_temp.R'))
-plot_gtf_bottom_temp()
+```{r gtfbt, fig.cap="Annual average mean bottom temperature (at 78 m depth) of NMFS bottom trawl stat areas in which Golden tilefish has been captured.Dashed lines depict the upper and lower thermal tolerance of the species. Confidence interval shading represents +/- 2 standard deviations around the weighted mean", echo=FALSE}
+source(here::here('offshore_habitat/R/plot_annual_avg_gtf_bottom_temp.R'))
+plot_annual_avg_gtf_bottom_temp()
 ```
 
-```{r gtfbs, fig.cap="Annual average bottom salinity (at 78 m depth) of NMFS bottom trawl stat areas in which Golden tilefish has been captured.Dashed lines depict the upper and lower thermal tolerance of the species. Confidence interval shading represents +/- 2 standard deviations around the average", echo=FALSE}
-source(here::here('offshore_habitat/R/plot_gtf_bottom_sal.R'))
-plot_gtf_sal()
+```{r gtfbs, fig.cap="Annual average bottom salinity (at 78 m depth) of NMFS bottom trawl stat areas in which Golden tilefish has been captured.Dashed lines depict the upper and lower thermal tolerance of the species. Confidence interval shading represents +/- 2 standard deviations around the average. Trend line represents statistically significant trend", echo=FALSE}
+source(here::here('offshore_habitat/R/plot_annual_avg_gtf_bottom_sal.R'))
+plot_annual_avg_gtf_bottom_sal()
 ```
 
 

@@ -31,7 +31,7 @@ load(file = here::here('offshore_habitat/data/winter_bottom_temp.rda'))
     ggplot2::geom_line() +
     ggplot2::geom_point()  +
     ggplot2::facet_wrap(~EPU) +
-    ggplot2::geom_hline(yintercept=6,linetype=setup$hline.lty)+
+    ggplot2::geom_hline(yintercept=8,linetype=setup$hline.lty)+
     # ggplot2::geom_point(ggplot2::aes(x = gl_bt$Time, y = gl_bt$Value), size = 1, color = "red") +
     #  ggplot2::geom_line(ggplot2::aes(x = gl_bt$Time, y = gl_bt$Value), color = "red") +
     #ecodata::geom_lm(aes(x = temp_anom$Time, y = temp_anom$Value))+

@@ -413,6 +413,11 @@ As mentioned in the Indicator section above, we currently do not have an indicat
 
 **Risk Assessment**
 
+Using the two indicators and risk criteria defined above, \textcolor{red}{ocean quahog was assigned low risk. Commercial ocean quahog revenue from wind lease areas has been highly sporadic since 2012 and accounted for 0.1% in 2023 and spatial overlap with survey by wind lease area phase was 6.53%.} 
+
+The commercial summer flounder, scup, Atlantic mackerel, butterfish, longfin squid, \textcolor{red}{*Illex* squid}, bluefish, spiny dogfish, and chub mackerel have low-moderate risk. For summer flounder, the average (2019-2023) commercial revenue from \textcolor{red}{WLAs} was 4.2% and the spatial overlap with the survey by \textcolor{red}{WLA} phase was \textcolor{red}{5.92%}. For scup, the average commercial revenue from \textcolor{red}{WLAs} was 5.7% and the spatial overlap with the survey by \textcolor{red}{WLA} phase was \textcolor{red}{5.71%}. Atlantic mackerel had an average commercial revenue from the \textcolor{red}{WLAs} of 2.1% and spatial overlap with survey by WLA phase of \textcolor{red}{4.07%}. Butterfish had an average commercial revenue from \textcolor{red}{WLAs} of 3.7% and spatial overlap with survey by \textcolor{red}{WLA} phase of 3.92%. For longfin squid, the average commercial revenue from \textcolor{red}{WLAs} was 4.2% (note: there was an increasing trend and was almost 6% in 2023) and the spatial overlap with survey by \textcolor{red}{WLA} phase was 3.92%. A similar trend was observed chub mackerel where the average commercial revenue from \textcolor{red}{WLAs} was 2.9% but had an increasing trend and was over 7% in 2023. The spatial overlap with the chub mackerel survey strata by \textcolor{red}{WLA} phase was \textcolor{red}{6.38%. For Illex squid, the average commercial revenue from WLAs was 1.1% and spatial overlap with the survey by wind lease area phase was 3.65%.} Bluefish had an average commercial revenue from \textcolor{red}{WLAs} of 2.7% and had \textcolor{red}{the highest spatial overlap with the survey by WLA phase of 7.93%.} Finally, spiny dogfish had an average commercial revenue from the \textcolor{red}{WLAs} of 0.5%, the smallest of all calculated, and a spatial overlap with the survey by \textcolor{red}{WLA} phase of 3.91%.
+
+Commercial black sea bass \textcolor{red}{and Atlantic surfclam were the only two assigned the} moderate-high risk ranking. The average (2019-2023) commercial black sea bass revenue from \textcolor{red}{WLAs} was 6.1%, in the moderate range, and spatial overlap with survey by \textcolor{red}{WLA} phase was 5.27%. \textcolor{red}{For Atlantic surfclam, the average commercial revenue from wind lease areas was 9.4%, with a high of 12.8% in 2020, the highest for any Mid-Atlantic species. The spatial overlap with clam dredge survey by wind lease area phase was 7.33%, second highest behind the trawl survey for bluefish.}
 
 
 
@@ -447,23 +452,15 @@ where habitat is found, the species is likely to be found, and some level of fis
 to occur; however, recognizing that not all habitat quality/quantity and fishing effort is equally
 distributed. The NRHA habitat model is not yet available for all Mid-Atlantic stocks but is
 currently being developed and updated to include more stocks in the near future. GIS mapping
-layers/shape files available for designated shipping lanes, the boundary of the Stellwagen Bank
-National Marine Sanctuary, the boundary of the Northeast Canyons and Seamounts Marine
-National Monument, and the boundary of the Frank R. Lautenberg Deep-Sea Coral Protection
-Areas were used to determine the potential non-fishing activity areas that might restrict or
-displace fishing activities (Fig. \ref{fig:overlap}).
+layers/shape files available for designated shipping fairways^[New and updated shipping channel information and shape files compared to the 2024 risk assessment were used to estimate the total shipping fairway spatial overlap.], the boundary of the Stellwagen Bank National Marine Sanctuary, the boundary of the Northeast Canyons and Seamounts Marine National Monument, the boundary of the Frank R. Lautenberg Deep-Sea Coral Protection Areas, \textcolor{red}{artificial reef locations, and danger zones and restricted military areas} were used to determine the potential non-fishing activity areas that might restrict or displace fishing activities (see Fig. \ref{fig:overlap} for butterfish). \textcolor{red}{The recreational sector continues to have access to artificial reefs; therefore, the spatial overlap with the artificial reef locations were not included in the recreational sector calculations.}
 
-```{r overlap, out.width='100%', fig.cap="Spatial overlap of estimated butterfish habitat and non-fishing activities along the northeast Atlantic. Butterfish habitat is estimated by the NRHA habitat distribution model and non-fishing activities include shipping channels, the Frank R. Lautenberg Deep Sea Coral Protection Area, the Stellwagen Bank National Marine Sanctuary, and the Northeast Canyons and Seamounts Marine National Monument."}
+```{r overlap, out.width='100%', fig.cap="Spatial overlap of estimated butterfish habitat and non-fishing activities along the northeast Atlantic. Butterfish habitat is estimated by the NRHA habitat distribution model and non-fishing activities include shipping fairways, the Frank R. Lautenberg Deep Sea Coral Protection Area, the Stellwagen Bank National Marine Sanctuary, and the Northeast Canyons and Seamounts Marine National Monument, artificial reef locations, and danger zones and military restricted areas."}
 
-knitr::include_graphics("images/ocean_use_butterfish.png")
+knitr::include_graphics("images/ocean_use_butterfish(1).png")
 
 ```
 
-
-The spatial overlap was then calculated by taking the total area of the non-fishing activities and
-amount of estimated habitat within the non-fishing areas.
-
-\textcolor{red}{The EOP Committee and AP recommended including military activities and using AIS data to expanded shipping lane information as part of the spatial overlap calculations. These additional non-fishing activities will be included in the 2025 risk assessment report.}
+The spatial overlap was then calculated by taking the total area of the non-fishing activities and amount of estimated habitat within the non-fishing areas. 
 
 **Risk criteria:**
 
@@ -486,9 +483,10 @@ With a quantitative evaluation available for this indicator, there is the potent
 
 **Risk Assessment**
 
-Summer flounder, butterfish, Illex squid, and bluefish were all ranked as low-moderate risk. The spatial overlap of habitat distribution and the four non-fishing activities ranged from 0%-25% with shipping lanes comprising the highest spatial overlap across all four stocks. The highest average overlap across all four non-fishing activities was 6.6% for bluefish.
+Summer flounder, butterfish, Illex squid, and bluefish were all ranked as \textcolor{red}{low} risk. The spatial overlap of habitat distribution and the \textcolor{red}{six} non-fishing activities ranged from 0%-\textcolor{red}{41}% with shipping fairways comprising the highest spatial overlap across all four stocks. The highest average overlap across all four non-fishing activities was \textcolor{red}{8.9%} for recreational bluefish.
 
 The spatial overlap indicator and risk criteria can only be applied to those stocks which have the NRHA habitat distribution model results available (summer flounder, bluefish, butterfish, and Illex squid). The model is currently being developed for all Mid-Atlantic stocks and, once available, the risk criteria can be applied to the remaining species.
+
 
 
 

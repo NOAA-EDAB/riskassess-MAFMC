@@ -378,7 +378,7 @@ scientific uncertainty.
 
 A combination of two indicators are used to assess the risk of offshore wind development of fishery science and access. One indicator was developed to evaluate the potential impacts of offshore wind to the science information that supports Mid-Atlantic stock assessments. Catch by species and strata from the NEFSC bottom trawl survey \textcolor{red}{and clam dredge survey were} used in the development of the indicator. Strata in which a species was never caught were removed and the total survey area was calculated using those strata in which the species was caught at any time during. The spatial foodprint of each \textcolor{red}{wind lease area (WLA)}, as of October 2024, was used to estimate the spatial overlap associated with each survey strata in which a species was caught. Similar to the approach taken with the Offshore Wind (1) – Biological/Ecosystem risk element, a weighed spatial overlap was estimated based on the current development stage of each \textcolor{red}{WLA} – planning, construction, or operational.
 
-The second indicator was developed to evaluate the potential loss of fishing access within the WEAs. Commercial landings and revenue data within the WEAs are estimated for each species by the NEFSC and GARFO (https://www.greateratlantic.fisheries.noaa.gov/ro/fso/reports/WIND/ALL_WEA_BY_AREA_DATA.html). This information has been included in recent Mid-Atlantic and New England State of the Ecosystem reports (Fig. \ref{fig:wea-spp-rev}). The most recent five years (2019-2023) were used to estimate the average proportion of revenue within the WEA relative to the total fishery revenue by species. 
+The second indicator was developed to evaluate the potential loss of fishing access within the \textcolor{red}{WLAs}. Commercial landings and revenue data within the \textcolor{red}{WLAs} are estimated for each species by the NEFSC and GARFO (https://www.greateratlantic.fisheries.noaa.gov/ro/fso/reports/WIND/ALL_WEA_BY_AREA_DATA.html). This information has been included in recent Mid-Atlantic and New England State of the Ecosystem reports (Fig. \ref{fig:wea-spp-rev}). The most recent five years (2019-2023) were used to estimate the average proportion of revenue within the \textcolor{red}{WLA} relative to the total fishery revenue by species. 
 
 ```{r wea-spp-rev, fig.cap="Fishery revenue in wind energy lease areas in the Mid-Atlantic.",  fig.width=5, fig.asp=.4}
 #code=readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-wea-spp-rev.R"),
@@ -396,28 +396,24 @@ information may provide information for recreational fishery overlap indicator i
   -----------------------------------------------------------------------
   *Risk Level*    *Definition*
   --------------- -------------------------------------------------------
-  Low             No revenue in WEA; no survey overlap with WEAs
+  Low             No revenue in WLA; no survey overlap with WLAs
 
-  Low-Moderate    Low revenue in WEA; low survey overlap with WEAs
+  Low-Moderate    Low revenue in WLA; low survey overlap with WLAs
 
-  Moderate-High   Moderate revenue in WEAs; moderate survey overlap with WEAs
+  Moderate-High   Moderate revenue in WLAs; moderate survey overlap with WLAs
 
-  High            Significant revenue in WEAs; significant survey overlap with WEA
+  High            Significant revenue in WLAs; significant survey overlap with WLA
 
   -----------------------------------------------------------------------
   
-Low revenue within a WEA was defined as </=5% and low survey overlap was defined as </= 10%.  Moderate revenue was defined as 6-20% and moderate survey overlap was defined as 11-30%. Significant revenue was defined as >20% and significant survey overlap was defined as >30%. \textcolor{red}{The EOP Committee and AP did not specify a preference for applying the standard survey spatial overlap or the weighted spatial overlap. Depending on preference and how used, the survey overlap thresholds associated with each risk level may need to be modified.}
+Low revenue within a \textcolor{red}{WLA} was defined as </=5% and low survey overlap was defined as </= 10%.  Moderate revenue was defined as 6-20% and moderate survey overlap was defined as 11-30%. Significant revenue was defined as >20% and significant survey overlap was defined as >30%. \textcolor{red}{The EOP Committee and AP did not specify a preference for applying the standard survey spatial overlap or the weighted spatial overlap. Depending on preference and how used, the survey overlap thresholds associated with each risk level may need to be modified.}
 
-As mentioned in the Indicator section above, we currently do not have an indicator to evaluate recreational fishing access within the WEAs; therefore, a risk assessment ranking was not developed for the recreational sector. 
+As mentioned in the Indicator section above, we currently do not have an indicator to evaluate recreational fishing access within the \textcolor{red}{WLAs}; therefore, a risk assessment ranking was not developed for the recreational sector. 
   
 
 **Risk Assessment**
 
-Using the two indicators and risk criteria defined above, commercial summer flounder, scup, Atlantic mackerel, butterfish, longfin squid, bluefish, spiny dogfish, and chub mackerel have low-moderate risk. For summer flounder, the average (2019-2023) commercial revenue from WEAs was 4.2% and the spatial overlap with the survey by WEA phase was 5.88%. For scup, the average commercial revenue from WEAs was 5.7% and the spatial overlap with the survey by WEA phase was 5.58%. Atlantic mackerel had an average commercial revenue from the WEAs of 2.1% and spatial overlap with survey by WEA phase of 3.97%. Butterfish had an average commercial revenue from WEAs of 3.7% and spatial overlap with survey by WEA phase of 3.9%. For longfin squid, the average commercial revenue from WEAs was 4.2% (note: there was an increasing trend and was almost 6% in 2023) and the spatial overlap with survey by WEA phase was 3.9%. A similar trend was observed chub mackerel where the average commercial revenue from WEAs was 2.9% but had an increasing trend and was over 7% in 2023. The spatial overlap with the chub mackerel survey strata by WEA phase was the highest observed at 7.01%. Bluefish had an average commercial revenue from WEAs of 2.7% and spatial overlap with survey by WEA phase of 5.58%. Finally, spiny dogfish had an average commercial revenue from the WEAs of 0.5%, the smallest of all calculated, and a spatial overlap with the survey by WEA phase of 3.91%.
 
-Commercial black sea bass was the only moderate-high risk ranking. The average commercial revenue from WEAs was 6.1%, in the moderate range, and spatial overlap with survey by WEA phase was 5.27%. 
-
-A risk assessment ranking was not conducted for those species in which the NEFSC bottom trawl survey does not sample well – surfclam, ocean quahog, blueline tilefish, and golden tilefish. 
 
 
 ### Other Ocean Activities

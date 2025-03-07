@@ -123,11 +123,15 @@ kable(allwide, format = "latex", booktabs = T, longtable=T, caption="Risk Rankin
 
 ## Changes from 2024: Ecological Elements
 
-### Decreased Risk: N
+### Decreased Risk: 1
 
+**F status:** Spiny dogfish $F$ has decreased below the $F_{msy}$ level in the current assessment. Now ranked low, formerly ranked high.
 
-### Increased Risk: N
+### Increased Risk: 2
 
+**Assessment Performance:** The golden tilefish assessment passed peer review but with some data lacking and different model assumptions providing divergent results. Now ranked low-moderate, formerly ranked low.
+
+**F status:** Golden tilefish $F$ has increased above the $F_{msy}$ level in the current assessment. Now ranked high, formerly ranked low.
 
 
 ## New or Updated Ecological Elements
@@ -500,8 +504,8 @@ The spatial overlap indicator and risk criteria can only be applied to those sto
 # spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
 risk.species<-data.frame(
   Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Chub mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
-  Assess  = c("l", "l", "l",  "l", "l", "l", "h", "l", "lm", "h", "l", "h", "l", "l", "h", "na", "na"),
-  Fstatus = c("l", "l", "h", "l", "l", "l", "lm", "l", "lm", "lm", "l", "h", "l", "h", "lm", "na", "na"),
+  Assess  = c("l", "l", "l",  "l", "l", "l", "h", "l", "lm", "h", "lm", "h", "l", "l", "h", "na", "na"),
+  Fstatus = c("l", "l", "h", "l", "l", "l", "lm", "l", "lm", "lm", "h", "h", "l", "l", "lm", "na", "na"),
   Bstatus = c("l", "l", "lm", "l", "l", "h", "lm", "lm", "lm", "lm", "lm", "mh", "lm", "l", "lm", "na", "na"),
   #FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
   #FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),

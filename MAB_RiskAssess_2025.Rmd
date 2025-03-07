@@ -59,7 +59,6 @@ This document updates the Mid-Atlantic Council’s 2024 EAFM risk assessment tha
 
 Since the previous risk assessment was just completed in December 2024, many risk rankings are unchanged based on the updated indicators for 2025 and the Council’s risk criteria. Below, we highlight only the elements where information and/or analyses have changed (e.g., new/revised indicators or risk criteria) or where the perception of risk is different from 2024. 
 
-\newpage
 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 

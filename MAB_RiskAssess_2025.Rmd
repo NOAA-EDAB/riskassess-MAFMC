@@ -585,14 +585,14 @@ risk.eco %>%
 
 risk.sppsector<-data.frame(
   Species = c("Ocean Quahog-C", "Surfclam-C", "Summer flounder-R", "Summer flounder-C","Scup-R", "Scup-C","Black sea bass-R", "Black sea bass-C","Atl. mackerel-R", "Atl. mackerel-C","Butterfish-C", "Longfin squid-C", "Shortfin squid-C", "Golden tilefish-R", "Golden tilefish-C","Blueline tilefish-R","Blueline tilefish-C", "Bluefish-R", "Bluefish-C","Spiny dogfish-R", "Spiny dogfish-C", "Chub mackerel-C", "Unmanaged forage", "Deepsea corals"),
-  FControl =  c(1,1,2,2,4,1,4,2,2,1,1,1,2,9,1,1,2,2,1,1,1,1,1,9),
+  FControl =  c(1,1,2,1,4,2,4,2,2,1,1,1,2,9,1,2,3,2,2,2,2,1,1,9),
   Interact = c(1,1,1,2,1,2,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,2,1,9),
   #OceanUse =    c(2,2,2,2,2,3,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,2,3,3),
-  OSW1 =    c(6,6,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,2,2,2,2,1,6,9),
-  OSW2 =    c(6,6,6,2,6,2,6,3,6,2,2,2,6,6,6,6,6,6,2,6,6,2,6,6),
-  OtherUse =    c(6,6,2,2,6,6,6,6,6,6,2,6,2,6,6,6,6,2,2,6,6,6,6,9),
+  OSW1 =    c(2,3,2,2,2,2,3,3,2,2,3,2,3,1,1,1,1,2,2,3,3,1,6,9),
+  OSW2 =    c(1,3,6,2,6,2,6,3,6,2,2,2,2,6,6,6,6,6,2,6,2,2,6,6),
+  OtherUse =    c(6,6,1,1,6,6,6,6,6,6,1,6,1,6,6,6,6,1,1,6,6,6,6,9),
   RegComplex =  c(1,1,4,2,4,2,4,2,2,4,3,3,3,1,1,2,1,3,2,1,4,1,1,9),
-  Discards =    c(3,3,3,3,3,3,3,3,2,2,3,3,1,1,1,1,1,2,2,2,2,1,1,9),
+  Discards =    c(3,3,3,3,3,3,3,3,2,2,3,3,1,1,1,1,2,2,2,2,2,1,1,9),
   Allocation =  c(1,1,4,1,4,1,4,1,1,1,1,1,1,1,1,1,1,4,1,1,1,1,1,9) 
 )
 

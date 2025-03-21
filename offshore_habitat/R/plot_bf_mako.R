@@ -63,7 +63,8 @@ plot_bf_mako <- function(shadedRegion = NULL,
                       ymin = -Inf, ymax = Inf) +
     ggplot2::geom_line() +
     ggplot2::geom_point()  +
-    ggplot2::geom_hline(yintercept=mako.mean,linetype=setup$hline.lty)+
+    ggplot2::geom_hline(yintercept=1.0,linetype=setup$hline.lty)+
+    ggplot2::ylim(0,2) +
     ggplot2::ylab("B/Bmsy") +
     ggplot2::xlab(ggplot2::element_blank())+
     ggplot2::ggtitle("Shortfin mako shark B/Bmsy in the North Atlantic") +

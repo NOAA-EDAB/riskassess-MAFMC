@@ -86,7 +86,7 @@ plot_bf_wind_indicators <- function(shadedRegion = NULL,
     ggplot2::geom_hline(yintercept=crossshore.mean,linetype=setup$hline.lty)+
     ggplot2::ylab(ggplot2::element_blank()) +
     ggplot2::xlab(ggplot2::element_blank())+
-    ggplot2::ggtitle("Mean cross shore wind in the central Atlantic in April and May") +
+    ggplot2::ggtitle("Mean cross shore wind (m/s) in the central Atlantic in April and May") +
     ecodata::geom_gls() +
     ecodata::theme_ts()+
     ecodata::theme_facet()+
@@ -105,7 +105,7 @@ plot_bf_wind_indicators <- function(shadedRegion = NULL,
     ggplot2::geom_hline(yintercept=alongshore.mean,linetype=setup$hline.lty)+
     ggplot2::ylab(ggplot2::element_blank()) +
     ggplot2::xlab(ggplot2::element_blank())+
-    ggplot2::ggtitle("Mean along shore wind in the central Atlantic in April and May") +
+    ggplot2::ggtitle("Mean along shore wind (m/s) in the central Atlantic in April and May") +
     ecodata::geom_gls() +
     ecodata::theme_ts()+
     ecodata::theme_facet()+

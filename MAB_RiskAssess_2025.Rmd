@@ -167,7 +167,7 @@ source(here::here('offshore_habitat/R/plot_bf_cog.R'))
 plot_bf_cog()
 ```
 
-Climate indicators use identified thermal tolerance of Bluefish spawning activity to assess changes in the spatiotemporal availability of suitable spawning habitat. Upper and lower thermal thresholds for spawning have been identified as 25.6 and 18 C respectively [@norcross_development_1974]. Additional climate indicators were developed to assess the impact of wind on early life history. Along shore and cross-shore winds may help transport larvae and juveniles inshore impacting recruitment[@norcross_development_1974]. Temperature-related cliamte indicators are generated from OISST satellite data from the Physical Sciences Laboratory. Wind-related climate indicators were generated from monthly mean wind speed data downloaded from the Physical Sciences Laboratory. Climate indicators evaluate: the first and last day of the year when the mean temperature of the Central Atlantic Bluefish region is above 18 C, the number of days when >75% of the region is above 18 C, the mean proportion of the region below 18 C, between 18-25.6 C, and above 25.6 C in July, and the mean cross-shore and along shore wind speeds in the region in April and May.
+Climate indicators use identified thermal tolerance of Bluefish spawning activity to assess changes in the spatiotemporal availability of suitable spawning habitat. Upper and lower thermal thresholds for spawning have been identified as 25.6 and 18 C respectively [@norcross_development_1974]. Additional climate indicators were developed to assess the impact of wind on early life history. Along shore and cross-shore winds may help transport larvae and juveniles inshore impacting recruitment [@norcross_development_1974]. Temperature-related climate indicators are generated from OISST satellite data from the Physical Sciences Laboratory. Wind-related climate indicators were generated from monthly mean wind speed data downloaded from the Physical Sciences Laboratory. Climate indicators evaluate: the first and last day of the year when the mean temperature of the Central Atlantic Bluefish region is above 18 C, the number of days when >75% of the region is above 18 C, the mean proportion of the region below 18 C, between 18-25.6 C, and above 25.6 C in July, and the mean cross-shore and along shore wind speeds in the region in April and May.
 
 ```{r bf18, fig.width = 5, fig.asp = 1, fig.cap="First, last, and number of days when the mean temperature of the central Atlantic region is warmer than 18 C. Dashed lines depict the time series mean. Trend lines depict statistically significant trends.", echo=FALSE}
 source(here::here('offshore_habitat/R/plot_bf_climate.R'))
@@ -185,7 +185,7 @@ plot_bf_wind_indicators()
 ```
 
 
-Natural mortality indicators consider changes in offshore habitat which may impact this management parameter and therefore OY. Large predators, including Mako sharks, are known to prey on Bluefish and impact natural mortality [@shepherd_essential_2006] [@wood_recalculated_2009]. Additionally, Bluefish with poor condition may be more susceptible to predation and disease, resulting in higher natural mortality. Natural mortality indicators assessed Mako shark B/Bmsy from the International Commission for the Conservation of Atlantic Tunas (ICCAT) stock assessment and the relative condition of three size classes of Bluefish aggregated from multiple state and federal surveys [@truesdell_wp_2022].
+Natural mortality indicators consider changes in offshore habitat which may impact this management parameter and therefore OY. Large predators, including Mako sharks, are known to prey on Bluefish and impact natural mortality [@shepherd_essential_2006; @wood_recalculated_2009]. Additionally, Bluefish with poor condition may be more susceptible to predation and disease, resulting in higher natural mortality. Natural mortality indicators assessed Mako shark B/Bmsy from the International Commission for the Conservation of Atlantic Tunas (ICCAT) stock assessment and the relative condition of three size classes of Bluefish aggregated from multiple state and federal surveys [@truesdell_wp_2022].
 
 ```{r mako, fig.asp = .4, fig.cap="Mako shark B/Bmsy. Dashed line depicts where B is equal to BMSY. Trend line depicts statistically significant trend", echo=FALSE}
 source(here::here('offshore_habitat/R/plot_bf_mako.R'))
@@ -246,7 +246,7 @@ Physical oceanography indicators assessed the sea surface temperature (SST), gul
 ecodata::plot_long_term_sst()
 ```
 
-```{r gsi, fig.cap="Gulf stream index. Dashed line depicts time series mean. Trend line depicts statistically significant trend.", echo=FALSE}
+```{r gsi, fig.cap="Gulf stream index. Dashed line depicts time series mean.", echo=FALSE}
 
 ecodata::plot_gsi()
 
@@ -485,7 +485,7 @@ risks of offshore wind development on Council-managed fishery resources and/or t
 habitat. Offshore wind development is expected to cover 2.4 million acres of ocean space by 2030
 in the Greater Atlantic region (ME through NC). Within these lease areas, there are 3,200
 foundations (i.e., wind turbines) with over 9,000 miles of interconnecting cable proposed for
-construction. Offshore wind siting, construction, and operation has the potential for a variety of
+construction. \textcolor{red}{However, recent policy changes and priorities at the state and federal level have made the timing and pace of offshore wind development much more uncertain, particularly in the near term.} Offshore wind siting, construction, and operation has the potential for a variety of
 biological impacts and associated risks for fisheries resources. Habitat alteration, local
 hydrodynamic changes, underwater noise, and electromagnetic fields (EMF) can affect stock
 productivity, food availability and migration patterns. However, these risks are likely different
@@ -551,7 +551,7 @@ productivity" [@hogan_fisheries_2023]. These impacts to the quality and
 quantity of the data could have implications for stock assessments,
 scientific uncertainty, and catch levels. As wind turbine construction
 and operation continues and expands, fishing fleet access, fishing
-operations, and revenue are anticipated to change.
+operations, and revenue are anticipated to change. \textcolor{red}{However, recent policy changes and priorities at the state and federal level have made the timing and pace of offshore wind development much more uncertain, particularly in the near term.} 
 
 **Definition:**
 

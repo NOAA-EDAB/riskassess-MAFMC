@@ -381,7 +381,7 @@ indicator is aggregated and presented at the ecosystem-level.
 ```{r comm-revenue, fig.width = 6, fig.asp = 0.45, fig.cap = "Revenue for the for the Mid-Atlantic region: total (black) and from MAFMC managed species (red), with a significant decrease (purple) for total revenue."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-comm-revenue.R")
 
-ecodata::plot_comdat(report="MidAtlantic", varName="revenue", n=10) + 
+ecodata::plot_comdat(report="MidAtlantic", varName="revenue") + 
   ggplot2::theme(legend.position = "right",
                       legend.title = ggplot2::element_blank())
 

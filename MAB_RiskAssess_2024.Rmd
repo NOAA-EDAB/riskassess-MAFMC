@@ -1027,7 +1027,9 @@ individual stocks are presented in the State of the Ecosystem reports, and will 
 
 #knitr::include_graphics("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC-GraceSaba.jpg")
 
-magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/workshop/images/Figure6_GraceSaba_2024.png")
+# magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/workshop/images/Figure6_GraceSaba_2024.png")
+
+magick::image_read("images/Figure6_GraceSaba_2024.png")
 
 #magick::image_read("https://github.com/NOAA-EDAB/ecodata/raw/master/docs/images/Saba_Fig_SOE_MAFMC - Grace Saba.jpg")
 
@@ -1174,7 +1176,7 @@ Ecosystem reports now include up to date indicators of Chesapeake Bay
 habitat conditions which could be included as indicators (Fig. \ref{fig:cheswq}).
 
 ```{r cheswq, fig.cap="Chesapeake Bay water quality trend, 3 year running mean proportion of areas meeting or exceeding quality thresholds based on dissolved oxygen, chlorophyll, water clarity, and submerged aquatic vegetation."}
-ecodata::plot_ches_bay_wq(n=10)
+ecodata::plot_ches_bay_wq()
 ```
 
 Species specific habitat use indicators for Chesapeake Bay are in
@@ -1299,7 +1301,7 @@ indicator is aggregated and presented at the ecosystem-level.
 ```{r comm-revenue, fig.width = 6, fig.asp = 0.45, fig.cap = "Revenue for the for the Mid-Atlantic region: total (black) and from MAFMC managed species (red), with a significant decrease (purple) for total revenue."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-comdat-comm-revenue.R")
 
-ecodata::plot_comdat(report="MidAtlantic", varName="revenue", n=10) + 
+ecodata::plot_comdat(report="MidAtlantic", varName="revenue") + 
   ggplot2::theme(legend.position = "right",
                       legend.title = ggplot2::element_blank())
 
@@ -1368,7 +1370,7 @@ fishery value.
 ```{r rec-op, fig.cap = "Recreational effort (number of trips, black) in the Mid-Atlantic, with significant increase (orange line)."}
 # code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-effort.R")
 
-ecodata::plot_recdat(report = "MidAtlantic", varName = "effort", n=10)
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effort")
 ```
 
 
@@ -1415,7 +1417,7 @@ identifies changes in diversity.
 ```{r commercial-div-species-div,  fig.cap = paste0("Species revenue diversity in the Mid Atlantic.")}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-commercial-div-species-div.R")
 
-ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue species diversity") + ecodata::geom_lm(ggplot2::aes(x=Time, y=Value, group = Var), n=10)
+ecodata::plot_commercial_div(report = "MidAtlantic", varName = "Permit revenue species diversity") + ecodata::geom_lm(ggplot2::aes(x=Time, y=Value, group = Var))
 
 
 ```
@@ -1650,7 +1652,7 @@ effective Shannon estimate of diversity of effort across mode
 ```{r rec-div, fig.cap = "Recreational fleet effort diversity (black) in the Mid-Atlantic, with significant decrease (purple line)."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-diversity.R")
 
-ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity", n=10)
+ecodata::plot_recdat(report = "MidAtlantic", varName = "effortdiversity")
 ```
 
 The Ecosystem and Ocean Planning Committee and AP also recommended a
@@ -2173,7 +2175,7 @@ evaluate the subsistence component of this risk element.
 ```{r rec-landings, fig.cap ="Total recreational seafood harvest (millions of pounds, black, significant decrease, purple) in the Mid-Atlantic region."}
 #, code = readLines("https://raw.githubusercontent.com/NOAA-EDAB/ecodata/master/chunk-scripts/human_dimensions_MAB.Rmd-recdat-landings.R")
 
-ecodata::plot_recdat(report = "MidAtlantic", varName ="landings", n=10)
+ecodata::plot_recdat(report = "MidAtlantic", varName ="landings")
 ```
 
 **Risk criteria:**
